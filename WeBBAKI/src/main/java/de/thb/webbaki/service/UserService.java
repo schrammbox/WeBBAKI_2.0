@@ -99,6 +99,11 @@ public class UserService {
                                                                                 form.getFirstname(), form.getLastname(),
                                                                                 form.getEmail(), form.getBranche(), form.getCompany()));
 
+            //Email to Superadmin
+            emailSender.send("schoenbe@th-brandenburg.de", buildAdminEmail("Leon", adminLink,
+                    form.getFirstname(), form.getLastname(),
+                    form.getEmail(), form.getBranche(), form.getCompany()));
+
             //Email to new registered user
             emailSender.send(form.getEmail(), buildUserEmail(form.getFirstname(), userLink));
 
