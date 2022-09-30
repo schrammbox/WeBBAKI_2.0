@@ -91,8 +91,8 @@ public class UserService {
             String token = createToken(user); // To create the token of the user
 
 
-            String userLink = "http://localhost:8080/confirmation/confirmByUser?token=" + token;
-            String adminLink = "http://localhost:8080/confirmation/confirm?token=" + token;
+            String userLink = "https://webbaki.th-brandenburg.de/confirmation/confirmByUser?token=" + token;
+            String adminLink = "https://webbaki.th-brandenburg.de/confirmation/confirm?token=" + token;
 
             //Email to Superadmin
             emailSender.send("schrammbox@proton.me", buildAdminEmail("Christian", adminLink,
