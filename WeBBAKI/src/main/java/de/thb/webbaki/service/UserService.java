@@ -232,6 +232,13 @@ public class UserService {
         }
     }
 
+    public void deactivateUser(String username){
+        User user = getUserByUsername(username);
+        if (user.isEnabled()){
+            userRepository.deactivateUser(username);
+        }
+    }
+
     private String buildAdminEmail(String name, String link, String userFirstname, String userLastname,
                                    String userEmail, String userBranche, String userCompany) {
         return "<!DOCTYPE html>\n" +

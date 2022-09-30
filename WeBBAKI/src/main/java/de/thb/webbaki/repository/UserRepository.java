@@ -1,6 +1,7 @@
 package de.thb.webbaki.repository;
 
 import de.thb.webbaki.entity.User;
+import org.hibernate.sql.Update;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -21,5 +22,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("UPDATE User a " +
             "SET a.enabled = TRUE WHERE a.email = ?1")
     int enableUser(String email);
+
+    @Transactional
+    @Modifying
+    @Query("Update User b " + "SET b.enabled = FALSE WHERE b.username = ?1")
+    int deactivateUser(String username);
 
 }

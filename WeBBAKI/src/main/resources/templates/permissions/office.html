@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Geschäftsstelle</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h2>Geschäftsstelle Dashboard</h2><br>
+        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+
+        <form th:object="${users}" th:action="@{/office}" method="post">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Username</th>
+                    <th>Aktiviert</th>
+                    <th th:width="250px">Status ändern</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user: ${users}">
+                    <td th:text="${user.id}">User ID</td>
+                    <td th:text="${user.firstName}">Vorname</td>
+                    <td th:text="${user.lastName}">Nachname</td>
+                    <td th:text="${user.username}">Username</td>
+                    <td th:text="${user.isEnabled()}">Aktiviert</td>
+
+                    <th:block>
+                        <td>
+                            <select id="showRisk" class="form-select" th:attr="name='role['+${user.id}+']'">
+                                <option value="none">Bitte auswählen:</option>
+                                <option th:each="role : ${roles}"
+                                        th:value="${role.name}" th:text="${role}">
+                                </option>
+                            </select>
+                        </td>
+                    </th:block>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12 mt-2">
+                <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>
