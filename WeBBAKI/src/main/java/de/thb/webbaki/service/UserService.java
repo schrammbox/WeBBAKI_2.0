@@ -1,5 +1,6 @@
 package de.thb.webbaki.service;
 
+import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Role;
@@ -13,7 +14,6 @@ import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +38,10 @@ public class UserService {
     //Repo Methods --------------------------
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
+    }
+
+    public Iterable<User> saveAll(List<User> users){
+        return userRepository.saveAll(users);
     }
 
     public User getUserByEmail(String email) {
@@ -213,6 +217,17 @@ public class UserService {
         }
     }
 
+    public void deactivateUser(UserForm userForm){
+        List<User> users = userForm.getUsers();
+
+        for (int i = 0; i < users.size(); i++){
+            if(!Objects.equals(users.get(i), 1)){
+                User user = userRepository.findById(i).get();
+                user.setEnabled(!user.isEnabled());
+            }
+        }
+    }
+
     /**
      * USED IN SUPERADMIN DASHBOARD
      * Superadmin can delete Roles to specific Users
@@ -232,14 +247,7 @@ public class UserService {
         }
     }
 
-    public void deactivateUser(String username){
-        User user = getUserByUsername(username);
-        if (user.isEnabled()){
-            userRepository.deactivateUser(username);
-        }//else{
-            //userRepository.enableUser()
-        //}
-    }
+
 
     private String buildAdminEmail(String name, String link, String userFirstname, String userLastname,
                                    String userEmail, String userBranche, String userCompany) {

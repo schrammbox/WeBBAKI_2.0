@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller;
 
+import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.UserService;
@@ -8,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
+@SessionAttributes("form")
 public class OfficeController {
 
     UserService userService;
@@ -19,25 +22,21 @@ public class OfficeController {
 
     @GetMapping("/office")
     public String showOfficePage(Model model){
-        List<User> users = userService.getAllUsers();
+        final var users = userService.getAllUsers();
+
+        UserForm form = new UserForm();
+        form.setUsers(users);
+
+        model.addAttribute("form", form);
         model.addAttribute("users", users);
+
         return "permissions/office";
     }
 
-    @RequestMapping(value = "office", method = RequestMethod.POST)
     @PostMapping("/office")
-    public String deactivateUser(Model model){
-        List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
+    public String deactivateUser(@ModelAttribute("form") @Valid UserForm form){
 
-        String user = String.valueOf(new User());
-
-        for (int i = 0; i < users.size(); i++){
-            user = users.get(i).getUsername();
-        }
-
-        userService.deactivateUser(user);
-        userRepository.saveAll(users);
+        userService.deactivateUser(form);
 
         return "redirect:office";
     }

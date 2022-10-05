@@ -12,7 +12,7 @@
         <h2>Geschäftsstelle Dashboard</h2><br>
         <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 
-        <form th:object="${users}" th:action="@{/office}" method="post">
+        <form th:object="${form}" action="#" th:action="@{/office}" method="post">
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">
                 <tr>
@@ -21,25 +21,23 @@
                     <th>Nachname</th>
                     <th>Username</th>
                     <th>Aktiviert</th>
-                    <th th:width="250px">Status ändern</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user: ${users}">
-                    <td th:text="${user.id}">User ID</td>
-                    <td th:text="${user.firstName}">Vorname</td>
-                    <td th:text="${user.lastName}">Nachname</td>
-                    <td th:text="${user.username}">Username</td>
-                    <td th:text="${user.isEnabled()}">Aktiviert</td>
+                <tr th:each="user, itemStat: *{users}">
+                    <td th:text="*{users[__${itemStat.index}__].id}"><input type="hidden" th:field="*{users[__${itemStat.index}__].id}" /></td>
+                    <td th:text="*{users[__${itemStat.index}__].firstName}"><input type="hidden" th:field="*{users[__${itemStat.index}__].firstName}" /></td>
+                    <td th:text="*{users[__${itemStat.index}__].lastName}"><input type="hidden" th:field="*{users[__${itemStat.index}__].lastName}" /></td>
+                    <td th:text="*{users[__${itemStat.index}__].username}"><input type="hidden" th:field="*{users[__${itemStat.index}__].username}" /></td>
 
                     <th:block>
                         <td>
-                            <select id="showRisk" class="form-select" th:attr="name='${user.getUsername()}'">
+                            <select id="showRisk" class="form-select" th:field="*{users[__${itemStat.index}__].enabled}">
                                 <option
-                                        th:value="${user.setEnabled(true)}" th:text="Aktivieren">
+                                        th:text="${user.enabled}" th:field="*{users[__${itemStat.index}__].enabled}" th:value="${1}">
                                 </option>
                                 <option
-                                        th:value="${user.setEnabled(false)}" th:text="Deaktivieren">
+                                        th:text="false" th:field="*{users[__${itemStat.index}__].enabled}" th:value="${0}">
                                 </option>
                             </select>
                         </td>
@@ -48,7 +46,7 @@
                 </tbody>
             </table>
             <div class="col-md-12 mt-2">
-                <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+                <input type="submit" th:value="Speichern" class="btn btn-primary float-end">
             </div>
         </form>
 
