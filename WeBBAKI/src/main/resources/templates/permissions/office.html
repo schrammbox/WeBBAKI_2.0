@@ -34,10 +34,12 @@
 
                     <th:block>
                         <td>
-                            <select id="showRisk" class="form-select" th:attr="name='role['+${user.id}+']'">
-                                <option value="none">Bitte auswählen:</option>
-                                <option th:each="role : ${roles}"
-                                        th:value="${role.name}" th:text="${role}">
+                            <select id="showRisk" class="form-select" th:attr="name='${user.getUsername()}'">
+                                <option
+                                        th:value="${user.setEnabled(true)}" th:text="Aktivieren">
+                                </option>
+                                <option
+                                        th:value="${user.setEnabled(false)}" th:text="Deaktivieren">
                                 </option>
                             </select>
                         </td>

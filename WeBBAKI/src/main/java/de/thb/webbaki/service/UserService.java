@@ -126,7 +126,7 @@ public class UserService {
             confirmationTokenService.setConfirmedAt(token);
             confirmAdmin(token);
         }
-        enableUser(confirmationToken.getUser().getEmail(), token);
+        enableUser(confirmationToken.getUser().getUsername(), token);
 
         return "/confirmation/confirm";
     }
@@ -135,14 +135,14 @@ public class UserService {
      * Using USERDETAILS -> Enabling User in Spring security
      * User is enabled if user_confirmation && admin_confirmation == TRUE
      *
-     * @param email to get the user
+     * @param username to get the user
      * @param token to get the according token
      * @return value TRUE or FALSE based on INTEGER value (0 = false, 1 = true)
      */
-    public int enableUser(String email, String token) {
+    public int enableUser(String username, String token) {
 
         if (confirmationTokenService.getConfirmationToken(token).accessGranted(token)) {
-            return userRepository.enableUser(email);
+            return userRepository.enableUser(username);
         } else return -1;
     }
 
@@ -236,7 +236,9 @@ public class UserService {
         User user = getUserByUsername(username);
         if (user.isEnabled()){
             userRepository.deactivateUser(username);
-        }
+        }//else{
+            //userRepository.enableUser()
+        //}
     }
 
     private String buildAdminEmail(String name, String link, String userFirstname, String userLastname,

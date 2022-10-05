@@ -9,11 +9,10 @@ header {
 }
 
 .container {
-    height: 1000px;
+    height: 100%;
     line-height: 1.7;
     width: 80%;
     max-width: 100%;
-    overflow: scroll;
 }
 
 .row-cols-4 {
@@ -142,9 +141,11 @@ footer {
     height: 100px;
     width: 100%;
     text-align: center;
-    background-color: rgba(169, 169, 169, .1);
-    border: 1px solid rgba(169, 169, 169, .1);
+    background-color: rgba(169, 169, 169, .5);
+    border: 1px solid rgba(169, 169, 169, .5);
     box-shadow: 1px 1px 1px darkgray;
+    position: absolute;
+    bottom: 0;
 }
 
 /* STARTSEITE NACH LOGIN */

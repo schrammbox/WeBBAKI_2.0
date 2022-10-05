@@ -20,12 +20,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE User a " +
-            "SET a.enabled = TRUE WHERE a.email = ?1")
-    int enableUser(String email);
+            "SET a.enabled = TRUE WHERE a.username = ?1")
+    int enableUser(String username);
 
     @Transactional
     @Modifying
     @Query("Update User b " + "SET b.enabled = FALSE WHERE b.username = ?1")
     int deactivateUser(String username);
-
 }

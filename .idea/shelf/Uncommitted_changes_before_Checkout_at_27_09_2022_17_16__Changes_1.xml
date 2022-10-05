@@ -1,9 +1,0 @@
-<changelist name="Uncommitted_changes_before_Checkout_at_27_09_2022_17_16_[Changes]1" date="1664291817766" recycled="true" deleted="true">
-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_09_2022_17_16_[Changes]1/shelved.patch" />
-  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 27.09.2022 17:16 [Changes]" />
-  <binary>
-    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/service/UserService$UserServiceBuilder.class" />
-    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/service/UserService$UserServiceBuilder.class" />
-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_09_2022_17_16_[Changes]1/UserService$UserServiceBuilder.class" />
-  </binary>
-</changelist>

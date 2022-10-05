@@ -1,6 +1,7 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import java.util.List;
 public class OfficeController {
 
     UserService userService;
+    UserRepository userRepository;
 
     @GetMapping("/office")
     public String showOfficePage(Model model){
@@ -24,10 +26,19 @@ public class OfficeController {
 
     @RequestMapping(value = "office", method = RequestMethod.POST)
     @PostMapping("/office")
-    public String deactivateUser(@ModelAttribute("users") Model model){
+    public String deactivateUser(Model model){
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
 
-        return "permissions/office";
+        String user = String.valueOf(new User());
+
+        for (int i = 0; i < users.size(); i++){
+            user = users.get(i).getUsername();
+        }
+
+        userService.deactivateUser(user);
+        userRepository.saveAll(users);
+
+        return "redirect:office";
     }
 }
