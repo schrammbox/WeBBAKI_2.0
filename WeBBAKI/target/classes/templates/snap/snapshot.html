@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Snapshot</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h2>Snapshots</h2><br>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Snapshot manuell erstellen
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Snapshot erstellen</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form th:action="@{/snap}" method="post">
+                        <div class="modal-body">
+                            <label for="sname">Name:</label><br>
+                            <input class="form-control" required type="text" id="sname" th:field="${snapName.name}"><br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            <button type="submit" class="btn btn-primary float-end">Snapshot erstellen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Datum</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i: ${#numbers.sequence(snaps.size() -1,0,-1)}">
+                <td th:text="${snaps[i].id}"></td>
+                <td th:text="${snaps[i].name}"></td>
+                <td th:text="${snaps[i].date.toLocalDate().toString() + ' ' + snaps[i].date.toLocalTime().toString().substring(0,5)}"></td>
+                <td>
+                    <a th:href="@{/snap/{snapID}(snapID=${snaps[i].id})}">
+                        <button class="btn btn-outline-primary">Details</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

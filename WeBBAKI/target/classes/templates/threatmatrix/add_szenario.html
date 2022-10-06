@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+        <style>
+            .threatmatrix-table{
+                border-collapse: collapse;
+                margin-bottom: 100px;
+            }
+
+            .threatmatrix-table thead tr{
+                border-bottom: 1px dashed grey;
+            }
+
+            .threatmatrix-table tfoot tr{
+                border-bottom: 1px dashed grey;
+            }
+            .threatmatrix-table tbody tr{
+                border-bottom: 1px solid black;
+            }
+
+            .threatmatrix-table thead tr td{
+                font-size:16px;
+                letter-spacing: 1px;
+                color: grey;
+                padding: 8px;
+            }</style>
+    <title>Neues Szenario hinzufuegen</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Neues Szenario hinzufuegen</h2><br>
+    <form th:object="${scenario}" th:action="@{/threatmatrix/add_szenario}" method="post">
+            <h5></h5>
+
+            <table class="threatmatrix-table">
+                <thead>
+                <tr>
+                    <td>Szeanrien Name</td>
+                    <td>Szenarien Kategorie</td>
+                    <td></td>
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr>
+                    <td><label>
+                        <input type="text" th:field="*{name}" class="form-control"/>
+                    </label></td>
+                    <td>
+                        <select th:field="*{name}" class="form-select">
+                            <option  th:each="masterScenarios : ${masterScenarioList}"
+                                th:value="${masterScenarios.id}" th:text="${masterScenarios.name}">
+                            </option>
+                        </select>
+                    </td>
+                    <td><button type="submit" class="btn btn-primary float-end">Speichern</button></td>
+                </tr>
+                <tfoot>
+                </tfoot>
+
+            </table>
+
+    </form>
+</div>
+
+
+
+</body>
+</html>

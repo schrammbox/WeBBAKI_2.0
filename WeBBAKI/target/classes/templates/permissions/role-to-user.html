@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/users/save}" th:object="${user}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
+
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>E-Mail</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Rolle</th>
+                <th>Neue Rolle</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user: ${user}">
+                <td th:text="${user.id}">User ID</td>
+                <td th:text="${user.email}">E-mail</td>
+                <td th:text="${user.firstName}">Vorname</td>
+                <td th:text="${user.lastName}">Nachname</td>
+                <td th:text="${user.getRoles()}">Rollen</td>
+                <th:block>
+                    <td><select id="showRisk" class="form-select" th:field="${listRoles}">
+                        <option value="none">Bitte auswählen:</option>
+                        <option th:each="role : ${listRoles}"
+                                th:value="${'/users/edit/'} + ${user.id}" th:text="${role}">
+                        </option>
+                    </select>
+                    </td>
+                </th:block>
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-md-12 mt-2">
+            <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Konto</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h2>Konto</h2>
+        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+
+        <a class="btn btn-bd-primary" th:href="@{/account/user_details}">Nutzerdaten</a>
+        <a class="btn btn-bd-primary" th:href="@{threatmatrix}">aktuelle Bedrohungsmatrix</a>
+        <a class="btn btn-bd-primary" th:href="@{/threatmatrix/chronic}">Verlauf Bedrohungsmatrix</a>
+    </div>
+</div>
+</body>
+</html>

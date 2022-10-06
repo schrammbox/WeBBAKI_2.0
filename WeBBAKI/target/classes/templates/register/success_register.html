@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+
+        <h1>Registrierung erfolgreich</h1>
+        <hr>
+        <p>Das Profil wird überprüft und freigeschaltet. Anschließend können Sie sich <a th:href="@{/login}">hier</a>
+            anmelden.</p>
+    </div>
+</div>
+</body>
+</html>

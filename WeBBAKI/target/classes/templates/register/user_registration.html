@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Registrieren</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="signup-form">
+                    <form th:object="${user}" th:action="@{/register/user}" method="post"
+                          class="mt-5 border p-4 bg-light shadow">
+                        <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger alert-dismissible">
+                            <ul>
+                                <li class="" th:each="err : ${#fields.allErrors()}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                        <div th:if="${emailError} != null" class="alert alert-danger alert-dismissible">
+                            <p th:text="${emailError}"></p>
+                        </div>
+                        <h4 class="mb-4 text-secondary">Erstelle einen Account</h4>
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label>Vorname</label>
+                                <input type="text" name="firstname" class="form-control"/>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label>Nachname</label>
+                                <input type="text" name="lastname" class="form-control"/>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label>Email</label>
+                                <input type="email" name="email" class="form-control"/>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label>Branche</label>
+                                <select th:id="selectBranch" type="branche" name="branche" class="form-select">
+                                    <option value="none" selected disabled hidden>Branche wählen...</option>
+                                    <optgroup label="Energie">
+                                        <option th:each="sectorEnergie : ${T(de.thb.webbaki.enums.SectorEnergie).values()}"
+                                                th:value="${sectorEnergie.value}"
+                                                th:text="${sectorEnergie.value}"></option>
+                                    </optgroup>
+                                    <optgroup label="Gesundheit">
+                                        <option th:each="sectorGesundheit : ${T(de.thb.webbaki.enums.SectorGesundheit).values()}"
+                                                th:value="${sectorGesundheit}"
+                                                th:text="${sectorGesundheit.value}"></option>
+                                    </optgroup>
+                                    <optgroup label="Informationstechnik und Telekommunikation">
+                                        <option th:each="sectorInfandTel : ${T(de.thb.webbaki.enums.SectorInfandTel).values()}"
+                                                th:value="${sectorInfandTel}"
+                                                th:text="${sectorInfandTel.value}"></option>
+                                    </optgroup>
+                                    <optgroup label="Transport und Verkehr">
+                                        <option th:each="sectorTransport : ${T(de.thb.webbaki.enums.SectorTransport).values()}"
+                                                th:value="${sectorTransport}"
+                                                th:text="${sectorTransport.value}"></option>
+                                    </optgroup>
+                                    <optgroup label="Medien und Kultur">
+                                        <option th:each="sectorMedandCult : ${T(de.thb.webbaki.enums.SectorMedandCult).values()}"
+                                                th:value="${sectorMedandCult}"
+                                                th:text="${sectorMedandCult.value}"></option>
+                                    </optgroup>
+                                    <optgroup label="Wasser">
+                                        <option th:each="sectorWasser : ${T(de.thb.webbaki.enums.SectorWasser).values()}"
+                                                th:value="${sectorWasser}" th:text="${sectorWasser.value}"></option>
+                                    </optgroup>
+                                    <optgroup label="Finanz- und Versicherungswesen">
+                                        <option th:each="sectorFinance : ${T(de.thb.webbaki.enums.SectorFinance).values()}"
+                                                th:value="${sectorFinance}" th:text="${sectorFinance.value}"></option>
+                                    </optgroup>
+                                    <optgroup label="Ernährung">
+                                        <option th:each="sectorNutriton : ${T(de.thb.webbaki.enums.SectorNutriton).values()}"
+                                                th:value="${sectorNutriton}" th:text="${sectorNutriton.value}"></option>
+                                    </optgroup>
+                                    <optgroup label="Staat und Verwaltung">
+                                        <option th:each="sectorState : ${T(de.thb.webbaki.enums.SectorState).values()}"
+                                                th:value="${sectorState}" th:text="${sectorState.value}"></option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label>Unternehmen</label>
+                                <input type="text" name="company" class="form-control"/>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label>Username</label>
+                                <input type="us" name="username" class="form-control"/>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label>Passwort</label>
+                                <input type="password" name="password" class="form-control" pattern="[a-zA-Z0-9]+"/>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label>Passwort bestätigen</label>
+                                <input type="password" name="confirmPassword" class="form-control"/>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary float-end">Registrieren</button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="text-center mt-3 text-secondary">Haben sie einen Account? <a th:href="@{/login}">Jetzt
+                        anmelden</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
