@@ -15,6 +15,17 @@ header {
     max-width: 100%;
 }
 
+/*
+Container for /home.html
+ */
+.container-home{
+    height:600px!important;
+    line-height: 1.7;
+    width: 80%!important;
+    max-width: 100%;
+    margin: 0 auto!important;
+}
+
 .row-cols-4 {
     height: 150px;
 }
@@ -144,7 +155,7 @@ footer {
     background-color: rgba(169, 169, 169, .5);
     border: 1px solid rgba(169, 169, 169, .5);
     box-shadow: 1px 1px 1px darkgray;
-    position: absolute;
+    position: relative;
     bottom: 0;
 }
 

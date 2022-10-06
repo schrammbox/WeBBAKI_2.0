@@ -13,8 +13,8 @@
         <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 
         <a class="btn btn-bd-primary" th:href="@{snap}">Snapshot</a>
-        <a class="btn btn-bd-primary" th:href="@{threatmatrix}">aktuelle Bedrohungsmatrix</a>
-        <a class="btn btn-bd-primary" th:href="@{/threatmatrix/chronic}">Verlauf Bedrohungsmatrix</a>
+        <a class="btn btn-bd-primary" th:href="@{report}">aktuelle Bedrohungsmatrix</a>
+        <a class="btn btn-bd-primary" th:href="@{/report/chronic}">Verlauf Bedrohungsmatrix</a>
 
         <form th:object="${roleForm}" th:action="@{/admin}" method="post">
             <table class="table table-striped table-bordered">
@@ -22,17 +22,20 @@
                 <tr>
                     <th>ID</th>
                     <th>E-Mail</th>
+                    <th>Username</th>
                     <th>Vorname</th>
                     <th>Nachname</th>
                     <th>Rolle</th>
                     <th th:width="250px">Neue Rolle</th>
                     <th th:width="250px">Rolle löschen</th>
+                    <th th:width="200px">Deaktivieren</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="user: ${users}">
                     <td th:text="${user.id}">User ID</td>
                     <td th:text="${user.email}">E-mail</td>
+                    <td th:text="${user.username}">Username</td>
                     <td th:text="${user.firstName}">Vorname</td>
                     <td th:text="${user.lastName}">Nachname</td>
                     <td th:text="${user.getRoles()}">Rollen</td>
@@ -54,6 +57,13 @@
                                         th:value="${role.name}" th:text="${role}">
                                 </option>
                             </select>
+                        </td>
+                    </th:block>
+                    <th:block>
+                        <td>
+                            <a th:href="@{/report/chronic/{questID}(questID=${questList[i].id})}">
+                                <button class="btn btn-outline-danger"><span class="bi bi-trash"></span><i></i></button>
+                            </a>
                         </td>
                     </th:block>
                 </tr>

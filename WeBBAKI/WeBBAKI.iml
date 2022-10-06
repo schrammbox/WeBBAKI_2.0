@@ -53,7 +53,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:5.3.17" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.17" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.3.17" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-thymeleaf:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-thymeleaf:2.7.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.6.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.6.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.6.5" level="project" />
