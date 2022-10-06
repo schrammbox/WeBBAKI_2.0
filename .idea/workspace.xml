@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Enabling/disabling user works.&#10;&#10;Started on changing branches">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="changing branches in OfficeController &amp; office.html" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,32 +60,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propGUI&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;1414bbe933792e16d677468e5cad7cba&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propGUI",
+    "spring.configuration.checksum": "1414bbe933792e16d677468e5cad7cba"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/img" />
       <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/images" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
+  <component name="RunManager" selected="Maven.WeBBAKI [clean,package]">
     <configuration name="WeBBAKI [clean,install]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -209,7 +208,7 @@
       <workItem from="1664900315776" duration="6989000" />
       <workItem from="1664981309991" duration="8529000" />
       <workItem from="1664994891079" duration="8759000" />
-      <workItem from="1665085512982" duration="714000" />
+      <workItem from="1665085512982" duration="1054000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -358,7 +357,21 @@
       <option name="project" value="LOCAL" />
       <updated>1665055652321</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="changing branches in OfficeController &amp; office.html">
+      <created>1665086264009</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1665086264009</updated>
+    </task>
+    <task id="LOCAL-00023" summary="changing branches in OfficeController &amp; office.html">
+      <created>1665086500025</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1665086500025</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -426,7 +439,8 @@
     <MESSAGE value="Changed Confirm-link to productive server." />
     <MESSAGE value="Created OfficeController.java &amp; office.html to enable/disable users" />
     <MESSAGE value="Enabling/disabling user works.&#10;&#10;Started on changing branches" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enabling/disabling user works.&#10;&#10;Started on changing branches" />
+    <MESSAGE value="changing branches in OfficeController &amp; office.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing branches in OfficeController &amp; office.html" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
