@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="changing branches in OfficeController &amp; office.html" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="changing branches in OfficeController &amp; office.html&#10;&#10;MAVEN BUILD SUCCESS">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +88,7 @@
       <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/images" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.WeBBAKI [clean,package]">
+  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
     <configuration name="WeBBAKI [clean,install]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -208,7 +210,7 @@
       <workItem from="1664900315776" duration="6989000" />
       <workItem from="1664981309991" duration="8529000" />
       <workItem from="1664994891079" duration="8759000" />
-      <workItem from="1665085512982" duration="1054000" />
+      <workItem from="1665085512982" duration="1515000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -371,7 +373,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665086500025</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="changing branches in OfficeController &amp; office.html&#10;&#10;MAVEN BUILD SUCCESS">
+      <created>1665086582304</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1665086582304</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -440,7 +449,8 @@
     <MESSAGE value="Created OfficeController.java &amp; office.html to enable/disable users" />
     <MESSAGE value="Enabling/disabling user works.&#10;&#10;Started on changing branches" />
     <MESSAGE value="changing branches in OfficeController &amp; office.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="changing branches in OfficeController &amp; office.html" />
+    <MESSAGE value="changing branches in OfficeController &amp; office.html&#10;&#10;MAVEN BUILD SUCCESS" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing branches in OfficeController &amp; office.html&#10;&#10;MAVEN BUILD SUCCESS" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
