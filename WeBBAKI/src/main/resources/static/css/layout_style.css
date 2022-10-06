@@ -9,11 +9,21 @@ header {
 }
 
 .container {
-    height: 1000px;
+    height: 100%;
     line-height: 1.7;
     width: 80%;
     max-width: 100%;
-    overflow: scroll;
+}
+
+/*
+Container for /home.html
+ */
+.container-home{
+    height:600px!important;
+    line-height: 1.7;
+    width: 80%!important;
+    max-width: 100%;
+    margin: 0 auto!important;
 }
 
 .row-cols-4 {
@@ -142,9 +152,11 @@ footer {
     height: 100px;
     width: 100%;
     text-align: center;
-    background-color: rgba(169, 169, 169, .1);
-    border: 1px solid rgba(169, 169, 169, .1);
+    background-color: rgba(169, 169, 169, .5);
+    border: 1px solid rgba(169, 169, 169, .5);
     box-shadow: 1px 1px 1px darkgray;
+    position: relative;
+    bottom: 0;
 }
 
 /* STARTSEITE NACH LOGIN */

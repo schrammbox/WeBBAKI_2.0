@@ -1,5 +1,7 @@
 package de.thb.webbaki.service;
 
+import de.thb.webbaki.controller.form.BranchForm;
+import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Role;
@@ -13,7 +15,6 @@ import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,10 @@ public class UserService {
     //Repo Methods --------------------------
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
+    }
+
+    public Iterable<User> saveAll(List<User> users) {
+        return userRepository.saveAll(users);
     }
 
     public User getUserByEmail(String email) {
@@ -96,8 +101,8 @@ public class UserService {
 
             //Email to Superadmin
             emailSender.send("schrammbox@proton.me", buildAdminEmail("Christian", adminLink,
-                                                                                form.getFirstname(), form.getLastname(),
-                                                                                form.getEmail(), form.getBranche(), form.getCompany()));
+                    form.getFirstname(), form.getLastname(),
+                    form.getEmail(), form.getBranche(), form.getCompany()));
 
             //Email to Superadmin
             emailSender.send("schoenbe@th-brandenburg.de", buildAdminEmail("Leon", adminLink,
@@ -126,7 +131,7 @@ public class UserService {
             confirmationTokenService.setConfirmedAt(token);
             confirmAdmin(token);
         }
-        enableUser(confirmationToken.getUser().getEmail(), token);
+        enableUser(confirmationToken.getUser().getUsername(), token);
 
         return "/confirmation/confirm";
     }
@@ -135,14 +140,14 @@ public class UserService {
      * Using USERDETAILS -> Enabling User in Spring security
      * User is enabled if user_confirmation && admin_confirmation == TRUE
      *
-     * @param email to get the user
-     * @param token to get the according token
+     * @param username to get the user
+     * @param token    to get the according token
      * @return value TRUE or FALSE based on INTEGER value (0 = false, 1 = true)
      */
-    public int enableUser(String email, String token) {
+    public int enableUser(String username, String token) {
 
         if (confirmationTokenService.getConfirmationToken(token).accessGranted(token)) {
-            return userRepository.enableUser(email);
+            return userRepository.enableUser(username);
         } else return -1;
     }
 
@@ -232,6 +237,33 @@ public class UserService {
         }
     }
 
+    /**
+     * Enable/Disable user to give access to WebBakI
+     *
+     * @param form to get userlist
+     */
+    public void deactivateUser(UserForm form) {
+
+        List<User> users = getAllUsers();
+
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).isEnabled() != (form.getUsers().get(i).isEnabled())) {
+                users.get(i).setEnabled(form.getUsers().get(i).isEnabled());
+            }
+        }
+    }
+
+    public void changeBranche(UserForm form) {
+        List<User> users = getAllUsers();
+
+        for (int i = 0; i < users.size(); i++){
+            if (!Objects.equals(users.get(i).getBranche(), form.getUsers().get(i).getBranche())){
+                users.get(i).setBranche(form.getUsers().get(i).getBranche());
+            }
+        }
+    }
+
+
     private String buildAdminEmail(String name, String link, String userFirstname, String userLastname,
                                    String userEmail, String userBranche, String userCompany) {
         return "<!DOCTYPE html>\n" +
@@ -288,35 +320,35 @@ public class UserService {
                 "\n" +
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
-                "    <p>Hallo "+name+",</p>\n" +
+                "    <p>Hallo " + name + ",</p>\n" +
                 "    <p>Es hat sich ein neuer WebBaKI-Nutzer registriert. Infos zum Nutzer:</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
                 "      <table style=\"\">\n" +
                 "          <tr>\n" +
                 "            <td>Vorname</td>\n" +
-                "            <td>"+userFirstname+"</td>\n" +
+                "            <td>" + userFirstname + "</td>\n" +
                 "          </tr>\n" +
                 "          <tr>\n" +
                 "            <td>Nachname</td>\n" +
-                "            <td>"+userLastname+"</td>\n" +
+                "            <td>" + userLastname + "</td>\n" +
                 "          </tr>\n" +
                 "          <tr>\n" +
                 "            <td>Firma</td>\n" +
-                "            <td>"+userCompany+"</td>\n" +
+                "            <td>" + userCompany + "</td>\n" +
                 "          </tr>\n" +
                 "          <tr>\n" +
                 "            <td>Email</td>\n" +
-                "            <td>"+userEmail+"</td>\n" +
+                "            <td>" + userEmail + "</td>\n" +
                 "          </tr>\n" +
                 "          <tr>\n" +
                 "            <td>Branche</td>\n" +
-                "            <td>"+userBranche+"</td>\n" +
+                "            <td>" + userBranche + "</td>\n" +
                 "          </tr>\n" +
                 "      </table>\n" +
                 "    </div>\n" +
                 "    <p>Der Account kann unter folgendem Link aktiviert oder abgelehnt werden:</p>\n" +
                 "      <p>\n" +
-                "        <a href="+link+">Nutzer verifizieren</a>\n" +
+                "        <a href=" + link + ">Nutzer verifizieren</a>\n" +
                 "        <span></span>\n" +
                 "        <a href=\"http://localhost:8080/confirmation/userDenied\">Nutzer ablehnen</a>\n" +
                 "      </p>\n" +
@@ -381,10 +413,10 @@ public class UserService {
                 "\n" +
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
-                "    <p>Hallo "+name+",</p>\n" +
+                "    <p>Hallo " + name + ",</p>\n" +
                 "    <p>Vielen Dank für die Registrierung. Bitte bestätige deine Email unter folgendem Link:</p>\n" +
                 "      <p>\n" +
-                "        <a href="+link+">Verifizieren</a>\n" +
+                "        <a href=" + link + ">Verifizieren</a>\n" +
                 "        <span></span>\n" +
                 "      </p>\n" +
                 "    <p>Der Link bleibt 3 Tage gültig.</p>\n" +

@@ -97,37 +97,6 @@ public class UserController {
 
     }
 
-/*
-    @GetMapping("/data/customer/orders/details/{orderID}")
-    public String showCustomerOrdersDetail(@PathVariable("orderID") long orderID, Model model) {
-
-        Order order = orderService.findOrder(orderID);
-        model.addAttribute("order", order);
-
-        List<Provider> providers = new ArrayList<>();
-
-
-        order.getMatchingProviders().forEach((id) -> providerService.getProvider(id).ifPresent(providers::add));
-        model.addAttribute("providers", providers);
-
-
-
-        return "account/customer_order_data_details";
-    }
-*/
-    /*
-    @PostMapping("/approve_provider")
-    public String approveProvider(
-            @ModelAttribute(name = "orderId") long orderId,
-            @ModelAttribute(name = "providerId") long providerId,
-            RedirectAttributes redirectAttrs) {
-        orderService.commissionOrder(orderId, providerId);
-
-        redirectAttrs.addFlashAttribute("success", "Der Provider wurde beauftragt!");
-        return "redirect:data/customer/orders";
-    }
-*/
-
 }
 
 
