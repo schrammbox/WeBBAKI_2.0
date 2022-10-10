@@ -1,5 +1,6 @@
 package de.thb.webbaki.service;
 
+import com.lowagie.text.DocumentException;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.entity.User;
@@ -59,7 +60,7 @@ public class ReportService {
      * @param outputStream
      * @throws IOException
      */
-    public void generatePdfFromHtml(String html, OutputStream outputStream) throws IOException {
+    public void generatePdfFromHtml(String html, OutputStream outputStream) throws IOException, DocumentException {
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
         ITextRenderer renderer = new ITextRenderer();
         renderer.setDocumentFromString(html);

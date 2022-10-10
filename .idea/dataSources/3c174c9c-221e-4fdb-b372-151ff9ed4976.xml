@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="NewWebbaki@172.17.0.55">
-  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.32">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.40">
     <root id="1">
       <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1258,9 +1258,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="354" parent="333" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="355" parent="334" name="next_not_cached_value">
       <DataType>bigint(21)|0s</DataType>
@@ -1307,19 +1307,19 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>8</Position>
     </column>
     <column id="363" parent="335" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="364" parent="335" name="name">
       <DataType>varchar(255)|0s</DataType>
       <Position>2</Position>
     </column>
     <key id="365" parent="335" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="366" parent="336" name="id">
       <DataType>bigint(20)|0s</DataType>
@@ -1331,15 +1331,15 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>2</Position>
     </column>
     <key id="368" parent="336" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="369" parent="337" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="370" parent="337" name="comment">
       <DataType>varchar(1000)|0s</DataType>
@@ -1368,9 +1368,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="376" parent="337" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="377" parent="338" name="id">
       <DataType>bigint(20)|0s</DataType>
@@ -1382,9 +1382,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>2</Position>
     </column>
     <key id="379" parent="338" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="380" parent="339" name="role_id">
       <DataType>bigint(20)|0s</DataType>
@@ -1415,10 +1415,10 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <column id="386" parent="340" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="387" parent="340" name="description">
       <DataType>varchar(1024)|0s</DataType>
@@ -1443,15 +1443,15 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="392" parent="340" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="393" parent="341" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="394" parent="341" name="date">
       <DataType>datetime(6)|0s</DataType>
@@ -1466,15 +1466,15 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>4</Position>
     </column>
     <key id="397" parent="341" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="398" parent="342" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="399" parent="342" name="branche">
       <DataType>varchar(255)|0s</DataType>
@@ -1523,9 +1523,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>12</Position>
     </column>
     <key id="410" parent="342" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="411" parent="343" name="user_id">
       <DataType>bigint(20)|0s</DataType>

@@ -1,8 +1,7 @@
 package de.thb.webbaki.controller;
 
-import de.thb.webbaki.entity.Questionnaire;
+import com.lowagie.text.DocumentException;
 import de.thb.webbaki.entity.Snapshot;
-import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.WrongPathException;
@@ -14,9 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 
 import org.thymeleaf.context.Context;
@@ -65,7 +62,7 @@ public class ReportController {
 
     @GetMapping("report/{reportFocus}/{snapId}/download")
     public void downloadPdf(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
-                            HttpServletResponse response, Authentication authentication) throws WrongPathException, IOException{
+                            HttpServletResponse response, Authentication authentication) throws WrongPathException, IOException, DocumentException {
 
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
