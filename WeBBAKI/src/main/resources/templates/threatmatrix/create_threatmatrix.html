@@ -3,116 +3,13 @@
       layout:decorate="~{layout}">
 <head>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <style>
-        .threatmatrix-table{
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 100px;
-        }
-
-        .threatmatrix-table thead tr{
-            border-bottom: 1px dashed grey;
-        }
-
-        .threatmatrix-table tfoot tr{
-            border-bottom: 1px dashed grey;
-        }
-        .threatmatrix-table tbody tr{
-            border-bottom: 1px solid black;
-        }
-
-        .threatmatrix-table thead tr td{
-            font-size:16px;
-            letter-spacing: 1px;
-            color: grey;
-            padding: 8px;
-        }
-        .showQuestion1{
-            display:block;
-        }
-        .showQuestion{
-            display:none;
-            padding:10px;
-        }
-
-
-    </style>
-    <script>
-        function calc(){
-            for (let i = 0; i < 35; i++) {
-                var probValue = $('#selectProb' + i).val();
-                var impValue = $('#selectImp' + i).val();
-                let probNum, impNum, result = 0;
-                switch (probValue) {
-                    case 'nie':
-                        probNum = 0
-                        break;
-                    case 'selten':
-                        probNum = 1
-                        break;
-                    case 'mittel':
-                        probNum = 2
-                        break;
-                    case 'haeufig':
-                        probNum = 3
-                        break;
-                    case 'sehr haeufig':
-                        probNum = 4
-                        break;
-                }
-                switch (impValue) {
-                    case 'keine':
-                        impNum = 1
-                        break;
-                    case 'geringe':
-                        impNum = 2
-                        break;
-                    case 'hohe':
-                        impNum = 3
-                        break;
-                    case 'existenzielle':
-                        impNum = 4
-                        break;
-                }
-                result = probNum * impNum;
-                $("#noRisk" + i).hide();
-                $("#smallRisk" + i).hide();
-                $("#increasedRisk" + i).hide();
-                $("#highRisk" + i).hide();
-                $("#veryHighRisk" + i).hide();
-                switch (true) {
-                    case (result === 0):
-                        $("#" + 'noRisk' + i).show()
-                        break;
-                    case (result < 5):
-                        $("#" + 'smallRisk' + i).show()
-                        break;
-                    case (result < 10):
-                        $("#" + 'increasedRisk' + i).show()
-                        break;
-                    case (result === 12):
-                        $("#" + 'highRisk' + i).show()
-                        break;
-                    case (result === 16):
-                        $("#" + 'veryHighRisk' + i).show()
-                        break;
-                }
-            }
-        }
-        $(document).ready(function(){
-            for (let i = 0; i < 35; i++) {
-                $('#'+'selectProb' + i).on('change', function() {calc()
-                });
-                $('#'+'selectImp' + i).on('change', function() {calc()
-                });
-            }
-        });
-    </script>
+    <link rel="stylesheet" th:href="@{/css/create_threatmatrix_style.css}">
+    <script th:src="@{/js/create_threatmatrix_script.js}"></script>
 
     <title>Bedrohungsmatrix</title>
 
 </head>
-<body onload="calc();">
+<body>
 <div layout:fragment="content" class="container">
     <h2>Fragebogen</h2><br>
     <form th:object="${threatmatrix}" th:action="@{/threatmatrix}" method="post">
@@ -134,21 +31,21 @@
                 <tbody>
 
                 <th:block th:each="scenario : ${masterScenario.scenarios}">
-                    <tr>
+                    <tr class="threatTr">
                         <td th:text="${scenario.id}"></td>
 
                         <td th:text="${scenario.name}"></td>
                         <td>
-                            <select th:id="'selectProb' + ${scenario.id}" class="form-select" th:attr="name='prob['+${scenario.id}+']'">
+                            <select class="form-select probabilitySelect" th:attr="name='prob['+${scenario.id}+']'" onchange="onChange(this)">
                                 <div th:switch="${questMap.get(#vars.scenario.id)[0]}">
                                     <option th:case="'none'" value="none" selected>Bitte wählen...</option>
                                     <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[0]}" selected></option>
                                 </div>
-                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
+                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}" th:if="${probability.value != questMap.get(#vars.scenario.id)[0]}"
                                         th:value="${probability.value}" th:text="${probability.value}"></option>
                             </select>
                         </td>
-                        <td><select th:id="'selectImp'+ ${scenario.id}" class="form-select" th:attr="name='imp['+${scenario.id}+']'">
+                        <td><select class="form-select impactSelect" th:attr="name='imp['+${scenario.id}+']'" onchange="onChange(this)">
                             <div th:switch="${questMap.get(#vars.scenario.id)[1]}">
                                 <option th:case="'none'" value="none" selected>Bitte wählen...</option>
                                 <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[1]}" selected></option>
@@ -156,11 +53,8 @@
                             <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
                                     th:value="${impact.value}" th:text="${impact.value}"></option>
                         </select></td>
-                        <td><div th:id="'noRisk'+ ${scenario.id}" class="showQuestion">keine</div>
-                            <div th:id="'smallRisk'+ ${scenario.id}" class="showQuestion">geringe</div>
-                            <div th:id="'increasedRisk'+ ${scenario.id}" class="showQuestion">erhoehte</div>
-                            <div th:id="'highRisk'+ ${scenario.id}" class="showQuestion">hohe</div>
-                            <div th:id="'veryHighRisk'+ ${scenario.id}" class="showQuestion">sehr hohe</div>
+                        <td>
+                            <div class="showQuestion threatsituationDiv">Unbekannt</div>
                         </td>
 
                         <td>

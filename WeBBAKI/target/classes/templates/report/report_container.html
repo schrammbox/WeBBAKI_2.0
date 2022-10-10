@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}" lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Report</title>
+        <script th:src="@{/js/report_container_script.js}" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/report_container_style.css}">
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="container">
+                <h4 id="snapshotH5">Zugrundliegender Snapshot:</h4>
+                <select id="snapshotSelect" onchange="onChange(this)" class="form-select form-select-sm">
+                    <option th:each="snapshot, iStat : ${snapshotList}" th:text="${snapshot.getName()}" th:value="${snapshot.getId()}" th:selected='${((currentSnapId == snapshot.getId())?("true"):("false"))}'></option>
+                </select>
+                <a type="button" id="downloadButton" class="btn btn-primary" th:href='${"/report/"+reportFocus.getUrlPart()+"/"+currentSnapId+"/download"}' style="margin-bottom: 2em;"> Download</a>
+                <div th:replace="report/report :: report"></div>
+            </div>
+        </div>
+    </body>
+</html>

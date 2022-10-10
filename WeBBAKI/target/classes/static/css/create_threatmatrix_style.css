@@ -1,0 +1,45 @@
+.threatmatrix-table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 9em;
+}
+
+.threatmatrix-table thead tr{
+    border-bottom: 1px dashed grey;
+}
+
+.threatmatrix-table tfoot tr{
+    border-bottom: 1px dashed grey;
+}
+.threatmatrix-table tbody tr{
+    border-bottom: 1px solid black;
+}
+
+.threatmatrix-table thead tr td{
+    font-size:16px;
+    letter-spacing: 1px;
+    color: grey;
+    padding: 8px;
+}
+.showQuestion1{
+    display:block;
+}
+.showQuestion{
+    padding:10px;
+}
+td a {
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: none;
+}
+
+/* WIDTH OF ELEMENTS */
+.threatmatrix-select{
+    width: 20%;
+}
+
+.threatmatrix-szenario{
+    width:50%;
+}

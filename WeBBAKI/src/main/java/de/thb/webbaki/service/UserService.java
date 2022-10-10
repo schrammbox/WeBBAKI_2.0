@@ -53,6 +53,12 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public List<User> getUsersByBranche(String branche){return userRepository.findAllByBranche(branche);}
+
+    public List<User> getUsersByCompany(String company){return userRepository.findAllByCompany(company);}
+
+    public List<User> getUsersBySector(String sector){return userRepository.findAllBySector(sector);}
+
     public Boolean usernameExists(String username) {
         return userRepository.findByUsername(username) != null;
     }

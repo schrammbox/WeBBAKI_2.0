@@ -72,7 +72,7 @@ public class UserController {
     @GetMapping("/account/user_details")
     public String showUserData(Authentication authentication, Model model) {
 
-        User user = userService.getUserByEmail(authentication.getName());
+        User user = userService.getUserByUsername(authentication.getName());
         model.addAttribute("user", user);
 
 

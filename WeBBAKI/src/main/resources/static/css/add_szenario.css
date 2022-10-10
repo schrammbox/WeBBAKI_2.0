@@ -1,0 +1,22 @@
+.threatmatrix-table{
+    border-collapse: collapse;
+    margin-bottom: 100px;
+}
+
+.threatmatrix-table thead tr{
+    border-bottom: 1px dashed grey;
+}
+
+.threatmatrix-table tfoot tr{
+    border-bottom: 1px dashed grey;
+}
+.threatmatrix-table tbody tr{
+    border-bottom: 1px solid black;
+}
+
+.threatmatrix-table thead tr td{
+    font-size:16px;
+    letter-spacing: 1px;
+    color: grey;
+    padding: 8px;
+}

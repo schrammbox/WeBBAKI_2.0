@@ -2,29 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html}">
 <head>
-        <style>
-            .threatmatrix-table{
-                border-collapse: collapse;
-                margin-bottom: 100px;
-            }
-
-            .threatmatrix-table thead tr{
-                border-bottom: 1px dashed grey;
-            }
-
-            .threatmatrix-table tfoot tr{
-                border-bottom: 1px dashed grey;
-            }
-            .threatmatrix-table tbody tr{
-                border-bottom: 1px solid black;
-            }
-
-            .threatmatrix-table thead tr td{
-                font-size:16px;
-                letter-spacing: 1px;
-                color: grey;
-                padding: 8px;
-            }</style>
+    <link rel="stylesheet" th:href="@{/css/add_szenario.css}">
     <title>Neues Szenario hinzufuegen</title>
 </head>
 <body>
