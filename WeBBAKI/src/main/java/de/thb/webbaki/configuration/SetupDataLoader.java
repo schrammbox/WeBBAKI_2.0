@@ -6,6 +6,7 @@ import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.PrivilegeRepository;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -13,10 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class SetupDataLoader implements
@@ -29,6 +27,9 @@ public class SetupDataLoader implements
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private RoleService roleService;
 
     @Autowired
     private PrivilegeRepository privilegeRepository;
@@ -50,14 +51,13 @@ public class SetupDataLoader implements
         final List<Privilege> adminPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege));
         final List<Privilege> userPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, passwordPrivilege));
 
-        final Role adminRole = createRoleIfNotFound("SUPERADMIN", adminPrivileges);
-        final Role userRole = createRoleIfNotFound("KRITIS_BETREIBER", userPrivileges);
+        final Role adminRole = createRoleIfNotFound("ROLE_SUPERADMIN", adminPrivileges);
 
         createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "UnterBranche Telekom",
-        "Meta", "Passwort1234", Arrays.asList(adminRole), "schrammbox@gmail.com", true, "schrammbox");
+        "Meta", "Passwort1234", Collections.singletonList(adminRole), "schrammbox@gmail.com", true, "schrammbox");
 
         createUserIfNotFound("Schönberg", "Leon", "Telekommunikation", "UnterBranche Telekom",
-                "Meta", "Passwort1234", Arrays.asList(adminRole), "schoenbe@th-brandenburg.de", true, "schoenbe");
+                "Meta", "Passwort1234", Collections.singletonList(adminRole), "schoenbe@th-brandenburg.de", true, "schoenbe");
 
         alreadySetup = true;
 
@@ -77,7 +77,7 @@ public class SetupDataLoader implements
     @Transactional
     Role createRoleIfNotFound(String name, Collection<Privilege> privileges) {
 
-        Role role = roleRepository.findByName(name);
+        Role role = roleService.getRoleByName(name);
         if (role == null) {
             role = new Role();
             role.setPrivileges(privileges);

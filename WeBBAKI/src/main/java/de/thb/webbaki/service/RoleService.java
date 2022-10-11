@@ -23,6 +23,8 @@ public class RoleService {
         return (List<Role>) roleRepository.findAll();
     }
 
+    public Role getRoleByName(String rolename){return roleRepository.findByName(rolename);}
+
     public Collection<Role> getRolesByUser(String email) {
         User user = userRepository.findByEmail(email);
 

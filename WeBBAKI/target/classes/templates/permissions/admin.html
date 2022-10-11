@@ -28,7 +28,6 @@
                     <th>Rolle</th>
                     <th th:width="250px">Neue Rolle</th>
                     <th th:width="250px">Rolle löschen</th>
-                    <th th:width="200px">Deaktivieren</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -57,13 +56,6 @@
                                         th:value="${role.name}" th:text="${role}">
                                 </option>
                             </select>
-                        </td>
-                    </th:block>
-                    <th:block>
-                        <td>
-                            <a th:href="@{/report/chronic/{questID}(questID=${questList[i].id})}">
-                                <button class="btn btn-outline-danger"><span class="bi bi-trash"></span><i></i></button>
-                            </a>
                         </td>
                     </th:block>
                 </tr>
