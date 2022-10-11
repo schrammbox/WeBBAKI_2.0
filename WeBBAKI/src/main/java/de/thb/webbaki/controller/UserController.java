@@ -29,21 +29,21 @@ public class UserController {
     private ConfirmationTokenService confirmationTokenService;
 
     @Deprecated
-    @GetMapping("users")
+    @GetMapping("/users")
     public String showUsers(Model model) {
         List<User> userList = userService.getAllUsers();
         model.addAttribute("userList", userList);
         return "users";
     }
 
-    @GetMapping("register/user")
+    @GetMapping("/register/user")
     public String showRegisterForm(Model model) {
         UserRegisterFormModel formModel = new UserRegisterFormModel();
         model.addAttribute("user", formModel);
         return "register/user_registration";
     }
 
-    @PostMapping("register/user")
+    @PostMapping("/register/user")
     public String registerUser(
             @ModelAttribute("user") @Valid UserRegisterFormModel formModel, BindingResult result,
             Model model) {
@@ -76,7 +76,7 @@ public class UserController {
         model.addAttribute("user", user);
 
 
-        return "/account/user_details";
+        return "account/user_details";
     }
 
     @GetMapping("/data/user/threatmatrices")
