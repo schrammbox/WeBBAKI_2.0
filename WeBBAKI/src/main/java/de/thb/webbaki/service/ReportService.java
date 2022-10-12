@@ -77,7 +77,7 @@ public class ReportService {
      * @return the right Queue with ThreatSituations
      * @throws WrongPathException
      */
-    public Queue<ThreatSituation> getThreatSituationQueueByReportFocus(ReportFocus reportFocus, String username, long snapId) throws WrongPathException {
+    public Queue<ThreatSituation> getThreatSituationQueueByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws WrongPathException {
 
         List<User> userList;
         switch (reportFocus){
@@ -97,11 +97,9 @@ public class ReportService {
                 //TODO better Exceptionname
                 throw new WrongPathException();
         }
-        Snapshot newestSnapshot = snapshotService.getSnapshotByID(snapId).get();
-        snapshotService.getAllQuestionnaires(newestSnapshot.getId());
 
         //remove all unimportant questionnaires
-        List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotService.getAllQuestionnaires(newestSnapshot.getId()), userList);
+        List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotService.getAllQuestionnaires(snapshot.getId()), userList);
         List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
 
         for (Questionnaire questionnaire : questionnaireList) {

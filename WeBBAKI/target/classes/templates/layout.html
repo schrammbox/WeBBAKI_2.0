@@ -58,16 +58,16 @@
 
                         <ul class="dropdown-menu" id="dropdown-ul">
                             <li class="dropdown-li">
-                                <a th:href='${"/report/company"+((currentSnapId != null)?("/"+currentSnapId):(""))}' class="nav-link">Unternehmen</a>
+                                <a th:href='${"/report/company"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link">Unternehmen</a>
                             </li>
                             <li class="dropdown-li">
-                                <a th:href='${"/report/branche"+((currentSnapId != null)?("/"+currentSnapId):(""))}' class="nav-link">Branche</a>
+                                <a th:href='${"/report/branche"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link">Branche</a>
                             </li>
                             <li class="dropdown-li">
-                                <a th:href='${"/report/sector"+((currentSnapId != null)?("/"+currentSnapId):(""))}' class="nav-link">Sektor</a>
+                                <a th:href='${"/report/sector"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link">Sektor</a>
                             </li>
                             <li class="dropdown-li">
-                                <a th:href='${"/report/national"+((currentSnapId != null)?("/"+currentSnapId):(""))}' class="nav-link">National</a>
+                                <a th:href='${"/report/national"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link">National</a>
                             </li>
                         </ul>
                     </div>

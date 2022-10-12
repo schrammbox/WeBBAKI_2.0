@@ -48,14 +48,15 @@ public class ReportController {
         ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
         model.addAttribute("reportFocus", reportFocus);
 
-        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName(), snapId);
+        Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
+        model.addAttribute("currentSnapshot", currentSnapshot);
+
+        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
 
         model.addAttribute("threatSituationQueue", threatSituationQueue);
 
         final List<Snapshot> snapshotList = snapshotService.getAllSnapshotOrderByDESC();
         model.addAttribute("snapshotList", snapshotList);
-
-        model.addAttribute("currentSnapId", snapId);
 
         return "report/report_container";
     }
@@ -75,7 +76,10 @@ public class ReportController {
         ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
         context.setVariable("reportFocus", reportFocus);
 
-        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName(), snapId);
+        Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
+        context.setVariable("currentSnapshot", currentSnapshot);
+
+        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
 
         context.setVariable("threatSituationQueue", threatSituationQueue);
 

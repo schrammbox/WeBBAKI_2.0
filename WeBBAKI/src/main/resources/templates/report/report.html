@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 <body>
     <div th:fragment="report">
-        <h1 style="width: 100%; text-align: center; margin-bottom: 2em" th:text='${reportFocus.getGermanRepresentation()+" Report"}'></h1>
+        <h1 style="width: 100%; text-align: center; margin-bottom: 2em" th:text='${reportFocus.getGermanRepresentation()+" Report von " +currentSnapshot.getName()}'></h1>
         <th:block th:each="masterScenario: ${masterScenarioList}" >
             <h5 th:text="${masterScenario.name}"></h5>
             <table class="threatmatrix-table" style="border-bottom: 1px solid black;width: 100%; border-collapse: collapse; margin-bottom: 5em; font-size: 16px; letter-spacing: 1px; padding: 8px;">

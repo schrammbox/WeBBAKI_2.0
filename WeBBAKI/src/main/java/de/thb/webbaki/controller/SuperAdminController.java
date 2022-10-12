@@ -21,7 +21,7 @@ public class SuperAdminController implements Comparable {
     private final RoleService roleService;
     private final SnapshotService snapshotService;
 
-    @RequestMapping(value = "admin", method = RequestMethod.GET)
+    @GetMapping("/admin")
     public String showAllUsers(Model model) {
         final var users = userService.getAllUsers();
         /* If sorting of usernames needed
@@ -40,7 +40,6 @@ public class SuperAdminController implements Comparable {
         return "permissions/admin";
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.POST)
     @PostMapping("/admin")
     public String addRoleToUser(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel) {
         System.out.println(userToRoleFormModel.toString());
@@ -61,7 +60,7 @@ public class SuperAdminController implements Comparable {
         return "snap/snapshot";
     }
 
-    @GetMapping("confirmation/userDenied")
+    @GetMapping("/confirmation/userDenied")
     public String userDenied(){
         return "confirmation/userDenied";
     }

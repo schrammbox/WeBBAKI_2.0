@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]" date="1665552640605" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 12.10.2022 07:30 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/configuration/WebSecurityConfig.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/configuration/WebSecurityConfig.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/WebSecurityConfig.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/controller/SuperAdminController.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/controller/SuperAdminController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/SuperAdminController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+  </binary>
+</changelist>
