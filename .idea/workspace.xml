@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds the Snapshotname to the Reportheading.">
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report_container.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report_container.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/ScheduleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3c174c9c-221e-4fdb-b372-151ff9ed4976.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3c174c9c-221e-4fdb-b372-151ff9ed4976.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/WeBBAKIApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/WeBBAKIApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/WebMvcConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/WebMvcConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/configuration/WebMvcConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/configuration/WebMvcConfiguration.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev/office" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -64,10 +68,12 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -75,7 +81,7 @@
       <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/images" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.WeBBAKI-0.0.1-SNAPSHOT.jar">
+  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
@@ -211,6 +217,7 @@
       <workItem from="1665416881745" duration="765000" />
       <workItem from="1665417665213" duration="369000" />
       <workItem from="1665504523460" duration="3374000" />
+      <workItem from="1665574052713" duration="6507000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -394,7 +401,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665554442859</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Adds the Snapshotname to the Reportheading.">
+      <created>1665574081226</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1665574081226</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
