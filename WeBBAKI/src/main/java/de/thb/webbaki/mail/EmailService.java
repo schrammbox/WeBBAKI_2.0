@@ -28,7 +28,7 @@ public class EmailService implements EmailSender{
 
             helper.setText(email, true);
             helper.setTo(to);
-            helper.setSubject("Bestätigung für neuen WebBaKI-Nutzer");
+            helper.setSubject("Änderung auf WebBakI");
             helper.setFrom("noreply@th-brandenburg.de");
             javaMailSender.send(mimeMessage);
         }catch (MessagingException e){

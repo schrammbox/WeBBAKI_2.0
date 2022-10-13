@@ -1,12 +1,14 @@
 package de.thb.webbaki.service;
 
-import de.thb.webbaki.controller.form.BranchForm;
 import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
+import de.thb.webbaki.mail.Templates.ChangeBrancheNotification;
+import de.thb.webbaki.mail.Templates.ChangeEnabledStatusNotification;
+import de.thb.webbaki.mail.Templates.ChangeRoleNotification;
 import de.thb.webbaki.mail.confirmation.ConfirmationToken;
 import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
 import de.thb.webbaki.repository.RoleRepository;
@@ -41,10 +43,6 @@ public class UserService {
         return (List<User>) userRepository.findAll();
     }
 
-    public Iterable<User> saveAll(List<User> users) {
-        return userRepository.saveAll(users);
-    }
-
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
@@ -53,11 +51,17 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> getUsersByBranche(String branche){return userRepository.findAllByBranche(branche);}
+    public List<User> getUsersByBranche(String branche) {
+        return userRepository.findAllByBranche(branche);
+    }
 
-    public List<User> getUsersByCompany(String company){return userRepository.findAllByCompany(company);}
+    public List<User> getUsersByCompany(String company) {
+        return userRepository.findAllByCompany(company);
+    }
 
-    public List<User> getUsersBySector(String sector){return userRepository.findAllBySector(sector);}
+    public List<User> getUsersBySector(String sector) {
+        return userRepository.findAllBySector(sector);
+    }
 
     public Boolean usernameExists(String username) {
         return userRepository.findByUsername(username) != null;
@@ -82,7 +86,7 @@ public class UserService {
      * Registering new User with all parameters from User.java
      * Using emailExists() to check whether user already exists
      */
-    public User registerNewUser(final UserRegisterFormModel form) throws UserAlreadyExistsException {
+    public void registerNewUser(final UserRegisterFormModel form) throws UserAlreadyExistsException {
         if (usernameExists(form.getUsername())) {
             throw new UserAlreadyExistsException("Es existiert bereits ein Account mit folgender Email-Adresse: " + form.getEmail());
         } else {
@@ -118,7 +122,7 @@ public class UserService {
             //Email to new registered user
             emailSender.send(form.getEmail(), buildUserEmail(form.getFirstname(), userLink));
 
-            return userRepository.save(user);
+            userRepository.save(user);
         }
     }
 
@@ -213,12 +217,20 @@ public class UserService {
      * @param formModel to get Userdata, especially roles from user
      */
     public void addRoleToUser(final UserToRoleFormModel formModel) {
+
+        ChangeRoleNotification roleNotification = new ChangeRoleNotification(); // To send mail
+
         String[] roles = formModel.getRole();
+
         for (int i = 1; i < roles.length; i++) {
             if (!Objects.equals(roles[i], "none") && !Objects.equals(roles[i], null)) {
                 User user = userRepository.findById(i).get();
                 if (!user.getRoles().contains(roleRepository.findByName(roles[i]))) {
                     user.addRole((roleRepository.findByName((roles[i]))));
+
+                    emailSender.send(user.getEmail(), roleNotification.changeRoleMail(user.getFirstName(),
+                            user.getLastName(),
+                            roleRepository.findByName(roles[i])));
                 }
             }
         }
@@ -248,23 +260,32 @@ public class UserService {
      *
      * @param form to get userlist
      */
-    public void deactivateUser(UserForm form) {
+    public void changeEnabledStatus(UserForm form) {
+        ChangeEnabledStatusNotification enabledStatusNotification = new ChangeEnabledStatusNotification();
 
         List<User> users = getAllUsers();
 
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).isEnabled() != (form.getUsers().get(i).isEnabled())) {
                 users.get(i).setEnabled(form.getUsers().get(i).isEnabled());
+
+                emailSender.send(users.get(i).getEmail(), enabledStatusNotification.changeBrancheMail(users.get(i).getFirstName(), users.get(i).getLastName()));
             }
         }
     }
 
     public void changeBranche(UserForm form) {
+        ChangeBrancheNotification brancheNotification = new ChangeBrancheNotification(); // To send mail
+
         List<User> users = getAllUsers();
 
-        for (int i = 0; i < users.size(); i++){
-            if (!Objects.equals(users.get(i).getBranche(), form.getUsers().get(i).getBranche())){
+        for (int i = 0; i < users.size(); i++) {
+            if (!Objects.equals(users.get(i).getBranche(), form.getUsers().get(i).getBranche())) {
                 users.get(i).setBranche(form.getUsers().get(i).getBranche());
+
+                emailSender.send(users.get(i).getEmail(), brancheNotification.changeBrancheMail(users.get(i).getFirstName(),
+                        users.get(i).getLastName(),
+                        users.get(i).getBranche()));
             }
         }
     }

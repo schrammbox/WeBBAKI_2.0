@@ -37,6 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/webjars/**", "/bootstrap/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
                 .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/**").permitAll()
                 .antMatchers("/admin").access("hasAuthority('ROLE_SUPERADMIN')")
+                .antMatchers("/office").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
                 .antMatchers("/report/**").not().access("hasAuthority('ROLE_DEFAULT_USER')")
                 .anyRequest().authenticated()
                 .and()
