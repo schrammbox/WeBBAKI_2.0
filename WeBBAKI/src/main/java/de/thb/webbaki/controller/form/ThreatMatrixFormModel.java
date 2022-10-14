@@ -31,6 +31,7 @@ public class ThreatMatrixFormModel {
     private Collection<Role> roles;
 
     private String comment;
+    private String smallComment;
 
     // get probability from Frontend as array
     @NotNull(message = "prob not null")

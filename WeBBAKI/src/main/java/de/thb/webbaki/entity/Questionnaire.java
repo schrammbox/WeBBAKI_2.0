@@ -1,16 +1,11 @@
 package de.thb.webbaki.entity;
 
-import de.thb.webbaki.enums.SzenarioType;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,6 +24,10 @@ public class Questionnaire {
     @Column(length = 1000)
     @Size(max = 1000)
     private String comment;
+
+    @Column(length = 1000)
+    @Size(max = 1000)
+    private String smallComment;
 
     private LocalDateTime date;
 

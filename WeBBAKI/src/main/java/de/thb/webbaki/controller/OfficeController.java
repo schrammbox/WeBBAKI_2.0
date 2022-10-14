@@ -1,7 +1,6 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserForm;
-import de.thb.webbaki.mail.Templates.ChangeBrancheNotification;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,6 @@ public class OfficeController {
 
     UserService userService;
     UserRepository userRepository;
-    ChangeBrancheNotification brancheNotification;
 
     @GetMapping("/office")
     public String showOfficePage(Model model){

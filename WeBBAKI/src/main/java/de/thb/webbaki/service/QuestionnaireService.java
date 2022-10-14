@@ -59,6 +59,7 @@ public class QuestionnaireService {
                 .user(form.getUser())
                 .mapping(map.toString())
                 .comment(form.getComment())
+                .smallComment(form.getSmallComment())
                 .build());
 
         return questionnaire;

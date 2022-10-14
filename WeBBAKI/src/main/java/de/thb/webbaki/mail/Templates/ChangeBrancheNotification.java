@@ -1,5 +1,7 @@
 package de.thb.webbaki.mail.Templates;
 
+import org.springframework.context.annotation.Bean;
+
 public class ChangeBrancheNotification {
 
     public String changeBrancheMail(String userFirstname, String userLastname, String userBranche) {
