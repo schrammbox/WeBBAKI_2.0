@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Scheduled snapshotcreation every 3th month.">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_10_22__10_27__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_10_22__10_27__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/js/report_container_script.js" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/js/report_container_script.js" afterDir="false" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Solved error with Report redirection to another snap.">
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/report_container_script.js" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/report_container_script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -395,7 +393,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665554442859</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Solved error with Report redirection to another snap.">
+      <created>1665995864865</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1665995864865</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -467,7 +472,8 @@
     <MESSAGE value="changing branches in OfficeController &amp; office.html&#10;&#10;MAVEN BUILD SUCCESS" />
     <MESSAGE value="Merged Master &amp; dev/createReport" />
     <MESSAGE value="Adds the Snapshotname to the Reportheading." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adds the Snapshotname to the Reportheading." />
+    <MESSAGE value="Solved error with Report redirection to another snap." />
+    <option name="LAST_COMMIT_MESSAGE" value="Solved error with Report redirection to another snap." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
