@@ -79,7 +79,7 @@ public class SetupDataLoader implements
 
         Role role = roleService.getRoleByName(name);
         if (role == null) {
-            role = new Role();
+            role = new Role(name);
             role.setPrivileges(privileges);
             roleRepository.save(role);
         }

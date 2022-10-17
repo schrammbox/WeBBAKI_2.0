@@ -1,6 +1,5 @@
 package de.thb.webbaki.service;
 
-import com.sun.mail.util.QEncoderStream;
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
@@ -12,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,10 +23,6 @@ public class QuestionnaireService {
     private final QuestionnaireRepository questionnaireRepository;
     private final UserRepository userRepository;
     private final ScenarioRepository scenarioRepository;
-
-    public Questionnaire getEmptyQuestionnaire() {
-        return new Questionnaire();
-    }
 
     public Questionnaire getQuestionnaire(long id) {
         return questionnaireRepository.findById(id);
@@ -64,6 +60,7 @@ public class QuestionnaireService {
                 .user(form.getUser())
                 .mapping(map.toString())
                 .comment(form.getComment())
+                .smallComment(Arrays.toString(form.getSmallComments()))
                 .build());
 
         return questionnaire;

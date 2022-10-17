@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.List;
 
 
 @Data
@@ -31,6 +32,7 @@ public class ThreatMatrixFormModel {
     private Collection<Role> roles;
 
     private String comment;
+    private String[] smallComments;
 
     // get probability from Frontend as array
     @NotNull(message = "prob not null")

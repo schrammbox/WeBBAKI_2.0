@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Solved error with Report redirection to another snap.">
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/report_container_script.js" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/report_container_script.js" afterDir="false" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds the Snapshotname to the Reportheading.">
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report_container.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report_container.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +75,7 @@
       <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/images" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
+  <component name="RunManager" selected="JAR Application.WeBBAKI-0.0.1-SNAPSHOT.jar">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
@@ -393,14 +394,7 @@
       <option name="project" value="LOCAL" />
       <updated>1665554442859</updated>
     </task>
-    <task id="LOCAL-00027" summary="Solved error with Report redirection to another snap.">
-      <created>1665995864865</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1665995864865</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,8 +466,7 @@
     <MESSAGE value="changing branches in OfficeController &amp; office.html&#10;&#10;MAVEN BUILD SUCCESS" />
     <MESSAGE value="Merged Master &amp; dev/createReport" />
     <MESSAGE value="Adds the Snapshotname to the Reportheading." />
-    <MESSAGE value="Solved error with Report redirection to another snap." />
-    <option name="LAST_COMMIT_MESSAGE" value="Solved error with Report redirection to another snap." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adds the Snapshotname to the Reportheading." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -486,6 +479,11 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/SetupDataLoader.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
