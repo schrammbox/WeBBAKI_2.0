@@ -26,7 +26,7 @@ public class Questionnaire {
     private String comment;
 
     @Column(length = 1000)
-    @Size(max = 1000)
+    @Size(max = 10000)
     private String smallComment;
 
     private LocalDateTime date;
