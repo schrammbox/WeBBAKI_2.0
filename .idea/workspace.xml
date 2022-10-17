@@ -75,7 +75,7 @@
       <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/images" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.WeBBAKI-0.0.1-SNAPSHOT.jar">
+  <component name="RunManager" selected="Maven.WeBBAKI [clean,package]">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
@@ -159,9 +159,9 @@
       <method v="2" />
     </configuration>
     <configuration name="WeBBAKIApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
       <module name="WeBBAKI" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="de.thb.webbaki.WeBBAKIApplication" />
-      <option name="ACTIVE_PROFILES" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
