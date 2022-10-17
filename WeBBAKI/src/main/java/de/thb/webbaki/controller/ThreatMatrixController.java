@@ -8,6 +8,7 @@ import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.QuestionnaireService;
 import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
+import de.thb.webbaki.service.helper.Counter;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -34,13 +35,15 @@ public class ThreatMatrixController {
     @GetMapping("/threatmatrix")
     public String showQuestionnaireForm(Model model,Authentication authentication) {
 
-        model.addAttribute("threatmatrix", new ThreatMatrixFormModel());
-
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 
         Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userService.getUserByUsername(authentication.getName()).getId());
         model.addAttribute("quest", quest);
+
+        ThreatMatrixFormModel threatMatrixFormModel = ThreatMatrixFormModel.builder().smallComments(quest.getSmallComment().replace("[","").replace("]", "").split(",")).build();
+        model.addAttribute("threatmatrix", threatMatrixFormModel);
+        model.addAttribute("value", new Counter());
 
         Map<Long, String[]> questMap = questionnaireService.getMapping(quest);
         model.addAttribute("questMap", questMap);
@@ -84,7 +87,10 @@ public class ThreatMatrixController {
         model.addAttribute("questMap", questMap);
 
         // NEEDED
-        model.addAttribute("threatmatrix", new ThreatMatrixFormModel());
+        ThreatMatrixFormModel threatMatrixFormModel = ThreatMatrixFormModel.builder().smallComments(quest.getSmallComment().replace("[","").replace("]", "").split(",")).build();
+        model.addAttribute("threatmatrix", threatMatrixFormModel);
+        model.addAttribute("value", new Counter());
+
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 

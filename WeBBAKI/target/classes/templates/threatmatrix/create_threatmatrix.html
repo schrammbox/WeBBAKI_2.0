@@ -66,8 +66,7 @@
                                 <button type="button" class="btn bi bi-card-text" data-bs-toggle="dropdown"
                                         aria-expanded="false" data-bs-auto-close="outside"></button>
                                 <textarea class="form-control dropdown-menu" id="exampleDropdownFormEmail2"
-                                          th:field="${quest.smallComment}" th:value="${quest.smallComment}"
-                                          th:name="${quest.smallComment}" rows="3" cols="6"
+                                          th:field="*{smallComments[__${value.countAndGet()}__]}" rows="3" cols="6"
                                           placeholder=" Kommentar..."></textarea>
 
                             </div>
