@@ -23,10 +23,12 @@
 }
 .showQuestion1{
     display:block;
+    border-radius: 1em;
 }
 .showQuestion{
     padding:10px;
 }
+
 td a {
     text-decoration: none;
 }
@@ -42,4 +44,19 @@ td a:hover {
 
 .threatmatrix-szenario{
     width:50%;
+}
+
+.firstMasterScenarioTds{
+    background-color: #9fd8ee;
+    text-align: center;
+}
+
+.secondMasterScenarioTds{
+    background-color: #b5d48c;
+    text-align: center;
+}
+
+.thirdMasterScenarioTds{
+    background-color: #f6e37b;
+    text-align: center;
 }
