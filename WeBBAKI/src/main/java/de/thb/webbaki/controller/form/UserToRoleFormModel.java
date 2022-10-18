@@ -1,13 +1,9 @@
 package de.thb.webbaki.controller.form;
 
-import de.thb.webbaki.entity.Role;
-import de.thb.webbaki.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
