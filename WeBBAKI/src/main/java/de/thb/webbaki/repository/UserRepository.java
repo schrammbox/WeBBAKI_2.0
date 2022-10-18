@@ -1,7 +1,6 @@
 package de.thb.webbaki.repository;
 
 import de.thb.webbaki.entity.User;
-import org.hibernate.sql.Update;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

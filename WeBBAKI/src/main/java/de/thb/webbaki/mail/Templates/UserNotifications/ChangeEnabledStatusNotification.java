@@ -1,10 +1,8 @@
-package de.thb.webbaki.mail.Templates;
+package de.thb.webbaki.mail.Templates.UserNotifications;
 
-import org.springframework.context.annotation.Bean;
+public class ChangeEnabledStatusNotification {
 
-public class ChangeBrancheNotification {
-
-    public String changeBrancheMail(String userFirstname, String userLastname, String userBranche) {
+    public String changeBrancheMail(String userFirstname, String userLastname) {
 
         String link = "https://webbaki.th-brandenburg.de";
 
@@ -63,14 +61,9 @@ public class ChangeBrancheNotification {
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
-                "    <p>Der WebBakI-Geschäftsführer hat Ihnen eine neue Branche zugewiesen:</p>\n" +
+                "    <p>Der WebBakI-Geschäftsführer hat Ihr Profil zur Nutzung freigeschaltet.</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
-                "      <table style=\"\">\n" +
-                "          <tr>\n" +
-                "            <td>Ihre neue Branche ist: </td>\n" +
-                "            <td>" + userBranche + "</td>\n" +
-                "          </tr>\n" +
-                "      </table>\n" +
+                "    <p>Sie können sich nun einloggen und die Plattform nutzen.</p>\n" +
                 "    </div>\n" +
                 "    <p>Melden Sie sich unter folgendem Link an um die Änderungen zu sehen:</p>\n" +
                 "      <p>\n" +
@@ -82,5 +75,6 @@ public class ChangeBrancheNotification {
                 "  </body>\n" +
                 "</html>\n";
     }
+
 
 }

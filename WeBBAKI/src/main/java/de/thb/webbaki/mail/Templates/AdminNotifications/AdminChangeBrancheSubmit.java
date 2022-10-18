@@ -1,12 +1,8 @@
-package de.thb.webbaki.mail.Templates;
+package de.thb.webbaki.mail.Templates.AdminNotifications;
 
-import de.thb.webbaki.entity.Role;
+public class AdminChangeBrancheSubmit {
 
-public class ChangeRoleNotification {
-
-    public String changeRoleMail(String userFirstname, String userLastname, Role role) {
-
-        String link = "https://webbaki.th-brandenburg.de/login";
+    public String changeBrancheMail(String userFirstname, String userLastname, String userBranche, String username) {
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +
@@ -63,18 +59,17 @@ public class ChangeRoleNotification {
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
-                "    <p>Der WebBakI-Geschäftsführer hat Ihnen eine neue Rolle zugewiesen:</p>\n" +
+                "    <p>Sie haben eine Rollenänderung bei folgendem Nutzer getätigt:</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
                 "      <table style=\"\">\n" +
                 "          <tr>\n" +
-                "            <td>Ihre neue Rolle ist: </td>\n" +
-                "            <td>" + role + "</td>\n" +
+                "            <td>Nutzer: </td>\n" +
+                "            <td>" + username + "</td>\n" +
+                "            <td>Neue Branche: </td>\n" +
+                "            <td>" + userBranche + "</td>\n" +
                 "          </tr>\n" +
                 "      </table>\n" +
                 "    </div>\n" +
-                "    <p>Melden Sie sich unter folgendem Link an um die Änderungen zu sehen:</p>\n" +
-                "      <p>\n" +
-                "        <a href="+ link +">Zum Login</a>\n" +
                 "        <span></span>\n" +
                 "      </p>\n" +
                 "    <p>Mit freundlichen Grüßen</p>\n" +
@@ -84,3 +79,4 @@ public class ChangeRoleNotification {
     }
 
 }
+

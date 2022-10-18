@@ -1,10 +1,12 @@
-package de.thb.webbaki.mail.Templates;
+package de.thb.webbaki.mail.Templates.UserNotifications;
 
-public class ChangeEnabledStatusNotification {
+import de.thb.webbaki.entity.Role;
 
-    public String changeBrancheMail(String userFirstname, String userLastname) {
+public class ChangeRoleNotification {
 
-        String link = "https://webbaki.th-brandenburg.de";
+    public String changeRoleMail(String userFirstname, String userLastname, Role role) {
+
+        String link = "https://webbaki.th-brandenburg.de/login";
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +
@@ -61,9 +63,14 @@ public class ChangeEnabledStatusNotification {
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
-                "    <p>Der WebBakI-Geschäftsführer hat Ihr Profil zur Nutzung freigeschaltet.</p>\n" +
+                "    <p>Der WebBakI-Geschäftsführer hat Ihnen eine neue Rolle zugewiesen:</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
-                "    <p>Sie können sich nun einloggen und die Plattform nutzen.</p>\n" +
+                "      <table style=\"\">\n" +
+                "          <tr>\n" +
+                "            <td>Ihre neue Rolle ist: </td>\n" +
+                "            <td>" + role + "</td>\n" +
+                "          </tr>\n" +
+                "      </table>\n" +
                 "    </div>\n" +
                 "    <p>Melden Sie sich unter folgendem Link an um die Änderungen zu sehen:</p>\n" +
                 "      <p>\n" +
@@ -75,6 +82,5 @@ public class ChangeEnabledStatusNotification {
                 "  </body>\n" +
                 "</html>\n";
     }
-
 
 }
