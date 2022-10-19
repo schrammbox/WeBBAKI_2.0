@@ -59,12 +59,14 @@ public class AdminChangeBrancheSubmit {
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
-                "    <p>Sie haben eine Rollenänderung bei folgendem Nutzer getätigt:</p>\n" +
+                "    <p>Einer der Geschäftsführer hat eine Rollenänderung bei folgendem Nutzer getätigt:</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
                 "      <table style=\"\">\n" +
                 "          <tr>\n" +
                 "            <td>Nutzer: </td>\n" +
                 "            <td>" + username + "</td>\n" +
+                "          </tr>\n" +
+                "          <tr>\n" +
                 "            <td>Neue Branche: </td>\n" +
                 "            <td>" + userBranche + "</td>\n" +
                 "          </tr>\n" +

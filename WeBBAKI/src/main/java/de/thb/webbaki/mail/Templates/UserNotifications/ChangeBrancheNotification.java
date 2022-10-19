@@ -59,7 +59,7 @@ public class ChangeBrancheNotification {
                 "  </style>\n" +
                 "\n" +
                 "  <body>\n" +
-                "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
+                "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Branchenänderung auf WebBaKI</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
                 "    <p>Der WebBakI-Geschäftsführer hat Ihnen eine neue Branche zugewiesen:</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +

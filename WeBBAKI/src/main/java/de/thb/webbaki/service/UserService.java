@@ -6,9 +6,11 @@ import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
-import de.thb.webbaki.mail.Templates.UserNotifications.ChangeBrancheNotification;
-import de.thb.webbaki.mail.Templates.UserNotifications.ChangeEnabledStatusNotification;
-import de.thb.webbaki.mail.Templates.UserNotifications.ChangeRoleNotification;
+import de.thb.webbaki.mail.Templates.AdminNotifications.AdminChangeBrancheSubmit;
+import de.thb.webbaki.mail.Templates.AdminNotifications.AdminDeactivateUserSubmit;
+import de.thb.webbaki.mail.Templates.AdminNotifications.AdminRegisterNotification;
+import de.thb.webbaki.mail.Templates.AdminNotifications.AdminRemoveRoleNotification;
+import de.thb.webbaki.mail.Templates.UserNotifications.*;
 import de.thb.webbaki.mail.confirmation.ConfirmationToken;
 import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
 import de.thb.webbaki.repository.RoleRepository;
@@ -67,6 +69,14 @@ public class UserService {
         return userRepository.findByUsername(username) != null;
     }
 
+    public List<User> getUserByAdminrole() {
+        return userRepository.findByRoles_Name("ROLE_SUPERADMIN");
+    }
+
+    public List<User> getUserByOfficeRole() {
+        return userRepository.findByRoles_Name("ROLE_GESCHÄFTSSTELLE");
+    }
+
     /**
      * @param user is used to create new user -> forwarded to registerNewUser
      * @return newly created token
@@ -109,30 +119,22 @@ public class UserService {
             String userLink = "https://webbaki.th-brandenburg.de/confirmation/confirmByUser?token=" + token;
             String adminLink = "https://webbaki.th-brandenburg.de/confirmation/confirm?token=" + token;
 
-            //Email to Superadmin
-            emailSender.send("schrammbox@proton.me", buildAdminEmail("Christian", adminLink,
-                    form.getFirstname(), form.getLastname(),
-                    form.getEmail(), form.getBranche(), form.getCompany()));
+            userRepository.save(user);
 
-            //Email to Superadmin
-            emailSender.send("schoenbe@th-brandenburg.de", buildAdminEmail("Leon", adminLink,
-                    form.getFirstname(), form.getLastname(),
-                    form.getEmail(), form.getBranche(), form.getCompany()));
+            for (User superAdmin : getUserByAdminrole()) {
+                emailSender.send(superAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(superAdmin.getFirstName(), adminLink,
+                        form.getFirstname(), form.getLastname(),
+                        form.getEmail(), form.getBranche(), form.getCompany()));
+            }
 
             //Email to new registered user
-            emailSender.send(form.getEmail(), buildUserEmail(form.getFirstname(), userLink));
-
-            userRepository.save(user);
+            emailSender.send(form.getEmail(), UserRegisterNotification.buildUserEmail(form.getFirstname(), userLink));
         }
     }
 
     @Transactional
     public String confirmToken(String token) throws IllegalStateException {
         ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token);
-
-        if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("Email already confirmed.");
-        }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
         if (expiredAt.isBefore(LocalDateTime.now())) {
@@ -218,7 +220,6 @@ public class UserService {
      */
     public void addRoleToUser(final UserToRoleFormModel formModel) {
 
-        ChangeRoleNotification roleNotification = new ChangeRoleNotification(); // To send mail
 
         String[] roles = formModel.getRole();
 
@@ -228,9 +229,15 @@ public class UserService {
                 if (!user.getRoles().contains(roleRepository.findByName(roles[i]))) {
                     user.addRole((roleRepository.findByName((roles[i]))));
 
-                    emailSender.send(user.getEmail(), roleNotification.changeRoleMail(user.getFirstName(),
+                    emailSender.send(user.getEmail(), AddRoleNotification.changeRoleMail(user.getFirstName(),
                             user.getLastName(),
                             roleRepository.findByName(roles[i])));
+
+                    for (User superAdmin : getUserByAdminrole()) {
+                        emailSender.send(superAdmin.getEmail(), AddRoleNotification.changeRoleMail(superAdmin.getFirstName(),
+                                superAdmin.getLastName(),
+                                roleRepository.findByName(roles[i])));
+                    }
                 }
             }
         }
@@ -247,10 +254,19 @@ public class UserService {
         for (int i = 1; i < roleDel.length; i++) {
             if (!Objects.equals(roleDel[i], "none") && !Objects.equals(roleDel[i], null)) {
                 User user = userRepository.findById(i).get();
-                Role r = roleRepository.findByName(roleDel[i]);
-                user.removeRole(r);
+                Role role = roleRepository.findByName(roleDel[i]);
+                user.removeRole(role);
 
+                emailSender.send(user.getEmail(), RemoveRoleNotification.removeRoleMail(user.getFirstName(),
+                        user.getLastName(),
+                        roleRepository.findByName(roleDel[i])));
 
+                for (User superAdmin : getUserByOfficeRole()) {
+                    emailSender.send(superAdmin.getEmail(), AdminRemoveRoleNotification.removeRole(superAdmin.getFirstName(),
+                            superAdmin.getLastName(),
+                            roleRepository.findByName(roleDel[i]),
+                            user.getUsername()));
+                }
             }
         }
     }
@@ -262,6 +278,7 @@ public class UserService {
      */
     public void changeEnabledStatus(UserForm form) {
         ChangeEnabledStatusNotification enabledStatusNotification = new ChangeEnabledStatusNotification();
+        AdminDeactivateUserSubmit deactivateUserSubmit = new AdminDeactivateUserSubmit();
 
         List<User> users = getAllUsers();
 
@@ -270,12 +287,20 @@ public class UserService {
                 users.get(i).setEnabled(form.getUsers().get(i).isEnabled());
 
                 emailSender.send(users.get(i).getEmail(), enabledStatusNotification.changeBrancheMail(users.get(i).getFirstName(), users.get(i).getLastName()));
+
+                for (User officeAdmin : getUserByOfficeRole()) {
+                    emailSender.send(officeAdmin.getEmail(), deactivateUserSubmit.changeEnabledStatus(officeAdmin.getFirstName(),
+                            officeAdmin.getLastName(),
+                            users.get(i).isEnabled(),
+                            users.get(i).getUsername()));
+                }
             }
         }
     }
 
     public void changeBranche(UserForm form) {
         ChangeBrancheNotification brancheNotification = new ChangeBrancheNotification(); // To send mail
+        AdminChangeBrancheSubmit changeBrancheSubmit = new AdminChangeBrancheSubmit(); // Send Mail to admin
 
         List<User> users = getAllUsers();
 
@@ -286,169 +311,14 @@ public class UserService {
                 emailSender.send(users.get(i).getEmail(), brancheNotification.changeBrancheMail(users.get(i).getFirstName(),
                         users.get(i).getLastName(),
                         users.get(i).getBranche()));
+
+                for (User officeAdmin : getUserByOfficeRole()) {
+                    emailSender.send(officeAdmin.getEmail(), changeBrancheSubmit.changeBrancheMail(officeAdmin.getFirstName(),
+                            officeAdmin.getLastName(),
+                            users.get(i).getBranche(),
+                            users.get(i).getUsername()));
+                }
             }
         }
     }
-
-
-    private String buildAdminEmail(String name, String link, String userFirstname, String userLastname,
-                                   String userEmail, String userBranche, String userCompany) {
-        return "<!DOCTYPE html>\n" +
-                "<html lang=\"de\" dir=\"ltr\">\n" +
-                "  <head>\n" +
-                "    <meta charset=\"utf-8\">\n" +
-                "    <title></title>\n" +
-                "  </head>\n" +
-                "\n" +
-                "  <style>\n" +
-                "    p{\n" +
-                "      font-size:16px;\n" +
-                "    }\n" +
-                "\n" +
-                "    html {\n" +
-                "      font-family: sans-serif;\n" +
-                "      text-align:center;\n" +
-                "      align-content:center;\n" +
-                "    }\n" +
-                "\n" +
-                "    table {\n" +
-                "      width:560px;\n" +
-                "      border-collapse: collapse;\n" +
-                "      border: 2px solid rgb(200,200,200);\n" +
-                "      letter-spacing: 1px;\n" +
-                "      font-size: 0.9rem;\n" +
-                "    }\n" +
-                "\n" +
-                "    td, th {\n" +
-                "      border: 1px solid rgb(190,190,190);\n" +
-                "      padding: 10px 20px;\n" +
-                "    }\n" +
-                "\n" +
-                "    th {\n" +
-                "      background-color: rgb(235,235,235);\n" +
-                "    }\n" +
-                "\n" +
-                "    td {\n" +
-                "      text-align: center;\n" +
-                "    }\n" +
-                "\n" +
-                "    tr:nth-child(even) td {\n" +
-                "      background-color: rgb(250,250,250);\n" +
-                "    }\n" +
-                "\n" +
-                "    tr:nth-child(odd) td {\n" +
-                "      background-color: rgb(245,245,245);\n" +
-                "    }\n" +
-                "\n" +
-                "    caption {\n" +
-                "      padding: 10px;\n" +
-                "    }\n" +
-                "  </style>\n" +
-                "\n" +
-                "  <body>\n" +
-                "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
-                "    <p>Hallo " + name + ",</p>\n" +
-                "    <p>Es hat sich ein neuer WebBaKI-Nutzer registriert. Infos zum Nutzer:</p>\n" +
-                "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
-                "      <table style=\"\">\n" +
-                "          <tr>\n" +
-                "            <td>Vorname</td>\n" +
-                "            <td>" + userFirstname + "</td>\n" +
-                "          </tr>\n" +
-                "          <tr>\n" +
-                "            <td>Nachname</td>\n" +
-                "            <td>" + userLastname + "</td>\n" +
-                "          </tr>\n" +
-                "          <tr>\n" +
-                "            <td>Firma</td>\n" +
-                "            <td>" + userCompany + "</td>\n" +
-                "          </tr>\n" +
-                "          <tr>\n" +
-                "            <td>Email</td>\n" +
-                "            <td>" + userEmail + "</td>\n" +
-                "          </tr>\n" +
-                "          <tr>\n" +
-                "            <td>Branche</td>\n" +
-                "            <td>" + userBranche + "</td>\n" +
-                "          </tr>\n" +
-                "      </table>\n" +
-                "    </div>\n" +
-                "    <p>Der Account kann unter folgendem Link aktiviert oder abgelehnt werden:</p>\n" +
-                "      <p>\n" +
-                "        <a href=" + link + ">Nutzer verifizieren</a>\n" +
-                "        <span></span>\n" +
-                "        <a href=\"http://localhost:8080/confirmation/userDenied\">Nutzer ablehnen</a>\n" +
-                "      </p>\n" +
-                "    <p>Der Link bleibt 3 Tage gültig.</p>\n" +
-                "  </body>\n" +
-                "</html>\n";
-    }
-
-    // ------------------------------MAIL TO USER --------------------------------------------------------
-    private String buildUserEmail(String name, String link) {
-        return "<!DOCTYPE html>\n" +
-                "<html lang=\"de\" dir=\"ltr\">\n" +
-                "  <head>\n" +
-                "    <meta charset=\"utf-8\">\n" +
-                "    <title></title>\n" +
-                "  </head>\n" +
-                "\n" +
-                "  <style>\n" +
-                "    p{\n" +
-                "      font-size:16px;\n" +
-                "    }\n" +
-                "\n" +
-                "    html {\n" +
-                "      font-family: sans-serif;\n" +
-                "      text-align:center;\n" +
-                "      align-content:center;\n" +
-                "    }\n" +
-                "\n" +
-                "    table {\n" +
-                "      width:560px;\n" +
-                "      border-collapse: collapse;\n" +
-                "      border: 2px solid rgb(200,200,200);\n" +
-                "      letter-spacing: 1px;\n" +
-                "      font-size: 0.9rem;\n" +
-                "    }\n" +
-                "\n" +
-                "    td, th {\n" +
-                "      border: 1px solid rgb(190,190,190);\n" +
-                "      padding: 10px 20px;\n" +
-                "    }\n" +
-                "\n" +
-                "    th {\n" +
-                "      background-color: rgb(235,235,235);\n" +
-                "    }\n" +
-                "\n" +
-                "    td {\n" +
-                "      text-align: center;\n" +
-                "    }\n" +
-                "\n" +
-                "    tr:nth-child(even) td {\n" +
-                "      background-color: rgb(250,250,250);\n" +
-                "    }\n" +
-                "\n" +
-                "    tr:nth-child(odd) td {\n" +
-                "      background-color: rgb(245,245,245);\n" +
-                "    }\n" +
-                "\n" +
-                "    caption {\n" +
-                "      padding: 10px;\n" +
-                "    }\n" +
-                "  </style>\n" +
-                "\n" +
-                "  <body>\n" +
-                "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
-                "    <p>Hallo " + name + ",</p>\n" +
-                "    <p>Vielen Dank für die Registrierung. Bitte bestätige deine Email unter folgendem Link:</p>\n" +
-                "      <p>\n" +
-                "        <a href=" + link + ">Verifizieren</a>\n" +
-                "        <span></span>\n" +
-                "      </p>\n" +
-                "    <p>Der Link bleibt 3 Tage gültig.</p>\n" +
-                "  </body>\n" +
-                "</html>\n";
-    }
-
 }

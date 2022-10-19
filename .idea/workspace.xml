@@ -4,17 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Merged test/hideDBCredentials into master">
-      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminChangeBrancheSubmit.java" afterDir="false" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Send Superadmin mails **NOT WORKING**">
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminAddRoleNotification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminDeactivateUserSubmit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminRegisterNotification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminRemoveRoleNotification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/RemoveRoleNotification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserRegisterNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_10_2022_18_10__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/SuperAdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/WebSecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/ChangeBrancheNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeBrancheNotification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/ChangeEnabledStatusNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeEnabledStatusNotification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/ChangeRoleNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeRoleNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminChangeBrancheSubmit.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminChangeBrancheSubmit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeBrancheNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeBrancheNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeEnabledStatusNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeEnabledStatusNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeRoleNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/AddRoleNotification.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/EmailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/EmailService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/Templates/AdminNotifications/AdminChangeBrancheSubmit.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/Templates/AdminNotifications/AdminChangeBrancheSubmit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/Templates/UserNotifications/ChangeBrancheNotification.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/Templates/UserNotifications/ChangeBrancheNotification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/Templates/UserNotifications/ChangeEnabledStatusNotification.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/Templates/UserNotifications/ChangeEnabledStatusNotification.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/Templates/UserNotifications/ChangeRoleNotification.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService$UserServiceBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService$UserServiceBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +94,9 @@
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75"
+    "RequestMappingsPanelWidth1": "75",
+    "WebServerToolWindowFactoryState": "false",
+    "spring.configuration.checksum": "1414bbe933792e16d677468e5cad7cba"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -225,6 +244,7 @@
       <workItem from="1665416881745" duration="765000" />
       <workItem from="1665417665213" duration="369000" />
       <workItem from="1665504523460" duration="3374000" />
+      <workItem from="1666187010245" duration="5863000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -429,7 +449,21 @@
       <option name="project" value="LOCAL" />
       <updated>1666111090480</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Send Superadmin mails **NOT WORKING**">
+      <created>1666116247996</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1666116247996</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Send Superadmin mails **NOT WORKING**">
+      <created>1666116259990</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1666116259990</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -504,7 +538,8 @@
     <MESSAGE value="dev/changeStatus_And_BugfixComment merged into /master" />
     <MESSAGE value="Adds the layer of color in the threatmatrix." />
     <MESSAGE value="Merged test/hideDBCredentials into master" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merged test/hideDBCredentials into master" />
+    <MESSAGE value="Send Superadmin mails **NOT WORKING**" />
+    <option name="LAST_COMMIT_MESSAGE" value="Send Superadmin mails **NOT WORKING**" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
