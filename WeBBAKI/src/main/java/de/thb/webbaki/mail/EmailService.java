@@ -1,5 +1,6 @@
 package de.thb.webbaki.mail;
 
+import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class EmailService implements EmailSender{
     @Override
     @Async
     public void send(String to, String email) {
+
         try{
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
