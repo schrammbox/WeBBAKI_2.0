@@ -117,15 +117,9 @@ public class UserService {
 
 
             String userLink = "https://webbaki.th-brandenburg.de/confirmation/confirmByUser?token=" + token;
-            String adminLink = "https://webbaki.th-brandenburg.de/confirmation/confirm?token=" + token;
 
             userRepository.save(user);
 
-            for (User superAdmin : getUserByAdminrole()) {
-                emailSender.send(superAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(superAdmin.getFirstName(), adminLink,
-                        form.getFirstname(), form.getLastname(),
-                        form.getEmail(), form.getBranche(), form.getCompany()));
-            }
 
             //Email to new registered user
             emailSender.send(form.getEmail(), UserRegisterNotification.buildUserEmail(form.getFirstname(), userLink));
@@ -191,7 +185,25 @@ public class UserService {
      * @return value TRUE or FALSE based on bit value (0 = false, 1 = true)
      */
     public String confirmUser(String token) {
-        userConfirmation(token);
+        ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token);
+        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
+        if (expiredAt.isBefore(LocalDateTime.now())) {
+            throw new IllegalStateException("token expired");
+        }else{
+            //The confirmation only should be done if its not already done
+            if(!confirmationToken.getUserConfirmation()) {
+                userConfirmation(token);
+
+                //send link to admin
+                String adminLink = "https://webbaki.th-brandenburg.de/confirmation/confirm?token=" + token;
+                User user = confirmationToken.getUser();
+                for (User superAdmin : getUserByAdminrole()) {
+                    emailSender.send(superAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(superAdmin.getFirstName(), adminLink,
+                            user.getFirstName(), user.getLastName(),
+                            user.getEmail(), user.getBranche(), user.getCompany()));
+                }
+            }
+        }
         return "confirmation/confirmedByUser";
     }
 
