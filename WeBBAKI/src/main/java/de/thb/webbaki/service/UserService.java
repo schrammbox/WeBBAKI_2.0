@@ -139,7 +139,7 @@ public class UserService {
         }
         enableUser(confirmationToken.getUser().getUsername(), token);
 
-        return "/confirmation/confirm";
+        return "confirmation/confirm";
     }
 
     /**
