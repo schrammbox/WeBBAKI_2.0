@@ -109,7 +109,7 @@ public class UserService {
             user.setCompany(form.getCompany());
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
-            user.setRoles(Arrays.asList(roleRepository.findByName("DEFAULT_USER")));
+            user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_DEFAULT_USER")));
             user.setUsername(form.getUsername());
             user.setEnabled(false);
 

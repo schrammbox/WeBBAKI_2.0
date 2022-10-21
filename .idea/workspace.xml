@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds layer color to the report.">
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" afterDir="false" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Reset the footer to a non-js solution(sticks to the bottem of the container).">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,7 +220,7 @@
       <workItem from="1666193752595" duration="4113000" />
       <workItem from="1666264456184" duration="3979000" />
       <workItem from="1666279032331" duration="3151000" />
-      <workItem from="1666334206050" duration="2874000" />
+      <workItem from="1666334206050" duration="3712000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -483,7 +488,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666340405989</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Reset the footer to a non-js solution(sticks to the bottem of the container).">
+      <created>1666340645661</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1666340645661</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +550,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="-start der sektorunterteiling" />
     <MESSAGE value="Created DeleteQuestionnaire Method&#10;&#10;NOT FINISHED YET" />
     <MESSAGE value="User Authorization /admin.html" />
     <MESSAGE value="Register 1 Email -&gt; n usernames works.&#10;&#10;Login only with usernames anymore though" />
@@ -563,7 +574,8 @@
     <MESSAGE value="Fixes problems with jar." />
     <MESSAGE value="Adds better footer." />
     <MESSAGE value="Adds layer color to the report." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adds layer color to the report." />
+    <MESSAGE value="Reset the footer to a non-js solution(sticks to the bottem of the container)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Reset the footer to a non-js solution(sticks to the bottem of the container)." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
