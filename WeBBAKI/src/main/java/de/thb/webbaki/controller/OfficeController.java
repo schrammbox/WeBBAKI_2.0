@@ -1,8 +1,6 @@
 package de.thb.webbaki.controller;
 
-import de.thb.webbaki.controller.form.BranchForm;
 import de.thb.webbaki.controller.form.UserForm;
-import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -42,9 +39,10 @@ public class OfficeController {
     public String deactivateUser(@ModelAttribute("form") @Valid UserForm form){
         System.out.println(form.getUsers());
 
-        userService.deactivateUser(form);
+        userService.changeEnabledStatus(form);
         userService.changeBranche(form);
 
         return "redirect:office";
     }
+
 }

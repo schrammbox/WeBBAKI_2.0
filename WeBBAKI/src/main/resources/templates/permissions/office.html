@@ -48,12 +48,12 @@
                             <select th:id="selectBranch" type="branche" th:field="*{users[__${itemStat.index}__].branche}" name="branche" class="form-select">
                                 <option value="none" selected disabled hidden>Branche wählen...</option>
                                 <optgroup label="Energie">
-                                    <option th:each="sectorEnergie : ${T(de.thb.webbaki.enums.SectorEnergie).values()}"
+                                    <option th:each="sectorEnergie : ${T(de.thb.webbaki.enums.SectorEnergy).values()}"
                                             th:value="${sectorEnergie.value}"
                                             th:text="${sectorEnergie.value}"></option>
                                 </optgroup>
                                 <optgroup label="Gesundheit">
-                                    <option th:each="sectorGesundheit : ${T(de.thb.webbaki.enums.SectorGesundheit).values()}"
+                                    <option th:each="sectorGesundheit : ${T(de.thb.webbaki.enums.SectorHealth).values()}"
                                             th:value="${sectorGesundheit}"
                                             th:text="${sectorGesundheit.value}"></option>
                                 </optgroup>

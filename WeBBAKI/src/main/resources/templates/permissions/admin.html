@@ -12,10 +12,6 @@
         <h2>Admin Dashboard</h2><br>
         <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
 
-        <a class="btn btn-bd-primary" th:href="@{snap}">Snapshot</a>
-        <a class="btn btn-bd-primary" th:href="@{report}">aktuelle Bedrohungsmatrix</a>
-        <a class="btn btn-bd-primary" th:href="@{/report/chronic}">Verlauf Bedrohungsmatrix</a>
-
         <form th:object="${roleForm}" th:action="@{/admin}" method="post">
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">

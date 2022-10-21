@@ -31,21 +31,26 @@
                 <tbody>
 
                 <th:block th:each="scenario : ${masterScenario.scenarios}">
-                    <tr class="threatTr">
-                        <td th:text="${scenario.id}"></td>
+                    <tr class="threatTr ">
+                        <!--use ternary operator to choose which class (classes specify background-color) the ids have, based on the MasterScenarios-->
+                        <td th:text="${scenario.id}" th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
 
                         <td th:text="${scenario.name}"></td>
                         <td>
-                            <select class="form-select probabilitySelect" th:attr="name='prob['+${scenario.id}+']'" onchange="onChange(this)">
+                            <select class="form-select probabilitySelect" th:attr="name='prob['+${scenario.id}+']'"
+                                    onchange="onChange(this)">
                                 <div th:switch="${questMap.get(#vars.scenario.id)[0]}">
                                     <option th:case="'none'" value="none" selected>Bitte wählen...</option>
-                                    <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[0]}" selected></option>
+                                    <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[0]}"
+                                            selected></option>
                                 </div>
-                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}" th:if="${probability.value != questMap.get(#vars.scenario.id)[0]}"
+                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
+                                        th:if="${probability.value != questMap.get(#vars.scenario.id)[0]}"
                                         th:value="${probability.value}" th:text="${probability.value}"></option>
                             </select>
                         </td>
-                        <td><select class="form-select impactSelect" th:attr="name='imp['+${scenario.id}+']'" onchange="onChange(this)">
+                        <td><select class="form-select impactSelect" th:attr="name='imp['+${scenario.id}+']'"
+                                    onchange="onChange(this)">
                             <div th:switch="${questMap.get(#vars.scenario.id)[1]}">
                                 <option th:case="'none'" value="none" selected>Bitte wählen...</option>
                                 <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[1]}" selected></option>
@@ -53,14 +58,18 @@
                             <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
                                     th:value="${impact.value}" th:text="${impact.value}"></option>
                         </select></td>
+
                         <td>
                             <div class="showQuestion threatsituationDiv">Unbekannt</div>
                         </td>
 
                         <td>
                             <div class="dropdown">
-                                <button type="button" class="btn bi bi-card-text" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"></button>
-                                <textarea class="form-control dropdown-menu" id="exampleDropdownFormEmail2" rows="3" cols="6" placeholder=" Kommentar..."></textarea>
+                                <button type="button" class="btn bi bi-card-text" data-bs-toggle="dropdown"
+                                        aria-expanded="false" data-bs-auto-close="outside"></button>
+                                <textarea class="form-control dropdown-menu" id="exampleDropdownFormEmail2"
+                                          th:field="*{smallComments[__${value.countAndGet()}__]}" rows="3" cols="6" maxlength="360"
+                                          placeholder=" Kommentar bis zu 360 Zeichen..."></textarea>
 
                             </div>
                         </td>
@@ -78,8 +87,10 @@
             <a class="btn btn-outline-secondary" role="button" th:href="@{/threatmatrix/add_szenario}"><i class="bi bi-plus-circle"></i> neues Szenario anlegen</a>
         <br><br>
         -->
-        <h3><label class="form-group shadow-textarea" >Kommentar zum Fragebogen</label></h3>
-        <textarea  class="form-control z-depth-1" id="exampleFormControlTextarea6" th:rows="5" th:cols="123" th:value="${quest.comment}" th:text="${quest.comment}" placeholder="Kommentar bitte hier eingeben..."></textarea>
+        <h3><label class="form-group shadow-textarea">Kommentar zum Fragebogen</label></h3>
+        <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" th:rows="5" th:cols="123"
+                  th:field="${quest.comment}" th:value="${quest.comment}" th:text="${quest.comment}"
+                  placeholder="Kommentar bitte hier eingeben..."></textarea>
 
         <div class="col-md-12 mt-2">
             <button type="submit" class="btn btn-primary float-end">Abschicken</button>

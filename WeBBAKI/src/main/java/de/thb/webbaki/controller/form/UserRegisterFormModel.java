@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -21,13 +20,13 @@ public class UserRegisterFormModel {
 
     //SEKTOREN
     private SectorFinance sectorFinance;
-    private SectorGesundheit sectorGesundheit;
+    private SectorHealth sectorGesundheit;
     private SectorInfandTel sectorInfandTel;
     private SectorMedandCult sectorMedandCult;
     private SectorNutriton sectorNutriton;
     private SectorTransport sectorTransport;
     private SectorState sectorState;
-    private SectorEnergie sectorEnergie;
+    private SectorEnergy sectorEnergie;
     private SectorWasser sectorWasser;
 
     @NotNull(message = "LastName not null")

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     //create hover-effect for the threatmatrix nav element
     $('#dropdown-div').hover(function() {
             $("#dropdown-div").addClass("show");
@@ -10,4 +11,5 @@ $(document).ready(function () {
             $("#dropdown-ul").removeClass("show");
             $("#dropdown-a").attr("aria-expanded","false");
         });
+
 });

@@ -1,5 +1,6 @@
 package de.thb.webbaki.mail;
 
+import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +23,14 @@ public class EmailService implements EmailSender{
     @Override
     @Async
     public void send(String to, String email) {
+
         try{
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
             helper.setText(email, true);
             helper.setTo(to);
-            helper.setSubject("Bestätigung für neuen WebBaKI-Nutzer");
+            helper.setSubject("Änderung auf WebBakI");
             helper.setFrom("noreply@th-brandenburg.de");
             javaMailSender.send(mimeMessage);
         }catch (MessagingException e){

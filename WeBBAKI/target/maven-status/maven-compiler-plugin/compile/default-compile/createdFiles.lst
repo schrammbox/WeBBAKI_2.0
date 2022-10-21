@@ -1,3 +1,4 @@
+de\thb\webbaki\mail\Templates\AdminNotifications\AdminRemoveRoleNotification.class
 de\thb\webbaki\enums\ReportFocus.class
 de\thb\webbaki\service\SnapshotService.class
 de\thb\webbaki\controller\ThreatMatrixController.class
@@ -10,14 +11,15 @@ de\thb\webbaki\service\QuestionnaireService$QuestionnaireServiceBuilder.class
 de\thb\webbaki\enums\SzenarioType.class
 de\thb\webbaki\security\passwordValidation\PasswordMatchesValidator.class
 de\thb\webbaki\security\MyUserDetails.class
+de\thb\webbaki\enums\SectorEnergy.class
 de\thb\webbaki\enums\SectorFinance.class
 de\thb\webbaki\repository\QuestionnaireRepository.class
 de\thb\webbaki\security\passwordValidation\PasswordMatches.class
-de\thb\webbaki\enums\SectorGesundheit.class
 de\thb\webbaki\enums\SectorNutriton.class
 de\thb\webbaki\entity\Questionnaire$QuestionnaireBuilder.class
 de\thb\webbaki\controller\SuperAdminController.class
 de\thb\webbaki\mail\confirmation\ConfirmationToken$ConfirmationTokenBuilder.class
+de\thb\webbaki\mail\Templates\UserNotifications\ChangeEnabledStatusNotification.class
 de\thb\webbaki\service\RoleService.class
 de\thb\webbaki\entity\Role.class
 de\thb\webbaki\mail\EmailConfig.class
@@ -34,6 +36,7 @@ de\thb\webbaki\controller\form\UserRegisterFormModel$UserRegisterFormModelBuilde
 de\thb\webbaki\repository\PrivilegeRepository.class
 de\thb\webbaki\controller\MainController.class
 de\thb\webbaki\service\ReportService$1.class
+de\thb\webbaki\mail\Templates\AdminNotifications\AdminChangeBrancheSubmit.class
 de\thb\webbaki\entity\Snapshot.class
 de\thb\webbaki\entity\Privilege.class
 de\thb\webbaki\repository\RoleRepository.class
@@ -41,11 +44,15 @@ de\thb\webbaki\service\UserService.class
 de\thb\webbaki\mail\EmailSender.class
 de\thb\webbaki\enums\SectorInfandTel.class
 de\thb\webbaki\enums\SectorWasser.class
+de\thb\webbaki\mail\Templates\UserNotifications\RemoveRoleNotification.class
 de\thb\webbaki\controller\ReportController.class
 de\thb\webbaki\controller\form\ThreatMatrixFormModel$ThreatMatrixFormModelBuilder.class
+de\thb\webbaki\mail\Templates\UserNotifications\ChangeBrancheNotification.class
 de\thb\webbaki\service\Exceptions\UserAlreadyExistsException.class
+de\thb\webbaki\service\helper\Counter.class
+de\thb\webbaki\mail\Templates\AdminNotifications\AdminRegisterNotification.class
 de\thb\webbaki\entity\Scenario$ScenarioBuilder.class
-de\thb\webbaki\enums\SectorEnergie.class
+de\thb\webbaki\enums\SectorHealth.class
 de\thb\webbaki\security\authority\UserAuthority.class
 de\thb\webbaki\enums\SectorState.class
 de\thb\webbaki\configuration\SecurityConfiguration.class
@@ -57,6 +64,7 @@ de\thb\webbaki\service\SnapshotService$SnapshotServiceBuilder.class
 de\thb\webbaki\service\Exceptions\WrongPathException.class
 de\thb\webbaki\repository\SnapshotRepository.class
 de\thb\webbaki\mail\confirmation\ConfirmationTokenRepository.class
+de\thb\webbaki\mail\Templates\AdminNotifications\AdminAddRoleNotification.class
 de\thb\webbaki\service\UserService$UserServiceBuilder.class
 de\thb\webbaki\controller\form\UserRegisterFormModel.class
 de\thb\webbaki\controller\form\UserToRoleFormModel$UserToRoleFormModelBuilder.class
@@ -68,6 +76,7 @@ de\thb\webbaki\enums\SectorTransport.class
 de\thb\webbaki\enums\Impact.class
 de\thb\webbaki\mail\EmailService.class
 de\thb\webbaki\mail\confirmation\ConfirmationTokenService.class
+de\thb\webbaki\mail\Templates\AdminNotifications\AdminDeactivateUserSubmit.class
 de\thb\webbaki\controller\form\UserToRoleFormModel.class
 de\thb\webbaki\configuration\SetupDataLoader.class
 de\thb\webbaki\enums\Probability.class
@@ -76,8 +85,10 @@ de\thb\webbaki\controller\UserController.class
 de\thb\webbaki\mail\confirmation\ConfirmationToken.class
 de\thb\webbaki\repository\ScenarioRepository.class
 de\thb\webbaki\controller\form\BranchForm.class
+de\thb\webbaki\mail\Templates\UserNotifications\AddRoleNotification.class
 de\thb\webbaki\entity\Snapshot$SnapshotBuilder.class
 de\thb\webbaki\controller\OfficeController.class
 de\thb\webbaki\repository\UserRepository.class
 de\thb\webbaki\entity\User$UserBuilder.class
 de\thb\webbaki\service\MasterScenarioService.class
+de\thb\webbaki\mail\Templates\UserNotifications\UserRegisterNotification.class

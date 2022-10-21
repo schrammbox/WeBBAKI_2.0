@@ -1,7 +1,6 @@
 package de.thb.webbaki.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -9,6 +8,8 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id
@@ -28,6 +29,10 @@ public class Role {
             inverseJoinColumns = @JoinColumn(
                     name = "privilege_id", referencedColumnName = "id"))
     private Collection<Privilege> privileges;
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

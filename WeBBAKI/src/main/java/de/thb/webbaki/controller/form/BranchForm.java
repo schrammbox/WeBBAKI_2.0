@@ -19,13 +19,13 @@ public class BranchForm {
 
     //SEKTOREN
     private SectorFinance sectorFinance;
-    private SectorGesundheit sectorGesundheit;
+    private SectorHealth sectorGesundheit;
     private SectorInfandTel sectorInfandTel;
     private SectorMedandCult sectorMedandCult;
     private SectorNutriton sectorNutriton;
     private SectorTransport sectorTransport;
     private SectorState sectorState;
-    private SectorEnergie sectorEnergie;
+    private SectorEnergy sectorEnergie;
     private SectorWasser sectorWasser;
 
     private String branche;

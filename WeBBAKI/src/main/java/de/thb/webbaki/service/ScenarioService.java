@@ -18,4 +18,6 @@ public class ScenarioService {
     public List<Scenario> getAllScenarios(){return (List<Scenario>) scenarioRepository.findAll();}
 
     public void addScenario(Scenario s){scenarioRepository.save(s); }
+
+    public long getNumberOfScenarios(){return scenarioRepository.count();}
 }
