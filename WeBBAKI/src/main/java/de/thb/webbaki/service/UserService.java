@@ -106,6 +106,7 @@ public class UserService {
             user.setLastName(form.getLastname());
             user.setFirstName(form.getFirstname());
             user.setBranche(form.getBranche());
+            user.setSector(getSectorNameFromBrancheName(form.getBranche()));
             user.setCompany(form.getCompany());
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
@@ -331,6 +332,54 @@ public class UserService {
                             users.get(i).getUsername()));
                 }
             }
+        }
+    }
+
+    private String getSectorNameFromBrancheName(String brancheName){
+        switch (brancheName){
+            case "Elektrizität":
+            case "Gas":
+            case "Mineralöl":
+            case "Fernwärme":
+                return "SectorEnergie";
+            case "Banken":
+            case "Börsen":
+            case "Versicherungen":
+            case "Finanzdienstleister":
+                return "SectorFinance";
+            case "medizinische Versorgung":
+            case "Arzneimittel und Impfstoffe":
+            case "Labore":
+                return "SectorGesundheit";
+            case "Telekommunikationstechnik":
+            case "Informationstechnik":
+                return "SectorInfandTel";
+            case "Rundfunk (Fernsehen und Radio)":
+            case "gedruckte und elektronische Presse":
+            case "Kulturgut":
+            case "symbolträchtige Bauwerke":
+               return "SectorMedandCult";
+            case "Ernährungswissenschaft":
+            case "Lebensmittelhandel":
+                return "SectorNutriton";
+            case "Regierung und Verwaltung":
+            case "Parlament":
+            case "Justizeinrichtungen":
+            case "Notfall/Rettungswesen":
+                return "SectorState";
+            case "Luftfahrt":
+            case "Seeschifffahrt":
+            case "Binnenschifffahrt":
+            case "Schienenverkehr":
+            case "Straßenvekehr":
+            case "Logistik":
+            case "ÖPNV":
+                return "SectorTransport";
+            case "öffentliche Wasserversorgung":
+            case "öffentliche Abwasserbeseitigung":
+                return "SectorWasser";
+            default:
+                return "SectorEnergie";
         }
     }
 }

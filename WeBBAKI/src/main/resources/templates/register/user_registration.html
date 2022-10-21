@@ -45,39 +45,39 @@
                                     </optgroup>
                                     <optgroup label="Gesundheit">
                                         <option th:each="sectorGesundheit : ${T(de.thb.webbaki.enums.SectorGesundheit).values()}"
-                                                th:value="${sectorGesundheit}"
+                                                th:value="${sectorGesundheit.value}"
                                                 th:text="${sectorGesundheit.value}"></option>
                                     </optgroup>
                                     <optgroup label="Informationstechnik und Telekommunikation">
                                         <option th:each="sectorInfandTel : ${T(de.thb.webbaki.enums.SectorInfandTel).values()}"
-                                                th:value="${sectorInfandTel}"
+                                                th:value="${sectorInfandTel.value}"
                                                 th:text="${sectorInfandTel.value}"></option>
                                     </optgroup>
                                     <optgroup label="Transport und Verkehr">
                                         <option th:each="sectorTransport : ${T(de.thb.webbaki.enums.SectorTransport).values()}"
-                                                th:value="${sectorTransport}"
+                                                th:value="${sectorTransport.value}"
                                                 th:text="${sectorTransport.value}"></option>
                                     </optgroup>
                                     <optgroup label="Medien und Kultur">
                                         <option th:each="sectorMedandCult : ${T(de.thb.webbaki.enums.SectorMedandCult).values()}"
-                                                th:value="${sectorMedandCult}"
+                                                th:value="${sectorMedandCult.value}"
                                                 th:text="${sectorMedandCult.value}"></option>
                                     </optgroup>
                                     <optgroup label="Wasser">
                                         <option th:each="sectorWasser : ${T(de.thb.webbaki.enums.SectorWasser).values()}"
-                                                th:value="${sectorWasser}" th:text="${sectorWasser.value}"></option>
+                                                th:value="${sectorWasser.value}" th:text="${sectorWasser.value}"></option>
                                     </optgroup>
                                     <optgroup label="Finanz- und Versicherungswesen">
                                         <option th:each="sectorFinance : ${T(de.thb.webbaki.enums.SectorFinance).values()}"
-                                                th:value="${sectorFinance}" th:text="${sectorFinance.value}"></option>
+                                                th:value="${sectorFinance.value}" th:text="${sectorFinance.value}"></option>
                                     </optgroup>
                                     <optgroup label="Ernährung">
                                         <option th:each="sectorNutriton : ${T(de.thb.webbaki.enums.SectorNutriton).values()}"
-                                                th:value="${sectorNutriton}" th:text="${sectorNutriton.value}"></option>
+                                                th:value="${sectorNutriton.value}" th:text="${sectorNutriton.value}"></option>
                                     </optgroup>
                                     <optgroup label="Staat und Verwaltung">
                                         <option th:each="sectorState : ${T(de.thb.webbaki.enums.SectorState).values()}"
-                                                th:value="${sectorState}" th:text="${sectorState.value}"></option>
+                                                th:value="${sectorState.value}" th:text="${sectorState.value}"></option>
                                     </optgroup>
                                 </select>
                             </div>
