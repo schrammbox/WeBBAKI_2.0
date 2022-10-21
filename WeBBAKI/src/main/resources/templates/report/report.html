@@ -15,7 +15,7 @@
                 <tbody>
                     <th:block th:each="scenario: ${masterScenario.scenarios}">
                         <tr>
-                            <td style="border-bottom: 1px solid grey;" th:text="${scenario.id}"></td>
+                            <td th:text="${scenario.id}" th:style="${'background-color: '+((masterScenario.getId() <=2)?('#9fd8ee'):((masterScenario.getId() <= 4)?('#b5d48c'):('#f6e37b')))+';'+'border-bottom: 1px solid grey; text-align: center'}"></td>
 
                             <td style="border-bottom: 1px solid grey;" th:text="${scenario.name}"></td>
 

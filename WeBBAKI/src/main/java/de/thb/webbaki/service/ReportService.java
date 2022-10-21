@@ -25,7 +25,7 @@ import java.util.Queue;
 
 
 @Service
-public class ReportService {
+public class  ReportService {
 
     @Autowired
     private UserService userService;
