@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds the layer of color in the threatmatrix.">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/3c174c9c-221e-4fdb-b372-151ff9ed4976.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3c174c9c-221e-4fdb-b372-151ff9ed4976.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_10_2022_17_20__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_10_10_2022_17_20__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_10_10_2022_17_23__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_10_10_2022_17_23__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_10_22__10_27__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_10_22__10_27__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2022_17_21__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_10_2022_17_21__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_10_2022_18_10_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_10_2022_18_10__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/SuperAdminController.class" beforeDir="false" />
@@ -18,13 +14,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/WebSecurityConfig.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30_[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_10_2022_07_30__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/SnapshotRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/repository/SnapshotRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/ScheduleService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/SnapshotService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/SnapshotService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/WeBBAKIApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/WeBBAKIApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/SnapshotService$SnapshotServiceBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/SnapshotService$SnapshotServiceBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/SnapshotService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/SnapshotService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +87,7 @@
       <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/images" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
+  <component name="RunManager" selected="Maven.WeBBAKI [clean,package]">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
