@@ -9,6 +9,7 @@ import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.helper.ThreatSituation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
@@ -22,7 +23,9 @@ import java.util.stream.Collectors;
 public class QuestionnaireService {
     private final QuestionnaireRepository questionnaireRepository;
     private final UserRepository userRepository;
-    private final ScenarioRepository scenarioRepository;
+
+    @Autowired
+    private ScenarioService scenarioService;
 
     public Questionnaire getQuestionnaire(long id) {
         return questionnaireRepository.findById(id);
@@ -237,8 +240,12 @@ public class QuestionnaireService {
         return newQuestionnaireList;
     }
 
-
-
-
+    public Queue<ThreatSituation> getEmptyThreatSituationQueue(){
+        LinkedList<ThreatSituation> threatSituationList = new LinkedList<ThreatSituation>();
+        for(int i=0; i < scenarioService.getNumberOfScenarios();i++){
+            threatSituationList.add(new ThreatSituation(-1));
+        }
+        return threatSituationList;
+    }
 
 }

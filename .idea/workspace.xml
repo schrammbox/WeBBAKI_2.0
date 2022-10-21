@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Reset the footer to a non-js solution(sticks to the bottem of the container).">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Problem solved. New User is now default_user again.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/QuestionnaireService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/QuestionnaireService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/ReportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/ScenarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/ScenarioService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService$QuestionnaireServiceBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService$QuestionnaireServiceBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/ReportService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/ReportService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/ScenarioService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/ScenarioService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +224,7 @@
       <workItem from="1666193752595" duration="4113000" />
       <workItem from="1666264456184" duration="3979000" />
       <workItem from="1666279032331" duration="3151000" />
-      <workItem from="1666334206050" duration="3712000" />
+      <workItem from="1666334206050" duration="5801000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -495,7 +499,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666340645661</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Problem solved. New User is now default_user again.">
+      <created>1666341353476</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1666341353476</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,7 +561,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Created DeleteQuestionnaire Method&#10;&#10;NOT FINISHED YET" />
     <MESSAGE value="User Authorization /admin.html" />
     <MESSAGE value="Register 1 Email -&gt; n usernames works.&#10;&#10;Login only with usernames anymore though" />
     <MESSAGE value="Report saving works" />
@@ -575,7 +585,8 @@
     <MESSAGE value="Adds better footer." />
     <MESSAGE value="Adds layer color to the report." />
     <MESSAGE value="Reset the footer to a non-js solution(sticks to the bottem of the container)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Reset the footer to a non-js solution(sticks to the bottem of the container)." />
+    <MESSAGE value="Problem solved. New User is now default_user again." />
+    <option name="LAST_COMMIT_MESSAGE" value="Problem solved. New User is now default_user again." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -588,11 +599,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/SetupDataLoader.java</url>
-          <line>79</line>
-          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
