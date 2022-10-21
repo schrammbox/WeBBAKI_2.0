@@ -10,7 +10,7 @@ C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webb
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\enums\SectorMedandCult.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\confirmation\ConfirmationTokenRepository.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\Templates\UserNotifications\ChangeEnabledStatusNotification.java
-C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\enums\SectorEnergie.java
+C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\enums\SectorEnergy.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\enums\SzenarioType.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\ThreatMatrixController.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\EmailService.java
@@ -45,7 +45,6 @@ C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webb
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\form\UserForm.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\service\Exceptions\WrongPathException.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\confirmation\ConfirmationTokenService.java
-C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\enums\SectorGesundheit.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\OfficeController.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\Templates\AdminNotifications\AdminAddRoleNotification.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\Templates\UserNotifications\RemoveRoleNotification.java
@@ -73,5 +72,6 @@ C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webb
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\repository\SnapshotRepository.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\MainController.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\form\ThreatMatrixFormModel.java
+C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\enums\SectorHealth.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\form\UserRegisterFormModel.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\enums\RoleType.java

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum SectorGesundheit {
+public enum SectorHealth {
 
     MEDIZIN("medizinische Versorgung"),
     ARZNEIUNDIMPF("Arzneimittel und Impfstoffe"),

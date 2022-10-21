@@ -341,7 +341,7 @@ public class UserService {
             case "Gas":
             case "Mineralöl":
             case "Fernwärme":
-                return "SectorEnergie";
+                return "SectorEnergy";
             case "Banken":
             case "Börsen":
             case "Versicherungen":
@@ -350,7 +350,7 @@ public class UserService {
             case "medizinische Versorgung":
             case "Arzneimittel und Impfstoffe":
             case "Labore":
-                return "SectorGesundheit";
+                return "SectorHealth";
             case "Telekommunikationstechnik":
             case "Informationstechnik":
                 return "SectorInfandTel";

@@ -11,10 +11,10 @@ de\thb\webbaki\service\QuestionnaireService$QuestionnaireServiceBuilder.class
 de\thb\webbaki\enums\SzenarioType.class
 de\thb\webbaki\security\passwordValidation\PasswordMatchesValidator.class
 de\thb\webbaki\security\MyUserDetails.class
+de\thb\webbaki\enums\SectorEnergy.class
 de\thb\webbaki\enums\SectorFinance.class
 de\thb\webbaki\repository\QuestionnaireRepository.class
 de\thb\webbaki\security\passwordValidation\PasswordMatches.class
-de\thb\webbaki\enums\SectorGesundheit.class
 de\thb\webbaki\enums\SectorNutriton.class
 de\thb\webbaki\entity\Questionnaire$QuestionnaireBuilder.class
 de\thb\webbaki\controller\SuperAdminController.class
@@ -52,7 +52,7 @@ de\thb\webbaki\service\Exceptions\UserAlreadyExistsException.class
 de\thb\webbaki\service\helper\Counter.class
 de\thb\webbaki\mail\Templates\AdminNotifications\AdminRegisterNotification.class
 de\thb\webbaki\entity\Scenario$ScenarioBuilder.class
-de\thb\webbaki\enums\SectorEnergie.class
+de\thb\webbaki\enums\SectorHealth.class
 de\thb\webbaki\security\authority\UserAuthority.class
 de\thb\webbaki\enums\SectorState.class
 de\thb\webbaki\configuration\SecurityConfiguration.class

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum SectorEnergie {
+public enum SectorEnergy {
 
     ELEKTRIZITAET("Elektrizität"),
     GAS("Gas"),
