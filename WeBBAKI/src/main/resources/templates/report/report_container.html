@@ -14,8 +14,12 @@
                 <select id="snapshotSelect" onchange="onChange(this)" class="form-select form-select-sm">
                     <option th:each="snapshot, iStat : ${snapshotList}" th:text="${snapshot.getName()}" th:value="${snapshot.getId()}" th:selected='${((currentSnapshot.getId() == snapshot.getId())?("true"):("false"))}'></option>
                 </select>
-                <a type="button" id="downloadButton" class="btn btn-primary" th:href='${"/report/"+reportFocus.getUrlPart()+"/"+currentSnapshot.getId()+"/download"}' style="margin-bottom: 2em;"> Download</a>
-                <div th:replace="report/report :: report"></div>
+                <th:block th:if="${threatSituationQueue != null}">
+                    <a type="button" id="downloadButton" class="btn btn-primary" th:href='${"/report/"+reportFocus.getUrlPart()+"/"+currentSnapshot.getId()+"/download"}' style="margin-bottom: 2em;"> Download</a>
+                    <div th:replace="report/report :: report"></div>
+                </th:block >
+                <p id="ErrorP" th:if="${threatSituationQueue == null}" >Leider gibt es keine gespeicherte Bedrohungsmatrix in diesem Snapshot für diese Situation.</p>
+
             </div>
         </div>
     </body>

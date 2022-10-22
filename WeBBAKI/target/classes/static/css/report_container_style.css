@@ -9,3 +9,9 @@
 #downloadButton{
     margin: 1em 0;
 }
+
+#ErrorP{
+    margin-top: 1em;
+    color: red;
+    font-size: 1.2em;
+}

@@ -107,9 +107,9 @@ public class  ReportService {
             queueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
         }
 
-        if(queueList.size() == 0) {
-            //create a Queue with unknown ThreatSituations if there is no queue inside the list
-            return questionnaireService.getEmptyThreatSituationQueue();
+        if(queueList.size() == 0){
+            //return null and handle it later in the template
+            return null;
         }else{
             return questionnaireService.getThreatSituationAverageQueueFromQueues(queueList);
         }

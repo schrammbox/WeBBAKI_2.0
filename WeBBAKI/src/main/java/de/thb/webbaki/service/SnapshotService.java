@@ -29,7 +29,7 @@ public class SnapshotService {
      * it creates the right one.
      */
     @Scheduled(cron = "0 0 0,12 1,5,10 1/3 *", zone="CET")
-    public void createSnapshotByShedule(){
+    public void createSnapshotBySchedule(){
         LocalDate today = LocalDate.now();
         String snapshotName = today.getYear() + " Quartal " + (int)((today.getMonthValue() / 4) + 1);
         if(!doesSnapshotExistsByName(snapshotName)){

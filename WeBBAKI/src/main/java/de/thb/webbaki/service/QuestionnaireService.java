@@ -240,12 +240,4 @@ public class QuestionnaireService {
         return newQuestionnaireList;
     }
 
-    public Queue<ThreatSituation> getEmptyThreatSituationQueue(){
-        LinkedList<ThreatSituation> threatSituationList = new LinkedList<ThreatSituation>();
-        for(int i=0; i < scenarioService.getNumberOfScenarios();i++){
-            threatSituationList.add(new ThreatSituation(-1));
-        }
-        return threatSituationList;
-    }
-
 }
