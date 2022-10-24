@@ -4,12 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Fixes problems with jar.">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Created Admin and User Notifications">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3c174c9c-221e-4fdb-b372-151ff9ed4976.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3c174c9c-221e-4fdb-b372-151ff9ed4976.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_17_10_2022_13_20_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_17_10_2022_13_20__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_17_10_2022_15_52_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_17_10_2022_15_52__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_17_10_22,_15_50_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_17_10_22__15_50__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_10_2022_15_54_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_10_2022_15_54__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_10_22,_15_37_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_17_10_22__15_37__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/layout_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/layout_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/SuperAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/SuperAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/form/UserToRoleFormModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/controller/form/UserToRoleFormModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminAddRoleNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminAddRoleNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminRemoveRoleNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/AdminNotifications/AdminRemoveRoleNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/AddRoleNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserAddRoleNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeBrancheNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserChangeBrancheNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/ChangeEnabledStatusNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserChangeEnabledStatusNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/RemoveRoleNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserRemoveRoleNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/permissions/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/permissions/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/SuperAdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/SuperAdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/form/UserToRoleFormModel$UserToRoleFormModelBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/form/UserToRoleFormModel$UserToRoleFormModelBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/form/UserToRoleFormModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/form/UserToRoleFormModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService$UserServiceBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService$UserServiceBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/permissions/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/permissions/admin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +54,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="dev/sendMailToSuperadmins" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -66,15 +92,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;1414bbe933792e16d677468e5cad7cba&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/img" />
@@ -84,7 +111,7 @@
       <recent name="de.thb.webbaki.mail.Templates.UserNotifications" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.WeBBAKI-0.0.1-SNAPSHOT.jar">
+  <component name="RunManager" selected="Maven.WeBBAKI [clean,package]">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
@@ -168,9 +195,9 @@
       <method v="2" />
     </configuration>
     <configuration name="WeBBAKIApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="ACTIVE_PROFILES" />
       <module name="WeBBAKI" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="de.thb.webbaki.WeBBAKIApplication" />
-      <option name="ACTIVE_PROFILES" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -219,6 +246,9 @@
       <workItem from="1666193752595" duration="4113000" />
       <workItem from="1666264456184" duration="3979000" />
       <workItem from="1666279032331" duration="2783000" />
+      <workItem from="1666300870187" duration="3387000" />
+      <workItem from="1666334204991" duration="2200000" />
+      <workItem from="1666619959161" duration="8239000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -560,9 +590,9 @@
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/SetupDataLoader.java</url>
-          <line>79</line>
-          <option name="timeStamp" value="25" />
+          <url>file://$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java</url>
+          <line>258</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

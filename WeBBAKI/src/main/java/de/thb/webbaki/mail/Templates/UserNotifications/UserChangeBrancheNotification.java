@@ -1,8 +1,8 @@
 package de.thb.webbaki.mail.Templates.UserNotifications;
 
-public class ChangeEnabledStatusNotification {
+public class UserChangeBrancheNotification {
 
-    public String changeBrancheMail(String userFirstname, String userLastname) {
+    public String changeBrancheMail(String userFirstname, String userLastname, String userBranche) {
 
         String link = "https://webbaki.th-brandenburg.de";
 
@@ -59,11 +59,16 @@ public class ChangeEnabledStatusNotification {
                 "  </style>\n" +
                 "\n" +
                 "  <body>\n" +
-                "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Ihr Status auf WebBaKI wurde geändert</h2>\n" +
+                "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Branchenänderung auf WebBaKI</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
-                "    <p>Der WebBakI-Geschäftsführer hat Ihr Profil zur Nutzung freigeschaltet.</p>\n" +
+                "    <p>Der WebBakI-Geschäftsführer hat Ihnen eine neue Branche zugewiesen:</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
-                "    <p>Sie können sich nun einloggen und die Plattform nutzen.</p>\n" +
+                "      <table style=\"\">\n" +
+                "          <tr>\n" +
+                "            <td>Ihre neue Branche ist: </td>\n" +
+                "            <td>" + userBranche + "</td>\n" +
+                "          </tr>\n" +
+                "      </table>\n" +
                 "    </div>\n" +
                 "    <p>Melden Sie sich unter folgendem Link an um die Änderungen zu sehen:</p>\n" +
                 "      <p>\n" +
@@ -75,6 +80,5 @@ public class ChangeEnabledStatusNotification {
                 "  </body>\n" +
                 "</html>\n";
     }
-
 
 }

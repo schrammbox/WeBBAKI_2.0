@@ -6,10 +6,7 @@ import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
-import de.thb.webbaki.mail.Templates.AdminNotifications.AdminChangeBrancheSubmit;
-import de.thb.webbaki.mail.Templates.AdminNotifications.AdminDeactivateUserSubmit;
-import de.thb.webbaki.mail.Templates.AdminNotifications.AdminRegisterNotification;
-import de.thb.webbaki.mail.Templates.AdminNotifications.AdminRemoveRoleNotification;
+import de.thb.webbaki.mail.Templates.AdminNotifications.*;
 import de.thb.webbaki.mail.Templates.UserNotifications.*;
 import de.thb.webbaki.mail.confirmation.ConfirmationToken;
 import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
@@ -36,6 +33,7 @@ import java.time.LocalDateTime;
 public class UserService {
     private UserRepository userRepository; ////initialize repository Object
     private RoleRepository roleRepository;
+    private RoleService roleService;
     private PasswordEncoder passwordEncoder;
     private ConfirmationTokenService confirmationTokenService;
     private EmailSender emailSender;
@@ -71,6 +69,10 @@ public class UserService {
 
     public List<User> getUserByAdminrole() {
         return userRepository.findByRoles_Name("ROLE_SUPERADMIN");
+    }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
     public List<User> getUserByOfficeRole() {
@@ -189,9 +191,9 @@ public class UserService {
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
         if (expiredAt.isBefore(LocalDateTime.now())) {
             throw new IllegalStateException("token expired");
-        }else{
+        } else {
             //The confirmation only should be done if its not already done
-            if(!confirmationToken.getUserConfirmation()) {
+            if (!confirmationToken.getUserConfirmation()) {
                 userConfirmation(token);
 
                 //send link to admin
@@ -228,60 +230,59 @@ public class UserService {
      * USED IN SUPERADMIN DASHBOARD
      * Superadmin can add Roles to specific Users
      *
-     * @param formModel to get Userdata, especially roles from user
+     * @param userToRoleFormModel to get Userdata, especially roles from user
      */
-    public void addRoleToUser(final UserToRoleFormModel formModel) {
+    public void addAndDeleteRoles(UserToRoleFormModel userToRoleFormModel) {
 
+        for (int i = 0; i < userToRoleFormModel.getUsers().size(); i++) {
 
-        String[] roles = formModel.getRole();
+            User user = getUserByUsername(userToRoleFormModel.getUsers().get(i).getUsername());
 
-        for (int i = 1; i < roles.length; i++) {
-            if (!Objects.equals(roles[i], "none") && !Objects.equals(roles[i], null)) {
-                User user = userRepository.findById(i).get();
-                if (!user.getRoles().contains(roleRepository.findByName(roles[i]))) {
-                    user.addRole((roleRepository.findByName((roles[i]))));
+            Role role = roleService.getRoleByName(userToRoleFormModel.getRole().get(i));
+            Role roleDel = roleService.getRoleByName(userToRoleFormModel.getRoleDel().get(i));
 
-                    emailSender.send(user.getEmail(), AddRoleNotification.changeRoleMail(user.getFirstName(),
-                            user.getLastName(),
-                            roleRepository.findByName(roles[i])));
+            if (role != null) {
+                user.getRoles().add(role);
+            }
 
-                    for (User superAdmin : getUserByAdminrole()) {
-                        emailSender.send(superAdmin.getEmail(), AddRoleNotification.changeRoleMail(superAdmin.getFirstName(),
-                                superAdmin.getLastName(),
-                                roleRepository.findByName(roles[i])));
-                    }
+            if (roleDel != null) {
+                user.getRoles().remove(roleDel);
+            }
+
+            if (role != null) {
+                saveUser(user);
+
+                emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
+                        user.getLastName(),
+                        role));
+
+                for (User superAdmin : getUserByAdminrole()) {
+                    emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
+                            superAdmin.getLastName(),
+                            role, user.getUsername()));
                 }
             }
-        }
-    }
 
-    /**
-     * USED IN SUPERADMIN DASHBOARD
-     * Superadmin can delete Roles to specific Users
-     *
-     * @param formModel to get Userdata, especially roles from user
-     */
-    public void removeRoleFromUser(final UserToRoleFormModel formModel) {
-        String[] roleDel = formModel.getRoleDel();
-        for (int i = 1; i < roleDel.length; i++) {
-            if (!Objects.equals(roleDel[i], "none") && !Objects.equals(roleDel[i], null)) {
-                User user = userRepository.findById(i).get();
-                Role role = roleRepository.findByName(roleDel[i]);
-                user.removeRole(role);
+            if (roleDel != null){
 
-                emailSender.send(user.getEmail(), RemoveRoleNotification.removeRoleMail(user.getFirstName(),
+                if(role != null) {
+                    saveUser(user);
+                }
+
+                emailSender.send(user.getEmail(), UserRemoveRoleNotification.removeRoleMail(user.getFirstName(),
                         user.getLastName(),
-                        roleRepository.findByName(roleDel[i])));
+                        roleDel));
 
                 for (User superAdmin : getUserByOfficeRole()) {
                     emailSender.send(superAdmin.getEmail(), AdminRemoveRoleNotification.removeRole(superAdmin.getFirstName(),
                             superAdmin.getLastName(),
-                            roleRepository.findByName(roleDel[i]),
+                            roleDel,
                             user.getUsername()));
                 }
             }
         }
     }
+
 
     /**
      * Enable/Disable user to give access to WebBakI
@@ -289,7 +290,7 @@ public class UserService {
      * @param form to get userlist
      */
     public void changeEnabledStatus(UserForm form) {
-        ChangeEnabledStatusNotification enabledStatusNotification = new ChangeEnabledStatusNotification();
+        UserChangeEnabledStatusNotification enabledStatusNotification = new UserChangeEnabledStatusNotification();
         AdminDeactivateUserSubmit deactivateUserSubmit = new AdminDeactivateUserSubmit();
 
         List<User> users = getAllUsers();
@@ -310,8 +311,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Change Branch of User
+     * @param form
+     */
     public void changeBranche(UserForm form) {
-        ChangeBrancheNotification brancheNotification = new ChangeBrancheNotification(); // To send mail
+        UserChangeBrancheNotification brancheNotification = new UserChangeBrancheNotification(); // To send mail
         AdminChangeBrancheSubmit changeBrancheSubmit = new AdminChangeBrancheSubmit(); // Send Mail to admin
 
         List<User> users = getAllUsers();

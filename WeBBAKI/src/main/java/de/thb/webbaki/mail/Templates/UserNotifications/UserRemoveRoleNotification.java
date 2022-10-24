@@ -2,9 +2,9 @@ package de.thb.webbaki.mail.Templates.UserNotifications;
 
 import de.thb.webbaki.entity.Role;
 
-public class AddRoleNotification {
+public class UserRemoveRoleNotification {
 
-    public static String changeRoleMail(String userFirstname, String userLastname, Role role) {
+    public static String removeRoleMail(String userFirstname, String userLastname, Role role) {
 
         String link = "https://webbaki.th-brandenburg.de/login";
 
@@ -63,11 +63,11 @@ public class AddRoleNotification {
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">WebBaKI: Ihre Rolle wurde geändert</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
-                "    <p>Der Superadmin hat Ihnen eine weitere Rolle zugewiesen:</p>\n" +
+                "    <p>Der Superadmin hat eine Ihrer Rollen entfernt:</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
                 "      <table style=\"\">\n" +
                 "          <tr>\n" +
-                "            <td>Ihre neue Rolle ist: </td>\n" +
+                "            <td>Die entfernte Rolle ist: </td>\n" +
                 "            <td>" + role + "</td>\n" +
                 "          </tr>\n" +
                 "      </table>\n" +
@@ -82,5 +82,4 @@ public class AddRoleNotification {
                 "  </body>\n" +
                 "</html>\n";
     }
-
 }
