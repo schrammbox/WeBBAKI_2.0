@@ -55,6 +55,7 @@ public class UserController {
             Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("sectorList", sectorService.getAllSectors());
             return "register/user_registration";
         }
 
@@ -68,7 +69,8 @@ public class UserController {
             questionnaireRepository.save(questionnaire);
 
         } catch (UserAlreadyExistsException uaeEx) {
-            model.addAttribute("emailError", "Es existiert bereits ein Account mit dieser Email-Adresse.");
+            model.addAttribute("usernameError", "Es existiert bereits ein Account mit diesem Nutzernamen.");
+            model.addAttribute("sectorList", sectorService.getAllSectors());
             return "register/user_registration";
         }
 

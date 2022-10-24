@@ -20,10 +20,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 
 @Service
@@ -104,7 +101,7 @@ public class  ReportService {
             List<User> userList;
             switch (reportFocus) {
                 case COMPANY:
-                    userList = userService.getUsersByCompany(userService.getUserByUsername(username).getCompany());
+                    userList = Collections.singletonList(userService.getUserByUsername(username));
                     break;
                 case BRANCHE:
                     userList = userService.getUsersByBranche(userService.getUserByUsername(username).getBranche());

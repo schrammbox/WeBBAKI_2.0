@@ -17,8 +17,8 @@
                                 <li class="" th:each="err : ${#fields.allErrors()}" th:text="${err}"></li>
                             </ul>
                         </div>
-                        <div th:if="${emailError} != null" class="alert alert-danger alert-dismissible">
-                            <p th:text="${emailError}"></p>
+                        <div th:if="${usernameError} != null" class="alert alert-danger alert-dismissible">
+                            <p th:text="${usernameError}"></p>
                         </div>
                         <h4 class="mb-4 text-secondary">Erstelle einen Account</h4>
                         <div class="row">
