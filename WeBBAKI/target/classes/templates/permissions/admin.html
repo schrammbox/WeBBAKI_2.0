@@ -27,16 +27,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user: ${users}">
-                    <td th:text="${user.id}">User ID</td>
-                    <td th:text="${user.email}">E-mail</td>
-                    <td th:text="${user.username}">Username</td>
-                    <td th:text="${user.firstName}">Vorname</td>
-                    <td th:text="${user.lastName}">Nachname</td>
-                    <td th:text="${user.getRoles()}">Rollen</td>
+                <tr th:each="user, itemStat: *{users}">
+                    <td><input hidden th:field="*{users[__${itemStat.index}__].id}" th:text="${user.id}" /></td>
+                    <td><input hidden th:field="*{users[__${itemStat.index}__].email}" th:text="${user.email}" /></td>
+                    <td><input hidden th:field="*{users[__${itemStat.index}__].username}" th:text="${user.username}" /></td>
+                    <td><input hidden th:field="*{users[__${itemStat.index}__].firstName}" th:text="${user.firstName}" /></td>
+                    <td><input hidden th:field="*{users[__${itemStat.index}__].lastName}" th:text="${user.lastName}" /></td>
+                    <td th:text="${user.roles}"></td>
                     <th:block>
                         <td>
-                            <select id="showRisk" class="form-select" th:attr="name='role['+${user.id}+']'">
+                            <select id="showRisk" class="form-select" th:field="*{role[__${itemStat.index}__]}">
                                 <option value="none">Bitte auswählen:</option>
                                 <option th:each="role : ${roles}"
                                         th:value="${role.name}" th:text="${role}">
@@ -46,7 +46,7 @@
                     </th:block>
                     <th:block>
                         <td>
-                            <select class="form-select" th:attr="name='roleDel['+${user.id}+']'">
+                            <select class="form-select" th:field="*{roleDel[__${itemStat.index}__]}">
                                 <option value="none">Bitte auswählen:</option>
                                 <option th:each="role : ${user.getRoles()}"
                                         th:value="${role.name}" th:text="${role}">

@@ -2,7 +2,9 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.Snapshot;
+import de.thb.webbaki.entity.User;
 import de.thb.webbaki.service.RoleService;
 import de.thb.webbaki.service.SnapshotService;
 import de.thb.webbaki.service.UserService;
@@ -12,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -32,7 +36,14 @@ public class SuperAdminController implements Comparable {
             }
         });
          */
-        model.addAttribute("roleForm", new UserToRoleFormModel());
+        List<String> emptyUsers = Arrays.asList(new String[users.size()]);
+        UserToRoleFormModel formModel = UserToRoleFormModel.builder()
+                .users(users)
+                .role(emptyUsers)
+                .roleDel(emptyUsers)
+                .build();
+
+        model.addAttribute("roleForm", formModel);
         final var roles = roleService.getAllRoles();
         model.addAttribute("roles", roles);
         model.addAttribute("users", users);
@@ -41,10 +52,18 @@ public class SuperAdminController implements Comparable {
     }
 
     @PostMapping("/admin")
-    public String addRoleToUser(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel) {
+    public String addRoleToUser(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel, Model model) {
         System.out.println(userToRoleFormModel.toString());
-        userService.addRoleToUser(userToRoleFormModel);
-        userService.removeRoleFromUser(userToRoleFormModel);
+
+        userService.addAndDeleteRoles(userToRoleFormModel);
+
+        List<User> users = userService.getAllUsers();
+
+        model.addAttribute("roleForm", userToRoleFormModel);
+        final var roles = roleService.getAllRoles();
+        model.addAttribute("roles", roles);
+        model.addAttribute("users", users);
+
         return "redirect:admin";
     }
 
@@ -61,7 +80,7 @@ public class SuperAdminController implements Comparable {
     }
 
     @GetMapping("/confirmation/userDenied")
-    public String userDenied(){
+    public String userDenied() {
         return "confirmation/userDenied";
     }
 

@@ -61,7 +61,7 @@ public class AdminRemoveRoleNotification {
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Rollenänderung auf WebBaKI</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
-                "    <p>Einer der Superadmins hat die Rolle von folgendem Nutzer geändert:</p>\n" +
+                "    <p>Einer der Superadmins hat die Rolle von folgendem Nutzer entfernt:</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
                 "      <table style=\"\">\n" +
                 "          <tr>\n" +
