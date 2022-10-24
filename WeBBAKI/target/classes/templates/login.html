@@ -12,7 +12,7 @@
             <form th:action="@{/login}" method="post" class="card-text needs-validation" novalidate>
                 <div th:if="${param.success}" class="alert alert-success" role="alert"></div>
                 <div th:if="${param.error}" class="alert alert-danger" role="alert">
-                    Benutzername/E-Mail oder Passwort ist falsch.
+                    Benutzername oder Passwort ist falsch.
                 </div>
                 <div class="form-group">
                     <label for="username">Benutzername</label>
