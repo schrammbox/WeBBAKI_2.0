@@ -6,8 +6,11 @@ import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
 import de.thb.webbaki.repository.QuestionnaireRepository;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
+import de.thb.webbaki.service.ScenarioService;
+import de.thb.webbaki.service.SectorService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +30,8 @@ public class UserController {
     private final UserService userService;
     private QuestionnaireRepository questionnaireRepository;
     private ConfirmationTokenService confirmationTokenService;
+    @Autowired
+    SectorService sectorService;
 
     @Deprecated
     @GetMapping("/users")
@@ -40,6 +45,7 @@ public class UserController {
     public String showRegisterForm(Model model) {
         UserRegisterFormModel formModel = new UserRegisterFormModel();
         model.addAttribute("user", formModel);
+        model.addAttribute("sectorList", sectorService.getAllSectors());
         return "register/user_registration";
     }
 

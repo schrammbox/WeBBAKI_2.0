@@ -17,16 +17,5 @@ public class BranchForm {
 
     List<User> users;
 
-    //SEKTOREN
-    private SectorFinance sectorFinance;
-    private SectorHealth sectorGesundheit;
-    private SectorInfandTel sectorInfandTel;
-    private SectorMedandCult sectorMedandCult;
-    private SectorNutriton sectorNutriton;
-    private SectorTransport sectorTransport;
-    private SectorState sectorState;
-    private SectorEnergy sectorEnergie;
-    private SectorWasser sectorWasser;
-
     private String branche;
 }

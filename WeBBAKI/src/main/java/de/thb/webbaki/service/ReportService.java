@@ -1,11 +1,13 @@
 package de.thb.webbaki.service;
 
 import com.lowagie.text.DocumentException;
+import de.thb.webbaki.entity.Branche;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.ReportFocus;
-import de.thb.webbaki.service.Exceptions.WrongPathException;
+import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
+import de.thb.webbaki.service.helper.BrancheService;
 import de.thb.webbaki.service.helper.ThreatSituation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +35,8 @@ public class  ReportService {
     private QuestionnaireService questionnaireService;
     @Autowired
     private SnapshotService snapshotService;
+    @Autowired
+    private BrancheService brancheService;
 
     /**
      *
@@ -75,36 +79,50 @@ public class  ReportService {
      * @param reportFocus
      * @param username
      * @return the right Queue with ThreatSituations
-     * @throws WrongPathException
+     * @throws UnknownReportFocusException
      */
-    public Queue<ThreatSituation> getThreatSituationQueueByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws WrongPathException {
-
-        List<User> userList;
-        switch (reportFocus){
-            case COMPANY:
-                userList = userService.getUsersByCompany(userService.getUserByUsername(username).getCompany());
-                break;
-            case BRANCHE:
-                userList = userService.getUsersByBranche( userService.getUserByUsername(username).getBranche());
-                break;
-            case SECTOR:
-                userList = userService.getUsersBySector(userService.getUserByUsername(username).getSector());
-                break;
-            case NATIONAL:
-                userList = userService.getAllUsers();
-                break;
-            default:
-                //TODO better Exceptionname
-                throw new WrongPathException();
-        }
-
-        //remove all unimportant questionnaires
-        List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotService.getAllQuestionnaires(snapshot.getId()), userList);
+    public Queue<ThreatSituation> getThreatSituationQueueByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
         List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
+        List<Questionnaire> snapshotQuestionnaireList = snapshotService.getAllQuestionnaires(snapshot.getId());
+        //should get the queueList in another way with reportFocus national
+        //Average over all branche-averages
+        if(reportFocus == ReportFocus.NATIONAL){
+            for(Branche branche : brancheService.getAllBranches()){
+                List<Queue<ThreatSituation>> brancheQueueList = new LinkedList<Queue<ThreatSituation>>();
+                //remove all unimportant questionnaires
+                List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotQuestionnaireList, userService.getUsersByBranche(branche.getName()));
 
-        for (Questionnaire questionnaire : questionnaireList) {
-            final Map<Long, String[]> questMap = questionnaireService.getMapping(questionnaire);
-            queueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
+                for (Questionnaire questionnaire : questionnaireList) {
+                    final Map<Long, String[]> questMap = questionnaireService.getMapping(questionnaire);
+                    brancheQueueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
+                }
+                if(brancheQueueList.size() != 0) {
+                    queueList.add(questionnaireService.getThreatSituationAverageQueueFromQueues(brancheQueueList));
+                }
+            }
+        }else {
+            List<User> userList;
+            switch (reportFocus) {
+                case COMPANY:
+                    userList = userService.getUsersByCompany(userService.getUserByUsername(username).getCompany());
+                    break;
+                case BRANCHE:
+                    userList = userService.getUsersByBranche(userService.getUserByUsername(username).getBranche());
+                    break;
+                case SECTOR:
+                    userList = userService.getUsersBySector(userService.getUserByUsername(username).getSector());
+                    break;
+                default:
+                    throw new UnknownReportFocusException();
+            }
+
+            //remove all unimportant questionnaires
+            List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotQuestionnaireList, userList);
+
+            for (Questionnaire questionnaire : questionnaireList) {
+                final Map<Long, String[]> questMap = questionnaireService.getMapping(questionnaire);
+                queueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
+            }
         }
 
         if(queueList.size() == 0){

@@ -18,17 +18,6 @@ import javax.validation.constraints.NotNull;
 @PasswordMatches
 public class UserRegisterFormModel {
 
-    //SEKTOREN
-    private SectorFinance sectorFinance;
-    private SectorHealth sectorGesundheit;
-    private SectorInfandTel sectorInfandTel;
-    private SectorMedandCult sectorMedandCult;
-    private SectorNutriton sectorNutriton;
-    private SectorTransport sectorTransport;
-    private SectorState sectorState;
-    private SectorEnergy sectorEnergie;
-    private SectorWasser sectorWasser;
-
     @NotNull(message = "LastName not null")
     @NotEmpty(message = "Nachname darf nicht leer sein")
     private String lastname;

@@ -1,12 +1,11 @@
 package de.thb.webbaki.configuration;
 
-import de.thb.webbaki.entity.Privilege;
-import de.thb.webbaki.entity.Role;
-import de.thb.webbaki.entity.User;
+import de.thb.webbaki.entity.*;
 import de.thb.webbaki.repository.PrivilegeRepository;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.RoleService;
+import de.thb.webbaki.service.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -44,6 +43,7 @@ public class SetupDataLoader implements
         if (alreadySetup) {
             return;
         }
+
         final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
         final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
         final Privilege passwordPrivilege = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");

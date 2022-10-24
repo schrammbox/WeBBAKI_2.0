@@ -2,7 +2,6 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
-import de.thb.webbaki.enums.SectorMedandCult;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
 import lombok.AllArgsConstructor;

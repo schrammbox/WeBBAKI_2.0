@@ -4,7 +4,7 @@ import com.lowagie.text.DocumentException;
 import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
-import de.thb.webbaki.service.Exceptions.WrongPathException;
+import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.helper.ThreatSituation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -42,7 +42,7 @@ public class ReportController {
     }
     @GetMapping("report/{reportFocus}/{snapId}")
     public String showQuestionnaireForm(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
-                                        Model model, Authentication authentication) throws WrongPathException{
+                                        Model model, Authentication authentication) throws UnknownReportFocusException {
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
         ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
@@ -63,7 +63,7 @@ public class ReportController {
 
     @GetMapping("report/{reportFocus}/{snapId}/download")
     public void downloadPdf(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
-                            HttpServletResponse response, Authentication authentication) throws WrongPathException, IOException, DocumentException {
+                            HttpServletResponse response, Authentication authentication) throws UnknownReportFocusException, IOException, DocumentException {
 
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
