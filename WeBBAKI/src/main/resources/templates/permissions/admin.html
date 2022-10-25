@@ -29,10 +29,10 @@
                 <tbody>
                 <tr th:each="user, itemStat: *{users}">
                     <td><input hidden th:field="*{users[__${itemStat.index}__].id}" th:text="${user.id}" /></td>
-                    <td><input hidden th:field="*{users[__${itemStat.index}__].email}" th:text="${user.email}" /></td>
+                    <td th:text="${user.email}"></td>
                     <td><input hidden th:field="*{users[__${itemStat.index}__].username}" th:text="${user.username}" /></td>
-                    <td><input hidden th:field="*{users[__${itemStat.index}__].firstName}" th:text="${user.firstName}" /></td>
-                    <td><input hidden th:field="*{users[__${itemStat.index}__].lastName}" th:text="${user.lastName}" /></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
                     <td th:text="${user.roles}"></td>
                     <th:block>
                         <td>

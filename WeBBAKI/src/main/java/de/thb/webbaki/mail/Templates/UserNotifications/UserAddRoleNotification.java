@@ -68,7 +68,7 @@ public class UserAddRoleNotification {
                 "      <table style=\"\">\n" +
                 "          <tr>\n" +
                 "            <td>Ihre neue Rolle ist: </td>\n" +
-                "            <td>" + role + "</td>\n" +
+                "            <td>" + role.getName() + "</td>\n" +
                 "          </tr>\n" +
                 "      </table>\n" +
                 "    </div>\n" +

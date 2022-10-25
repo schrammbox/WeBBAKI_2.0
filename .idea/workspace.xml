@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Delete unimportant model attribute users from SuperAdminController in Method showAllUsers and addRoleToUser.">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Refactored Version of the addAndDeleteRoles method from UserService (not that much db-operations).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/SuperAdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/controller/SuperAdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserAddRoleNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserAddRoleNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserRemoveRoleNotification.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/Templates/UserNotifications/UserRemoveRoleNotification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/permissions/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/permissions/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/permissions/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/permissions/admin.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +221,7 @@
       <workItem from="1666334204991" duration="2200000" />
       <workItem from="1666619959161" duration="8239000" />
       <workItem from="1666679406862" duration="563000" />
-      <workItem from="1666684736372" duration="476000" />
+      <workItem from="1666684736372" duration="1419000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -473,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666679965219</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Refactored Version of the addAndDeleteRoles method from UserService (not that much db-operations).">
+      <created>1666685413124</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1666685413124</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,7 +537,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="FINAL&#10;-start js part" />
     <MESSAGE value="-start der sektorunterteiling" />
     <MESSAGE value="Created DeleteQuestionnaire Method&#10;&#10;NOT FINISHED YET" />
     <MESSAGE value="User Authorization /admin.html" />
@@ -553,7 +561,8 @@
     <MESSAGE value="jar file uploading." />
     <MESSAGE value="Fixes problems with jar." />
     <MESSAGE value="Delete unimportant model attribute users from SuperAdminController in Method showAllUsers and addRoleToUser." />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete unimportant model attribute users from SuperAdminController in Method showAllUsers and addRoleToUser." />
+    <MESSAGE value="Refactored Version of the addAndDeleteRoles method from UserService (not that much db-operations)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored Version of the addAndDeleteRoles method from UserService (not that much db-operations)." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
