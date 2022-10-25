@@ -46,7 +46,6 @@ public class SuperAdminController implements Comparable {
         model.addAttribute("roleForm", formModel);
         final var roles = roleService.getAllRoles();
         model.addAttribute("roles", roles);
-        model.addAttribute("users", users);
 
         return "permissions/admin";
     }
@@ -62,7 +61,6 @@ public class SuperAdminController implements Comparable {
         model.addAttribute("roleForm", userToRoleFormModel);
         final var roles = roleService.getAllRoles();
         model.addAttribute("roles", roles);
-        model.addAttribute("users", users);
 
         return "redirect:admin";
     }
