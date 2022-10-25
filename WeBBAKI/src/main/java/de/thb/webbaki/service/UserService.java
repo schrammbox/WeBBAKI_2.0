@@ -243,19 +243,12 @@ public class UserService {
 
             User user = getUserByUsername(userToRoleFormModel.getUsers().get(i).getUsername());
 
-            Role role = roleService.getRoleByName(userToRoleFormModel.getRole().get(i));
-            Role roleDel = roleService.getRoleByName(userToRoleFormModel.getRoleDel().get(i));
+            String roleString = userToRoleFormModel.getRole().get(i);
+            String roleDelString = userToRoleFormModel.getRoleDel().get(i);
 
-            if (role != null) {
+            if(!roleString.equals("none")){
+                Role role = roleService.getRoleByName(roleString);
                 user.getRoles().add(role);
-            }
-
-            if (roleDel != null) {
-                user.getRoles().remove(roleDel);
-            }
-
-            if (role != null) {
-                saveUser(user);
 
                 emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
                         user.getLastName(),
@@ -268,23 +261,27 @@ public class UserService {
                 }
             }
 
-            if (roleDel != null){
-
-                if(role != null) {
-                    saveUser(user);
-                }
+            if(!roleDelString.equals("none")){
+                Role roleDel = roleService.getRoleByName(roleDelString);
+                user.getRoles().remove(roleDel);
 
                 emailSender.send(user.getEmail(), UserRemoveRoleNotification.removeRoleMail(user.getFirstName(),
                         user.getLastName(),
                         roleDel));
 
-                for (User superAdmin : getUserByOfficeRole()) {
+                for (User superAdmin : getUserByAdminrole()) {
                     emailSender.send(superAdmin.getEmail(), AdminRemoveRoleNotification.removeRole(superAdmin.getFirstName(),
                             superAdmin.getLastName(),
                             roleDel,
                             user.getUsername()));
                 }
+
             }
+
+            if(!roleDelString.equals("none") || !roleString.equals("none")){
+                saveUser(user);
+            }
+
         }
     }
 
