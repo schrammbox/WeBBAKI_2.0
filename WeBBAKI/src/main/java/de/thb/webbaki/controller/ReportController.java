@@ -5,7 +5,7 @@ import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
-import de.thb.webbaki.service.helper.ThreatSituation;
+import de.thb.webbaki.service.helper.ThreatSituationLinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Queue;
 
 import org.thymeleaf.context.Context;
 
@@ -51,9 +50,9 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         model.addAttribute("currentSnapshot", currentSnapshot);
 
-        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
 
-        model.addAttribute("threatSituationQueue", threatSituationQueue);
+        ThreatSituationLinkedList threatSituationLinkedList = reportService.getThreatSituationLikedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
+        model.addAttribute("threatSituationLinkedList", threatSituationLinkedList);
 
         final List<Snapshot> snapshotList = snapshotService.getAllSnapshotOrderByDESC();
         model.addAttribute("snapshotList", snapshotList);
@@ -79,9 +78,8 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         context.setVariable("currentSnapshot", currentSnapshot);
 
-        Queue<ThreatSituation> threatSituationQueue = reportService.getThreatSituationQueueByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
-
-        context.setVariable("threatSituationQueue", threatSituationQueue);
+        ThreatSituationLinkedList threatSituationLinkedList = reportService.getThreatSituationLikedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
+        context.setVariable("threatSituationLinkedList", threatSituationLinkedList);
 
         reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
                     response.getOutputStream());

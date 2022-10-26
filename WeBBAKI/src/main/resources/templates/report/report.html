@@ -21,11 +21,11 @@
                                 <td style="border-bottom: 1px solid grey;" th:text="${scenario.name}"></td>
 
                                 <!--Get next value from the Queue and parse the next element based on the value(the td)-->
-                                <th:block th:with="value=${threatSituationQueue.poll()}">
+                                <th:block th:with="threatSituation=${threatSituationLinkedList.poll()}">
                                     <td style="border-bottom: 1px solid grey;" >
-                                        <div th:style='${"float: left; width: 100%; height: 100%; text-align: center; border: black solid 1px; background-color: " + value.getColor() + ";"}'>
-                                            <div style="font-weight: 550;" th:text="${value.getSymbol()}"></div>
-                                            <div style="clear: both; border-top: black solid 1px;" th:if="${value.getValue() != -1}" th:text="${value.getRoundedValueString()}"></div>
+                                        <div th:style='${"float: left; width: 100%; height: 100%; text-align: center; border: black solid 1px; background-color: " + threatSituation.getColor() + ";"}'>
+                                            <div style="font-weight: 550;" th:text="${threatSituation.getSymbol()}"></div>
+                                            <div style="clear: both; border-top: black solid 1px;" th:if="${threatSituation.getValue() != -1}" th:text="${threatSituation.getRoundedValueString()}"></div>
                                         </div>
                                     </td>
 
@@ -35,6 +35,10 @@
                     </tbody>
                 </table>
             </div>
+        </th:block>
+        <th:block th:if="${threatSituationLinkedList.getComment() != null}" >
+            <h4 style="font-size: 1.4em;">Kommentar zum Fragebogen:</h4>
+            <p th:text="${threatSituationLinkedList.getComment()}" style="font-size: 1.2em;"></p>
         </th:block>
     </div>
 </body>
