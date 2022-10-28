@@ -2,7 +2,7 @@ package de.thb.webbaki.mail.Templates.UserNotifications;
 
 public class UserChangeBrancheNotification {
 
-    public String changeBrancheMail(String userFirstname, String userLastname, String userBranche) {
+    public static String changeBrancheMail(String userFirstname, String userLastname, String userBranche) {
 
         String link = "https://webbaki.th-brandenburg.de";
 

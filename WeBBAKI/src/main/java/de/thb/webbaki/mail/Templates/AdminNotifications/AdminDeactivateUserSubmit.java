@@ -2,7 +2,7 @@ package de.thb.webbaki.mail.Templates.AdminNotifications;
 
 public class AdminDeactivateUserSubmit {
 
-    public String changeEnabledStatus(String userFirstname, String userLastname, boolean enabled, String username) {
+    public static String changeEnabledStatus(String userFirstname, String userLastname, boolean enabled, String username) {
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +

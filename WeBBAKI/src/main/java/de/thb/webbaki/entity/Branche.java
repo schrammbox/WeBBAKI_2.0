@@ -5,12 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
-
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "branche")
 @NoArgsConstructor
 public class Branche {
     @Id
@@ -22,4 +20,8 @@ public class Branche {
     @JoinColumn(name="sector_id", nullable=false)
     private Sector sectors;
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

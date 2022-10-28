@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @RepositoryDefinition(domainClass = User.class, idClass = Long.class)
 public interface UserRepository extends CrudRepository<User, Long> {
-
     User findByEmail(String email);
     Optional<User> findById(long id);
     User findByUsername(String username);

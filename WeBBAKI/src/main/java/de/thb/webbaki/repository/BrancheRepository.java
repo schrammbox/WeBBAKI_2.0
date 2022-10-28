@@ -1,7 +1,6 @@
 package de.thb.webbaki.repository;
 
 import de.thb.webbaki.entity.Branche;
-import de.thb.webbaki.entity.Sector;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 
@@ -11,4 +10,6 @@ import java.util.List;
 public interface BrancheRepository extends CrudRepository<Branche, Long> {
     @Override
     List<Branche> findAll();
+
+    Branche getBrancheByName(String name);
 }

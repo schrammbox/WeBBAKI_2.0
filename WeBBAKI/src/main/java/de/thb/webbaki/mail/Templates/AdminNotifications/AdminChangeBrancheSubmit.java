@@ -2,7 +2,7 @@ package de.thb.webbaki.mail.Templates.AdminNotifications;
 
 public class AdminChangeBrancheSubmit {
 
-    public String changeBrancheMail(String userFirstname, String userLastname, String userBranche, String username) {
+    public static String changeBrancheMail(String userFirstname, String userLastname, String userBranche, String username) {
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +

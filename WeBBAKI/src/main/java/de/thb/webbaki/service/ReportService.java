@@ -7,7 +7,6 @@ import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
-import de.thb.webbaki.service.helper.BrancheService;
 import de.thb.webbaki.service.helper.ThreatSituation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

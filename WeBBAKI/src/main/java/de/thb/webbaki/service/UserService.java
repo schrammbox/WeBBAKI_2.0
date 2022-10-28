@@ -16,7 +16,6 @@ import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +37,6 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     private ConfirmationTokenService confirmationTokenService;
     private EmailSender emailSender;
-
-    @Autowired
     private SectorService sectorService;
 
     //Repo Methods --------------------------
@@ -57,10 +54,6 @@ public class UserService {
 
     public List<User> getUsersByBranche(String branche) {
         return userRepository.findAllByBranche(branche);
-    }
-
-    public List<User> getUsersByCompany(String company) {
-        return userRepository.findAllByCompany(company);
     }
 
     public List<User> getUsersBySector(String sector) {
@@ -116,7 +109,7 @@ public class UserService {
             user.setCompany(form.getCompany());
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
-            user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_DEFAULT_USER")));
+            user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
             user.setUsername(form.getUsername());
             user.setEnabled(false);
 
@@ -128,8 +121,12 @@ public class UserService {
             userRepository.save(user);
 
 
-            //Email to new registered user
-            emailSender.send(form.getEmail(), UserRegisterNotification.buildUserEmail(form.getFirstname(), userLink));
+            /*Outsourcing Mail to thread for speed purposes*/
+            new Thread(()->{
+                //Email to new registered user
+                emailSender.send(form.getEmail(), UserRegisterNotification.buildUserEmail(form.getFirstname(), userLink));
+            }).start();
+
         }
     }
 
@@ -197,18 +194,22 @@ public class UserService {
         if (expiredAt.isBefore(LocalDateTime.now())) {
             throw new IllegalStateException("token expired");
         } else {
-            //The confirmation only should be done if its not already done
+            //The confirmation only should be done if it is not already done
             if (!confirmationToken.getUserConfirmation()) {
                 userConfirmation(token);
 
                 //send link to admin
                 String adminLink = "https://webbaki.th-brandenburg.de/confirmation/confirm?token=" + token;
                 User user = confirmationToken.getUser();
-                for (User superAdmin : getUserByAdminrole()) {
-                    emailSender.send(superAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(superAdmin.getFirstName(), adminLink,
-                            user.getFirstName(), user.getLastName(),
-                            user.getEmail(), user.getBranche(), user.getCompany()));
-                }
+
+                /* Outsourcing Mailsending to thread for speed purposes */
+                new Thread(() -> {
+                    for (User officeAdmin : getUserByOfficeRole()) {
+                        emailSender.send(officeAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(officeAdmin.getFirstName(), adminLink,
+                                user.getFirstName(), user.getLastName(),
+                                user.getEmail(), user.getBranche(), user.getCompany()));
+                    }
+                }).start();
             }
         }
         return "confirmation/confirmedByUser";
@@ -246,39 +247,44 @@ public class UserService {
             String roleString = userToRoleFormModel.getRole().get(i);
             String roleDelString = userToRoleFormModel.getRoleDel().get(i);
 
-            if(!roleString.equals("none")){
+            if (!roleString.equals("none")) {
                 Role role = roleService.getRoleByName(roleString);
                 user.getRoles().add(role);
 
-                emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
-                        user.getLastName(),
-                        role));
+                /*Outsourcing Mail to thread for speed purposes*/
+                new Thread(() -> {
+                    emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
+                            user.getLastName(),
+                            role));
 
-                for (User superAdmin : getUserByAdminrole()) {
-                    emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
-                            superAdmin.getLastName(),
-                            role, user.getUsername()));
-                }
+                    for (User superAdmin : getUserByAdminrole()) {
+                        emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
+                                superAdmin.getLastName(),
+                                role, user.getUsername()));
+                    }
+                }).start();
             }
 
-            if(!roleDelString.equals("none")){
+            if (!roleDelString.equals("none")) {
                 Role roleDel = roleService.getRoleByName(roleDelString);
                 user.getRoles().remove(roleDel);
 
-                emailSender.send(user.getEmail(), UserRemoveRoleNotification.removeRoleMail(user.getFirstName(),
-                        user.getLastName(),
-                        roleDel));
+                /*Outsourcing Mail to thread for speed purposes*/
+                new Thread(() -> {
+                    emailSender.send(user.getEmail(), UserRemoveRoleNotification.removeRoleMail(user.getFirstName(),
+                            user.getLastName(),
+                            roleDel));
 
-                for (User superAdmin : getUserByAdminrole()) {
-                    emailSender.send(superAdmin.getEmail(), AdminRemoveRoleNotification.removeRole(superAdmin.getFirstName(),
-                            superAdmin.getLastName(),
-                            roleDel,
-                            user.getUsername()));
-                }
-
+                    for (User superAdmin : getUserByAdminrole()) {
+                        emailSender.send(superAdmin.getEmail(), AdminRemoveRoleNotification.removeRole(superAdmin.getFirstName(),
+                                superAdmin.getLastName(),
+                                roleDel,
+                                user.getUsername()));
+                    }
+                }).start();
             }
 
-            if(!roleDelString.equals("none") || !roleString.equals("none")){
+            if (!roleDelString.equals("none") || !roleString.equals("none")) {
                 saveUser(user);
             }
 
@@ -292,51 +298,61 @@ public class UserService {
      * @param form to get userlist
      */
     public void changeEnabledStatus(UserForm form) {
-        UserChangeEnabledStatusNotification enabledStatusNotification = new UserChangeEnabledStatusNotification();
-        AdminDeactivateUserSubmit deactivateUserSubmit = new AdminDeactivateUserSubmit();
 
         List<User> users = getAllUsers();
 
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).isEnabled() != (form.getUsers().get(i).isEnabled())) {
-                users.get(i).setEnabled(form.getUsers().get(i).isEnabled());
+        /*Outsourcing Mail to thread for speed purposes*/
+        new Thread(() -> {
+            for (int i = 0; i < users.size(); i++) {
 
-                emailSender.send(users.get(i).getEmail(), enabledStatusNotification.changeBrancheMail(users.get(i).getFirstName(), users.get(i).getLastName()));
+                if (users.get(i).isEnabled() != (form.getUsers().get(i).isEnabled())) {
+                    users.get(i).setEnabled(form.getUsers().get(i).isEnabled());
 
-                for (User officeAdmin : getUserByOfficeRole()) {
-                    emailSender.send(officeAdmin.getEmail(), deactivateUserSubmit.changeEnabledStatus(officeAdmin.getFirstName(),
-                            officeAdmin.getLastName(),
-                            users.get(i).isEnabled(),
-                            users.get(i).getUsername()));
+
+                    emailSender.send(users.get(i).getEmail(), UserChangeEnabledStatusNotification.changeBrancheMail(users.get(i).getFirstName(), users.get(i).getLastName()));
+
+                    for (User officeAdmin : getUserByOfficeRole()) {
+                        emailSender.send(officeAdmin.getEmail(), AdminDeactivateUserSubmit.changeEnabledStatus(officeAdmin.getFirstName(),
+                                officeAdmin.getLastName(),
+                                users.get(i).isEnabled(),
+                                users.get(i).getUsername()));
+                    }
                 }
             }
-        }
+        }).start();
     }
 
     /**
-     * Change Branch of User
-     * @param form
+     * Change Branche of User
+     *
+     * @param form to get Branche
      */
     public void changeBranche(UserForm form) {
-        UserChangeBrancheNotification brancheNotification = new UserChangeBrancheNotification(); // To send mail
-        AdminChangeBrancheSubmit changeBrancheSubmit = new AdminChangeBrancheSubmit(); // Send Mail to admin
 
-        List<User> users = getAllUsers();
+        for (int i = 0; i < form.getUsers().size(); i++) {
 
-        for (int i = 0; i < users.size(); i++) {
-            if (!Objects.equals(users.get(i).getBranche(), form.getUsers().get(i).getBranche())) {
-                users.get(i).setBranche(form.getUsers().get(i).getBranche());
+            User user = getUserByUsername(form.getUsers().get(i).getUsername());
+            User updatedUser = form.getUsers().get(i);
 
-                emailSender.send(users.get(i).getEmail(), brancheNotification.changeBrancheMail(users.get(i).getFirstName(),
-                        users.get(i).getLastName(),
-                        users.get(i).getBranche()));
+            if (!user.getBranche().equals(updatedUser.getBranche())) {
+                userRepository.save(updatedUser);
 
-                for (User officeAdmin : getUserByOfficeRole()) {
-                    emailSender.send(officeAdmin.getEmail(), changeBrancheSubmit.changeBrancheMail(officeAdmin.getFirstName(),
-                            officeAdmin.getLastName(),
-                            users.get(i).getBranche(),
-                            users.get(i).getUsername()));
-                }
+                /*
+                 * Outsourcing Email sending cause of speed
+                 */
+                new Thread(() -> {
+                    emailSender.send(updatedUser.getEmail(), UserChangeBrancheNotification.changeBrancheMail(updatedUser.getFirstName(),
+                            updatedUser.getLastName(),
+                            updatedUser.getBranche()));
+
+                    for (User officeAdmin : getUserByOfficeRole()) {
+                        emailSender.send(officeAdmin.getEmail(), AdminChangeBrancheSubmit.changeBrancheMail(officeAdmin.getFirstName(),
+                                officeAdmin.getLastName(),
+                                updatedUser.getBranche(),
+                                updatedUser.getUsername()));
+                    }
+                }).start();
+
             }
         }
     }
