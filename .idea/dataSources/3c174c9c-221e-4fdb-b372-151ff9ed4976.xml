@@ -1390,13 +1390,13 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <DataType>varchar(1000)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="381" parent="338" name="user_id">
-      <DataType>bigint(20)|0s</DataType>
-      <NotNull>1</NotNull>
+    <column id="381" parent="338" name="small_comment">
+      <DataType>varchar(10000)|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="382" parent="338" name="small_comment">
-      <DataType>varchar(1000)|0s</DataType>
+    <column id="382" parent="338" name="user_id">
+      <DataType>bigint(20)|0s</DataType>
+      <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
     <foreign-key id="383" parent="338" name="FKkl9c4lxduhjp8wo643ndpnfpq">
