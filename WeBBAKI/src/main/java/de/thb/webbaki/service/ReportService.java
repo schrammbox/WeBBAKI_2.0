@@ -8,6 +8,7 @@ import de.thb.webbaki.entity.User;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.helper.ThreatSituation;
+import de.thb.webbaki.service.helper.ThreatSituationLinkedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -75,11 +76,13 @@ public class  ReportService {
      * @param reportFocus
      * @param username
      * @return the right Queue with ThreatSituations
+     * Additional it gets a String and saves the comment of the company in it (Only if ReportFocus is COMPANY).
      * @throws UnknownReportFocusException
      */
-    public Queue<ThreatSituation> getThreatSituationQueueByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
+    public ThreatSituationLinkedList getThreatSituationLikedListByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
         List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
         List<Questionnaire> snapshotQuestionnaireList = snapshotService.getAllQuestionnaires(snapshot.getId());
+        String comment = null;
         //should get the queueList in another way with reportFocus national
         //Average over all branche-averages
         if(reportFocus == ReportFocus.NATIONAL){
@@ -115,6 +118,10 @@ public class  ReportService {
             //remove all unimportant questionnaires
             List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotQuestionnaireList, userList);
 
+            if(reportFocus == ReportFocus.COMPANY && questionnaireList.size() == 1){
+                comment = questionnaireList.get(0).getComment();
+            }
+
             for (Questionnaire questionnaire : questionnaireList) {
                 final Map<Long, String[]> questMap = questionnaireService.getMapping(questionnaire);
                 queueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
@@ -125,7 +132,7 @@ public class  ReportService {
             //return null and handle it later in the template
             return null;
         }else{
-            return questionnaireService.getThreatSituationAverageQueueFromQueues(queueList);
+            return new ThreatSituationLinkedList(questionnaireService.getThreatSituationAverageQueueFromQueues(queueList), comment);
         }
     }
 }
