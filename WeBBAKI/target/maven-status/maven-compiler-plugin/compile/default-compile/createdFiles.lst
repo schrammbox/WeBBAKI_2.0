@@ -1,4 +1,5 @@
 de/thb/webbaki/mail/EmailService.class
+de/thb/webbaki/service/BrancheService.class
 de/thb/webbaki/service/helper/Counter.class
 de/thb/webbaki/entity/Sector.class
 de/thb/webbaki/entity/Questionnaire.class
@@ -13,7 +14,6 @@ de/thb/webbaki/repository/QuestionnaireRepository.class
 de/thb/webbaki/entity/Branche.class
 de/thb/webbaki/controller/form/UserRegisterFormModel.class
 de/thb/webbaki/repository/ScenarioRepository.class
-de/thb/webbaki/service/helper/BrancheService.class
 de/thb/webbaki/security/MyUserDetailsService.class
 de/thb/webbaki/service/SnapshotService.class
 de/thb/webbaki/enums/Risk.class
@@ -64,7 +64,6 @@ de/thb/webbaki/security/MyUserDetails$MyUserDetailsBuilder.class
 de/thb/webbaki/service/MasterScenarioService.class
 de/thb/webbaki/controller/OfficeController.class
 de/thb/webbaki/controller/form/UserForm.class
-de/thb/webbaki/controller/form/BranchForm.class
 de/thb/webbaki/mail/Templates/AdminNotifications/AdminAddRoleNotification.class
 de/thb/webbaki/service/ReportService$1.class
 de/thb/webbaki/mail/EmailConfig.class
