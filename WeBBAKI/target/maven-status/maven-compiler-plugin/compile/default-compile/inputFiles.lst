@@ -49,6 +49,7 @@
 /home/cs11/IdeaProjects/WeBBAKI_2.0/WeBBAKI/src/main/java/de/thb/webbaki/entity/User.java
 /home/cs11/IdeaProjects/WeBBAKI_2.0/WeBBAKI/src/main/java/de/thb/webbaki/enums/Probability.java
 /home/cs11/IdeaProjects/WeBBAKI_2.0/WeBBAKI/src/main/java/de/thb/webbaki/repository/UserRepository.java
+/home/cs11/IdeaProjects/WeBBAKI_2.0/WeBBAKI/src/main/java/de/thb/webbaki/service/helper/ThreatSituationLinkedList.java
 /home/cs11/IdeaProjects/WeBBAKI_2.0/WeBBAKI/src/main/java/de/thb/webbaki/repository/PrivilegeRepository.java
 /home/cs11/IdeaProjects/WeBBAKI_2.0/WeBBAKI/src/main/java/de/thb/webbaki/mail/confirmation/ConfirmationTokenService.java
 /home/cs11/IdeaProjects/WeBBAKI_2.0/WeBBAKI/src/main/java/de/thb/webbaki/controller/form/ThreatMatrixFormModel.java

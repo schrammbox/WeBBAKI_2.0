@@ -21,6 +21,7 @@ de/thb/webbaki/controller/form/ThreatMatrixFormModel.class
 de/thb/webbaki/entity/Snapshot.class
 de/thb/webbaki/service/UserService.class
 de/thb/webbaki/controller/form/UserRegisterFormModel$UserRegisterFormModelBuilder.class
+de/thb/webbaki/service/helper/ThreatSituationLinkedList.class
 de/thb/webbaki/mail/Templates/UserNotifications/UserChangeBrancheNotification.class
 de/thb/webbaki/service/Exceptions/UserAlreadyExistsException.class
 de/thb/webbaki/WeBBAKIApplication.class
