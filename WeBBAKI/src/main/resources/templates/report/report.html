@@ -1,7 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org" >
 <body>
     <div th:fragment="report">
-        <h1 style="width: 100%; text-align: center; margin-bottom: 2em" th:text='${reportFocus.getGermanRepresentation()+" Report von " +currentSnapshot.getName()}'></h1>
+        <h1 style="width: 100%; text-align: center; margin-bottom: 2em;" th:text='${reportFocus.getGermanRepresentation() +" Report von " + currentSnapshot.getName()}'></h1>
+        <p style="margin-bottom: 2em; font-size: 1.3em;" th:text="${'Die Anzahl der ' + ((reportFocus.getGermanRepresentation().equals('Nationaler'))?(' Branchenmittelwerte der Bedrohungsmatrizen'):(' Bedrohungsmatrizen')) + ', die für die Berechnung des Reports verwendet wurden ist ' + threatSituationLinkedList.getQuestionnaireAmount() + '.' }"></p>
         <th:block th:each="masterScenario: ${masterScenarioList}" >
             <div style="page-break-inside:avoid;">
                 <h5 th:text="${masterScenario.name}"></h5>
@@ -10,7 +11,19 @@
                         <tr >
                             <td style="border-bottom: 1px dashed grey;">#</td>
                             <td style="border-bottom: 1px dashed grey;">Szenarien</td>
-                            <td style="border-bottom: 1px dashed grey;">Bedrohungslage</td>
+                            <td style="border-bottom: 1px dashed grey;text-align: center;">Bedrohungslage</td>
+                            <td style="border-bottom: 1px dashed grey;text-align: center;">
+                                <div style="display: flex; flex-direction: row;justify-content: center;">
+                                    <span>Anzahl</span>
+                                    <!-- only show the information- button and text if there is a snapshotList(if not ist the downloadable part)-->
+                                    <div class="dropdown" th:if="${snapshotList != null}">
+                                        <button style="background-color: transparent; border: 0;" class="bi bi-info-circle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                        <div class="dropdown-menu" style="width: auto;">
+                                            <p>Die Anzahl der bekannten Bedrohungslagen für das jeweilige Szenario aus dem ausgewählten Snapshot. Nur im nationalen Report entspricht es der Anzahl an Branchenmittelwerten, die bekannt sind.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,7 +41,7 @@
                                             <div style="clear: both; border-top: black solid 1px;" th:if="${threatSituation.getValue() != -1}" th:text="${threatSituation.getRoundedValueString()}"></div>
                                         </div>
                                     </td>
-
+                                    <td th:text="${threatSituation.getDataAmount()}" style="border-bottom: 1px solid grey; text-align: center;"></td>
                                 </th:block>
                             </tr>
                         </th:block>
