@@ -83,6 +83,7 @@ public class  ReportService {
         List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
         List<Questionnaire> snapshotQuestionnaireList = snapshotService.getAllQuestionnaires(snapshot.getId());
         String comment = null;
+
         //should get the queueList in another way with reportFocus national
         //Average over all branche-averages
         if(reportFocus == ReportFocus.NATIONAL){
@@ -132,7 +133,7 @@ public class  ReportService {
             //return null and handle it later in the template
             return null;
         }else{
-            return new ThreatSituationLinkedList(questionnaireService.getThreatSituationAverageQueueFromQueues(queueList), comment);
+            return new ThreatSituationLinkedList(questionnaireService.getThreatSituationAverageQueueFromQueues(queueList), comment, queueList.size());
         }
     }
 }
