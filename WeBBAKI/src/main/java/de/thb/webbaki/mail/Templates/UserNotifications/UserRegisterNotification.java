@@ -2,7 +2,7 @@ package de.thb.webbaki.mail.Templates.UserNotifications;
 
 public class UserRegisterNotification {
 
-    public static String buildUserEmail(String name, String link) {
+    public static String buildUserEmail(String userFirstname, String userLastname, String link) {
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +
                 "  <head>\n" +
@@ -57,8 +57,8 @@ public class UserRegisterNotification {
                 "\n" +
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Neue Registrierung auf WebBaKI</h2>\n" +
-                "    <p>Hallo " + name + ",</p>\n" +
-                "    <p>Vielen Dank für die Registrierung. Bitte bestätige deine Email unter folgendem Link:</p>\n" +
+                "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
+                "    <p>Vielen Dank für die Registrierung. Bitte bestätigen Sie Ihre Email unter folgendem Link:</p>\n" +
                 "      <p>\n" +
                 "        <a href=" + link + ">Verifizieren</a>\n" +
                 "        <span></span>\n" +
