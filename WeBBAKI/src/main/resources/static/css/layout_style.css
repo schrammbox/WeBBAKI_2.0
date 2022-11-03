@@ -1,3 +1,15 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 p {
     font-size: 16px;
 }
@@ -5,7 +17,7 @@ p {
 header {
     height: 350px;
     width: 80%;
-    margin: auto;
+    margin: 0 auto;
 }
 
 .container {
@@ -153,6 +165,7 @@ footer {
     background-color: rgba(169, 169, 169, .5);
     border: 1px solid rgba(169, 169, 169, .5);
     box-shadow: 1px 1px 1px darkgray;
+    margin-top: auto;
 }
 
 

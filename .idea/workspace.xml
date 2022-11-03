@@ -4,21 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds amount of threat matrices or averages over branches(in national context) to the report.">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_10_22__15_52__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_02_10_22__15_52__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_09_22__10_59__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_23_09_22__10_59__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_09_2022_17_16__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_27_09_2022_17_16__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_22__11_32__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_22__11_32__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_09_2022_17_26__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_09_2022_17_26__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_10_2022_14_54__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_10_2022_14_54__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_09_22__22_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_30_09_22__22_24__Changes_.xml" afterDir="false" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Allows ä,ö,ü in the pdf-report.">
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/user_details_style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/layout_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/layout_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/account/user_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/account/user_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/css/layout_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/css/layout_style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,13 +23,14 @@
         <option value="Enum" />
         <option value="HTML File" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="masterTest" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,7 +69,6 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -84,6 +76,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
@@ -95,7 +88,7 @@
       <recent name="de.thb.webbaki.mail.Templates.UserNotifications" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.WeBBAKI [clean,package]">
+  <component name="RunManager" selected="JAR Application.WeBBAKI-0.0.1-SNAPSHOT.jar">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
@@ -525,7 +518,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667313592163</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="testMaster merged into master.">
+      <created>1667490272709</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1667490272709</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Allows ä,ö,ü in the pdf-report.">
+      <created>1667490454443</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1667490454443</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -580,8 +587,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Register 1 Email -&gt; n usernames works.&#10;&#10;Login only with usernames anymore though" />
-    <MESSAGE value="Report saving works" />
     <MESSAGE value="upgraded Maven Dependencies in pom.xml" />
     <MESSAGE value="Created JAR File in Intellij" />
     <MESSAGE value="Reset Maven Dependencies" />
@@ -605,7 +610,9 @@
     <MESSAGE value="Refactored Version of the admin.html template (not everything from the user should be in template as input)." />
     <MESSAGE value="Adds the amount of used Threatsituations to the report." />
     <MESSAGE value="Adds amount of threat matrices or averages over branches(in national context) to the report." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adds amount of threat matrices or averages over branches(in national context) to the report." />
+    <MESSAGE value="testMaster merged into master." />
+    <MESSAGE value="Allows ä,ö,ü in the pdf-report." />
+    <option name="LAST_COMMIT_MESSAGE" value="Allows ä,ö,ü in the pdf-report." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -618,11 +625,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/ReportService.java</url>
-          <line>52</line>
-          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
