@@ -50,7 +50,6 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         model.addAttribute("currentSnapshot", currentSnapshot);
 
-
         ThreatSituationLinkedList threatSituationLinkedList = reportService.getThreatSituationLikedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
         model.addAttribute("threatSituationLinkedList", threatSituationLinkedList);
 

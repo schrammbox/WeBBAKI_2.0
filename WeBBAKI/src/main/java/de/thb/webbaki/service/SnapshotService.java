@@ -28,7 +28,6 @@ public class SnapshotService {
      * if there already is the right quarter Snapshot. If not
      * it creates the right one.
      */
-    //TODO change every month to every 3th month
     @Scheduled(cron = "0 0 0,12 1,5,10 * *", zone="CET")
     public void createSnapshotBySchedule(){
         LocalDate today = LocalDate.now();

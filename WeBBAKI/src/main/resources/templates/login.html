@@ -7,7 +7,7 @@
 <body>
 <div layout:fragment="content">
     <div class="container-home">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3" style="margin-bottom: 1em">
             <h1>Anmelden</h1>
             <form th:action="@{/login}" method="post" class="card-text needs-validation" novalidate>
                 <div th:if="${param.success}" class="alert alert-success" role="alert"></div>

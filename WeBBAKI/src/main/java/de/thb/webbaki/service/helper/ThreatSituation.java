@@ -7,8 +7,9 @@ public class ThreatSituation {
     private String symbol;
     private float value;
     private String color;
+    private int dataAmount;
 
-    public ThreatSituation(float value){
+    public ThreatSituation(float value, int dataAmount){
         if(value <= -1){
             symbol = "Unbekannt";
             color = "white";
@@ -29,26 +30,31 @@ public class ThreatSituation {
             color = "rgb(255, 102, 102)";
         }
         setValue(value);
+        this.dataAmount = dataAmount;
+    }
+
+    public ThreatSituation(float value){
+        this(value, 0);
     }
 
     public static ThreatSituation getAverageThreatSituation(List<ThreatSituation> threatSituationList){
         float sumValue = 0;
-        int length = 0;
+        int dataAmountCounter = 0;
         for(ThreatSituation threatSituation : threatSituationList){
-            //Dont use Unkown values for the average
+            //Dont use Unkown values for the average and the dataAmount
             if(threatSituation.getValue() >= 0) {
-                length++;
+                dataAmountCounter++;
                 sumValue += threatSituation.getValue();
             }
         }
 
-        //If the length is equal to 0 all threatSituations were unknown(so the new one should be too)
+        //If the length is equal to 0 all threatSituations were unknown(so the new one should be too --> -1)
         float averageValue = -1;
-        if(length != 0){
-            averageValue = sumValue / length;
+        if(dataAmountCounter != 0){
+            averageValue = sumValue / dataAmountCounter;
         }
 
-        return new ThreatSituation(averageValue);
+        return new ThreatSituation(averageValue, dataAmountCounter);
     }
 
     public void setValue(float value){
@@ -77,4 +83,9 @@ public class ThreatSituation {
     public String getColor() {
         return color;
     }
+
+    public int getDataAmount() {
+        return dataAmount;
+    }
+
 }
