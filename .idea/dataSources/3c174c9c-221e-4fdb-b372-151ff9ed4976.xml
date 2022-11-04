@@ -1,138 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="NewWebbaki@172.17.0.55">
-  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.32">
-    <root id="1">
-      <DefaultCasing>exact</DefaultCasing>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <Grants>|root||admin|localhost|ALTER|G
-|root||root|localhost|ALTER|G
-|root||webbakiDev||ALTER|G
-|root||admin|localhost|ALTER ROUTINE|G
-|root||root|localhost|ALTER ROUTINE|G
-|root||webbakiDev||ALTER ROUTINE|G
-|root||admin|localhost|CREATE|G
-|root||root|localhost|CREATE|G
-|root||webbakiDev||CREATE|G
-|root||admin|localhost|CREATE ROUTINE|G
-|root||root|localhost|CREATE ROUTINE|G
-|root||webbakiDev||CREATE ROUTINE|G
-|root||admin|localhost|CREATE TABLESPACE|G
-|root||root|localhost|CREATE TABLESPACE|G
-|root||webbakiDev||CREATE TABLESPACE|G
-|root||admin|localhost|CREATE TEMPORARY TABLES|G
-|root||root|localhost|CREATE TEMPORARY TABLES|G
-|root||webbakiDev||CREATE TEMPORARY TABLES|G
-|root||admin|localhost|CREATE USER|G
-|root||root|localhost|CREATE USER|G
-|root||webbakiDev||CREATE USER|G
-|root||admin|localhost|CREATE VIEW|G
-|root||root|localhost|CREATE VIEW|G
-|root||webbakiDev||CREATE VIEW|G
-|root||admin|localhost|DELETE|G
-|root||root|localhost|DELETE|G
-|root||webbakiDev||DELETE|G
-|root||admin|localhost|DELETE HISTORY|G
-|root||root|localhost|DELETE HISTORY|G
-|root||webbakiDev||DELETE HISTORY|G
-|root||admin|localhost|DROP|G
-|root||root|localhost|DROP|G
-|root||webbakiDev||DROP|G
-|root||admin|localhost|EVENT|G
-|root||root|localhost|EVENT|G
-|root||webbakiDev||EVENT|G
-|root||admin|localhost|EXECUTE|G
-|root||root|localhost|EXECUTE|G
-|root||webbakiDev||EXECUTE|G
-|root||admin|localhost|FILE|G
-|root||root|localhost|FILE|G
-|root||webbakiDev||FILE|G
-|root||admin|localhost|INDEX|G
-|root||root|localhost|INDEX|G
-|root||webbakiDev||INDEX|G
-|root||admin|localhost|INSERT|G
-|root||root|localhost|INSERT|G
-|root||webbakiDev||INSERT|G
-|root||admin|localhost|LOCK TABLES|G
-|root||root|localhost|LOCK TABLES|G
-|root||webbakiDev||LOCK TABLES|G
-|root||admin|localhost|PROCESS|G
-|root||root|localhost|PROCESS|G
-|root||webbakiDev||PROCESS|G
-|root||admin|localhost|REFERENCES|G
-|root||root|localhost|REFERENCES|G
-|root||webbakiDev||REFERENCES|G
-|root||admin|localhost|RELOAD|G
-|root||root|localhost|RELOAD|G
-|root||webbakiDev||RELOAD|G
-|root||admin|localhost|REPLICATION CLIENT|G
-|root||root|localhost|REPLICATION CLIENT|G
-|root||webbakiDev||REPLICATION CLIENT|G
-|root||admin|localhost|REPLICATION SLAVE|G
-|root||root|localhost|REPLICATION SLAVE|G
-|root||webbakiDev||REPLICATION SLAVE|G
-|root||admin|localhost|SELECT|G
-|root||root|localhost|SELECT|G
-|root||webbakiDev||SELECT|G
-|root||admin|localhost|SHOW DATABASES|G
-|root||root|localhost|SHOW DATABASES|G
-|root||webbakiDev||SHOW DATABASES|G
-|root||admin|localhost|SHOW VIEW|G
-|root||root|localhost|SHOW VIEW|G
-|root||webbakiDev||SHOW VIEW|G
-|root||admin|localhost|SHUTDOWN|G
-|root||root|localhost|SHUTDOWN|G
-|root||webbakiDev||SHUTDOWN|G
-|root||admin|localhost|SUPER|G
-|root||root|localhost|SUPER|G
-|root||webbakiDev||SUPER|G
-|root||admin|localhost|TRIGGER|G
-|root||root|localhost|TRIGGER|G
-|root||webbakiDev||TRIGGER|G
-|root||admin|localhost|UPDATE|G
-|root||root|localhost|UPDATE|G
-|root||webbakiDev||UPDATE|G
-|root||admin|localhost|grant option|G
-|root||root|localhost|grant option|G
-webbaki|schema||webbakiDev||ALTER|G
-webbaki|schema||webbakiDev||ALTER ROUTINE|G
-webbaki|schema||webbakiDev||CREATE|G
-webbaki|schema||webbakiDev||CREATE ROUTINE|G
-webbaki|schema||webbakiDev||CREATE TEMPORARY TABLES|G
-webbaki|schema||webbakiDev||CREATE VIEW|G
-webbaki|schema||webbakiDev||DELETE|G
-webbaki|schema||webbakiDev||DELETE HISTORY|G
-webbaki|schema||webbakiDev||DROP|G
-webbaki|schema||webbakiDev||EVENT|G
-webbaki|schema||webbakiDev||EXECUTE|G
-webbaki|schema||webbakiDev||INDEX|G
-webbaki|schema||webbakiDev||INSERT|G
-webbaki|schema||webbakiDev||LOCK TABLES|G
-webbaki|schema||webbakiDev||REFERENCES|G
-webbaki|schema||webbakiDev||SELECT|G
-webbaki|schema||webbakiDev||SHOW VIEW|G
-webbaki|schema||webbakiDev||TRIGGER|G
-webbaki|schema||webbakiDev||UPDATE|G
-webbakiRole|schema||webbakiDev||ALTER|G
-webbakiRole|schema||webbakiDev||ALTER ROUTINE|G
-webbakiRole|schema||webbakiDev||CREATE|G
-webbakiRole|schema||webbakiDev||CREATE ROUTINE|G
-webbakiRole|schema||webbakiDev||CREATE TEMPORARY TABLES|G
-webbakiRole|schema||webbakiDev||CREATE VIEW|G
-webbakiRole|schema||webbakiDev||DELETE|G
-webbakiRole|schema||webbakiDev||DELETE HISTORY|G
-webbakiRole|schema||webbakiDev||DROP|G
-webbakiRole|schema||webbakiDev||EVENT|G
-webbakiRole|schema||webbakiDev||EXECUTE|G
-webbakiRole|schema||webbakiDev||INDEX|G
-webbakiRole|schema||webbakiDev||INSERT|G
-webbakiRole|schema||webbakiDev||LOCK TABLES|G
-webbakiRole|schema||webbakiDev||REFERENCES|G
-webbakiRole|schema||webbakiDev||SELECT|G
-webbakiRole|schema||webbakiDev||SHOW VIEW|G
-webbakiRole|schema||webbakiDev||TRIGGER|G
-webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
-      <ServerVersion>10.3.34</ServerVersion>
-    </root>
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.43">
+    <root id="1"/>
     <collation id="2" parent="1" name="big5_chinese_ci">
       <Charset>big5</Charset>
       <DefaultForCharset>1</DefaultForCharset>
@@ -1219,10 +1088,10 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
     <column id="346" parent="333" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="347" parent="333" name="name">
       <DataType>varchar(255)|0s</DataType>
@@ -1243,9 +1112,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="351" parent="333" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="352" parent="334" name="id">
       <DataType>bigint(20)|0s</DataType>
@@ -1295,9 +1164,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="362" parent="334" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="363" parent="335" name="next_not_cached_value">
       <DataType>bigint(21)|0s</DataType>
@@ -1344,19 +1213,19 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>8</Position>
     </column>
     <column id="371" parent="336" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="372" parent="336" name="name">
       <DataType>varchar(255)|0s</DataType>
       <Position>2</Position>
     </column>
     <key id="373" parent="336" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="374" parent="337" name="id">
       <DataType>bigint(20)|0s</DataType>
@@ -1368,15 +1237,15 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>2</Position>
     </column>
     <key id="376" parent="337" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="377" parent="338" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="378" parent="338" name="comment">
       <DataType>varchar(1000)|0s</DataType>
@@ -1409,9 +1278,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="385" parent="338" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="386" parent="339" name="id">
       <DataType>bigint(20)|0s</DataType>
@@ -1423,9 +1292,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>2</Position>
     </column>
     <key id="388" parent="339" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="389" parent="340" name="role_id">
       <DataType>bigint(20)|0s</DataType>
@@ -1456,10 +1325,10 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <column id="395" parent="341" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="396" parent="341" name="description">
       <DataType>varchar(1024)|0s</DataType>
@@ -1484,30 +1353,30 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="401" parent="341" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="402" parent="342" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="403" parent="342" name="name">
       <DataType>varchar(255)|0s</DataType>
       <Position>2</Position>
     </column>
     <key id="404" parent="342" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="405" parent="343" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="406" parent="343" name="date">
       <DataType>datetime(6)|0s</DataType>
@@ -1522,15 +1391,15 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>4</Position>
     </column>
     <key id="409" parent="343" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="410" parent="344" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="411" parent="344" name="branche">
       <DataType>varchar(255)|0s</DataType>
@@ -1579,9 +1448,9 @@ webbakiRole|schema||webbakiDev||UPDATE|G</Grants>
       <Position>12</Position>
     </column>
     <key id="422" parent="344" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="423" parent="345" name="user_id">
       <DataType>bigint(20)|0s</DataType>

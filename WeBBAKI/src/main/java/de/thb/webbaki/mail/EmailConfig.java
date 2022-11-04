@@ -14,14 +14,13 @@ public class EmailConfig {
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(465);
-        mailSender.setUsername("schrammbox@gmail.com");
-        mailSender.setPassword("dxknvqigjcguqwqu");
+        mailSender.setHost("mail.th-brandenburg.de");
+        mailSender.setPort(25);
+        mailSender.setUsername("noreply@th-brandenburg.de");
 
         Properties mailProperties = mailSender.getJavaMailProperties();
         mailProperties.put("mail.transport.protocol", "smtp");
-        mailProperties.put("mail.smtp.auth", "true");
+        mailProperties.put("mail.smtp.auth", "false");
         mailProperties.put("mail.smtp.starttls.enable", "true");
         mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         mailProperties.put("mail.debug", "false");

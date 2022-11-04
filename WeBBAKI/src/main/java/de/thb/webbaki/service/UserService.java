@@ -340,7 +340,11 @@ public class UserService {
             User user = getUserByUsername(form.getUsers().get(i).getUsername());
             User updatedUser = form.getUsers().get(i);
 
-            if (!user.getBranche().equals(updatedUser.getBranche())) {
+            if(user.getBranche().equals("GESCHÄFTSSTELLE")){
+                System.err.println("Die Branche Geschäftsstelle kann nicht verändert werden.");
+            }
+
+            if (!user.getBranche().equals(updatedUser.getBranche()) && !user.getBranche().equals("GESCHÄFTSSTELLE")) {
                 userRepository.save(updatedUser);
 
                 /*
