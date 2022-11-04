@@ -26,33 +26,50 @@
                 </thead>
                 <tbody>
                 <tr th:each="user, itemStat: *{users}">
-                    <td><input hidden th:text="*{users[__${itemStat.index}__].id}" th:attr="name='${user[' + itemStat.index  + ']}'" th:value="${user.id}" /></td>
-                    <td><input hidden th:text="*{users[__${itemStat.index}__].firstName}" th:attr="name='${user[' + itemStat.index  + ']}'" th:value="${user.firstName}" /></td>
-                    <td><input hidden th:text="*{users[__${itemStat.index}__].lastName}" th:attr="name='${user[' + itemStat.index  + ']}'" th:value="${user.lastName}" /></td>
-                    <td><input hidden th:text="*{users[__${itemStat.index}__].username}" th:attr="name='${user[' + itemStat.index  + ']}'" th:value="${user.username}" /></td>
+                    <td><input hidden th:text="*{users[__${itemStat.index}__].id}"
+                               th:attr="name='${user[' + itemStat.index  + ']}'" th:value="${user.id}"/></td>
+                    <td><input hidden th:text="*{users[__${itemStat.index}__].firstName}"
+                               th:attr="name='${user[' + itemStat.index  + ']}'" th:value="${user.firstName}"/></td>
+                    <td><input hidden th:text="*{users[__${itemStat.index}__].lastName}"
+                               th:attr="name='${user[' + itemStat.index  + ']}'" th:value="${user.lastName}"/></td>
+                    <td><input hidden th:text="*{users[__${itemStat.index}__].username}"
+                               th:attr="name='${user[' + itemStat.index  + ']}'" th:value="${user.username}"/></td>
 
                     <th:block>
                         <td>
-                            <select id="showRisk" class="form-select" th:field="*{users[__${itemStat.index}__].enabled}">
+                            <select id="showRisk" class="form-select"
+                                    th:field="*{users[__${itemStat.index}__].enabled}">
                                 <option
-                                        th:text="true" th:field="*{users[__${itemStat.index}__].enabled}" th:value="${1}">
+                                        th:text="true" th:field="*{users[__${itemStat.index}__].enabled}"
+                                        th:value="${1}">
                                 </option>
                                 <option
-                                        th:text="false" th:field="*{users[__${itemStat.index}__].enabled}" th:value="${0}">
+                                        th:text="false" th:field="*{users[__${itemStat.index}__].enabled}"
+                                        th:value="${0}">
                                 </option>
                             </select>
                         </td>
                     </th:block>
                     <th:block>
                         <td>
-                            <select th:id="selectBranch" th:field="*{users[__${itemStat.index}__].branche}" th:value="${user.branche}" class="form-select">
-                                    <optgroup th:each="sector : ${sectorList}" th:label="${sector.getName()}">
-                                        <option th:each="branche : ${sector.getBranches()}"
+                            <select th:id="selectBranch" th:field="*{users[__${itemStat.index}__].branche}"
+                                    th:value="${user.branche}"
+                                    th:if="${user.getBranche() != 'Geschäftsstelle'}" class="form-select">
+                                <optgroup th:each="sector : ${sectorList}" th:label="${sector.getName()}">
+                                    <option th:each="branche : ${sector.getBranches()}"
                                             th:value="${branche.getName()}"
                                             th:text="${branche.getName()}">
                                     </option>
-                                    </optgroup>
+                                </optgroup>
                             </select>
+                            <div class="lockedBranche row-cols-2" th:if="${user.getBranche() == 'Geschäftsstelle'}">
+                                <p class="lockedBrancheDisplaytext" th:text="${user.getBranche()}"
+                                   th:if="${user.getBranche() == 'Geschäftsstelle'}"></p>
+                                <button class="bi bi-info-circle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu">
+                                    <p>Die Branche eines Geschäftsführers kann nur vom Superadmin geändert werden.</p>
+                                </div>
+                            </div>
                         </td>
                     </th:block>
                 </tr>

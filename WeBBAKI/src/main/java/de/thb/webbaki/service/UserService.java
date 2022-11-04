@@ -122,9 +122,9 @@ public class UserService {
 
 
             /*Outsourcing Mail to thread for speed purposes*/
-            new Thread(()->{
+            new Thread(() -> {
                 //Email to new registered user
-                emailSender.send(form.getEmail(), UserRegisterNotification.buildUserEmail(form.getFirstname(), userLink));
+                emailSender.send(form.getEmail(), UserRegisterNotification.buildUserEmail(form.getFirstname(), form.getLastname(), userLink));
             }).start();
 
         }
@@ -133,6 +133,7 @@ public class UserService {
     @Transactional
     public String confirmToken(String token) throws IllegalStateException {
         ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token);
+        User user = confirmationToken.getUser();
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
         if (expiredAt.isBefore(LocalDateTime.now())) {
@@ -141,7 +142,9 @@ public class UserService {
             confirmationTokenService.setConfirmedAt(token);
             confirmAdmin(token);
         }
-        enableUser(confirmationToken.getUser().getUsername(), token);
+        enableUser(user.getUsername(), token);
+
+        emailSender.send(user.getEmail(), UserEnabledNotification.finalEnabledConfirmation(user.getFirstName(), user.getLastName()));
 
         return "confirmation/confirm";
     }
@@ -204,6 +207,9 @@ public class UserService {
 
                 /* Outsourcing Mailsending to thread for speed purposes */
                 new Thread(() -> {
+
+                    emailSender.send(user.getEmail(), UserNotificationAfterUserConfirmation.mailAfterUserConfirm(user.getFirstName(), user.getLastName()));
+
                     for (User officeAdmin : getUserByOfficeRole()) {
                         emailSender.send(officeAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(officeAdmin.getFirstName(), adminLink,
                                 user.getFirstName(), user.getLastName(),
@@ -334,7 +340,11 @@ public class UserService {
             User user = getUserByUsername(form.getUsers().get(i).getUsername());
             User updatedUser = form.getUsers().get(i);
 
-            if (!user.getBranche().equals(updatedUser.getBranche())) {
+            if(user.getBranche().equals("GESCHÄFTSSTELLE")){
+                System.err.println("Die Branche Geschäftsstelle kann nicht verändert werden.");
+            }
+
+            if (!user.getBranche().equals(updatedUser.getBranche()) && !user.getBranche().equals("GESCHÄFTSSTELLE")) {
                 userRepository.save(updatedUser);
 
                 /*
