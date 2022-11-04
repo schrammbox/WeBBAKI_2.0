@@ -169,4 +169,42 @@ footer {
 }
 
 
-/* STARTSEITE NACH LOGIN */
+/* Ausgegraute Branche:Geschäftsstelle, weil unveränderbar */
+.lockedBranche{
+    background-color: lightgray;
+    height: 40px;
+    display: flex;
+    border-radius: 5px;
+}
+
+.lockedBrancheDisplaytext{
+    padding: 13px 0 0 10px;
+    flex: 0 0 auto;
+    width: 46%;
+    position: relative;
+    top: -6px;
+}
+
+.lockedBranche button{
+    color:darkred;
+    background-color: transparent;
+    border: 0;
+    width: 100%;
+    margin: 0 0;
+}
+
+.dropdown-menu{
+    width:10%;
+    padding: 12px;
+    border-radius: 3px;
+}
+
+@media screen and (max-width: 900px){
+    .lockedBranche button{
+        color:darkred;
+        background-color: transparent;
+        border: 0;
+        width: 95%;
+        margin: 0 0;
+    }
+}
