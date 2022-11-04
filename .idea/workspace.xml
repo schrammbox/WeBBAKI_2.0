@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Allows ä,ö,ü in the pdf-report.">
-      <change afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/user_details_style.css" afterDir="false" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment=".">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_22__18_23__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_24_10_22__18_23__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_21_10_2022_12_07__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_21_10_2022_12_07__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_24_10_22__18_24__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_24_10_22__18_24__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_10_22__18_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_10_22__18_43__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/layout_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/static/css/layout_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/account/user_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/account/user_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/css/layout_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/css/layout_style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +70,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
@@ -88,7 +90,7 @@
       <recent name="de.thb.webbaki.mail.Templates.UserNotifications" />
     </key>
   </component>
-  <component name="RunManager" selected="JAR Application.WeBBAKI-0.0.1-SNAPSHOT.jar">
+  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
@@ -230,6 +232,7 @@
       <workItem from="1666684736372" duration="2756000" />
       <workItem from="1666786583005" duration="3631000" />
       <workItem from="1667308609206" duration="3345000" />
+      <workItem from="1667494864190" duration="10194000" />
     </task>
     <task id="LOCAL-00001" summary="FINAL&#10;-start js part">
       <created>1650622038834</created>
@@ -532,7 +535,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667490454443</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary=".">
+      <created>1667495053675</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1667495053675</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,7 +597,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="upgraded Maven Dependencies in pom.xml" />
     <MESSAGE value="Created JAR File in Intellij" />
     <MESSAGE value="Reset Maven Dependencies" />
     <MESSAGE value="Changed Confirm-link to productive server." />
@@ -612,7 +621,8 @@
     <MESSAGE value="Adds amount of threat matrices or averages over branches(in national context) to the report." />
     <MESSAGE value="testMaster merged into master." />
     <MESSAGE value="Allows ä,ö,ü in the pdf-report." />
-    <option name="LAST_COMMIT_MESSAGE" value="Allows ä,ö,ü in the pdf-report." />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
