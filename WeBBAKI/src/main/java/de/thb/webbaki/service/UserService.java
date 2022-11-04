@@ -109,7 +109,12 @@ public class UserService {
             user.setCompany(form.getCompany());
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
-            user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
+            //set the role to "Geschäftsstelle" if this Branche is choosen
+            if(form.getBranche().equals("Geschäftsstelle")){
+                user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_GESCHÄFTSSTELLE")));
+            }else {
+                user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
+            }
             user.setUsername(form.getUsername());
             user.setEnabled(false);
 
