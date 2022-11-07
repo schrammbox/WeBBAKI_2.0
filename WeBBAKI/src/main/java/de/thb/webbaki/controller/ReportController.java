@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.thymeleaf.context.Context;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -50,7 +51,7 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         model.addAttribute("currentSnapshot", currentSnapshot);
 
-        ThreatSituationLinkedList threatSituationLinkedList = reportService.getThreatSituationLikedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
+        ThreatSituationLinkedList threatSituationLinkedList = reportService.getThreatSituationLinkedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
         model.addAttribute("threatSituationLinkedList", threatSituationLinkedList);
 
         final List<Snapshot> snapshotList = snapshotService.getAllSnapshotOrderByDESC();
@@ -61,13 +62,12 @@ public class ReportController {
 
     @GetMapping("report/{reportFocus}/{snapId}/download")
     public void downloadPdf(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
-                            HttpServletResponse response, Authentication authentication) throws UnknownReportFocusException, IOException, DocumentException {
+                            HttpServletResponse response, Authentication authentication, HttpServletRequest request) throws UnknownReportFocusException, IOException, DocumentException {
 
         response.setContentType("application/pdf");
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=report.pdf";
         response.setHeader(headerKey, headerValue);
-
         Context context = new Context();
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         context.setVariable("masterScenarioList",masterScenarioList);
@@ -77,11 +77,11 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         context.setVariable("currentSnapshot", currentSnapshot);
 
-        ThreatSituationLinkedList threatSituationLinkedList = reportService.getThreatSituationLikedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
+        ThreatSituationLinkedList threatSituationLinkedList = reportService.getThreatSituationLinkedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
         context.setVariable("threatSituationLinkedList", threatSituationLinkedList);
 
         reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
-                    response.getOutputStream());
+                request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort(), response.getOutputStream());
 
     }
 
