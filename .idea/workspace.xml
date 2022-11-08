@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds the logos to the Report pdf.">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Adds the logos to the Report pdf.&#10;with jar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -563,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667837411289</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Adds the logos to the Report pdf.&#10;with jar">
+      <created>1667837826592</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1667837826592</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -623,7 +627,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changed Confirm-link to productive server." />
     <MESSAGE value="Created OfficeController.java &amp; office.html to enable/disable users" />
     <MESSAGE value="Enabling/disabling user works.&#10;&#10;Started on changing branches" />
     <MESSAGE value="changing branches in OfficeController &amp; office.html" />
@@ -648,7 +651,8 @@
     <MESSAGE value="." />
     <MESSAGE value="Geschäftsstelle gets automatically the Role Geschäftsstelle." />
     <MESSAGE value="Adds the logos to the Report pdf." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adds the logos to the Report pdf." />
+    <MESSAGE value="Adds the logos to the Report pdf.&#10;with jar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adds the logos to the Report pdf.&#10;with jar" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
