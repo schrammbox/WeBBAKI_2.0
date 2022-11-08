@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="reset test for autodeploy.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/report/report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/report/report.html" afterDir="false" />
-    </list>
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="test2 for autodeploy." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -231,14 +227,7 @@
       <workItem from="1667308609206" duration="3345000" />
       <workItem from="1667494864190" duration="10510000" />
       <workItem from="1667805760540" duration="528000" />
-      <workItem from="1667910257972" duration="2160000" />
-    </task>
-    <task id="LOCAL-00002" summary="-start der sektorunterteiling">
-      <created>1650628804682</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1650628804682</updated>
+      <workItem from="1667910257972" duration="2703000" />
     </task>
     <task id="LOCAL-00003" summary="Created DeleteQuestionnaire Method&#10;&#10;NOT FINISHED YET">
       <created>1652024080571</created>
@@ -576,7 +565,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667911311406</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="test2 for autodeploy.">
+      <created>1667918623727</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1667918623727</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -636,7 +632,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changing branches in OfficeController &amp; office.html" />
     <MESSAGE value="changing branches in OfficeController &amp; office.html&#10;&#10;MAVEN BUILD SUCCESS" />
     <MESSAGE value="Merged Master &amp; dev/createReport" />
     <MESSAGE value="Adds the Snapshotname to the Reportheading." />
@@ -661,7 +656,8 @@
     <MESSAGE value="Adds the logos to the Report pdf.&#10;with jar" />
     <MESSAGE value="Test for autodeploy." />
     <MESSAGE value="reset test for autodeploy." />
-    <option name="LAST_COMMIT_MESSAGE" value="reset test for autodeploy." />
+    <MESSAGE value="test2 for autodeploy." />
+    <option name="LAST_COMMIT_MESSAGE" value="test2 for autodeploy." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
