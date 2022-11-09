@@ -61,10 +61,10 @@ public class  ReportService {
      * @param outputStream
      * @throws IOException
      */
-    public void generatePdfFromHtml(String html, OutputStream outputStream) throws IOException, DocumentException {
+    public void generatePdfFromHtml(String html, String baseUrl, OutputStream outputStream) throws IOException, DocumentException {
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
         ITextRenderer renderer = new ITextRenderer();
-        renderer.setDocumentFromString(html);
+        renderer.setDocumentFromString(html,baseUrl);
         renderer.layout();
         renderer.createPDF(bufferedOutputStream);
 
@@ -79,7 +79,7 @@ public class  ReportService {
      * Additional it gets a String and saves the comment of the company in it (Only if ReportFocus is COMPANY).
      * @throws UnknownReportFocusException
      */
-    public ThreatSituationLinkedList getThreatSituationLikedListByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
+    public ThreatSituationLinkedList getThreatSituationLinkedListByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
         List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
         List<Questionnaire> snapshotQuestionnaireList = snapshotService.getAllQuestionnaires(snapshot.getId());
         String comment = null;

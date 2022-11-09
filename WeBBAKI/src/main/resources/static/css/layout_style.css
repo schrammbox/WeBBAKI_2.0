@@ -5,7 +5,7 @@ body {
     padding: 0;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
 }
@@ -15,7 +15,7 @@ p {
 }
 
 header {
-    height: 350px;
+    height: auto;
     width: 80%;
     margin: 0 auto;
 }
@@ -29,11 +29,12 @@ header {
 /*
 Container for /home.html
  */
-.container-home{
+.container-home {
     line-height: 1.7;
-    width: 80%!important;
+    width: 80% !important;
     max-width: 100%;
-    margin: 0 auto!important;
+    margin: 0 auto !important;
+    margin-bottom: 3em !important;
 }
 
 .row-cols-4 {
@@ -120,6 +121,7 @@ nav {
         background-color: aliceblue;
     }
 }
+
 /*--------------*/
 
 /* NAVBAR CUSTOMIZATION FOR DIFFERENT DEVICES */
@@ -129,17 +131,17 @@ nav {
     }
 
     /*Report Navigation stuff*/
-    #dropdown-ul{
-        background-color: rgb(250,250,250);
+    #dropdown-ul {
+        background-color: rgb(250, 250, 250);
         width: 50%;
     }
 
     /*show nav in the foreground*/
-    #navbarNav{
+    #navbarNav {
         z-index: 2;
     }
-    /*--------------*/
 
+    /*--------------*/
     .navbar-collapse {
         background-color: #f8f9fa;
         margin: 20px 0 50px 0;
@@ -170,14 +172,14 @@ footer {
 
 
 /* Ausgegraute Branche:Geschäftsstelle, weil unveränderbar */
-.lockedBranche{
+.lockedBranche {
     background-color: lightgray;
     height: 40px;
     display: flex;
     border-radius: 5px;
 }
 
-.lockedBrancheDisplaytext{
+.lockedBrancheDisplaytext {
     padding: 13px 0 0 10px;
     flex: 0 0 auto;
     width: 46%;
@@ -185,26 +187,76 @@ footer {
     top: -6px;
 }
 
-.lockedBranche button{
-    color:darkred;
+.lockedBranche button {
+    color: darkred;
     background-color: transparent;
     border: 0;
     width: 100%;
     margin: 0 0;
 }
 
-.dropdown-menu{
-    width:10%;
+.dropdown-menu {
+    width: 10%;
     padding: 12px;
     border-radius: 3px;
 }
 
-@media screen and (max-width: 900px){
-    .lockedBranche button{
-        color:darkred;
+@media screen and (max-width: 900px) {
+    .lockedBranche button {
+        color: darkred;
         background-color: transparent;
         border: 0;
         width: 95%;
         margin: 0 0;
     }
+}
+
+/* HOME SEITE */
+.startseite {
+    display: flex;
+    flex: 0 0 auto;
+    margin-top: 40px;
+}
+
+.homeParagraph p {
+    line-height: 2;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: sans-serif;
+    margin-bottom: 0.5rem !important;
+    text-align: justify;
+}
+
+.schalenmodell {
+    width: auto;
+    height: 50%;
+    margin: 4em 0 0 3em;
+}
+
+/* HOME Seite Mobil */
+@media screen and (max-width: 990px) {
+
+    header{
+        height: auto;
+    }
+
+    .homeParagraph{
+        width: 100%!important;
+    }
+
+    .row-cols-2 {
+        width: 100%!important;
+    }
+
+    .startseite {
+        margin-top: 40px;
+        display: block;
+    }
+
+    .schalenmodell {
+        width: 100%;
+        height: 50%;
+        margin: 3em 0;
+    }
+
 }
