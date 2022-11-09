@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Geschäftsstelle gets automatically the Role Geschäftsstelle." />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Geschäftsstelle gets automatically the Role Geschäftsstelle.">
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/static/css/layout_style.css" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/static/css/layout_style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +89,7 @@
       <recent name="de.thb.webbaki.mail.Templates.UserNotifications" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
+  <component name="RunManager" selected="Maven.WeBBAKI [clean,package]">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
@@ -596,7 +603,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reset Maven Dependencies" />
     <MESSAGE value="Changed Confirm-link to productive server." />
     <MESSAGE value="Created OfficeController.java &amp; office.html to enable/disable users" />
     <MESSAGE value="Enabling/disabling user works.&#10;&#10;Started on changing branches" />
@@ -621,7 +627,8 @@
     <MESSAGE value="Allows ä,ö,ü in the pdf-report." />
     <MESSAGE value="." />
     <MESSAGE value="Geschäftsstelle gets automatically the Role Geschäftsstelle." />
-    <option name="LAST_COMMIT_MESSAGE" value="Geschäftsstelle gets automatically the Role Geschäftsstelle." />
+    <MESSAGE value="Css Design Changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Css Design Changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
