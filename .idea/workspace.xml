@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Branch is now managed as foreign key.&#10;But the old version of branch and sector is still in the database and Entity's (otherwise there were a problem with the normal server)">
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Changed User-branch from Leon and Christian to a better Branch.">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3c174c9c-221e-4fdb-b372-151ff9ed4976.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3c174c9c-221e-4fdb-b372-151ff9ed4976.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_11_22,_18_06_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_11_22__18_06__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_11_22,_18_04_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_11_22__18_04__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/SetupDataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/SetupDataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/EmailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/EmailConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +91,7 @@
       <recent name="de.thb.webbaki.mail.Templates.UserNotifications" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.WeBBAKIApplication">
+  <component name="RunManager" selected="Maven.WeBBAKI [clean,package]">
     <configuration name="WeBBAKI-0.0.1-SNAPSHOT.jar" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
       <method v="2" />
@@ -231,14 +236,9 @@
       <workItem from="1667494864190" duration="10510000" />
       <workItem from="1667805760540" duration="528000" />
       <workItem from="1667910257972" duration="2703000" />
-      <workItem from="1668088562522" duration="4735000" />
-    </task>
-    <task id="LOCAL-00005" summary="Report saving works">
-      <created>1664101963158</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1664101963159</updated>
+      <workItem from="1668088562522" duration="5163000" />
+      <workItem from="1668104855923" duration="66000" />
+      <workItem from="1668104983712" duration="58000" />
     </task>
     <task id="LOCAL-00006" summary="Report saving works">
       <created>1664103089132</created>
@@ -576,7 +576,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668093267747</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Changed User-branch from Leon and Christian to a better Branch.">
+      <created>1668093567533</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1668093567533</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -636,7 +643,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merged Master &amp; dev/createReport" />
     <MESSAGE value="Adds the Snapshotname to the Reportheading." />
     <MESSAGE value="dev/changeStatus_And_BugfixComment merged into /master" />
     <MESSAGE value="Adds the layer of color in the threatmatrix." />
@@ -661,7 +667,8 @@
     <MESSAGE value="reset test for autodeploy." />
     <MESSAGE value="test2 for autodeploy." />
     <MESSAGE value="Branch is now managed as foreign key.&#10;But the old version of branch and sector is still in the database and Entity's (otherwise there were a problem with the normal server)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Branch is now managed as foreign key.&#10;But the old version of branch and sector is still in the database and Entity's (otherwise there were a problem with the normal server)" />
+    <MESSAGE value="Changed User-branch from Leon and Christian to a better Branch." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed User-branch from Leon and Christian to a better Branch." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
