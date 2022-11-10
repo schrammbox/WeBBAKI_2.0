@@ -4,6 +4,7 @@ import de.thb.webbaki.entity.*;
 import de.thb.webbaki.repository.PrivilegeRepository;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.service.BrancheService;
 import de.thb.webbaki.service.RoleService;
 import de.thb.webbaki.service.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class SetupDataLoader implements
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private BrancheService brancheService;
+
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
@@ -53,10 +57,10 @@ public class SetupDataLoader implements
 
         final Role adminRole = createRoleIfNotFound("ROLE_SUPERADMIN", adminPrivileges);
 
-        createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "UnterBranche Telekom",
+        createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "Geschäftsstelle",
         "Meta", "Passwort1234", Collections.singletonList(adminRole), "schrammbox@gmail.com", true, "schrammbox");
 
-        createUserIfNotFound("Schönberg", "Leon", "Telekommunikation", "UnterBranche Telekom",
+        createUserIfNotFound("Schönberg", "Leon", "Telekommunikation", "Geschäftsstelle",
                 "Meta", "Passwort1234", Collections.singletonList(adminRole), "schoenbe@th-brandenburg.de", true, "schoenbe");
 
         alreadySetup = true;
@@ -87,7 +91,7 @@ public class SetupDataLoader implements
     }
 
     @Transactional
-    User createUserIfNotFound(final String lastName, final String firstName, final String sector, final String branche,
+    User createUserIfNotFound(final String lastName, final String firstName, final String sector, final String branch,
                               final String company, final String password, final Collection<Role> roles, final String email,
                               final boolean enabled, final String username) {
         User user = userRepository.findByUsername(username);
@@ -95,8 +99,9 @@ public class SetupDataLoader implements
             user = new User();
             user.setLastName(lastName);
             user.setFirstName(firstName);
+            user.setBranch(brancheService.getBrancheByName(branch));
             user.setSector(sector);
-            user.setBranche(branche);
+            user.setBranche(branch);
             user.setCompany(company);
             user.setRoles(roles);
             user.setPassword(passwordEncoder.encode(password));
