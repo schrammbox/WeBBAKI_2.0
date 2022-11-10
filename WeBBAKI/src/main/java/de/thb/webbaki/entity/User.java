@@ -35,6 +35,9 @@ public class User {
     @ToString.Exclude
     private Set<Questionnaire> questionnaire;
 
+    @ManyToOne
+    private Branche branch;
+
     @ManyToMany(fetch = FetchType.EAGER) //Fetching roles at the same time users get loaded
     @JoinTable(
             name = "users_roles",

@@ -16,6 +16,4 @@ import java.util.List;
 public class UserForm {
 
     private List<User> users;
-
-    private List<String> branche;
 }

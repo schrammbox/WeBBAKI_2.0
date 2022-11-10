@@ -3,7 +3,6 @@ package de.thb.webbaki.controller;
 import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.entity.Branche;
 import de.thb.webbaki.entity.Sector;
-import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.SectorService;
 import de.thb.webbaki.service.UserService;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -38,7 +36,6 @@ public class OfficeController {
         form.setUsers(users);
 
         model.addAttribute("form", form);
-        model.addAttribute("users", users);
         model.addAttribute("sectorList", sectors);
 
 
@@ -50,7 +47,7 @@ public class OfficeController {
         System.out.println(form.getUsers());
 
         userService.changeEnabledStatus(form);
-        userService.changeBranche(form);
+        userService.changeBranch(form);
 
         return "redirect:office";
     }

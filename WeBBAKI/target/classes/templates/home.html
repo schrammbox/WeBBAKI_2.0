@@ -30,39 +30,43 @@
         <div sec:authorize="isAuthenticated()">
             <a class="btn btn-outline-info" th:href="@{/account/user_details}">Mein Konto</a>
             <div class="startseite-frame">
-                <div class="startseite" style="margin-top: 40px;">
-                    <p style="line-height: 2; font-size:16px;font-weight: 500; font-family: sans-serif;">Cyber- und
-                        Informationssicherheit betrifft Staat, Wirtschaft, Wissenschaft und Gesellschaft
-                        gleichermaßen.</p>
+                <div class="startseite row-cols-2">
+                    <div class="homeParagraph">
+                        <p>Cyber- und
+                            Informationssicherheit betrifft Staat, Wirtschaft, Wissenschaft und Gesellschaft
+                            gleichermaßen.</p>
 
-                    <p style="line-height: 2; font-size:16px;font-weight: 500; font-family: sans-serif;">Diese Akteure
-                        müssen
-                        den verschiedensten Bedrohungen entgegenwirken. Zum Teil haben verschiedene Akteure gleichartige
-                        Bedrohungen zu berücksichtigen, teilweise sind es spezifische Bedrohungen. Dieses kann auf der
-                        Seite
-                        der
-                        Wirtschaft auch sektor- oder branchenspezifisch sein.</p>
+                        <p>Diese Akteure
+                            müssen
+                            den verschiedensten Bedrohungen entgegenwirken. Zum Teil haben verschiedene Akteure
+                            gleichartige
+                            Bedrohungen zu berücksichtigen, teilweise sind es spezifische Bedrohungen. Dieses kann auf
+                            der
+                            Seite
+                            der
+                            Wirtschaft auch sektor- oder branchenspezifisch sein.</p>
 
-                    <p style="line-height: 2; font-size:16px;font-weight: 500; font-family: sans-serif;">Der
-                        Themenarbeitskreis
-                        hat eine Bedrohungsmatrix entwickelt, die in den unterschiedlichen Sektoren mit Ihren Branchen
-                        die
-                        aktuelle Bedrohung darstellen und zur Diskussion (in den BAKs und mit dem TAK OpInAt) anregen
-                        soll.
-                        Diese Matrix soll auch dazu dienen, neuartige Bedrohungen, die in einem bestimmten Umfeld
-                        erstmalig
-                        erkannt werden, auch für weitere Branchen sichtbar zu machen, damit diese die eigenen
-                        Betroffenheit
-                        diskutieren können.</p>
+                        <p>Der
+                            Themenarbeitskreis
+                            hat eine Bedrohungsmatrix entwickelt, die in den unterschiedlichen Sektoren mit Ihren
+                            Branchen
+                            die
+                            aktuelle Bedrohung darstellen und zur Diskussion (in den BAKs und mit dem TAK OpInAt)
+                            anregen
+                            soll.
+                            Diese Matrix soll auch dazu dienen, neuartige Bedrohungen, die in einem bestimmten Umfeld
+                            erstmalig
+                            erkannt werden, auch für weitere Branchen sichtbar zu machen, damit diese die eigenen
+                            Betroffenheit
+                            diskutieren können.</p>
 
-                    <p style="line-height: 2; font-size:16px;font-weight: 500; font-family: sans-serif;">Damit sich die
-                        Bedrohungen besser strukturieren lassen, werden diese Anhand des hier aufgeführten
-                        Schalenmodells
-                        gegliedert. </p>
+                        <p>Damit sich die
+                            Bedrohungen besser strukturieren lassen, werden diese Anhand des hier aufgeführten
+                            Schalenmodells
+                            gegliedert. </p>
+                    </div>
 
-                    <br>
-
-                    <img style="margin-top:25px; position: relative; left: 25%;"
+                    <img class="schalenmodell" style=""
                          th:src="@{/images/Schalenmodell.png}">
                 </div>
             </div>

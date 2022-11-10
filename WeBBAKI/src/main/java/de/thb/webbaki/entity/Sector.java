@@ -24,4 +24,9 @@ public class Sector {
         this.name = name;
         this.branches = branches;
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

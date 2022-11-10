@@ -90,7 +90,7 @@ public class  ReportService {
             for(Branche branche : brancheService.getAllBranches()){
                 List<Queue<ThreatSituation>> brancheQueueList = new LinkedList<Queue<ThreatSituation>>();
                 //remove all unimportant questionnaires
-                List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotQuestionnaireList, userService.getUsersByBranche(branche.getName()));
+                List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotQuestionnaireList, userService.getUsersByBranch(branche.getName()));
 
                 for (Questionnaire questionnaire : questionnaireList) {
                     final Map<Long, String[]> questMap = questionnaireService.getMapping(questionnaire);
@@ -107,10 +107,10 @@ public class  ReportService {
                     userList = Collections.singletonList(userService.getUserByUsername(username));
                     break;
                 case BRANCHE:
-                    userList = userService.getUsersByBranche(userService.getUserByUsername(username).getBranche());
+                    userList = userService.getUsersByBranch(userService.getUserByUsername(username).getBranch().getName());
                     break;
                 case SECTOR:
-                    userList = userService.getUsersBySector(userService.getUserByUsername(username).getSector());
+                    userList = userService.getUsersBySectorName(userService.getUserByUsername(username).getBranch().getSectors().getName());
                     break;
                 default:
                     throw new UnknownReportFocusException();
