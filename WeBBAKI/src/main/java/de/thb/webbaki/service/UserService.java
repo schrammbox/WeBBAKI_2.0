@@ -3,6 +3,7 @@ package de.thb.webbaki.service;
 import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
+import de.thb.webbaki.entity.Branche;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
@@ -37,7 +38,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     private ConfirmationTokenService confirmationTokenService;
     private EmailSender emailSender;
-    private SectorService sectorService;
+    private BrancheService brancheService;
 
     //Repo Methods --------------------------
     public List<User> getAllUsers() {
@@ -52,12 +53,12 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> getUsersByBranche(String branche) {
-        return userRepository.findAllByBranche(branche);
+    public List<User> getUsersByBranch(String branche) {
+        return userRepository.findAllByBranch_Name(branche);
     }
 
-    public List<User> getUsersBySector(String sector) {
-        return userRepository.findAllBySector(sector);
+    public List<User> getUsersBySectorName(String sector) {
+        return userRepository.findAllByBranch_Sectors_Name(sector);
     }
 
     public Boolean usernameExists(String username) {
@@ -101,16 +102,15 @@ public class UserService {
         } else {
 
             final User user = new User();
-
+            Branche userBranch = brancheService.getBrancheByName(form.getBranche());
             user.setLastName(form.getLastname());
             user.setFirstName(form.getFirstname());
-            user.setBranche(form.getBranche());
-            user.setSector(sectorService.getSectorByBrancheName(form.getBranche()).getName());
+            user.setBranch(userBranch);
             user.setCompany(form.getCompany());
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
             //set the role to "Geschäftsstelle" if this Branche is choosen
-            if(form.getBranche().equals("Geschäftsstelle")){
+            if(userBranch.getName().equals("Geschäftsstelle")){
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_GESCHÄFTSSTELLE")));
             }else {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
@@ -218,7 +218,7 @@ public class UserService {
                     for (User officeAdmin : getUserByOfficeRole()) {
                         emailSender.send(officeAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(officeAdmin.getFirstName(), adminLink,
                                 user.getFirstName(), user.getLastName(),
-                                user.getEmail(), user.getBranche(), user.getCompany()));
+                                user.getEmail(), user.getBranch().getName(), user.getCompany()));
                     }
                 }).start();
             }
@@ -338,18 +338,20 @@ public class UserService {
      *
      * @param form to get Branche
      */
-    public void changeBranche(UserForm form) {
+    public void changeBranch(UserForm form) {
 
         for (int i = 0; i < form.getUsers().size(); i++) {
 
             User user = getUserByUsername(form.getUsers().get(i).getUsername());
             User updatedUser = form.getUsers().get(i);
 
-            if(user.getBranche().equals("GESCHÄFTSSTELLE")){
+            if(user.getBranch().getName().equals("GESCHÄFTSSTELLE")){
                 System.err.println("Die Branche Geschäftsstelle kann nicht verändert werden.");
             }
 
-            if (!user.getBranche().equals(updatedUser.getBranche()) && !user.getBranche().equals("GESCHÄFTSSTELLE")) {
+            if (!user.getBranch().equals(updatedUser.getBranch()) && !user.getBranch().getName().equals("GESCHÄFTSSTELLE")) {
+                //only the branchname was changed!!! not the id. SO we have to get the new one
+                updatedUser.setBranch(brancheService.getBrancheByName(updatedUser.getBranch().getName()));
                 userRepository.save(updatedUser);
 
                 /*
@@ -358,12 +360,12 @@ public class UserService {
                 new Thread(() -> {
                     emailSender.send(updatedUser.getEmail(), UserChangeBrancheNotification.changeBrancheMail(updatedUser.getFirstName(),
                             updatedUser.getLastName(),
-                            updatedUser.getBranche()));
+                            updatedUser.getBranch().getName()));
 
                     for (User officeAdmin : getUserByOfficeRole()) {
                         emailSender.send(officeAdmin.getEmail(), AdminChangeBrancheSubmit.changeBrancheMail(officeAdmin.getFirstName(),
                                 officeAdmin.getLastName(),
-                                updatedUser.getBranche(),
+                                updatedUser.getBranch().getName(),
                                 updatedUser.getUsername()));
                     }
                 }).start();

@@ -52,19 +52,18 @@
                     </th:block>
                     <th:block>
                         <td>
-                            <select th:id="selectBranch" th:field="*{users[__${itemStat.index}__].branche}"
-                                    th:value="${user.branche}"
-                                    th:if="${user.getBranche() != 'Geschäftsstelle'}" class="form-select">
+                            <select th:id="selectBranch" th:field="*{users[__${itemStat.index}__].branch.name}"
+                                    th:if="${user.getBranch().getName() != 'Geschäftsstelle'}" class="form-select">
                                 <optgroup th:each="sector : ${sectorList}" th:label="${sector.getName()}">
-                                    <option th:each="branche : ${sector.getBranches()}"
-                                            th:value="${branche.getName()}"
-                                            th:text="${branche.getName()}">
+                                    <option th:each="branch : ${sector.getBranches()}"
+                                            th:value="${branch.getName()}"
+                                            th:text="${branch.getName()}">
                                     </option>
                                 </optgroup>
                             </select>
-                            <div class="lockedBranche row-cols-2" th:if="${user.getBranche() == 'Geschäftsstelle'}">
-                                <p class="lockedBrancheDisplaytext" th:text="${user.getBranche()}"
-                                   th:if="${user.getBranche() == 'Geschäftsstelle'}"></p>
+                            <div class="lockedBranche row-cols-2" th:if="${user.getBranch().getName() == 'Geschäftsstelle'}">
+                                <p class="lockedBrancheDisplaytext" th:text="${user.getBranch().getName()}"
+                                   th:if="${user.getBranch().getName() == 'Geschäftsstelle'}"></p>
                                 <button class="bi bi-info-circle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                 <div class="dropdown-menu">
                                     <p>Die Branche eines Geschäftsführers kann nur vom Superadmin geändert werden.</p>

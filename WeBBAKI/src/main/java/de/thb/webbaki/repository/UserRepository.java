@@ -1,6 +1,5 @@
 package de.thb.webbaki.repository;
 
-import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,11 +16,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findById(long id);
     User findByUsername(String username);
     
-    List<User> findAllByBranche(String branche);
+    List<User> findAllByBranch_Name(String branche);
 
     List<User> findAllByCompany(String company);
 
-    List<User> findAllBySector(String sector);
+    List<User> findAllByBranch_Sectors_Name(String sector);
     List<User> findByRoles_Name(String rolename);
 
     @Transactional
