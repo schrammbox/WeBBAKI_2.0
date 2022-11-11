@@ -23,7 +23,6 @@ C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webb
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\repository\MasterScenarioRepository.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\form\UserToRoleFormModel.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\repository\RoleRepository.java
-C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\service\BrancheService.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\service\helper\ThreatSituationLinkedList.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\service\MasterScenarioService.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\service\RoleService.java
@@ -35,7 +34,7 @@ C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webb
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\entity\User.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\Templates\UserNotifications\UserChangeEnabledStatusNotification.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\enums\ReportFocus.java
-C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\repository\BrancheRepository.java
+C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\service\BranchService.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\SuperAdminController.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\entity\Role.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\confirmation\ConfirmationToken.java
@@ -52,6 +51,7 @@ C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webb
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\security\MyUserDetails.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\configuration\WebSecurityConfig.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\EmailSender.java
+C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\repository\BranchRepository.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\Templates\UserNotifications\UserRemoveRoleNotification.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\configuration\SetupDataLoader.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\security\passwordValidation\PasswordMatchesValidator.java
@@ -68,8 +68,8 @@ C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webb
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\security\authority\UserAuthority.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\repository\SnapshotRepository.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\MainController.java
-C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\entity\Branche.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\form\ThreatMatrixFormModel.java
+C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\entity\Branch.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\mail\Templates\UserNotifications\UserEnabledNotification.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\controller\form\UserRegisterFormModel.java
 C:\Users\Leon\IntelliJIDEAProjects\WeBBAKI_2.0\WeBBAKI\src\main\java\de\thb\webbaki\repository\SectorRepository.java

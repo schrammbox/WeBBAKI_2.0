@@ -14,11 +14,11 @@
         <h1 style="width: 100%; text-align: center; margin-bottom: 2em;" th:text='${reportFocus.getGermanRepresentation() +" Report von " + currentSnapshot.getName()}'></h1>
         <p style="margin-bottom: 2em; font-size: 1.3em;" th:text="${'Die Anzahl der ' + ((reportFocus.getGermanRepresentation().equals('Nationaler'))?(' Branchenmittelwerte der Bedrohungsmatrizen'):(' Bedrohungsmatrizen')) + ', die für die Berechnung des Reports verwendet wurden ist ' + threatSituationLinkedList.getQuestionnaireAmount() + '.' }"></p>
         <th:block th:each="masterScenario: ${masterScenarioList}" >
-            <div style="page-break-inside:avoid;">
-                <h5 th:text="${masterScenario.name}"></h5>
+            <div >
+                <h5 th:text="${masterScenario.name}" style="page-break-inside:avoid;"></h5>
                 <table  class="threatmatrix-table" style="border-bottom: 1px solid black;width: 100%; border-collapse: collapse; margin-bottom: 5em; font-size: 16px; letter-spacing: 1px; padding: 8px;">
                     <thead style="color: grey;">
-                        <tr >
+                        <tr style="page-break-inside:avoid;">
                             <td style="border-bottom: 1px dashed grey;">#</td>
                             <td style="border-bottom: 1px dashed grey;">Szenarien</td>
                             <td style="border-bottom: 1px dashed grey;text-align: center;">Bedrohungslage</td>
@@ -38,7 +38,7 @@
                     </thead>
                     <tbody>
                         <th:block th:each="scenario: ${masterScenario.scenarios}">
-                            <tr>
+                            <tr style="page-break-inside:avoid;">
                                 <td th:text="${scenario.id}" th:style="${'background-color: '+((masterScenario.getId() <=2)?('#9fd8ee'):((masterScenario.getId() <= 4)?('#b5d48c'):('#f6e37b')))+';'+'border-bottom: 1px solid grey; text-align: center'}"></td>
 
                                 <td style="border-bottom: 1px solid grey;" th:text="${scenario.name}"></td>

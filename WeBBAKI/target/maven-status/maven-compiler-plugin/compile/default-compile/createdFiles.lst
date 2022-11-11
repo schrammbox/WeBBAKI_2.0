@@ -27,6 +27,7 @@ de\thb\webbaki\mail\Templates\UserNotifications\UserEnabledNotification.class
 de\thb\webbaki\service\ReportService.class
 de\thb\webbaki\entity\User.class
 de\thb\webbaki\configuration\WebSecurityConfig.class
+de\thb\webbaki\entity\Branch.class
 de\thb\webbaki\service\helper\ThreatSituation.class
 de\thb\webbaki\entity\Scenario.class
 de\thb\webbaki\entity\MasterScenario$MasterScenarioBuilder.class
@@ -38,7 +39,6 @@ de\thb\webbaki\service\ReportService$1.class
 de\thb\webbaki\mail\Templates\AdminNotifications\AdminChangeBrancheSubmit.class
 de\thb\webbaki\service\helper\ThreatSituationLinkedList.class
 de\thb\webbaki\entity\Snapshot.class
-de\thb\webbaki\service\BrancheService.class
 de\thb\webbaki\entity\Privilege.class
 de\thb\webbaki\mail\Templates\UserNotifications\UserRemoveRoleNotification.class
 de\thb\webbaki\repository\RoleRepository.class
@@ -47,6 +47,7 @@ de\thb\webbaki\mail\EmailSender.class
 de\thb\webbaki\mail\Templates\UserNotifications\UserAddRoleNotification.class
 de\thb\webbaki\controller\ReportController.class
 de\thb\webbaki\controller\form\ThreatMatrixFormModel$ThreatMatrixFormModelBuilder.class
+de\thb\webbaki\service\BranchService.class
 de\thb\webbaki\mail\Templates\UserNotifications\UserNotificationAfterUserConfirmation.class
 de\thb\webbaki\service\Exceptions\UserAlreadyExistsException.class
 de\thb\webbaki\service\helper\Counter.class
@@ -58,16 +59,15 @@ de\thb\webbaki\configuration\SecurityConfiguration.class
 de\thb\webbaki\enums\RoleType.class
 de\thb\webbaki\repository\MasterScenarioRepository.class
 de\thb\webbaki\service\MasterScenarioService$MasterScenarioServiceBuilder.class
-de\thb\webbaki\entity\Branche.class
 de\thb\webbaki\repository\SectorRepository.class
 de\thb\webbaki\WeBBAKIApplication.class
 de\thb\webbaki\service\SnapshotService$SnapshotServiceBuilder.class
 de\thb\webbaki\entity\Sector.class
 de\thb\webbaki\repository\SnapshotRepository.class
 de\thb\webbaki\mail\confirmation\ConfirmationTokenRepository.class
-de\thb\webbaki\repository\BrancheRepository.class
 de\thb\webbaki\mail\Templates\AdminNotifications\AdminAddRoleNotification.class
 de\thb\webbaki\service\UserService$UserServiceBuilder.class
+de\thb\webbaki\repository\BranchRepository.class
 de\thb\webbaki\controller\form\UserRegisterFormModel.class
 de\thb\webbaki\controller\form\UserToRoleFormModel$UserToRoleFormModelBuilder.class
 de\thb\webbaki\configuration\WebMvcConfiguration.class
