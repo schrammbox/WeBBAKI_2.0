@@ -350,6 +350,8 @@ public class UserService {
             }
 
             if (!user.getBranch().equals(updatedUser.getBranch()) && !user.getBranch().getName().equals("GESCHÄFTSSTELLE")) {
+                //only the branchname was changed!!! not the id. SO we have to get the new one
+                updatedUser.setBranch(brancheService.getBrancheByName(updatedUser.getBranch().getName()));
                 userRepository.save(updatedUser);
 
                 /*
