@@ -35,7 +35,7 @@
     <div sec:authorize="isAuthenticated()">
         Angemeldet als <span sec:authentication="name"></span><br>
         Rolle: <span sec:authentication="principal.authorities"></span><br>
-        Branche: <span th:text="${@userService.getUserByUsername(#authentication.getName()).getBranche()}"></span>
+        Branche: <span th:text="${@userService.getUserByUsername(#authentication.getName()).getBranch()}"></span>
     </div>
 
     <!--Nav-bar-->

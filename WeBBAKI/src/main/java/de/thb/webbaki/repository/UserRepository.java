@@ -16,11 +16,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findById(long id);
     User findByUsername(String username);
     
-    List<User> findAllByBranch_Name(String branche);
+    List<User> findAllByBranch_Name(String branch);
 
     List<User> findAllByCompany(String company);
 
-    List<User> findAllByBranch_Sectors_Name(String sector);
+    List<User> findAllByBranch_Sector_Name(String sector);
     List<User> findByRoles_Name(String rolename);
 
     @Transactional

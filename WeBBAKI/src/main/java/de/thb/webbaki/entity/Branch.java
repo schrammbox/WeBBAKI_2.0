@@ -9,9 +9,9 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@Entity(name = "branche")
+@Entity(name = "branch")
 @NoArgsConstructor
-public class Branche {
+public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,7 +19,7 @@ public class Branche {
 
     @ManyToOne
     @JoinColumn(name="sector_id", nullable=false)
-    private Sector sectors;
+    private Sector sector;
 
     @Override
     public String toString() {
@@ -30,8 +30,8 @@ public class Branche {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Branche branche = (Branche) o;
-        return Objects.equals(name, branche.name);
+        Branch branch = (Branch) o;
+        return Objects.equals(name, branch.name);
     }
 
     @Override

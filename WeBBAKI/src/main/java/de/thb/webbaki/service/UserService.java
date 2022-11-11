@@ -3,7 +3,7 @@ package de.thb.webbaki.service;
 import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
-import de.thb.webbaki.entity.Branche;
+import de.thb.webbaki.entity.Branch;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
@@ -38,7 +38,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     private ConfirmationTokenService confirmationTokenService;
     private EmailSender emailSender;
-    private BrancheService brancheService;
+    private BranchService branchService;
 
     //Repo Methods --------------------------
     public List<User> getAllUsers() {
@@ -58,7 +58,7 @@ public class UserService {
     }
 
     public List<User> getUsersBySectorName(String sector) {
-        return userRepository.findAllByBranch_Sectors_Name(sector);
+        return userRepository.findAllByBranch_Sector_Name(sector);
     }
 
     public Boolean usernameExists(String username) {
@@ -102,7 +102,7 @@ public class UserService {
         } else {
 
             final User user = new User();
-            Branche userBranch = brancheService.getBrancheByName(form.getBranche());
+            Branch userBranch = branchService.getBranchByName(form.getBranche());
             user.setLastName(form.getLastname());
             user.setFirstName(form.getFirstname());
             user.setBranch(userBranch);
@@ -350,7 +350,7 @@ public class UserService {
 
             if (!user.getBranch().getName().equals(form.getBranchesAsString().get(i)) && !user.getBranch().getName().equals("GESCHÄFTSSTELLE")) {
                 //only the branchname was changed!!! not the id. SO we have to get the new one
-                user.setBranch(brancheService.getBrancheByName(form.getBranchesAsString().get(i)));
+                user.setBranch(branchService.getBranchByName(form.getBranchesAsString().get(i)));
                 userRepository.save(user);
 
                 /*

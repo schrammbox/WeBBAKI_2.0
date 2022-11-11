@@ -4,9 +4,8 @@ import de.thb.webbaki.entity.*;
 import de.thb.webbaki.repository.PrivilegeRepository;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
-import de.thb.webbaki.service.BrancheService;
+import de.thb.webbaki.service.BranchService;
 import de.thb.webbaki.service.RoleService;
-import de.thb.webbaki.service.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -38,7 +37,7 @@ public class SetupDataLoader implements
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private BrancheService brancheService;
+    private BranchService branchService;
 
     @Override
     @Transactional
@@ -99,9 +98,7 @@ public class SetupDataLoader implements
             user = new User();
             user.setLastName(lastName);
             user.setFirstName(firstName);
-            user.setBranch(brancheService.getBrancheByName(branch));
-            user.setSector(sector);
-            user.setBranche(branch);
+            user.setBranch(branchService.getBranchByName(branch));
             user.setCompany(company);
             user.setRoles(roles);
             user.setPassword(passwordEncoder.encode(password));

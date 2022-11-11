@@ -17,10 +17,10 @@ public class Sector {
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "sectors")
-    private List<Branche> branches;
+    @OneToMany(mappedBy = "sector")
+    private List<Branch> branches;
 
-    public Sector(String name, List<Branche> branches) {
+    public Sector(String name, List<Branch> branches) {
         this.name = name;
         this.branches = branches;
     }

@@ -1,7 +1,7 @@
 package de.thb.webbaki.service;
 
 import com.lowagie.text.DocumentException;
-import de.thb.webbaki.entity.Branche;
+import de.thb.webbaki.entity.Branch;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.entity.User;
@@ -33,7 +33,7 @@ public class  ReportService {
     @Autowired
     private SnapshotService snapshotService;
     @Autowired
-    private BrancheService brancheService;
+    private BranchService branchService;
 
     /**
      *
@@ -87,7 +87,7 @@ public class  ReportService {
         //should get the queueList in another way with reportFocus national
         //Average over all branche-averages
         if(reportFocus == ReportFocus.NATIONAL){
-            for(Branche branche : brancheService.getAllBranches()){
+            for(Branch branche : branchService.getAllBranches()){
                 List<Queue<ThreatSituation>> brancheQueueList = new LinkedList<Queue<ThreatSituation>>();
                 //remove all unimportant questionnaires
                 List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotQuestionnaireList, userService.getUsersByBranch(branche.getName()));
@@ -110,7 +110,7 @@ public class  ReportService {
                     userList = userService.getUsersByBranch(userService.getUserByUsername(username).getBranch().getName());
                     break;
                 case SECTOR:
-                    userList = userService.getUsersBySectorName(userService.getUserByUsername(username).getBranch().getSectors().getName());
+                    userList = userService.getUsersBySectorName(userService.getUserByUsername(username).getBranch().getSector().getName());
                     break;
                 default:
                     throw new UnknownReportFocusException();

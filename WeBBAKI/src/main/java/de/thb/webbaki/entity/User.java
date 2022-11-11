@@ -19,8 +19,6 @@ public class User {
     private long id;
     private String lastName;
     private String firstName;
-    private String sector;
-    private String branche;
     private String company;
 
     // authentication
@@ -36,7 +34,7 @@ public class User {
     private Set<Questionnaire> questionnaire;
 
     @ManyToOne
-    private Branche branch;
+    private Branch branch;
 
     @ManyToMany(fetch = FetchType.EAGER) //Fetching roles at the same time users get loaded
     @JoinTable(

@@ -6,7 +6,7 @@ import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.SectorService;
 import de.thb.webbaki.service.UserService;
-import de.thb.webbaki.service.BrancheService;
+import de.thb.webbaki.service.BranchService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ public class OfficeController {
     UserService userService;
     UserRepository userRepository;
     SectorService sectorService;
-    BrancheService brancheService;
+    BranchService branchService;
 
     @GetMapping("/office")
     public String showOfficePage(Model model){

@@ -39,9 +39,9 @@
                                 <select th:id="selectBranch" type="branche" name="branche" class="form-select">
                                     <option value="none" selected disabled hidden>Branche wählen...</option>
                                     <optgroup th:each="sector : ${sectorList}" th:label="${sector.getName()}">
-                                        <option th:each="branche : ${sector.getBranches()}"
-                                                th:value="${branche.getName()}"
-                                                th:text="${branche.getName()}"/>
+                                        <option th:each="branch : ${sector.getBranches()}"
+                                                th:value="${branch.getName()}"
+                                                th:text="${branch.getName()}"/>
                                     </optgroup>
                                 </select>
                             </div>
