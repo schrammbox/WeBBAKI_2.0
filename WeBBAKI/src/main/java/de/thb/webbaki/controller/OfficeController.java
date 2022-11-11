@@ -1,8 +1,8 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserForm;
-import de.thb.webbaki.entity.Branche;
 import de.thb.webbaki.entity.Sector;
+import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.SectorService;
 import de.thb.webbaki.service.UserService;
@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -29,15 +30,19 @@ public class OfficeController {
     public String showOfficePage(Model model){
         final var users = userService.getAllUsers();
         List<Sector> sectors = sectorService.getAllSectors();
-        List<Branche> branches = brancheService.getAllBranches();
+        List<String> branchesAsString = new LinkedList<>();
+
+        for(User user : users){
+            branchesAsString.add(user.getBranch().getName());
+        }
 
         UserForm form = new UserForm();
 
         form.setUsers(users);
+        form.setBranchesAsString(branchesAsString);
 
         model.addAttribute("form", form);
         model.addAttribute("sectorList", sectors);
-
 
         return "permissions/office";
     }

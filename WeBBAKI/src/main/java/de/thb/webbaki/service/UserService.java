@@ -343,30 +343,29 @@ public class UserService {
         for (int i = 0; i < form.getUsers().size(); i++) {
 
             User user = getUserByUsername(form.getUsers().get(i).getUsername());
-            User updatedUser = form.getUsers().get(i);
 
             if(user.getBranch().getName().equals("GESCHÄFTSSTELLE")){
                 System.err.println("Die Branche Geschäftsstelle kann nicht verändert werden.");
             }
 
-            if (!user.getBranch().equals(updatedUser.getBranch()) && !user.getBranch().getName().equals("GESCHÄFTSSTELLE")) {
+            if (!user.getBranch().getName().equals(form.getBranchesAsString().get(i)) && !user.getBranch().getName().equals("GESCHÄFTSSTELLE")) {
                 //only the branchname was changed!!! not the id. SO we have to get the new one
-                updatedUser.setBranch(brancheService.getBrancheByName(updatedUser.getBranch().getName()));
-                userRepository.save(updatedUser);
+                user.setBranch(brancheService.getBrancheByName(form.getBranchesAsString().get(i)));
+                userRepository.save(user);
 
                 /*
                  * Outsourcing Email sending cause of speed
                  */
                 new Thread(() -> {
-                    emailSender.send(updatedUser.getEmail(), UserChangeBrancheNotification.changeBrancheMail(updatedUser.getFirstName(),
-                            updatedUser.getLastName(),
-                            updatedUser.getBranch().getName()));
+                    emailSender.send(user.getEmail(), UserChangeBrancheNotification.changeBrancheMail(user.getFirstName(),
+                            user.getLastName(),
+                            user.getBranch().getName()));
 
                     for (User officeAdmin : getUserByOfficeRole()) {
                         emailSender.send(officeAdmin.getEmail(), AdminChangeBrancheSubmit.changeBrancheMail(officeAdmin.getFirstName(),
                                 officeAdmin.getLastName(),
-                                updatedUser.getBranch().getName(),
-                                updatedUser.getUsername()));
+                                user.getBranch().getName(),
+                                user.getUsername()));
                     }
                 }).start();
 

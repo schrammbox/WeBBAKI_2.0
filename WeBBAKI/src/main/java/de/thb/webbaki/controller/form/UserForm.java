@@ -1,6 +1,5 @@
 package de.thb.webbaki.controller.form;
 
-import de.thb.webbaki.entity.Branche;
 import de.thb.webbaki.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,4 +15,5 @@ import java.util.List;
 public class UserForm {
 
     private List<User> users;
+    private List<String> branchesAsString;
 }
