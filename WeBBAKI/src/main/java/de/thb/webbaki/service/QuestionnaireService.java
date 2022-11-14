@@ -28,6 +28,9 @@ public class QuestionnaireService {
     @Autowired
     private ScenarioService scenarioService;
 
+    public void deleteAllByUser(User user){questionnaireRepository.deleteAllByUser(user);}
+    public void save(Questionnaire questionnaire){questionnaireRepository.save(questionnaire);}
+
     public Questionnaire getQuestionnaire(long id) {
         return questionnaireRepository.findById(id);
     }

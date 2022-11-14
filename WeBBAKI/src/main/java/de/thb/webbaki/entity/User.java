@@ -50,7 +50,6 @@ public class User {
     }
     public void addRole(Role role) {
         roles.add(role);
-
     }
 
     //Roles Getter

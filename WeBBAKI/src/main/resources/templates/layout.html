@@ -50,7 +50,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_KRITIS_BETREIBER')">
                     <a class="nav-link" href="/threatmatrix">Bedrohungsmatrix</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_SUPERADMIN', 'ROLE_KRITIS_BETREIBER','ROLE_BRANCHENADMIN','ROLE_SEKTORENADMIN','ROLE_BUNDESADMIN','ROLE_GESCHÄFTSSTELLE')">

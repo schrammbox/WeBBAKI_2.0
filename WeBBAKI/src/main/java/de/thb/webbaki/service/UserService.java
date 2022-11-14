@@ -4,6 +4,7 @@ import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Branch;
+import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
@@ -39,6 +40,7 @@ public class UserService {
     private ConfirmationTokenService confirmationTokenService;
     private EmailSender emailSender;
     private BranchService branchService;
+    private QuestionnaireService questionnaireService;
 
     //Repo Methods --------------------------
     public List<User> getAllUsers() {
@@ -109,11 +111,19 @@ public class UserService {
             user.setCompany(form.getCompany());
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
+
             //set the role to "Geschäftsstelle" if this Branche is choosen
             if(userBranch.getName().equals("Geschäftsstelle")){
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_GESCHÄFTSSTELLE")));
             }else {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
+                //create questionnaire if user is kritis_betreiber
+                Questionnaire questionnaire = new Questionnaire();
+                questionnaire.setUser(getUserByUsername(form.getUsername()));
+                questionnaire.setDate(LocalDateTime.now());
+                questionnaire.setSmallComment("");
+                questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
+                questionnaireService.save(questionnaire);
             }
             user.setUsername(form.getUsername());
             user.setEnabled(false);
@@ -262,6 +272,16 @@ public class UserService {
                 Role role = roleService.getRoleByName(roleString);
                 user.getRoles().add(role);
 
+                //create new questionnaires for user if he is now KRITIS_BETREIBER
+                if(role.getName().equals("ROLE_KRITIS_BETREIBER")){
+                    Questionnaire questionnaire = new Questionnaire();
+                    questionnaire.setUser(user);
+                    questionnaire.setDate(LocalDateTime.now());
+                    questionnaire.setSmallComment("");
+                    questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
+                    questionnaireService.save(questionnaire);
+                }
+
                 /*Outsourcing Mail to thread for speed purposes*/
                 new Thread(() -> {
                     emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
@@ -279,6 +299,11 @@ public class UserService {
             if (!roleDelString.equals("none")) {
                 Role roleDel = roleService.getRoleByName(roleDelString);
                 user.getRoles().remove(roleDel);
+
+                //delete all questionnaires from user if he is no KRITIS_BETREIBER anymore
+                if(roleDel.getName().equals("ROLE_KRITIS_BETREIBER")){
+                    questionnaireService.deleteAllByUser(user);
+                }
 
                 /*Outsourcing Mail to thread for speed purposes*/
                 new Thread(() -> {
