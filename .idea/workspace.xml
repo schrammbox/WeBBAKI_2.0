@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Report is now only accessible for ROLE_KRITISBETREIBERR.">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_11_2022_19_03__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_11_2022_19_03__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/EmailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/EmailConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/configuration/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/configuration/WebSecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/EmailConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/EmailConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/templates/layout.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +35,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev/threatMatrixForKritis" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
