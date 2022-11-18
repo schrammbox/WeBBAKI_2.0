@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Application.properties to the new.">
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/EmailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/mail/EmailConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/EmailConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/target/classes/de/thb/webbaki/mail/EmailConfig.class" afterDir="false" />
+    <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="Report is now only accessible for ROLE_KRITISBETREIBERR.">
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/java/de/thb/webbaki/configuration/WebSecurityConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="masterTest" />
+        <entry key="$PROJECT_DIR$" value="dev/threatMatrixForKritis" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -74,8 +73,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="database.data.extractors.current.export.id" value="SQL-Insert-Statements.sql.groovy" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop" />
+    <property name="database.data.extractors.current.export.id" value="SQL Inserts" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
@@ -240,8 +238,6 @@
       <workItem from="1668177299854" duration="870000" />
       <workItem from="1668415659038" duration="1345000" />
       <workItem from="1668417043125" duration="4715000" />
-      <workItem from="1668505706569" duration="1338000" />
-      <workItem from="1668522014135" duration="876000" />
     </task>
     <task id="LOCAL-00013" summary="Created JAR File in Intellij">
       <created>1664485874304</created>
@@ -565,26 +561,26 @@
       <option name="project" value="LOCAL" />
       <updated>1668178879835</updated>
     </task>
-    <task id="LOCAL-00059" summary="Merged into master.">
-      <created>1668505335992</created>
+    <task id="LOCAL-00059" summary="Only Questionnaires of KRITIS_BETREIBER are used for a snapshot. And only creates new quest for user by role change to KRITIS_BETREIBER, if he hasnt already one.">
+      <created>1668763496358</created>
       <option name="number" value="00059" />
       <option name="presentableId" value="LOCAL-00059" />
       <option name="project" value="LOCAL" />
-      <updated>1668505335993</updated>
+      <updated>1668763496359</updated>
     </task>
-    <task id="LOCAL-00060" summary="Application.properties to the new.">
-      <created>1668618039904</created>
+    <task id="LOCAL-00060" summary="Report is now only accessible for ROLE_KRITISBETREIBERR.">
+      <created>1668764574983</created>
       <option name="number" value="00060" />
       <option name="presentableId" value="LOCAL-00060" />
       <option name="project" value="LOCAL" />
-      <updated>1668618039905</updated>
+      <updated>1668764574983</updated>
     </task>
-    <task id="LOCAL-00061" summary="Application.properties to the new.">
-      <created>1668623509442</created>
+    <task id="LOCAL-00061" summary="Report is now only accessible for ROLE_KRITISBETREIBERR.">
+      <created>1668764725337</created>
       <option name="number" value="00061" />
       <option name="presentableId" value="LOCAL-00061" />
       <option name="project" value="LOCAL" />
-      <updated>1668623509442</updated>
+      <updated>1668764725337</updated>
     </task>
     <option name="localTasksCounter" value="62" />
     <servers />
@@ -669,9 +665,9 @@
     <MESSAGE value="." />
     <MESSAGE value="Merged into master" />
     <MESSAGE value="Everything up to date" />
-    <MESSAGE value="Merged into master." />
-    <MESSAGE value="Application.properties to the new." />
-    <option name="LAST_COMMIT_MESSAGE" value="Application.properties to the new." />
+    <MESSAGE value="Only Questionnaires of KRITIS_BETREIBER are used for a snapshot. And only creates new quest for user by role change to KRITIS_BETREIBER, if he hasnt already one." />
+    <MESSAGE value="Report is now only accessible for ROLE_KRITISBETREIBERR." />
+    <option name="LAST_COMMIT_MESSAGE" value="Report is now only accessible for ROLE_KRITISBETREIBERR." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
