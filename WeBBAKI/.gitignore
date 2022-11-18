@@ -3,3 +3,4 @@ application.properties
 /generated-sources
 /maven-archiver
 /maven-status
+/.idea
