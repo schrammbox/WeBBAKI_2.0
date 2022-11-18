@@ -1,0 +1,9 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_18_11_2022_11_24_[Changes]" date="1668767052744" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_11_24_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 18.11.2022 11:24 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/configuration/WebSecurityConfig.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/configuration/WebSecurityConfig.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_11_24_[Changes]/WebSecurityConfig.class" />
+  </binary>
+</changelist>

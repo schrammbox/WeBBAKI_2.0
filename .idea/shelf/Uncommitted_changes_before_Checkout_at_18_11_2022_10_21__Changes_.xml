@@ -1,0 +1,39 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]" date="1668763313840" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 18.11.2022 10:21 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/repository/QuestionnaireRepository.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/repository/QuestionnaireRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]/QuestionnaireRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/service/QuestionnaireService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]/QuestionnaireService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/service/UserService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]/UserService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/repository/UserRepository.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/repository/UserRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]/UserRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/service/SnapshotService.class" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/classes/de/thb/webbaki/service/SnapshotService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_10_21_[Changes]/SnapshotService.class" />
+  </binary>
+</changelist>

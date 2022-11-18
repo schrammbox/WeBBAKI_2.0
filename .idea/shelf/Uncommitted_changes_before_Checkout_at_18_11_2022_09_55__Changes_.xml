@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_18_11_2022_09_55_[Changes]" date="1668761766233" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_09_55_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 18.11.2022 09:55 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_09_55_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar.original" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_18_11_2022_09_55_[Changes]/WeBBAKI-0.0.1-SNAPSHOT.jar" />
+  </binary>
+</changelist>
