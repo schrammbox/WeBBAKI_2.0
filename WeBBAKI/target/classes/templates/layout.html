@@ -50,24 +50,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ROLE_KRITIS_BETREIBER')">
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_KRITIS_BETREIBER','ROLE_BRANCHENADMIN','ROLE_SEKTORENADMIN','ROLE_BUNDESADMIN')">
                     <a class="nav-link" href="/threatmatrix">Bedrohungsmatrix</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ROLE_KRITIS_BETREIBER')">
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_BRANCHENADMIN','ROLE_SEKTORENADMIN','ROLE_BUNDESADMIN', 'ROLE_KRITIS_BETREIBER')">
                     <div  class="dropdown" id="dropdown-div" >
                         <a class="dropdown-toggle nav-link" id="dropdown-a" type="button" aria-expanded="false" data-toggle="dropdown">Report</a>
 
                         <ul class="dropdown-menu" id="dropdown-ul">
-                            <li class="dropdown-li">
+                            <li class="dropdown-li" sec:authorize="hasAuthority('ROLE_KRITIS_BETREIBER')">
                                 <a th:href='${"/report/company"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link">Unternehmen</a>
                             </li>
-                            <li class="dropdown-li">
+                            <li class="dropdown-li" sec:authorize="hasAnyAuthority('ROLE_KRITIS_BETREIBER','ROLE_BRANCHENADMIN','ROLE_SEKTORENADMIN','ROLE_BUNDESADMIN')">
                                 <a th:href='${"/report/branche"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link">Branche</a>
                             </li>
-                            <li class="dropdown-li">
+                            <li class="dropdown-li" sec:authorize="hasAnyAuthority('ROLE_KRITIS_BETREIBER','ROLE_SEKTORENADMIN','ROLE_BUNDESADMIN')">
                                 <a th:href='${"/report/sector"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link">Sektor</a>
                             </li>
-                            <li class="dropdown-li">
+                            <li class="dropdown-li" sec:authorize="hasAnyAuthority('ROLE_KRITIS_BETREIBER','ROLE_BUNDESADMIN')">
                                 <a th:href='${"/report/national"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link">National</a>
                             </li>
                         </ul>

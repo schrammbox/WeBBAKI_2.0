@@ -15,5 +15,13 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="webbaki@192.168.210.195" uuid="d8e2a37e-9025-46b4-a739-7014d1934c7d">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MARIADB" exact-version="0" />
+      <schema-mapping />
+    </data-source>
+    <data-source name="Produkitiv" uuid="4926f598-cfe7-4e83-be3f-5f25558c3587">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MARIADB" exact-version="0" />
+      <schema-mapping />
+    </data-source>
   </component>
 </project>
