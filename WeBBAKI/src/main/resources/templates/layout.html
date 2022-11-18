@@ -53,7 +53,7 @@
                 <li class="nav-item" sec:authorize="hasAuthority('ROLE_KRITIS_BETREIBER')">
                     <a class="nav-link" href="/threatmatrix">Bedrohungsmatrix</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_SUPERADMIN', 'ROLE_KRITIS_BETREIBER','ROLE_BRANCHENADMIN','ROLE_SEKTORENADMIN','ROLE_BUNDESADMIN','ROLE_GESCHÄFTSSTELLE')">
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_KRITIS_BETREIBER')">
                     <div  class="dropdown" id="dropdown-div" >
                         <a class="dropdown-toggle nav-link" id="dropdown-a" type="button" aria-expanded="false" data-toggle="dropdown">Report</a>
 
