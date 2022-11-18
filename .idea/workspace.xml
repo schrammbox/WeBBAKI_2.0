@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment=".">
+      <change afterPath="$PROJECT_DIR$/WeBBAKI/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,13 +239,6 @@
       <workItem from="1668177299854" duration="870000" />
       <workItem from="1668415659038" duration="1345000" />
       <workItem from="1668417043125" duration="4715000" />
-    </task>
-    <task id="LOCAL-00018" summary="Changed Confirm-link to productive server.">
-      <created>1664543225378</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1664543225378</updated>
     </task>
     <task id="LOCAL-00019" summary="Created OfficeController.java &amp; office.html to enable/disable users">
       <created>1664551587668</created>
@@ -583,7 +576,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668774348985</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary=".">
+      <created>1668775713486</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1668775713487</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
