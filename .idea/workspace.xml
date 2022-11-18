@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="667ec06d-647e-4df5-a818-0af895a529e2" name="Changes" comment="add gitignore">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_11_2022_19_03__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_11_2022_19_03__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeBBAKI/src/main/resources/application.properties" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="masterTest" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -239,6 +240,27 @@
       <workItem from="1668177299854" duration="870000" />
       <workItem from="1668415659038" duration="1345000" />
       <workItem from="1668417043125" duration="4715000" />
+    </task>
+    <task id="LOCAL-00018" summary="Changed Confirm-link to productive server.">
+      <created>1664543225378</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1664543225378</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Created OfficeController.java &amp; office.html to enable/disable users">
+      <created>1664551587668</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1664551587668</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Created OfficeController.java &amp; office.html to enable/disable users">
+      <created>1664966883046</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1664966883047</updated>
     </task>
     <task id="LOCAL-00021" summary="Enabling/disabling user works.&#10;&#10;Started on changing branches">
       <created>1665055652321</created>
@@ -562,28 +584,7 @@
       <option name="project" value="LOCAL" />
       <updated>1668774348985</updated>
     </task>
-    <task id="LOCAL-00067" summary=".">
-      <created>1668775713486</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1668775713487</updated>
-    </task>
-    <task id="LOCAL-00068" summary="add gitignore">
-      <created>1668776647609</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1668776647609</updated>
-    </task>
-    <task id="LOCAL-00069" summary="add gitignore">
-      <created>1668776690641</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1668776690641</updated>
-    </task>
-    <option name="localTasksCounter" value="70" />
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -643,6 +644,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="The smallComments of a questionnaire is now set to &quot;&quot; on start." />
     <MESSAGE value="jar file uploading." />
     <MESSAGE value="Fixes problems with jar." />
     <MESSAGE value="Delete unimportant model attribute users from SuperAdminController in Method showAllUsers and addRoleToUser." />
@@ -667,8 +669,7 @@
     <MESSAGE value="Report is now only accessible for ROLE_KRITISBETREIBERR." />
     <MESSAGE value="Better access for reports." />
     <MESSAGE value="." />
-    <MESSAGE value="add gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="add gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
