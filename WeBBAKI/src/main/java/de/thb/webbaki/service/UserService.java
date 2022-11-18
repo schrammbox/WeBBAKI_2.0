@@ -79,6 +79,8 @@ public class UserService {
         return userRepository.findByRoles_Name("ROLE_GESCHÄFTSSTELLE");
     }
 
+    public boolean existsUserByIdAndRoleName(long id, String roleName){return userRepository.existsByIdAndRoles_Name(id, roleName);}
+
     /**
      * @param user is used to create new user -> forwarded to registerNewUser
      * @return newly created token
@@ -272,8 +274,8 @@ public class UserService {
                 Role role = roleService.getRoleByName(roleString);
                 user.getRoles().add(role);
 
-                //create new questionnaires for user if he is now KRITIS_BETREIBER
-                if(role.getName().equals("ROLE_KRITIS_BETREIBER")){
+                //create new questionnaires for the user if he is now KRITIS_BETREIBER and hasnt already one
+                if(role.getName().equals("ROLE_KRITIS_BETREIBER") && !questionnaireService.existsQuestionnaireByUserId(user.getId())){
                     Questionnaire questionnaire = new Questionnaire();
                     questionnaire.setUser(user);
                     questionnaire.setDate(LocalDateTime.now());
@@ -299,11 +301,6 @@ public class UserService {
             if (!roleDelString.equals("none")) {
                 Role roleDel = roleService.getRoleByName(roleDelString);
                 user.getRoles().remove(roleDel);
-
-                //delete all questionnaires from user if he is no KRITIS_BETREIBER anymore
-                if(roleDel.getName().equals("ROLE_KRITIS_BETREIBER")){
-                    questionnaireService.deleteAllByUser(user);
-                }
 
                 /*Outsourcing Mail to thread for speed purposes*/
                 new Thread(() -> {
