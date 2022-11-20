@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.*;
 
 import javax.transaction.Transactional;
@@ -392,6 +393,14 @@ public class UserService {
                 }).start();
 
             }
+        }
+    }
+
+    //Change User credentials
+    public void changePassword(String oldPassword, String newPassword, User user){
+
+        if (!oldPassword.equals(newPassword)){
+            user.setPassword(passwordEncoder.encode(newPassword));
         }
     }
 }

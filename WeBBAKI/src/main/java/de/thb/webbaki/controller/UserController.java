@@ -1,12 +1,8 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
-import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
-import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
-import de.thb.webbaki.repository.QuestionnaireRepository;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
-import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.SectorService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
@@ -21,15 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
-    private QuestionnaireRepository questionnaireRepository;
-    private ConfirmationTokenService confirmationTokenService;
     @Autowired
     SectorService sectorService;
 
@@ -97,7 +91,23 @@ public class UserController {
     public String confirm(@RequestParam("token") String token) {
         userService.confirmAdmin(token);
         return userService.confirmToken(token);
+    }
 
+    @GetMapping(path = "/account/changePassword")
+    public String showChangePassword(){
+        return "account/changePassword";
+    }
+
+    @PostMapping(path = "/account/changePassword")
+    public String changePassword(@RequestParam("oldPassword") String oldPassword,
+                                 @RequestParam("newPassword") String newPassword, Principal principal, Model model){
+
+        String username = principal.getName();
+        User user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+
+        userService.changePassword(oldPassword, newPassword, user);
+        return "account/changePassword";
     }
 
 }
