@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller;
 
+import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
@@ -93,21 +94,23 @@ public class UserController {
         return userService.confirmToken(token);
     }
 
-    @GetMapping(path = "/account/changePassword")
+    @GetMapping(path = "/account/changeCredentials")
     public String showChangePassword(){
-        return "account/changePassword";
+        return "account/changeCredentials";
     }
 
-    @PostMapping(path = "/account/changePassword")
-    public String changePassword(@RequestParam("oldPassword") String oldPassword,
-                                 @RequestParam("newPassword") String newPassword, Principal principal, Model model){
+    @PostMapping(path = "account/changeCredentials")
+    public String changeCredentials(@Valid ChangeCredentialsForm form, Principal principal, Model model){
 
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
-        model.addAttribute("user", user);
 
-        userService.changePassword(oldPassword, newPassword, user);
-        return "account/changePassword";
+        model.addAttribute("user", user);
+        model.addAttribute("form", form);
+
+        userService.changeCredentials(form, user);
+
+        return "account/changeCredentials";
     }
 
 }

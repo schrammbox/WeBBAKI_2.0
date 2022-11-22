@@ -1,5 +1,6 @@
 package de.thb.webbaki.service;
 
+import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
@@ -80,7 +81,9 @@ public class UserService {
         return userRepository.findByRoles_Name("ROLE_GESCHÄFTSSTELLE");
     }
 
-    public boolean existsUserByIdAndRoleName(long id, String roleName){return userRepository.existsByIdAndRoles_Name(id, roleName);}
+    public boolean existsUserByIdAndRoleName(long id, String roleName) {
+        return userRepository.existsByIdAndRoles_Name(id, roleName);
+    }
 
     /**
      * @param user is used to create new user -> forwarded to registerNewUser
@@ -116,9 +119,9 @@ public class UserService {
             user.setEmail(form.getEmail());
 
             //set the role to "Geschäftsstelle" if this Branche is choosen
-            if(userBranch.getName().equals("Geschäftsstelle")){
+            if (userBranch.getName().equals("Geschäftsstelle")) {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_GESCHÄFTSSTELLE")));
-            }else {
+            } else {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
                 //create questionnaire if user is kritis_betreiber
                 Questionnaire questionnaire = new Questionnaire();
@@ -274,7 +277,7 @@ public class UserService {
             if (!roleString.equals("none")) {
                 Role role = roleService.getRoleByName(roleString);
                 //only add a role to a person, if he not already has this role
-                if(!user.getRoles().contains(role)) {
+                if (!user.getRoles().contains(role)) {
                     user.getRoles().add(role);
 
                     //create new questionnaires for the user if he is now KRITIS_BETREIBER and hasnt already one
@@ -370,7 +373,7 @@ public class UserService {
 
             User user = getUserByUsername(form.getUsers().get(i).getUsername());
 
-            if(user.getBranch().getName().equals("GESCHÄFTSSTELLE")){
+            if (user.getBranch().getName().equals("GESCHÄFTSSTELLE")) {
                 System.err.println("Die Branche Geschäftsstelle kann nicht verändert werden.");
             }
 
@@ -399,11 +402,37 @@ public class UserService {
         }
     }
 
-    //Change User credentials
-    public void changePassword(String oldPassword, String newPassword, User user){
+    public void changeCredentials(ChangeCredentialsForm form, User user) {
 
-        if (!oldPassword.equals(newPassword)){
-            user.setPassword(passwordEncoder.encode(newPassword));
+        if (form.getOldPassword() != null) {
+            if (passwordEncoder.matches(form.getOldPassword(), user.getPassword())) {
+                if (!form.getOldPassword().equals(form.getNewPassword())) {
+                    user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+                }
+            } else {
+                System.out.println("Die Passwörter stimmen nicht überein");
+            }
         }
+        if (form.getOldEmail() != null){
+            if (form.getOldEmail().equals(user.getEmail())) {
+                if (!form.getOldEmail().equals(form.getNewEmail())) {
+                    user.setEmail(form.getNewEmail());
+                }
+            }
+        }
+
+        if (form.getNewFirstname() != null){
+            if (!form.getNewFirstname().equals(user.getFirstName())) {
+                user.setFirstName(form.getNewFirstname());
+            }
+        }
+
+        if (form.getNewLastname() != null){
+            if (!form.getNewLastname().equals(user.getLastName())) {
+                user.setLastName(form.getNewLastname());
+            }
+        }
+
+        saveUser(user);
     }
 }
