@@ -56,10 +56,10 @@ public class SetupDataLoader implements
 
         final Role adminRole = createRoleIfNotFound("ROLE_SUPERADMIN", adminPrivileges);
 
-        createUserIfNotFound("Schramm", "Christian", "Telekommunikation", "Geschäftsstelle",
+        createUserIfNotFound("Schramm", "Christian", "Geschäftsstelle",
         "Meta", "Passwort1234", Collections.singletonList(adminRole), "schrammbox@gmail.com", true, "schrammbox");
 
-        createUserIfNotFound("Schönberg", "Leon", "Telekommunikation", "Geschäftsstelle",
+        createUserIfNotFound("Schönberg", "Leon",  "Geschäftsstelle",
                 "Meta", "Passwort1234", Collections.singletonList(adminRole), "schoenbe@th-brandenburg.de", true, "schoenbe");
 
         alreadySetup = true;
@@ -90,7 +90,7 @@ public class SetupDataLoader implements
     }
 
     @Transactional
-    User createUserIfNotFound(final String lastName, final String firstName, final String sector, final String branch,
+    User createUserIfNotFound(final String lastName, final String firstName, final String branch,
                               final String company, final String password, final Collection<Role> roles, final String email,
                               final boolean enabled, final String username) {
         User user = userRepository.findByUsername(username);

@@ -38,7 +38,7 @@
                         <td>
                             <select id="showRisk" class="form-select" th:field="*{role[__${itemStat.index}__]}">
                                 <option value="none">Bitte auswählen:</option>
-                                <option th:each="role : ${roles}"
+                                <option th:each="role : ${roles}"  th:unless="${user.getRoles().contains(role)}"
                                         th:value="${role.name}" th:text="${role}">
                                 </option>
                             </select>
