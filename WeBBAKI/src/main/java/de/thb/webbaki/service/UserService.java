@@ -15,6 +15,8 @@ import de.thb.webbaki.mail.confirmation.ConfirmationToken;
 import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
+import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -402,32 +404,32 @@ public class UserService {
         }
     }
 
-    public void changeCredentials(ChangeCredentialsForm form, User user) {
+    public void changeCredentials(ChangeCredentialsForm form, User user) throws PasswordNotMatchingException, EmailNotMatchingException {
 
         if (form.getOldPassword() != null) {
-            if (passwordEncoder.matches(form.getOldPassword(), user.getPassword())) {
-                if (!form.getOldPassword().equals(form.getNewPassword())) {
-                    user.setPassword(passwordEncoder.encode(form.getNewPassword()));
-                }
-            } else {
-                System.out.println("Die Passwörter stimmen nicht überein");
-            }
-        }
-        if (form.getOldEmail() != null){
-            if (form.getOldEmail().equals(user.getEmail())) {
-                if (!form.getOldEmail().equals(form.getNewEmail())) {
-                    user.setEmail(form.getNewEmail());
-                }
+            if (!passwordEncoder.matches(form.getOldPassword(), user.getPassword())) {
+                throw new PasswordNotMatchingException("Das eingegebene Passwort stimmt nicht mit Ihrem Passwort überein.");
+            } else if (!form.getOldPassword().equals(form.getNewPassword())) {
+                user.setPassword(passwordEncoder.encode(form.getNewPassword()));
             }
         }
 
-        if (form.getNewFirstname() != null){
+        if (form.getOldEmail() != null) {
+            if (!form.getOldEmail().equals(user.getEmail())) {
+                throw new EmailNotMatchingException("Die eingegebene Email-Adresse stimmt nicht mit Ihrer Email überein.");
+            }
+            else if (!form.getOldEmail().equals(form.getNewEmail())) {
+                user.setEmail(form.getNewEmail());
+            }
+        }
+
+        if (form.getNewFirstname() != null) {
             if (!form.getNewFirstname().equals(user.getFirstName())) {
                 user.setFirstName(form.getNewFirstname());
             }
         }
 
-        if (form.getNewLastname() != null){
+        if (form.getNewLastname() != null) {
             if (!form.getNewLastname().equals(user.getLastName())) {
                 user.setLastName(form.getNewLastname());
             }

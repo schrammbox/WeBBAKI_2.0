@@ -3,6 +3,8 @@ package de.thb.webbaki.controller;
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
+import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import de.thb.webbaki.service.SectorService;
 import de.thb.webbaki.service.UserService;
@@ -102,13 +104,24 @@ public class UserController {
     @PostMapping(path = "account/changeCredentials")
     public String changeCredentials(@Valid ChangeCredentialsForm form, Principal principal, Model model){
 
-        String username = principal.getName();
-        User user = userService.getUserByUsername(username);
+        try {
+            String username = principal.getName();
+            User user = userService.getUserByUsername(username);
 
-        model.addAttribute("user", user);
-        model.addAttribute("form", form);
+            model.addAttribute("user", user);
+            model.addAttribute("form", form);
 
-        userService.changeCredentials(form, user);
+            userService.changeCredentials(form,user);
+        } catch (PasswordNotMatchingException passEx) {
+            model.addAttribute("passwordError", "Das eingegebene Password stimmt nicht mit Ihrem aktuellen Passwort überein.");
+            return "account/changeCredentials";
+        } catch (EmailNotMatchingException e){
+            model.addAttribute("emailError", "Die eingegebene Email-Adresse stimmt nicht mit Ihrer aktuellen Email überein.");
+        }
+
+        model.addAttribute("passwordSuccess", "Ihr Passwort wurde erfolgreich geändert.");
+        model.addAttribute("emailSuccess", "Ihre Email-Adresse wurde erfolgreich geändert.");
+        model.addAttribute("dataSuccess", "Ihr Name wurde erfolgreich geändert.");
 
         return "account/changeCredentials";
     }

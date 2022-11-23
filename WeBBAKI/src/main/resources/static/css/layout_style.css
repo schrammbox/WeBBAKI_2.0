@@ -258,5 +258,21 @@ footer {
         height: 50%;
         margin: 3em 0;
     }
+}
 
+/** account/changeCredentials.html **/
+.container-credentials{
+    width: 60%;
+    max-width: 100%;
+    line-height: 1.7;
+    margin: auto auto 10em; /* Centering the container, but putting 10em space to end of the page */
+}
+
+.mt-5-substitute{
+    margin-top: 0!important;
+}
+
+.h3-changeCredentials{
+    font-size: 1.5rem!important;
+    font-family: sans-serif;
 }
