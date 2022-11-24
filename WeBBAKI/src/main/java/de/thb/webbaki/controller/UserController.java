@@ -111,17 +111,14 @@ public class UserController {
             model.addAttribute("user", user);
             model.addAttribute("form", form);
 
-            userService.changeCredentials(form,user);
+            userService.changeCredentials(form,user, model);
         } catch (PasswordNotMatchingException passEx) {
             model.addAttribute("passwordError", "Das eingegebene Password stimmt nicht mit Ihrem aktuellen Passwort überein.");
             return "account/changeCredentials";
         } catch (EmailNotMatchingException e){
             model.addAttribute("emailError", "Die eingegebene Email-Adresse stimmt nicht mit Ihrer aktuellen Email überein.");
+            return "account/changeCredentials";
         }
-
-        model.addAttribute("passwordSuccess", "Ihr Passwort wurde erfolgreich geändert.");
-        model.addAttribute("emailSuccess", "Ihre Email-Adresse wurde erfolgreich geändert.");
-        model.addAttribute("dataSuccess", "Ihr Name wurde erfolgreich geändert.");
 
         return "account/changeCredentials";
     }

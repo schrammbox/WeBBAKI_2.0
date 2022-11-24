@@ -19,4 +19,5 @@ public class ChangeCredentialsForm {
     private String newEmail;
     private String newFirstname;
     private String newLastname;
+    private String newUsername;
 }

@@ -23,6 +23,7 @@ import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.security.Principal;
 import java.util.*;
@@ -404,13 +405,14 @@ public class UserService {
         }
     }
 
-    public void changeCredentials(ChangeCredentialsForm form, User user) throws PasswordNotMatchingException, EmailNotMatchingException {
+    public void changeCredentials(ChangeCredentialsForm form, User user, Model model) throws PasswordNotMatchingException, EmailNotMatchingException {
 
         if (form.getOldPassword() != null) {
             if (!passwordEncoder.matches(form.getOldPassword(), user.getPassword())) {
                 throw new PasswordNotMatchingException("Das eingegebene Passwort stimmt nicht mit Ihrem Passwort überein.");
             } else if (!form.getOldPassword().equals(form.getNewPassword())) {
                 user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+                model.addAttribute("passwordSuccess", "Ihr Passwort wurde erfolgreich geändert.");
             }
         }
 
@@ -420,18 +422,21 @@ public class UserService {
             }
             else if (!form.getOldEmail().equals(form.getNewEmail())) {
                 user.setEmail(form.getNewEmail());
+                model.addAttribute("emailSuccess", "Ihre Email-Adresse wurde erfolgreich geändert.");
             }
         }
 
-        if (form.getNewFirstname() != null) {
+        if (form.getNewFirstname() != null && !form.getNewFirstname().isEmpty()) {
             if (!form.getNewFirstname().equals(user.getFirstName())) {
                 user.setFirstName(form.getNewFirstname());
+                model.addAttribute("firstnameSuccess", "Ihr Vorname wurde erfolgreich geändert.");
             }
         }
 
-        if (form.getNewLastname() != null) {
+        if (form.getNewLastname() != null && !form.getNewLastname().isEmpty()) {
             if (!form.getNewLastname().equals(user.getLastName())) {
                 user.setLastName(form.getNewLastname());
+                model.addAttribute("lastnameSuccess", "Ihr Nachname wurde erfolgreich geändert.");
             }
         }
 
