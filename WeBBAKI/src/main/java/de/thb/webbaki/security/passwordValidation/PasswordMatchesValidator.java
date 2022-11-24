@@ -1,5 +1,6 @@
 package de.thb.webbaki.security.passwordValidation;
 
+import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 
 import javax.validation.ConstraintValidator;

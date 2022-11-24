@@ -22,6 +22,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     List<User> findAllByBranch_Sector_Name(String sector);
     List<User> findByRoles_Name(String rolename);
+    boolean existsByIdAndRoles_Name(long id, String rolename);
 
     @Transactional
     @Modifying

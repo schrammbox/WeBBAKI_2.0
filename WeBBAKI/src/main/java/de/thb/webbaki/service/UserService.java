@@ -1,5 +1,6 @@
 package de.thb.webbaki.service;
 
+import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
@@ -14,13 +15,17 @@ import de.thb.webbaki.mail.confirmation.ConfirmationToken;
 import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
+import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.security.Principal;
 import java.util.*;
 
 import javax.transaction.Transactional;
@@ -79,6 +84,10 @@ public class UserService {
         return userRepository.findByRoles_Name("ROLE_GESCHÄFTSSTELLE");
     }
 
+    public boolean existsUserByIdAndRoleName(long id, String roleName) {
+        return userRepository.existsByIdAndRoles_Name(id, roleName);
+    }
+
     /**
      * @param user is used to create new user -> forwarded to registerNewUser
      * @return newly created token
@@ -113,9 +122,9 @@ public class UserService {
             user.setEmail(form.getEmail());
 
             //set the role to "Geschäftsstelle" if this Branche is choosen
-            if(userBranch.getName().equals("Geschäftsstelle")){
+            if (userBranch.getName().equals("Geschäftsstelle")) {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_GESCHÄFTSSTELLE")));
-            }else {
+            } else {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
                 //create questionnaire if user is kritis_betreiber
                 Questionnaire questionnaire = new Questionnaire();
@@ -270,40 +279,38 @@ public class UserService {
 
             if (!roleString.equals("none")) {
                 Role role = roleService.getRoleByName(roleString);
-                user.getRoles().add(role);
+                //only add a role to a person, if he not already has this role
+                if (!user.getRoles().contains(role)) {
+                    user.getRoles().add(role);
 
-                //create new questionnaires for user if he is now KRITIS_BETREIBER
-                if(role.getName().equals("ROLE_KRITIS_BETREIBER")){
-                    Questionnaire questionnaire = new Questionnaire();
-                    questionnaire.setUser(user);
-                    questionnaire.setDate(LocalDateTime.now());
-                    questionnaire.setSmallComment("");
-                    questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
-                    questionnaireService.save(questionnaire);
-                }
-
-                /*Outsourcing Mail to thread for speed purposes*/
-                new Thread(() -> {
-                    emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
-                            user.getLastName(),
-                            role));
-
-                    for (User superAdmin : getUserByAdminrole()) {
-                        emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
-                                superAdmin.getLastName(),
-                                role, user.getUsername()));
+                    //create new questionnaires for the user if he is now KRITIS_BETREIBER and hasnt already one
+                    if (role.getName().equals("ROLE_KRITIS_BETREIBER") && !questionnaireService.existsQuestionnaireByUserId(user.getId())) {
+                        Questionnaire questionnaire = new Questionnaire();
+                        questionnaire.setUser(user);
+                        questionnaire.setDate(LocalDateTime.now());
+                        questionnaire.setSmallComment("");
+                        questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
+                        questionnaireService.save(questionnaire);
                     }
-                }).start();
+
+                    /*Outsourcing Mail to thread for speed purposes*/
+                    new Thread(() -> {
+                        emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
+                                user.getLastName(),
+                                role));
+
+                        for (User superAdmin : getUserByAdminrole()) {
+                            emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
+                                    superAdmin.getLastName(),
+                                    role, user.getUsername()));
+                        }
+                    }).start();
+                }
             }
 
             if (!roleDelString.equals("none")) {
                 Role roleDel = roleService.getRoleByName(roleDelString);
                 user.getRoles().remove(roleDel);
-
-                //delete all questionnaires from user if he is no KRITIS_BETREIBER anymore
-                if(roleDel.getName().equals("ROLE_KRITIS_BETREIBER")){
-                    questionnaireService.deleteAllByUser(user);
-                }
 
                 /*Outsourcing Mail to thread for speed purposes*/
                 new Thread(() -> {
@@ -369,7 +376,7 @@ public class UserService {
 
             User user = getUserByUsername(form.getUsers().get(i).getUsername());
 
-            if(user.getBranch().getName().equals("GESCHÄFTSSTELLE")){
+            if (user.getBranch().getName().equals("GESCHÄFTSSTELLE")) {
                 System.err.println("Die Branche Geschäftsstelle kann nicht verändert werden.");
             }
 
@@ -396,5 +403,43 @@ public class UserService {
 
             }
         }
+    }
+
+    public void changeCredentials(ChangeCredentialsForm form, User user, Model model) throws PasswordNotMatchingException, EmailNotMatchingException {
+
+        if (form.getOldPassword() != null) {
+            if (!passwordEncoder.matches(form.getOldPassword(), user.getPassword())) {
+                throw new PasswordNotMatchingException("Das eingegebene Passwort stimmt nicht mit Ihrem Passwort überein.");
+            } else if (!form.getOldPassword().equals(form.getNewPassword())) {
+                user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+                model.addAttribute("passwordSuccess", "Ihr Passwort wurde erfolgreich geändert.");
+            }
+        }
+
+        if (form.getOldEmail() != null) {
+            if (!form.getOldEmail().equals(user.getEmail())) {
+                throw new EmailNotMatchingException("Die eingegebene Email-Adresse stimmt nicht mit Ihrer Email überein.");
+            }
+            else if (!form.getOldEmail().equals(form.getNewEmail())) {
+                user.setEmail(form.getNewEmail());
+                model.addAttribute("emailSuccess", "Ihre Email-Adresse wurde erfolgreich geändert.");
+            }
+        }
+
+        if (form.getNewFirstname() != null && !form.getNewFirstname().isEmpty()) {
+            if (!form.getNewFirstname().equals(user.getFirstName())) {
+                user.setFirstName(form.getNewFirstname());
+                model.addAttribute("firstnameSuccess", "Ihr Vorname wurde erfolgreich geändert.");
+            }
+        }
+
+        if (form.getNewLastname() != null && !form.getNewLastname().isEmpty()) {
+            if (!form.getNewLastname().equals(user.getLastName())) {
+                user.setLastName(form.getNewLastname());
+                model.addAttribute("lastnameSuccess", "Ihr Nachname wurde erfolgreich geändert.");
+            }
+        }
+
+        saveUser(user);
     }
 }
