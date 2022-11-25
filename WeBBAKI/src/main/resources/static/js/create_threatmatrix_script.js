@@ -12,47 +12,10 @@ function calculateThreatSituation(trParent){
     let impactSelect = trParent.getElementsByClassName("impactSelect")[0];
     let threatsituationDiv = trParent.getElementsByClassName("threatsituationDiv")[0];
 
-    let probability = probabilitySelect.value;
-    let impact = impactSelect.value;
+    let probabilityNum = probabilitySelect.value;
+    let impactNum = impactSelect.value;
 
-    let probabilityNum, impactNum, result = 0;
-    switch (probability) {
-        case "none":
-            probabilityNum = -1;
-            break;
-        case 'nie':
-            probabilityNum = 0;
-            break;
-        case 'selten':
-            probabilityNum = 1;
-            break;
-        case 'mittel':
-            probabilityNum = 2;
-            break;
-        case 'haeufig':
-            probabilityNum = 3;
-            break;
-        case 'sehr haeufig':
-            probabilityNum = 4;
-            break;
-    }
-    switch (impact) {
-        case "none":
-            impactNum = -1;
-            break;
-        case 'keine':
-            impactNum = 1
-            break;
-        case 'geringe':
-            impactNum = 2
-            break;
-        case 'hohe':
-            impactNum = 3
-            break;
-        case 'existenzielle':
-            impactNum = 4
-            break;
-    }
+    result = 0;
 
     if(probabilityNum < 0 || impactNum < 0){
         result = -1;

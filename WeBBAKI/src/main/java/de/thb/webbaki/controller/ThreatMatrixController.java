@@ -4,12 +4,14 @@ import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
+import de.thb.webbaki.service.Exceptions.NotAuthorizedException;
 import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.QuestionnaireService;
 import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
 import de.thb.webbaki.service.helper.Counter;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,38 +35,14 @@ public class ThreatMatrixController {
 
 
     @GetMapping("/threatmatrix")
-    public String showQuestionnaireForm(Model model,Authentication authentication) {
+    public String showQuestionnaireForm(Model model, Authentication authentication) {
 
-        final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
-        model.addAttribute("masterScenarioList",masterScenarioList);
-
-        Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userService.getUserByUsername(authentication.getName()).getId());
-        model.addAttribute("quest", quest);
-
-        ThreatMatrixFormModel threatMatrixFormModel = ThreatMatrixFormModel.builder().smallComments(quest.getSmallComment().replace("[","").replace("]", "").split(",")).build();
-        model.addAttribute("threatmatrix", threatMatrixFormModel);
-        model.addAttribute("value", new Counter());
-
-        Counter counter = new Counter();
-        counter.countAndGet();
-        model.addAttribute("counter", counter);
-
-        Map<Long, String[]> questMap = questionnaireService.getMapping(quest);
-        model.addAttribute("questMap", questMap);
-
-        return "threatmatrix/create_threatmatrix";
+        return "redirect:/threatmatrix/open/" + questionnaireService.getNewestQuestionnaireByUserId(userService.getUserByUsername(authentication.getName()).getId()).getId();
     }
     @PostMapping("/threatmatrix")
     public String submitQuestionnaire(@ModelAttribute("threatmatrix") @Valid ThreatMatrixFormModel questionnaireFormModel,
-                                      BindingResult result, Authentication authentication,
-                                      RedirectAttributes redirectAttributes) {
-
-        if (userService.getUserByUsername(authentication.getName()) != null){
-            User user = userService.getUserByUsername(authentication.getName());
-            questionnaireFormModel.setUser(user);
-            questionnaireService.saveQuestionaire(questionnaireFormModel);
-        }
-
+                                      Authentication authentication) {
+        questionnaireService.saveQuestionnaireFromThreatMatrixFormModel(questionnaireFormModel, userService.getUserByUsername(authentication.getName()));
         return "redirect:/threatmatrix/chronic";
     }
 
@@ -82,23 +60,23 @@ public class ThreatMatrixController {
     }
 
     @GetMapping("/threatmatrix/open/{questID}")
-    public String showThreatMatrixByID(@PathVariable("questID") long questID, Model model) {
+    public String showThreatMatrixByID(@PathVariable("questID") long questID, Model model, Authentication authentication) throws NotAuthorizedException{
+        if(questionnaireService.existsQuestionnaireByIdAndUserId(questID,userService.getUserByUsername(authentication.getName()).getId() )){
+            final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
+            model.addAttribute("masterScenarioList",masterScenarioList);
 
-        Questionnaire quest = questionnaireService.getQuestionnaire(questID);
-        model.addAttribute("quest", quest);
+            Questionnaire quest = questionnaireService.getQuestionnaire(questID);
 
-        Map<Long, String[]> questMap = questionnaireService.getMapping(quest);
-        model.addAttribute("questMap", questMap);
+            ThreatMatrixFormModel threatMatrixFormModel = new ThreatMatrixFormModel(quest);
+            model.addAttribute("threatmatrix", threatMatrixFormModel);
+            model.addAttribute("value", new Counter());
 
-        // NEEDED
-        ThreatMatrixFormModel threatMatrixFormModel = ThreatMatrixFormModel.builder().smallComments(quest.getSmallComment().replace("[","").replace("]", "").split(",")).build();
-        model.addAttribute("threatmatrix", threatMatrixFormModel);
-        model.addAttribute("value", new Counter());
+            model.addAttribute("counter", new Counter());
 
-        final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
-        model.addAttribute("masterScenarioList",masterScenarioList);
-
-        return "threatmatrix/create_threatmatrix";
+            return "threatmatrix/create_threatmatrix";
+        }else{
+            throw new NotAuthorizedException("This user could not access this questionnaire.");
+        }
     }
 
 

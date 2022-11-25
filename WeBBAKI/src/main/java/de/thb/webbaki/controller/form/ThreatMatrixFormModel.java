@@ -1,46 +1,40 @@
 package de.thb.webbaki.controller.form;
 
-import de.thb.webbaki.entity.Role;
-import de.thb.webbaki.entity.User;
-import de.thb.webbaki.enums.*;
+import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.UserScenario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ThreatMatrixFormModel {
+    List<Float> probabilities;
+    List<Float> impacts;
+    List<String> smallComments;
+    List<Long> scenarioIds;
+    String comment;
 
-    // get ENUM for Frontend
-    @NotNull(message = "Probability null")
-    private Probability probability;
-    // get ENUM for Frontend
-    @NotNull(message = "Impact null")
-    private Impact impact;
-    // get ENUM for Frontend
-    @NotNull(message = "Risk null")
-    private Risk risk;
+    public ThreatMatrixFormModel(Questionnaire questionnaire){
 
-    private Collection<Role> roles;
-
-    private String comment;
-    private String[] smallComments;
-
-    // get probability from Frontend as array
-    @NotNull(message = "prob not null")
-    private String[] prob;
-    // get impact from Frontend as array
-    @NotNull(message = "imp not null")
-    private String[] imp;
-
-    private User user;
-
+        comment = questionnaire.getComment();
+        probabilities = new ArrayList<>();
+        impacts = new ArrayList<>();
+        smallComments = new ArrayList<>();
+        scenarioIds = new ArrayList<>();
+        //TODO solve Problem with not enough UserScenarios
+        for(UserScenario userScenario : questionnaire.getUserScenarios()){
+            probabilities.add(userScenario.getProbability());
+            impacts.add(userScenario.getImpact());
+            scenarioIds.add(userScenario.getScenario().getId());
+            smallComments.add(userScenario.getSmallComment());
+        }
+    }
 }

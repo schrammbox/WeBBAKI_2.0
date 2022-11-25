@@ -31,6 +31,7 @@ public class QuestionnaireService {
     private UserScenarioService userScenarioService;
 
     public boolean existsQuestionnaireByUserId(long id){return questionnaireRepository.existsByUser_id(id);}
+    public boolean existsQuestionnaireByIdAndUserId(long questId, long userId){return questionnaireRepository.existsByIdAndUser_Id(questId, userId);}
     public void deleteAllByUser(User user){questionnaireRepository.deleteAllByUser(user);}
     public void save(Questionnaire questionnaire){questionnaireRepository.save(questionnaire);}
 
@@ -84,24 +85,28 @@ public class QuestionnaireService {
     }
 
 
-    public Questionnaire saveQuestionaire(ThreatMatrixFormModel form) {
-        String[] prob = form.getProb();
-        String[] imp = form.getImp();
+    public void saveQuestionnaireFromThreatMatrixFormModel(ThreatMatrixFormModel form, User user) {
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setDate(LocalDateTime.now());
+        questionnaire.setUser(user);
+        questionnaire.setComment(form.getComment());
+        questionnaireRepository.save(questionnaire);
 
-        Map<Long, String> map = new HashMap<>();
-        for (long i = 1; i < prob.length; i++) {
-            map.put(i, prob[(int) i] + ';' + imp[(int) i]);
+        List<Float> probabilities = form.getProbabilities();
+        List<Float> impacts = form.getImpacts();
+        List<String> smallComments = form.getSmallComments();
+        List<Long> scenarioIds = form.getScenarioIds();
+
+        for(int i = 0; i <  probabilities.size(); i++){
+            UserScenario userScenario = UserScenario.builder()
+                    .questionnaire(questionnaire)
+                    .scenario(scenarioService.getById(scenarioIds.get(i)))
+                    .impact(impacts.get(i))
+                    .probability(probabilities.get(i))
+                    .threatSituation(getThreatSituationLong(impacts.get(i).longValue(), probabilities.get(i).longValue()))
+                    .smallComment(smallComments.get(i)).build();
+            userScenarioService.saveUserScenario(userScenario);
         }
-
-        final var questionnaire = questionnaireRepository.save(Questionnaire.builder()
-                .date(LocalDateTime.now())
-                .user(form.getUser())
-                .mapping(map.toString())
-                .comment(form.getComment())
-                .smallComment(Arrays.toString(form.getSmallComments()))
-                .build());
-
-        return questionnaire;
     }
 
     public Map<Long, String[]> getMapping(Questionnaire quest) {
