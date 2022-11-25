@@ -11,6 +11,7 @@ import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
 import de.thb.webbaki.service.helper.Counter;
 import lombok.AllArgsConstructor;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.Map;
 
 @Controller
@@ -66,6 +68,11 @@ public class ThreatMatrixController {
             model.addAttribute("masterScenarioList",masterScenarioList);
 
             Questionnaire quest = questionnaireService.getQuestionnaire(questID);
+
+            if(quest.getUserScenarios().size() != scenarioService.getNumberOfScenarios()){
+                questionnaireService.addMissingUserScenario(quest);
+            }
+            //TODO richtige zuordnung vlt in Construktor vom Formmodel
 
             ThreatMatrixFormModel threatMatrixFormModel = new ThreatMatrixFormModel(quest);
             model.addAttribute("threatmatrix", threatMatrixFormModel);

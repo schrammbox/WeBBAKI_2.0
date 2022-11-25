@@ -22,4 +22,6 @@ public class UserScenarioService {
     public void saveUserScenario(UserScenario userScenario){
         userScenarioRepository.save(userScenario);
     }
+
+    public boolean existesUerScenarioByScenarioIdAndQuestionnaireId(long scenarioId, long questId){return userScenarioRepository.existsByScenario_IdAndQuestionnaire_Id(scenarioId, questId);}
 }

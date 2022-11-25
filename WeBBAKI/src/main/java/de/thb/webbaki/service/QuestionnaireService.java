@@ -84,6 +84,23 @@ public class QuestionnaireService {
         questionnaireRepository.deleteQuestionnaireById(id);
     }
 
+    public void addMissingUserScenario(Questionnaire questionnaire){
+        List<Scenario> scenarios = scenarioService.getAllScenarios();
+        for(Scenario scenario : scenarios){
+            if(!userScenarioService.existesUerScenarioByScenarioIdAndQuestionnaireId(scenario.getId(), questionnaire.getId())){
+                UserScenario userScenario = UserScenario.builder().smallComment("")
+                        .scenario(scenario)
+                        .questionnaire(questionnaire)
+                        .impact(-1)
+                        .probability(-1)
+                        .threatSituation(-1).build();
+                userScenarioService.saveUserScenario(userScenario);
+                questionnaire.getUserScenarios().add(userScenario);
+            }
+        }
+
+
+    }
 
     public void saveQuestionnaireFromThreatMatrixFormModel(ThreatMatrixFormModel form, User user) {
         Questionnaire questionnaire = new Questionnaire();

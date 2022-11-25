@@ -13,4 +13,5 @@ import java.util.List;
 public interface UserScenarioRepository extends CrudRepository<UserScenario, Long> {
     List<UserScenario> findAllByQuestionnaire(Questionnaire questionnaire);
     UserScenario findByScenario(Scenario scenario);
+    boolean existsByScenario_IdAndQuestionnaire_Id(long scenarioId, long questId);
 }

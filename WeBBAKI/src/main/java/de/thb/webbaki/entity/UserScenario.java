@@ -11,7 +11,8 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Entity
-public class UserScenario {
+public class UserScenario{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
