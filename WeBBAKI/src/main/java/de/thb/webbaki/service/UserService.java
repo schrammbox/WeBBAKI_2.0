@@ -126,13 +126,6 @@ public class UserService {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_GESCHÄFTSSTELLE")));
             } else {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
-                //create questionnaire if user is kritis_betreiber
-                Questionnaire questionnaire = new Questionnaire();
-                questionnaire.setUser(getUserByUsername(form.getUsername()));
-                questionnaire.setDate(LocalDateTime.now());
-                questionnaire.setSmallComment("");
-                questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
-                questionnaireService.save(questionnaire);
             }
             user.setUsername(form.getUsername());
             user.setEnabled(false);
@@ -144,6 +137,16 @@ public class UserService {
 
             userRepository.save(user);
 
+            //create questionnaire if user is kritis_betreiber
+            if(!userBranch.getName().equals("Geschäftsstelle")){
+                Questionnaire questionnaire = new Questionnaire();
+                questionnaire.setUser(getUserByUsername(form.getUsername()));
+                questionnaire.setDate(LocalDateTime.now());
+                questionnaire.setSmallComment("");
+                questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
+                questionnaire.setUser(user);
+                questionnaireService.save(questionnaire);
+            }
 
             /*Outsourcing Mail to thread for speed purposes*/
             new Thread(() -> {

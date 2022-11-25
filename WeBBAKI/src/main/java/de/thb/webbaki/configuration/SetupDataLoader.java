@@ -57,10 +57,10 @@ public class SetupDataLoader implements
         final Role adminRole = createRoleIfNotFound("ROLE_SUPERADMIN", adminPrivileges);
 
         createUserIfNotFound("Schramm", "Christian", "Geschäftsstelle",
-        "Meta", "Passwort1234", Collections.singletonList(adminRole), "schrammbox@gmail.com", true, "schrammbox");
+        "Webbaki", "Passwort1234", Collections.singletonList(adminRole), "schrammbox@gmail.com", true, "schrammbox");
 
         createUserIfNotFound("Schönberg", "Leon",  "Geschäftsstelle",
-                "Meta", "Passwort1234", Collections.singletonList(adminRole), "schoenbe@th-brandenburg.de", true, "schoenbe");
+                "Webbaki", "Passwort1234", Collections.singletonList(adminRole), "schoenbe@th-brandenburg.de", true, "schoenbe");
 
         alreadySetup = true;
 
