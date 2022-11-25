@@ -1,5 +1,6 @@
-package de.thb.webbaki.mail.confirmation;
+package de.thb.webbaki.repository;
 
+import de.thb.webbaki.entity.ConfirmationToken;
 import de.thb.webbaki.entity.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

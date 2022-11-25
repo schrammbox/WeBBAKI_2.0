@@ -1,11 +1,12 @@
-package de.thb.webbaki.mail.confirmation;
+package de.thb.webbaki.service;
 
+import de.thb.webbaki.entity.ConfirmationToken;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.repository.ConfirmationTokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor

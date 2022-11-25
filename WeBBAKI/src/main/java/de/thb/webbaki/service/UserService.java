@@ -11,8 +11,7 @@ import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
 import de.thb.webbaki.mail.Templates.AdminNotifications.*;
 import de.thb.webbaki.mail.Templates.UserNotifications.*;
-import de.thb.webbaki.mail.confirmation.ConfirmationToken;
-import de.thb.webbaki.mail.confirmation.ConfirmationTokenService;
+import de.thb.webbaki.entity.ConfirmationToken;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
@@ -25,7 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import java.security.Principal;
 import java.util.*;
 
 import javax.transaction.Transactional;
