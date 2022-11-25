@@ -1,4 +1,4 @@
-package de.thb.webbaki.mail.confirmation;
+package de.thb.webbaki.entity;
 
 import de.thb.webbaki.entity.User;
 import lombok.*;
