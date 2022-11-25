@@ -33,7 +33,7 @@
                 <th:block th:each="scenario : ${masterScenario.scenarios}">
                     <tr class="threatTr ">
                         <!--use ternary operator to choose which class (classes specify background-color) the ids have, based on the MasterScenarios-->
-                        <td th:text="${scenario.id}" th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
+                        <td th:text="${counter.countAndGet()}" th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
 
                         <td th:text="${scenario.name}"></td>
                         <td>

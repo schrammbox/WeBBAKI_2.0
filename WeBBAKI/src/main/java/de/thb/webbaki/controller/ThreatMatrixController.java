@@ -45,6 +45,10 @@ public class ThreatMatrixController {
         model.addAttribute("threatmatrix", threatMatrixFormModel);
         model.addAttribute("value", new Counter());
 
+        Counter counter = new Counter();
+        counter.countAndGet();
+        model.addAttribute("counter", counter);
+
         Map<Long, String[]> questMap = questionnaireService.getMapping(quest);
         model.addAttribute("questMap", questMap);
 

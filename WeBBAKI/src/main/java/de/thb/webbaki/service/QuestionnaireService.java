@@ -2,9 +2,10 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.entity.UserScenario;
 import de.thb.webbaki.repository.QuestionnaireRepository;
-import de.thb.webbaki.repository.ScenarioRepository;
 import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.helper.ThreatSituation;
 import lombok.AllArgsConstructor;
@@ -12,10 +13,8 @@ import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +26,9 @@ public class QuestionnaireService {
 
     @Autowired
     private ScenarioService scenarioService;
+
+    @Autowired
+    private UserScenarioService userScenarioService;
 
     public boolean existsQuestionnaireByUserId(long id){return questionnaireRepository.existsByUser_id(id);}
     public void deleteAllByUser(User user){questionnaireRepository.deleteAllByUser(user);}
@@ -42,6 +44,34 @@ public class QuestionnaireService {
 
     public List<Questionnaire> getAllQuestByUser(long id) {
         return questionnaireRepository.findAllByUser(userRepository.findById(id).get());
+    }
+
+    //Factory-method for a Questionnaire
+    public Questionnaire createQuestionnaireForUser(User user){
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setDate(LocalDateTime.now());
+        //TODO delte old stuff
+        questionnaire.setSmallComment("");
+        questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
+
+        //create a UserScenario for every Scenario
+        List<Scenario> scenarios = scenarioService.getAllScenarios();
+        List<UserScenario> userScenarios = new LinkedList<>();
+        questionnaire.setUser(user);
+        questionnaireRepository.save(questionnaire);
+
+        //save all UserScenarios for this questionnaire
+        for(Scenario scenario : scenarios){
+            UserScenario userScenario = UserScenario.builder().smallComment("")
+                    .scenario(scenario)
+                    .questionnaire(questionnaire)
+                    .impact(-1)
+                    .probability(-1)
+                    .threatSituation(-1).build();
+            userScenarioService.saveUserScenario(userScenario);
+
+        }
+        return questionnaire;
     }
 
     /*
