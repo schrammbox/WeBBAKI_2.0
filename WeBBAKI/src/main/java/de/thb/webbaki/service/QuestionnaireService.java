@@ -80,7 +80,8 @@ public class QuestionnaireService {
     Used Repository-Method deleteQuestionnaireById from
     @QuestionnaireRepository
      */
-    public void delQuest(long id) {
+    public void deleteQuestionnaireById(long id) {
+        userScenarioService.deleteAllUserScenariosByQuestionnaireId(id);
         questionnaireRepository.deleteQuestionnaireById(id);
     }
 
@@ -94,12 +95,9 @@ public class QuestionnaireService {
                         .impact(-1)
                         .probability(-1)
                         .threatSituation(-1).build();
-                userScenarioService.saveUserScenario(userScenario);
                 questionnaire.getUserScenarios().add(userScenario);
             }
         }
-
-
     }
 
     public void saveQuestionnaireFromThreatMatrixFormModel(ThreatMatrixFormModel form, User user) {
@@ -110,15 +108,14 @@ public class QuestionnaireService {
         questionnaireRepository.save(questionnaire);
 
         List<UserScenario> userScenarios = form.getUserScenarios();
-        Map<Long, Integer> scenarioIdToIndex = form.getScenarioIdToIndex();
-
 
         for(UserScenario userScenario : userScenarios){
             userScenario.setQuestionnaire(questionnaire);
             userScenario.setThreatSituation(getThreatSituationLong((long)userScenario.getImpact(), (long)userScenario.getProbability()));
             userScenario.setScenario(scenarioService.getById(userScenario.getScenario().getId()));
-            userScenarioService.saveUserScenario(userScenario);
         }
+
+        userScenarioService.saveAllUserScenario(userScenarios);
     }
 
     public Map<Long, String[]> getMapping(Questionnaire quest) {

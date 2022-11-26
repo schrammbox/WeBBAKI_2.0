@@ -18,9 +18,12 @@ public class UserScenarioService {
 
     public UserScenario getUserScenarioFromScenario(Scenario scenario){return userScenarioRepository.findByScenario(scenario);}
 
+    public void deleteAllUserScenariosByQuestionnaireId(long id){userScenarioRepository.deleteAllByQuestionnaire_Id(id);}
     public void saveUserScenario(UserScenario userScenario){
         userScenarioRepository.save(userScenario);
     }
+
+    public void saveAllUserScenario(List<UserScenario> userScenarios){userScenarioRepository.saveAll(userScenarios);}
 
     public boolean existsUerScenarioByScenarioIdAndQuestionnaireId(long scenarioId, long questId){return userScenarioRepository.existsByScenario_IdAndQuestionnaire_Id(scenarioId, questId);}
 }
