@@ -36,9 +36,8 @@
                         <td th:text="${index + 1}" th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
 
                         <td th:text="${scenario.name}"></td>
-                        <input type="hidden" th:field="*{scenarioIds[__${index}__]}">
                         <td>
-                            <select class="form-select probabilitySelect" th:field="*{probabilities[__${index}__]}"
+                            <select class="form-select probabilitySelect" th:field="*{probabilities[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__]}"
                                     onchange="onChange(this)">
                                 <option th:value="${-1}" th:text="${'unbekannt'}"></option>
                                 <option th:value="${0}" th:text="${'nie'}"></option>
@@ -49,7 +48,7 @@
                             </select>
                         </td>
 
-                        <td><select class="form-select impactSelect" th:field="*{impacts[__${index}__]}"
+                        <td><select class="form-select impactSelect" th:field="*{impacts[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__]}"
                                     onchange="onChange(this)">
                             <option th:value="${-1}" th:text="${'unbekannt'}"></option>
                             <option th:value="${1}" th:text="${'keine'}"></option>
@@ -67,7 +66,7 @@
                                 <button type="button" class="btn bi bi-card-text" data-bs-toggle="dropdown"
                                         aria-expanded="false" data-bs-auto-close="outside"></button>
                                 <textarea class="form-control dropdown-menu" id="exampleDropdownFormEmail2"
-                                          th:field="*{smallComments[__${index}__]}"
+                                          th:field="*{smallComments[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__]}"
                                           rows="3" cols="6" maxlength="360"
                                           placeholder=" Kommentar bis zu 360 Zeichen..."></textarea>
 

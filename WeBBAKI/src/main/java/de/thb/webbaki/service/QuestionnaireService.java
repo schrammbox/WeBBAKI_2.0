@@ -111,17 +111,19 @@ public class QuestionnaireService {
 
         List<Float> probabilities = form.getProbabilities();
         List<Float> impacts = form.getImpacts();
-        List<String> smallComments = form.getSmallComments();
-        List<Long> scenarioIds = form.getScenarioIds();
+        List<String> smallComments  = form.getSmallComments();
+        Map<Long, Integer> scenarioIdToIndex = form.getScenarioIdToIndex();
 
-        for(int i = 0; i <  probabilities.size(); i++){
+        List<Scenario> scenarios = scenarioService.getAllScenarios();
+
+        for(Scenario scenario : scenarios){
             UserScenario userScenario = UserScenario.builder()
                     .questionnaire(questionnaire)
-                    .scenario(scenarioService.getById(scenarioIds.get(i)))
-                    .impact(impacts.get(i))
-                    .probability(probabilities.get(i))
-                    .threatSituation(getThreatSituationLong(impacts.get(i).longValue(), probabilities.get(i).longValue()))
-                    .smallComment(smallComments.get(i)).build();
+                    .scenario(scenario)
+                    .impact(impacts.get(scenarioIdToIndex.get(scenario.getId())))
+                    .probability(probabilities.get(scenarioIdToIndex.get(scenario.getId())))
+                    .threatSituation(getThreatSituationLong(impacts.get(scenarioIdToIndex.get(scenario.getId())).longValue(), probabilities.get(scenarioIdToIndex.get(scenario.getId())).longValue()))
+                    .smallComment(smallComments.get(scenarioIdToIndex.get(scenario.getId()))).build();
             userScenarioService.saveUserScenario(userScenario);
         }
     }
