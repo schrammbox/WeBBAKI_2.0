@@ -2,7 +2,6 @@ package de.thb.webbaki.service;
 
 import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Scenario;
-import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.UserScenario;
 import de.thb.webbaki.repository.UserScenarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +22,5 @@ public class UserScenarioService {
         userScenarioRepository.save(userScenario);
     }
 
-    public boolean existesUerScenarioByScenarioIdAndQuestionnaireId(long scenarioId, long questId){return userScenarioRepository.existsByScenario_IdAndQuestionnaire_Id(scenarioId, questId);}
+    public boolean existsUerScenarioByScenarioIdAndQuestionnaireId(long scenarioId, long questId){return userScenarioRepository.existsByScenario_IdAndQuestionnaire_Id(scenarioId, questId);}
 }

@@ -87,7 +87,7 @@ public class QuestionnaireService {
     public void addMissingUserScenario(Questionnaire questionnaire){
         List<Scenario> scenarios = scenarioService.getAllScenarios();
         for(Scenario scenario : scenarios){
-            if(!userScenarioService.existesUerScenarioByScenarioIdAndQuestionnaireId(scenario.getId(), questionnaire.getId())){
+            if(!userScenarioService.existsUerScenarioByScenarioIdAndQuestionnaireId(scenario.getId(), questionnaire.getId())){
                 UserScenario userScenario = UserScenario.builder().smallComment("")
                         .scenario(scenario)
                         .questionnaire(questionnaire)
@@ -109,21 +109,14 @@ public class QuestionnaireService {
         questionnaire.setComment(form.getComment());
         questionnaireRepository.save(questionnaire);
 
-        List<Float> probabilities = form.getProbabilities();
-        List<Float> impacts = form.getImpacts();
-        List<String> smallComments  = form.getSmallComments();
+        List<UserScenario> userScenarios = form.getUserScenarios();
         Map<Long, Integer> scenarioIdToIndex = form.getScenarioIdToIndex();
 
-        List<Scenario> scenarios = scenarioService.getAllScenarios();
 
-        for(Scenario scenario : scenarios){
-            UserScenario userScenario = UserScenario.builder()
-                    .questionnaire(questionnaire)
-                    .scenario(scenario)
-                    .impact(impacts.get(scenarioIdToIndex.get(scenario.getId())))
-                    .probability(probabilities.get(scenarioIdToIndex.get(scenario.getId())))
-                    .threatSituation(getThreatSituationLong(impacts.get(scenarioIdToIndex.get(scenario.getId())).longValue(), probabilities.get(scenarioIdToIndex.get(scenario.getId())).longValue()))
-                    .smallComment(smallComments.get(scenarioIdToIndex.get(scenario.getId()))).build();
+        for(UserScenario userScenario : userScenarios){
+            userScenario.setQuestionnaire(questionnaire);
+            userScenario.setThreatSituation(getThreatSituationLong((long)userScenario.getImpact(), (long)userScenario.getProbability()));
+            userScenario.setScenario(scenarioService.getById(userScenario.getScenario().getId()));
             userScenarioService.saveUserScenario(userScenario);
         }
     }

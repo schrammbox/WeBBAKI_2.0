@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Builder
 @AllArgsConstructor
@@ -23,10 +24,20 @@ public class Scenario {
     @Size(max = 1024)
     private String description;
 
-
-
     @ManyToOne
     @JoinColumn(name = "master_scenario_id", nullable = false)
     private MasterScenario masterScenario;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Scenario scenario = (Scenario) o;
+        return id == scenario.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

@@ -37,7 +37,7 @@
 
                         <td th:text="${scenario.name}"></td>
                         <td>
-                            <select class="form-select probabilitySelect" th:field="*{probabilities[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__]}"
+                            <select class="form-select probabilitySelect" th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].probability}"
                                     onchange="onChange(this)">
                                 <option th:value="${-1}" th:text="${'unbekannt'}"></option>
                                 <option th:value="${0}" th:text="${'nie'}"></option>
@@ -47,8 +47,8 @@
                                 <option th:value="${4}" th:text="${'sehr häufig'}"></option>
                             </select>
                         </td>
-
-                        <td><select class="form-select impactSelect" th:field="*{impacts[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__]}"
+                        <input type="hidden" th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].scenario.id}">
+                        <td><select class="form-select impactSelect" th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].impact}"
                                     onchange="onChange(this)">
                             <option th:value="${-1}" th:text="${'unbekannt'}"></option>
                             <option th:value="${1}" th:text="${'keine'}"></option>
@@ -66,7 +66,7 @@
                                 <button type="button" class="btn bi bi-card-text" data-bs-toggle="dropdown"
                                         aria-expanded="false" data-bs-auto-close="outside"></button>
                                 <textarea class="form-control dropdown-menu" id="exampleDropdownFormEmail2"
-                                          th:field="*{smallComments[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__]}"
+                                          th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].smallComment}"
                                           rows="3" cols="6" maxlength="360"
                                           placeholder=" Kommentar bis zu 360 Zeichen..."></textarea>
 
