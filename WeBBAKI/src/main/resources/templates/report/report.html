@@ -51,7 +51,7 @@
                                             <div style="clear: both; border-top: black solid 1px;" th:if="${userScenario.getThreatSituation() != -1}" th:text="${userScenario.getThreatSituation()}"></div>
                                         </div>
                                     </td>
-                                    <td th:text="${-2}" style="border-bottom: 1px solid grey; text-align: center;"></td>
+                                    <td th:text="${userScenario.getDataAmount()}" style="border-bottom: 1px solid grey; text-align: center;"></td>
                                 </th:block>
                             </tr>
                         </th:block>

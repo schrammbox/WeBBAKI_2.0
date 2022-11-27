@@ -34,6 +34,9 @@ public class UserScenario{
     @JoinColumn(name="questionnaire_id", nullable=false)
     private Questionnaire questionnaire;
 
+    @Transient
+    private int dataAmount;
+
     public String getStringRepresentation() {
         if(threatSituation <= -1){
             return "Unbekannt";

@@ -49,7 +49,7 @@ public class UserScenarioService {
             averageValue = sumValue / dataAmountCounter;
         }
 
-        return UserScenario.builder().threatSituation(averageValue).build();
+        return UserScenario.builder().threatSituation(averageValue).dataAmount(dataAmountCounter).build();
     }
 
     /**
