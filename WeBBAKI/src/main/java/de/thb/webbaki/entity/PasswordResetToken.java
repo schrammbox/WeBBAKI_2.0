@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
-@Entity
+@Entity(name = "")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,7 +23,7 @@ public class PasswordResetToken {
     private Long id;
 
     private String token;
-
+    private boolean confirmed;
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
