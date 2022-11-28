@@ -55,8 +55,8 @@ public class SnapshotService {
 
         for (User user : userList){
             long userID = user.getId();
-            //only add quest of a user if this user is a KRITIS_BETREIBER
-            if(userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER")) {
+            //only add quest of a user if this user is a KRITIS_BETREIBER and the user is enabled
+            if(userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER") && user.isEnabled()) {
                 Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userID);
                 if (quest != null) {
                     questIDs.add(quest.getId());

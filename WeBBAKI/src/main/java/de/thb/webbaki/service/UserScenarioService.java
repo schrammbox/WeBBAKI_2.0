@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,8 +60,8 @@ public class UserScenarioService {
         return userScenarios.stream().collect(Collectors.toMap((UserScenario userScenario) -> userScenario.getScenario().getId(), (UserScenario userScenario) -> userScenario));
     }
 
-    public List<UserScenario> calculateUserScenarioAverageList(List<Map<Long, UserScenario>> listOfUserScenarioMaps){
-        List<UserScenario> averageUserScenarios = new LinkedList<>();
+    public Map<Long, UserScenario> calculateUserScenarioAverageMap(List<Map<Long, UserScenario>> listOfUserScenarioMaps){
+        Map<Long, UserScenario> averageUserScenarioMap = new HashMap();
         List<Scenario> scenarios = scenarioService.getAllScenarios();
         for(Scenario scenario : scenarios){
             List<UserScenario> userScenarios = new ArrayList<>();
@@ -76,8 +75,8 @@ public class UserScenarioService {
             }
             UserScenario newUserScenario = calculateUserScenarioAverage(userScenarios);
             newUserScenario.setScenario(scenario);
-            averageUserScenarios.add(newUserScenario);
+            averageUserScenarioMap.put(scenario.getId(), newUserScenario);
         }
-        return averageUserScenarios;
+        return averageUserScenarioMap;
     }
 }

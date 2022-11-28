@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.text.DecimalFormat;
 
 @Builder
 @AllArgsConstructor
@@ -67,5 +68,10 @@ public class UserScenario{
         }else{
             return "rgb(255, 102, 102)";
         }
+    }
+
+    public String getRoundedThreatSituationString(){
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        return decimalFormat.format(threatSituation);
     }
 }

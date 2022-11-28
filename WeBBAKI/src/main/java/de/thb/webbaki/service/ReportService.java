@@ -4,9 +4,7 @@ import com.lowagie.text.DocumentException;
 import de.thb.webbaki.entity.*;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
-import de.thb.webbaki.service.helper.ThreatSituation;
-import de.thb.webbaki.service.helper.ThreatSituationLinkedList;
-import de.thb.webbaki.service.helper.UserScenarioLinkedList;
+import de.thb.webbaki.service.helper.UserScenarioHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -71,7 +69,7 @@ public class  ReportService {
         bufferedOutputStream.close();
     }
 
-    public UserScenarioLinkedList getUserScenarioLinkedListByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException{
+    public UserScenarioHashMap getUserScenarioLinkedListByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException{
         //TODO add this!!! now with UserScenario like the method on the bottom
         List<Map<Long, UserScenario>> listOfUserScenarioMaps = new LinkedList<>();
         List<Questionnaire> snapshotQuestionnaireList = snapshotService.getAllQuestionnaires(snapshot.getId());
@@ -91,7 +89,7 @@ public class  ReportService {
                 }
 
                 if(branchListOfUserScenarioMaps.size() != 0) {
-                    listOfUserScenarioMaps.add(userScenarioService.getUserScenarioMapFromList(userScenarioService.calculateUserScenarioAverageList(branchListOfUserScenarioMaps)));
+                    listOfUserScenarioMaps.add(userScenarioService.calculateUserScenarioAverageMap(branchListOfUserScenarioMaps));
                 }
             }
         }else {
@@ -127,7 +125,7 @@ public class  ReportService {
             //return null and handle it later in the template
             return null;
         }else{
-            return new UserScenarioLinkedList(userScenarioService.calculateUserScenarioAverageList(listOfUserScenarioMaps), comment, listOfUserScenarioMaps.size());
+            return new UserScenarioHashMap(userScenarioService.calculateUserScenarioAverageMap(listOfUserScenarioMaps), comment, listOfUserScenarioMaps.size());
         }
     }
 }

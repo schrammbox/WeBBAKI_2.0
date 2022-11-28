@@ -5,7 +5,7 @@ import de.thb.webbaki.entity.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
-import de.thb.webbaki.service.helper.UserScenarioLinkedList;
+import de.thb.webbaki.service.helper.UserScenarioHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -51,8 +51,8 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         model.addAttribute("currentSnapshot", currentSnapshot);
 
-        UserScenarioLinkedList userScenarioLinkedList = reportService.getUserScenarioLinkedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
-        model.addAttribute("userScenarioLinkedList", userScenarioLinkedList);
+        UserScenarioHashMap userScenarioHashMap = reportService.getUserScenarioLinkedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
+        model.addAttribute("userScenarioHashMap", userScenarioHashMap);
 
         final List<Snapshot> snapshotList = snapshotService.getAllSnapshotOrderByDESC();
         model.addAttribute("snapshotList", snapshotList);
@@ -77,8 +77,8 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         context.setVariable("currentSnapshot", currentSnapshot);
 
-        UserScenarioLinkedList userScenarioLinkedList = reportService.getUserScenarioLinkedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
-        context.setVariable("userScenarioLinkedList", userScenarioLinkedList);
+        UserScenarioHashMap userScenarioHashMap = reportService.getUserScenarioLinkedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
+        context.setVariable("userScenarioHashMap", userScenarioHashMap);
 
         reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
                 request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort(), response.getOutputStream());

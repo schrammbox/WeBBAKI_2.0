@@ -12,7 +12,7 @@
     </div>
     <div th:fragment="report">
         <h1 style="width: 100%; text-align: center; margin-bottom: 2em;" th:text='${reportFocus.getGermanRepresentation() +" Report von " + currentSnapshot.getName()}'></h1>
-        <p style="margin-bottom: 2em; font-size: 1.3em;" th:text="${'Die Anzahl der ' + ((reportFocus.getGermanRepresentation().equals('Nationaler'))?(' Branchenmittelwerte der Bedrohungsmatrizen'):(' Bedrohungsmatrizen')) + ', die für die Berechnung des Reports verwendet wurden ist ' + userScenarioLinkedList.getQuestionnaireAmount() + '.' }"></p>
+        <p style="margin-bottom: 2em; font-size: 1.3em;" th:text="${'Die Anzahl der ' + ((reportFocus.getGermanRepresentation().equals('Nationaler'))?(' Branchenmittelwerte der Bedrohungsmatrizen'):(' Bedrohungsmatrizen')) + ', die für die Berechnung des Reports verwendet wurden ist ' + userScenarioHashMap.getQuestionnaireAmount() + '.' }"></p>
         <th:block th:each="masterScenario: ${masterScenarioList}" >
             <div >
                 <h5 th:text="${masterScenario.name}" style="page-break-inside:avoid;"></h5>
@@ -44,11 +44,11 @@
                                 <td style="border-bottom: 1px solid grey;width: 80%;padding-left: 1%;" th:text="${scenario.name}"></td>
 
                                 <!--Get next value from the Queue and parse the next element based on the value(the td)-->
-                                <th:block th:with="userScenario=${userScenarioLinkedList.poll()}">
+                                <th:block th:with="userScenario=${userScenarioHashMap.get(scenario.id)}">
                                     <td style="border-bottom: 1px solid grey;width: 15%;" >
                                         <div th:style='${"float: left; width: 100%; height: 100%; text-align: center; border: black solid 1px; background-color: " + userScenario.getColor() + ";"}'>
                                             <div style="font-weight: 550;" th:text="${userScenario.getStringRepresentation()}"></div>
-                                            <div style="clear: both; border-top: black solid 1px;" th:if="${userScenario.getThreatSituation() != -1}" th:text="${userScenario.getThreatSituation()}"></div>
+                                            <div style="clear: both; border-top: black solid 1px;" th:if="${userScenario.getThreatSituation() != -1}" th:text="${userScenario.getRoundedThreatSituationString()}"></div>
                                         </div>
                                     </td>
                                     <td th:text="${userScenario.getDataAmount()}" style="border-bottom: 1px solid grey; text-align: center;"></td>
@@ -59,9 +59,9 @@
                 </table>
             </div>
         </th:block>
-        <th:block th:if="${userScenarioLinkedList.getComment() != null}" >
+        <th:block th:if="${userScenarioHashMap.getComment() != null}" >
             <h4 style="font-size: 1.4em;">Kommentar zum Fragebogen:</h4>
-            <p th:text="${userScenarioLinkedList.getComment()}" style="font-size: 1.2em;"></p>
+            <p th:text="${userScenarioHashMap.getComment()}" style="font-size: 1.2em;"></p>
         </th:block>
     </div>
 </body>
