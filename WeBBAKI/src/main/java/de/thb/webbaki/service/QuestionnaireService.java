@@ -56,7 +56,6 @@ public class QuestionnaireService {
         List<UserScenario> userScenarios = new LinkedList<>();
         questionnaire.setUser(user);
         questionnaireRepository.save(questionnaire);
-
         //save all UserScenarios for this questionnaire
         for(Scenario scenario : scenarios){
             UserScenario userScenario = UserScenario.builder().smallComment("")
@@ -65,9 +64,9 @@ public class QuestionnaireService {
                     .impact(-1)
                     .probability(-1)
                     .threatSituation(-1).build();
-            userScenarioService.saveUserScenario(userScenario);
-
+            userScenarios.add(userScenario);
         }
+        userScenarioService.saveAllUserScenario(userScenarios);
         return questionnaire;
     }
 
