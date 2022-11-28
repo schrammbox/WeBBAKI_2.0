@@ -1,14 +1,10 @@
 package de.thb.webbaki.service;
 
 import com.lowagie.text.DocumentException;
-import de.thb.webbaki.entity.Branch;
-import de.thb.webbaki.entity.Questionnaire;
-import de.thb.webbaki.entity.Snapshot;
-import de.thb.webbaki.entity.User;
+import de.thb.webbaki.entity.*;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
-import de.thb.webbaki.service.helper.ThreatSituation;
-import de.thb.webbaki.service.helper.ThreatSituationLinkedList;
+import de.thb.webbaki.service.helper.UserScenarioHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -34,6 +30,8 @@ public class  ReportService {
     private SnapshotService snapshotService;
     @Autowired
     private BranchService branchService;
+    @Autowired
+    private UserScenarioService userScenarioService;
 
     /**
      *
@@ -71,33 +69,27 @@ public class  ReportService {
         bufferedOutputStream.close();
     }
 
-    /**
-     *
-     * @param reportFocus
-     * @param username
-     * @return the right Queue with ThreatSituations
-     * Additional it gets a String and saves the comment of the company in it (Only if ReportFocus is COMPANY).
-     * @throws UnknownReportFocusException
-     */
-    public ThreatSituationLinkedList getThreatSituationLinkedListByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
-        List<Queue<ThreatSituation>> queueList = new LinkedList<Queue<ThreatSituation>>();
+    public UserScenarioHashMap getUserScenarioLinkedListByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException{
+        //TODO add this!!! now with UserScenario like the method on the bottom
+        List<Map<Long, UserScenario>> listOfUserScenarioMaps = new LinkedList<>();
         List<Questionnaire> snapshotQuestionnaireList = snapshotService.getAllQuestionnaires(snapshot.getId());
         String comment = null;
 
-        //should get the queueList in another way with reportFocus national
+        //should get the listOfUserScenarioMaps in another way with reportFocus national
         //Average over all branche-averages
         if(reportFocus == ReportFocus.NATIONAL){
-            for(Branch branche : branchService.getAllBranches()){
-                List<Queue<ThreatSituation>> brancheQueueList = new LinkedList<Queue<ThreatSituation>>();
+            for(Branch branch : branchService.getAllBranches()){
+                List<Map<Long, UserScenario>> branchListOfUserScenarioMaps = new LinkedList<>();
                 //remove all unimportant questionnaires
-                List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotQuestionnaireList, userService.getUsersByBranch(branche.getName()));
+                List<Questionnaire> questionnaireList = questionnaireService.getQuestionnairesWithUsersInside(snapshotQuestionnaireList, userService.getUsersByBranch(branch.getName()));
 
-                for (Questionnaire questionnaire : questionnaireList) {
-                    final Map<Long, String[]> questMap = questionnaireService.getMapping(questionnaire);
-                    brancheQueueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
+                //add all UserScenarioLists of the Questionnaires to the List
+                for(Questionnaire questionnaire : questionnaireList){
+                    branchListOfUserScenarioMaps.add(userScenarioService.getUserScenarioMapFromList(questionnaire.getUserScenarios()));
                 }
-                if(brancheQueueList.size() != 0) {
-                    queueList.add(questionnaireService.getThreatSituationAverageQueueFromQueues(brancheQueueList));
+
+                if(branchListOfUserScenarioMaps.size() != 0) {
+                    listOfUserScenarioMaps.add(userScenarioService.calculateUserScenarioAverageMap(branchListOfUserScenarioMaps));
                 }
             }
         }else {
@@ -123,17 +115,17 @@ public class  ReportService {
                 comment = questionnaireList.get(0).getComment();
             }
 
-            for (Questionnaire questionnaire : questionnaireList) {
-                final Map<Long, String[]> questMap = questionnaireService.getMapping(questionnaire);
-                queueList.add(questionnaireService.getThreatSituationQueueFromMapping(questMap));
+            //add all UserScenarioLists of the Questionnaires to the List
+            for(Questionnaire questionnaire : questionnaireList){
+                listOfUserScenarioMaps.add(userScenarioService.getUserScenarioMapFromList(questionnaire.getUserScenarios()));
             }
         }
 
-        if(queueList.size() == 0){
+        if(listOfUserScenarioMaps.size() == 0){
             //return null and handle it later in the template
             return null;
         }else{
-            return new ThreatSituationLinkedList(questionnaireService.getThreatSituationAverageQueueFromQueues(queueList), comment, queueList.size());
+            return new UserScenarioHashMap(userScenarioService.calculateUserScenarioAverageMap(listOfUserScenarioMaps), comment, listOfUserScenarioMaps.size());
         }
     }
 }

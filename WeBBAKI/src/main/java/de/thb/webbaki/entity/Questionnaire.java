@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,7 +41,8 @@ public class Questionnaire {
     @Size(max = 1000)
     private String mapping;
 
-
+    @OneToMany(mappedBy = "questionnaire")
+    private List<UserScenario> userScenarios;
 
     //EQUALS & HASHCODE
     @Override

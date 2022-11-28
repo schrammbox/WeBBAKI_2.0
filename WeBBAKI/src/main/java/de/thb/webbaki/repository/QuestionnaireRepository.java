@@ -14,6 +14,7 @@ public interface QuestionnaireRepository extends CrudRepository<Questionnaire, L
     List<Questionnaire> findAllByUser(User user);
     Questionnaire findById(long id);
     boolean existsByUser_id(long id);
+    boolean existsByIdAndUser_Id(long questId, long userId);
     Questionnaire findFirstByUser_IdOrderByIdDesc(long id);
 
     void deleteAllByUser(User user);

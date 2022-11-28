@@ -5,7 +5,6 @@ import de.thb.webbaki.controller.form.UserForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Branch;
-import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
@@ -138,13 +137,7 @@ public class UserService {
 
             //create questionnaire if user is kritis_betreiber
             if(!userBranch.getName().equals("Geschäftsstelle")){
-                Questionnaire questionnaire = new Questionnaire();
-                questionnaire.setUser(getUserByUsername(form.getUsername()));
-                questionnaire.setDate(LocalDateTime.now());
-                questionnaire.setSmallComment("");
-                questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
-                questionnaire.setUser(user);
-                questionnaireService.save(questionnaire);
+                questionnaireService.createQuestionnaireForUser(user);
             }
 
             /*Outsourcing Mail to thread for speed purposes*/
@@ -287,12 +280,7 @@ public class UserService {
 
                     //create new questionnaires for the user if he is now KRITIS_BETREIBER and hasnt already one
                     if (role.getName().equals("ROLE_KRITIS_BETREIBER") && !questionnaireService.existsQuestionnaireByUserId(user.getId())) {
-                        Questionnaire questionnaire = new Questionnaire();
-                        questionnaire.setUser(user);
-                        questionnaire.setDate(LocalDateTime.now());
-                        questionnaire.setSmallComment("");
-                        questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
-                        questionnaireService.save(questionnaire);
+                        questionnaireService.createQuestionnaireForUser(user);
                     }
 
                     /*Outsourcing Mail to thread for speed purposes*/
