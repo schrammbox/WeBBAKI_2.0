@@ -50,10 +50,7 @@ public class QuestionnaireService {
     public Questionnaire createQuestionnaireForUser(User user){
         Questionnaire questionnaire = new Questionnaire();
         questionnaire.setDate(LocalDateTime.now());
-        //TODO delte old stuff
-        questionnaire.setSmallComment("");
-        questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
-
+       
         //create a UserScenario for every Scenario
         List<Scenario> scenarios = scenarioService.getAllScenarios();
         List<UserScenario> userScenarios = new LinkedList<>();
