@@ -12,7 +12,7 @@
     </div>
     <div th:fragment="report">
         <h1 style="width: 100%; text-align: center; margin-bottom: 2em;" th:text='${reportFocus.getGermanRepresentation() +" Report von " + currentSnapshot.getName()}'></h1>
-        <p style="margin-bottom: 2em; font-size: 1.3em;" th:text="${'Die Anzahl der ' + ((reportFocus.getGermanRepresentation().equals('Nationaler'))?(' Branchenmittelwerte der Bedrohungsmatrizen'):(' Bedrohungsmatrizen')) + ', die für die Berechnung des Reports verwendet wurden ist ' + userScenarioHashMap.getQuestionnaireAmount() + '.' }"></p>
+        <p style="margin-bottom: 2em; font-size: 1.3em;" th:text="${'Die Anzahl der ' + ((reportFocus.getGermanRepresentation().equals('Nationaler'))?(' Branchenmittelwerte der Bedrohungsmatrizen'):(' Bedrohungsmatrizen')) + ', auf dessen Grundlage die Berechnung des Reports beruht ist ' + userScenarioHashMap.getQuestionnaireAmount() + '.' }"></p>
         <th:block th:each="masterScenario: ${masterScenarioList}" >
             <div >
                 <h5 th:text="${masterScenario.name}" style="page-break-inside:avoid;"></h5>
