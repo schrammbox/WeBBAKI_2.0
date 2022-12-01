@@ -4,6 +4,7 @@ import de.thb.webbaki.controller.form.ResetPasswordForm;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.security.authority.UserAuthority;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
+import de.thb.webbaki.service.Exceptions.PasswordResetTokenExpired;
 import de.thb.webbaki.service.PasswordResetTokenService;
 import de.thb.webbaki.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,25 +72,29 @@ public class MainController {
     }
 
     @GetMapping(path = "/reset_password")
-    public String showResetPassword(@RequestParam("token") String token, Model model){
+    public String showResetPassword(@RequestParam("token") String token, Model model) {
 
-        if(passwordResetTokenService.getByToken(token) != null) {
+        if (passwordResetTokenService.getByToken(token) != null) {
             ResetPasswordForm form = new ResetPasswordForm();
             form.setToken(token);
             model.addAttribute("form", form);
             return "security/reset_password";
-        }else return "Token existiert nicht";
+        } else return "Token existiert nicht";
     }
 
     @PostMapping(path = "/reset_password")
-    public String resetUserPassword(@Valid ResetPasswordForm form, Model model){
+    public String resetUserPassword(@Valid ResetPasswordForm form, Model model) throws PasswordResetTokenExpired {
 
-        model.addAttribute("form", form);
+        try {
+            model.addAttribute("form", form);
 
-        if (passwordResetTokenService.resetUserPassword(form.getToken(), form)){
-            model.addAttribute("success", "Ihr Passwort wurde erfolgreich geändert.");
-        }else{
-            model.addAttribute("error", "Beim Zurücksetzen Ihres Passworts ist ein Fehler aufgetreten.");
+            if (passwordResetTokenService.resetUserPassword(form.getToken(), form)) {
+                model.addAttribute("success", "Ihr Passwort wurde erfolgreich geändert.");
+            } else {
+                model.addAttribute("error", "Beim Zurücksetzen Ihres Passworts ist ein Fehler aufgetreten.");
+            }
+        } catch (PasswordResetTokenExpired passEx) {
+            model.addAttribute("error", "Ihr Token zum Zurücksetzen des Passworts ist abgelaufen. Bitte beantragen Sie ihn erneut unter \" Passwort vergessen\".");
         }
 
         return "security/reset_password";

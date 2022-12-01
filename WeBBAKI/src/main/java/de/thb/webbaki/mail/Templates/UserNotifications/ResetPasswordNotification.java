@@ -6,7 +6,7 @@ public class ResetPasswordNotification {
 
     public static String resetPasswordMail(String userFirstname, String userLastname, String token) {
 
-        String link = "localhost:8080/reset_password?token=" + token;
+        String link = "https://webbaki.th-brandenburg.de/reset_password?token=" + token;
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +
@@ -68,9 +68,10 @@ public class ResetPasswordNotification {
                 "    </div>\n" +
                 "    <p>Unter folgendem Link können Sie ein neues Passwort einrichten:</p>\n" +
                 "      <p>\n" +
-                "        <a href="+ link +">Passwort zurücksetzen</a>\n" +
+                "        <a href=" + link + ">Passwort zurücksetzen</a>\n" +
                 "        <span></span>\n" +
                 "      </p>\n" +
+                "       <p>Der Link behält 24 Stunden lang seine Gültigkeit</p>\n" +
                 "    <p>Mit freundlichen Grüßen</p>\n" +
                 "    <p>Ihr WebBakI-Team</p>\n" +
                 "  </body>\n" +

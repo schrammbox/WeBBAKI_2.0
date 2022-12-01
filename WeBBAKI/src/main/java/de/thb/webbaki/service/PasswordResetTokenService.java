@@ -7,10 +7,13 @@ import de.thb.webbaki.mail.EmailSender;
 import de.thb.webbaki.mail.Templates.UserNotifications.ResetPasswordNotification;
 import de.thb.webbaki.repository.PasswordResetTokenRepository;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
+import de.thb.webbaki.service.Exceptions.PasswordResetTokenExpired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -57,18 +60,21 @@ public class PasswordResetTokenService {
         emailSender.send(user.getEmail(), ResetPasswordNotification.resetPasswordMail(user.getFirstName(), user.getLastName(), token));
     }
 
-    public boolean resetUserPassword(String token, ResetPasswordForm form) {
+    public boolean resetUserPassword(String token, ResetPasswordForm form) throws PasswordResetTokenExpired {
         PasswordResetToken resetToken = getByToken(token);
         User user = resetToken.getUser();
+        Date now = Date.from(Instant.now());
 
         if (form.getNewPassword().equals(form.getConfirmPassword()) && !resetToken.isConfirmed()) {
-            user.setPassword(passwordEncoder.encode(form.getNewPassword()));
-            resetToken.setConfirmed(true);
+            if (now.before(resetToken.getExpiryDate())) {
+                user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+                resetToken.setConfirmed(true);
 
-            passwordResetTokenRepository.save(resetToken);
-            userService.saveUser(user);
+                passwordResetTokenRepository.save(resetToken);
+                userService.saveUser(user);
 
-            return true;
+                return true;
+            }else throw new PasswordResetTokenExpired("Token has been expired.");
         }
 
         return false;
