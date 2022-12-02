@@ -16,6 +16,7 @@ import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
 import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
+import de.thb.webbaki.service.questionnaire.QuestionnaireService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;

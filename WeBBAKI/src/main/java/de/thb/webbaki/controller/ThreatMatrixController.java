@@ -1,12 +1,12 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
-import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.service.Exceptions.NotAuthorizedException;
 import de.thb.webbaki.service.MasterScenarioService;
-import de.thb.webbaki.service.QuestionnaireService;
+import de.thb.webbaki.service.questionnaire.QuestionnaireService;
 import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
 import de.thb.webbaki.service.helper.Counter;

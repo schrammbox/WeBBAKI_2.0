@@ -1,12 +1,11 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
-import de.thb.webbaki.entity.Questionnaire;
-import de.thb.webbaki.entity.Role;
-import de.thb.webbaki.entity.Snapshot;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
+import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.service.RoleService;
-import de.thb.webbaki.service.SnapshotService;
+import de.thb.webbaki.service.snapshot.SnapshotService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Controller

@@ -1,11 +1,12 @@
 package de.thb.webbaki.controller;
 
 import com.lowagie.text.DocumentException;
-import de.thb.webbaki.entity.Snapshot;
+import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.helper.UserScenarioHashMap;
+import de.thb.webbaki.service.snapshot.SnapshotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

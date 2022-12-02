@@ -1,9 +1,11 @@
-package de.thb.webbaki.service;
+package de.thb.webbaki.service.snapshot;
 
-import de.thb.webbaki.entity.Questionnaire;
-import de.thb.webbaki.entity.Snapshot;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
+import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.entity.User;
-import de.thb.webbaki.repository.SnapshotRepository;
+import de.thb.webbaki.repository.snapshot.SnapshotRepository;
+import de.thb.webbaki.service.UserService;
+import de.thb.webbaki.service.questionnaire.QuestionnaireService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.scheduling.annotation.Scheduled;

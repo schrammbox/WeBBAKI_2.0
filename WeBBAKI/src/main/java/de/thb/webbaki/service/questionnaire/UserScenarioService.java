@@ -1,9 +1,10 @@
-package de.thb.webbaki.service;
+package de.thb.webbaki.service.questionnaire;
 
-import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.Scenario;
-import de.thb.webbaki.entity.UserScenario;
-import de.thb.webbaki.repository.UserScenarioRepository;
+import de.thb.webbaki.entity.questionnaire.UserScenario;
+import de.thb.webbaki.repository.questionnaire.UserScenarioRepository;
+import de.thb.webbaki.service.ScenarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

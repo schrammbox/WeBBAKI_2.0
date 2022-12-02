@@ -1,11 +1,10 @@
-package de.thb.webbaki.repository;
+package de.thb.webbaki.repository.questionnaire;
 
-import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RepositoryDefinition(domainClass = Questionnaire.class, idClass = Long.class)

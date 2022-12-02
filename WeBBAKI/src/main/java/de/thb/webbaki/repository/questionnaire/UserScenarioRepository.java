@@ -1,8 +1,8 @@
-package de.thb.webbaki.repository;
+package de.thb.webbaki.repository.questionnaire;
 
-import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.Scenario;
-import de.thb.webbaki.entity.UserScenario;
+import de.thb.webbaki.entity.questionnaire.UserScenario;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 

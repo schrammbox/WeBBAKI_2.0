@@ -1,8 +1,7 @@
 package de.thb.webbaki.service.helper;
 
-import de.thb.webbaki.entity.UserScenario;
+import de.thb.webbaki.entity.questionnaire.UserScenario;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 

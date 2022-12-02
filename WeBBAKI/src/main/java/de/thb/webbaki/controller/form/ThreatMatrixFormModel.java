@@ -1,7 +1,7 @@
 package de.thb.webbaki.controller.form;
 
-import de.thb.webbaki.entity.Questionnaire;
-import de.thb.webbaki.entity.UserScenario;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
+import de.thb.webbaki.entity.questionnaire.UserScenario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

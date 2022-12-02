@@ -1,11 +1,8 @@
-package de.thb.webbaki.entity;
+package de.thb.webbaki.entity.snapshot;
 
 import lombok.*;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,6 +24,9 @@ public class Snapshot {
     private String questionaireIDs;
 
     private LocalDateTime date;
+
+    @OneToMany(mappedBy = "snapshot")
+    private List<Report> reports;
 
 
 }

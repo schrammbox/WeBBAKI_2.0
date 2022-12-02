@@ -1,12 +1,13 @@
-package de.thb.webbaki.service;
+package de.thb.webbaki.service.questionnaire;
 
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
-import de.thb.webbaki.entity.Questionnaire;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.entity.User;
-import de.thb.webbaki.entity.UserScenario;
-import de.thb.webbaki.repository.QuestionnaireRepository;
+import de.thb.webbaki.entity.questionnaire.UserScenario;
+import de.thb.webbaki.repository.questionnaire.QuestionnaireRepository;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.service.ScenarioService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

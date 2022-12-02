@@ -2,9 +2,15 @@ package de.thb.webbaki.service;
 
 import com.lowagie.text.DocumentException;
 import de.thb.webbaki.entity.*;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
+import de.thb.webbaki.entity.questionnaire.UserScenario;
+import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.helper.UserScenarioHashMap;
+import de.thb.webbaki.service.questionnaire.QuestionnaireService;
+import de.thb.webbaki.service.questionnaire.UserScenarioService;
+import de.thb.webbaki.service.snapshot.SnapshotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;

@@ -1,5 +1,6 @@
-package de.thb.webbaki.entity;
+package de.thb.webbaki.entity.questionnaire;
 
+import de.thb.webbaki.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;
 
