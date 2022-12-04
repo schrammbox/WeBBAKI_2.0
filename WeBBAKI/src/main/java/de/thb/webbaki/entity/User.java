@@ -48,21 +48,9 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
-    public void removeRole(Role role) {
-        roles.remove(role);
-    }
-    public void addRole(Role role) {
-        roles.add(role);
-    }
-
-    //Roles Getter
-    public Collection<Role> getRoles(){
-        return roles;
-    }
-    public void setRoles(Collection<Role>roles){
-        this.roles = roles;
-    }
-
     @OneToMany(mappedBy = "user")
     private List<Report> reports;
+
+    @OneToMany(mappedBy = "user")
+    private List<Questionnaire> questionnaires;
 }

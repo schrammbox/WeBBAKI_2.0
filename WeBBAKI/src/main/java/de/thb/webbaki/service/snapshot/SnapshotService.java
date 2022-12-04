@@ -2,12 +2,12 @@ package de.thb.webbaki.service.snapshot;
 
 import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.snapshot.Snapshot;
-import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.snapshot.SnapshotRepository;
 import de.thb.webbaki.service.UserService;
 import de.thb.webbaki.service.questionnaire.QuestionnaireService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +16,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-@Builder
-@AllArgsConstructor
-
 public class SnapshotService {
 
-    private final UserService userService;
-    private final QuestionnaireService questionnaireService;
-    private final SnapshotRepository snapshotRepository;
+    @Autowired
+    private QuestionnaireService questionnaireService;
+    @Autowired
+    private SnapshotRepository snapshotRepository;
+    @Autowired
+    private ReportService reportService;
 
     /**
      * Checks every 3th month on day 1, 5 and 10 in hour 0 and 12
@@ -52,26 +52,10 @@ public class SnapshotService {
 
     public void createSnap(Snapshot snap){
 
-        List<User> userList = userService.getAllUsers();
-        List<Long> questIDs = new ArrayList<>();
-
-        for (User user : userList){
-            long userID = user.getId();
-            //only add quest of a user if this user is a KRITIS_BETREIBER and the user is enabled
-            if(userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER") && user.isEnabled()) {
-                Questionnaire quest = questionnaireService.getNewestQuestionnaireByUserId(userID);
-                if (quest != null) {
-                    questIDs.add(quest.getId());
-                }
-            }
-        }
-
         /* Perist Snapshot */
-
         snap.setDate(LocalDateTime.now());
-        snap.setQuestionaireIDs(questIDs.toString());
         snapshotRepository.save(snap);
-
+        reportService.createReports(snap);
     }
 
     public List<String> getLongList(String list){

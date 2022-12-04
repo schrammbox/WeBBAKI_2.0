@@ -62,8 +62,7 @@ public class QuestionnaireService {
                     .scenario(scenario)
                     .questionnaire(questionnaire)
                     .impact(-1)
-                    .probability(-1)
-                    .threatSituation(-1).build();
+                    .probability(-1).build();
             userScenarios.add(userScenario);
         }
         userScenarioService.saveAllUserScenario(userScenarios);
@@ -88,8 +87,7 @@ public class QuestionnaireService {
                         .scenario(scenario)
                         .questionnaire(questionnaire)
                         .impact(-1)
-                        .probability(-1)
-                        .threatSituation(-1).build();
+                        .probability(-1).build();
                 questionnaire.getUserScenarios().add(userScenario);
             }
         }
@@ -106,31 +104,10 @@ public class QuestionnaireService {
 
         for(UserScenario userScenario : userScenarios){
             userScenario.setQuestionnaire(questionnaire);
-            userScenario.setThreatSituation(getThreatSituationLong((long)userScenario.getImpact(), (long)userScenario.getProbability()));
             userScenario.setScenario(scenarioService.getById(userScenario.getScenario().getId()));
         }
 
         userScenarioService.saveAllUserScenario(userScenarios);
-    }
-
-    /**
-     *
-     * @param impact
-     * @param probability
-     * @return ThreatSituation based on table from UP KRITIS
-     */
-    public long getThreatSituationLong(long impact, long probability) {
-        if(impact == -1 || probability == -1){
-            return -1;
-        }else if(probability < 4 || impact > 2){
-            return impact * probability;
-        }else{
-            if(impact == 2) {
-                return 6;
-            }else{
-                return 3;
-            }
-        }
     }
 
     /**

@@ -1,5 +1,7 @@
 package de.thb.webbaki.entity.snapshot;
 
+import de.thb.webbaki.entity.Branch;
+import de.thb.webbaki.entity.Sector;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.entity.snapshot.Snapshot;
 import lombok.*;
@@ -29,6 +31,14 @@ public class Report {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name="branch_id")
+    private Branch branch;
+
+    @ManyToOne
+    @JoinColumn(name="sector_id")
+    private Sector sector;
 
     @OneToMany(mappedBy = "report")
     private List<ReportScenario> reportScenarios;
