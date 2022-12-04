@@ -11,9 +11,9 @@ import de.thb.webbaki.repository.snapshot.ReportRepository;
 import de.thb.webbaki.service.BranchService;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.UserService;
+import de.thb.webbaki.service.helper.MappingReport;
 import de.thb.webbaki.service.helper.ReportScenarioHashMap;
 import de.thb.webbaki.service.questionnaire.QuestionnaireService;
-import de.thb.webbaki.service.questionnaire.UserScenarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
@@ -60,7 +60,7 @@ public class  ReportService {
                 Questionnaire questionnaire = user.getQuestionnaires().get(user.getQuestionnaires().size() - 1);
                 if (questionnaire != null) {
                     //Company part
-                    Report companyReport = Report.builder().snapshot(snapshot).user(questionnaire.getUser()).numberOfQuestionnaires(1).build();
+                    Report companyReport = Report.builder().snapshot(snapshot).user(questionnaire.getUser()).numberOfQuestionnaires(1).comment(questionnaire.getComment()).build();
                     reportRepository.save(companyReport);
 
                     //calculate all the ReportScenarios from the questionnaires UserScenarios and add later branch, sector and national reports
@@ -135,7 +135,7 @@ public class  ReportService {
         }
     }
 
-    public ReportScenarioHashMap getReportScenarioLinkedListByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
+    public MappingReport getMappingReportByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
         Report report;
         switch (reportFocus) {
             case COMPANY:
@@ -154,11 +154,11 @@ public class  ReportService {
                 throw new UnknownReportFocusException();
         }
 
-        if(report == null){
-            return null;//TODO questionnaireamount = 0?
+        if(report == null || report.getReportScenarios() == null){
+            return new MappingReport(Report.builder().numberOfQuestionnaires(0).build());
         }else{
             //TODO save comment in Report
-            return new ReportScenarioHashMap(reportScenarioService.getReportScenarioMapFromList(report.getReportScenarios()), "test", report.getNumberOfQuestionnaires());
+            return new MappingReport(report);
         }
     }
 

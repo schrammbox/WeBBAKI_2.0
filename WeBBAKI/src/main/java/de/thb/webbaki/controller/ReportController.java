@@ -5,6 +5,7 @@ import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
+import de.thb.webbaki.service.helper.MappingReport;
 import de.thb.webbaki.service.helper.ReportScenarioHashMap;
 import de.thb.webbaki.service.snapshot.ReportService;
 import de.thb.webbaki.service.snapshot.SnapshotService;
@@ -53,8 +54,8 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         model.addAttribute("currentSnapshot", currentSnapshot);
 
-        ReportScenarioHashMap reportScenarioHashMap = reportService.getReportScenarioLinkedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
-        model.addAttribute("reportScenarioHashMap", reportScenarioHashMap);
+        MappingReport report = reportService.getMappingReportByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
+        model.addAttribute("report", report);
 
         final List<Snapshot> snapshotList = snapshotService.getAllSnapshotOrderByDESC();
         model.addAttribute("snapshotList", snapshotList);
@@ -79,8 +80,8 @@ public class ReportController {
         Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
         context.setVariable("currentSnapshot", currentSnapshot);
 
-        ReportScenarioHashMap reportScenarioHashMap = reportService.getReportScenarioLinkedListByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
-        context.setVariable("reportScenarioHashMap", reportScenarioHashMap);
+        MappingReport report = reportService.getMappingReportByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
+        context.setVariable("report", report);
 
         reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
                 request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort(), response.getOutputStream());

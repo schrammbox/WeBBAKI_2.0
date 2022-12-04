@@ -22,16 +22,6 @@ public class ReportScenarioService {
     public void saveAllReportScenarios(List<ReportScenario> reportScenarios){reportScenarioRepository.saveAll(reportScenarios);}
 
     /**
-     *
-     * @param reportScenarios
-     * @return a Map of all given ReportScenarios mapped by the ScenarioId
-     */
-    Map<Long, ReportScenario> getReportScenarioMapFromList(List<ReportScenario> reportScenarios){
-        return reportScenarios.stream().collect(Collectors.toMap(
-                (ReportScenario reportScenario) -> reportScenario.getScenario().getId(),
-                (ReportScenario reportScenario) -> reportScenario));
-    }
-    /**
      * Takes the respective impacts and probabilities, calculates the threatsituations, create ReportScenarios from this
      * @param userScenarios
      * @return the created ReportScenarios
