@@ -12,7 +12,6 @@ import de.thb.webbaki.service.BranchService;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.UserService;
 import de.thb.webbaki.service.helper.MappingReport;
-import de.thb.webbaki.service.helper.ReportScenarioHashMap;
 import de.thb.webbaki.service.questionnaire.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +41,10 @@ public class  ReportService {
     @Autowired
     BranchService branchService;
 
-    Report getReportBySnapshotIdAndUsername(long id, String username){return reportRepository.findBySnapshot_IdAndUser_Username(id, username);}
-    Report getReportBySnapshotIdAndBranchName(long id, String branchName){return reportRepository.findBySnapshot_IdAndBranch_Name(id,branchName);}
+    Report getCompanyReport(Snapshot snapshot, String username){return reportRepository.findBySnapshotAndUser_Username(snapshot, username);}
+    Report getBranchReport(Snapshot snapshot, Branch branch){return reportRepository.findBySnapshotAndBranch(snapshot, branch);}
+    Report getSectorReport(Snapshot snapshot, Sector sector){return reportRepository.findBySnapshotAndSector(snapshot, sector);}
+    Report getNationalReport(Snapshot snapshot){return reportRepository.findBySnapshotAndUserIsNullAndBranchIsNullAndSectorIsNull(snapshot);}
     /**
      * Creates all Report types (company, branch, sector and national)
      * @param snapshot
@@ -53,6 +54,16 @@ public class  ReportService {
         Map<Branch, Map<Scenario, List<ReportScenario>>> branchMapOftReportScenarioListMaps = new HashMap<>();
         //A map mapped by the sector. The value is another map with the Scenario as Key. The value is a List of ReportScenarios (important for calculating the average)
         Map<Sector, Map<Scenario, List<ReportScenario>>> sectorMapOftReportScenarioListMaps = new HashMap<>();
+
+        //List for the branch Average ReportScenarios
+        List<ReportScenario> branchAverageReportScenarios = new ArrayList<>();
+        //List for the sector Average ReportScenarios
+        List<ReportScenario> sectorAverageReportScenarios = new ArrayList<>();
+        //List for the national Average ReportScenarios
+        List<ReportScenario> nationalAverageReportScenarios = new ArrayList<>();
+        //A map mapped by the Scenario. The value is a List of ReportScenarios (important for calculating the average for the national Report)
+        Map<Scenario, List<ReportScenario>> scenarioMapOfBranchAverageReportScenarios = new HashMap<>();
+
         for (User user : userService.getAllUsers()){
             //only use quest of a user if this user is a KRITIS_BETREIBER and the user is enabled
             if(userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER") && user.isEnabled()) {
@@ -99,10 +110,10 @@ public class  ReportService {
             }
         }
 
-        List<ReportScenario> branchAverageReportScenarios = new ArrayList<>();
+        //branchReport part
         //go through all branches with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
         branchMapOftReportScenarioListMaps.forEach((branch, mapOfReportScenarioLists) -> {
-            //get of questionnaires by taking one list of ReportScenarios and his size
+            //get the number of questionnaires by taking one list of ReportScenarios and his size
             //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
             int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
             Report branchReport = Report.builder().snapshot(snapshot).branch(branch).numberOfQuestionnaires(numberOfQuestionnaires).build();
@@ -112,13 +123,53 @@ public class  ReportService {
                 ReportScenario branchReportScenario = reportScenarioService.calculateReportScenarioAverage(branchReportScenarios);
                 branchReportScenario.setReport(branchReport);
                 branchReportScenario.setScenario(scenario);
+
+                //create the list if not exists by key
+                if(!scenarioMapOfBranchAverageReportScenarios.containsKey(scenario)){
+                    scenarioMapOfBranchAverageReportScenarios.put(scenario, new ArrayList<>());
+                }
+                //add the average ReportScenario of this Branch to the List mapped by the current Scenario
+                scenarioMapOfBranchAverageReportScenarios.get(scenario).add(branchReportScenario);
+
                 branchAverageReportScenarios.add(branchReportScenario);
             });
         });
         //save all BranchReportScenarios
         reportScenarioService.saveAllReportScenarios(branchAverageReportScenarios);
 
+        //sectorReport part
+        //go through all sectors with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
+        sectorMapOftReportScenarioListMaps.forEach((sector, mapOfReportScenarioLists) -> {
+            //get the number of questionnaires by taking one list of ReportScenarios and his size
+            //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
+            int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
+            Report branchReport = Report.builder().snapshot(snapshot).sector(sector).numberOfQuestionnaires(numberOfQuestionnaires).build();
+            reportRepository.save(branchReport);
 
+            mapOfReportScenarioLists.forEach((scenario, branchReportScenarios) -> {
+                ReportScenario branchReportScenario = reportScenarioService.calculateReportScenarioAverage(branchReportScenarios);
+                branchReportScenario.setReport(branchReport);
+                branchReportScenario.setScenario(scenario);
+                sectorAverageReportScenarios.add(branchReportScenario);
+            });
+        });
+        //save all SectorReportScenarios
+        reportScenarioService.saveAllReportScenarios(sectorAverageReportScenarios);
+
+        //nationalReport part
+        //get the number by the size of the map (= number of branches with an average)
+        int numberOfQuestionnaires = branchMapOftReportScenarioListMaps.size();
+        Report nationalReport = Report.builder().snapshot(snapshot).numberOfQuestionnaires(numberOfQuestionnaires).build();
+        reportRepository.save(nationalReport);
+        scenarioMapOfBranchAverageReportScenarios.forEach((scenario, branchAverageReportScenariosForScenario) -> {
+            ReportScenario nationalReportScenario = reportScenarioService.calculateReportScenarioAverage(branchAverageReportScenariosForScenario);
+            nationalReportScenario.setScenario(scenario);
+            nationalReportScenario.setReport(nationalReport);
+            nationalAverageReportScenarios.add(nationalReportScenario);
+        });
+
+        //save all nationalReportScenarios
+        reportScenarioService.saveAllReportScenarios(nationalAverageReportScenarios);
 
     }
 
@@ -136,19 +187,20 @@ public class  ReportService {
     }
 
     public MappingReport getMappingReportByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
+        User user = userService.getUserByUsername(username);
         Report report;
         switch (reportFocus) {
             case COMPANY:
-                report =  getReportBySnapshotIdAndUsername(snapshot.getId(),username);
+                report =  getCompanyReport(snapshot,username);
                 break;
             case BRANCHE:
-                report = getReportBySnapshotIdAndBranchName(snapshot.getId(), userService.getUserByUsername(username).getBranch().getName());
+                report = getBranchReport(snapshot, user.getBranch());
                 break;
             case SECTOR:
-                report = new Report();
+                report = getSectorReport(snapshot, user.getBranch().getSector());
                 break;
             case NATIONAL:
-                report = new Report();
+                report = getNationalReport(snapshot);
                 break;
             default:
                 throw new UnknownReportFocusException();

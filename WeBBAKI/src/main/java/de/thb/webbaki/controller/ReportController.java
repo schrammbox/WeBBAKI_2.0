@@ -6,7 +6,6 @@ import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.helper.MappingReport;
-import de.thb.webbaki.service.helper.ReportScenarioHashMap;
 import de.thb.webbaki.service.snapshot.ReportService;
 import de.thb.webbaki.service.snapshot.SnapshotService;
 import org.springframework.beans.factory.annotation.Autowired;
