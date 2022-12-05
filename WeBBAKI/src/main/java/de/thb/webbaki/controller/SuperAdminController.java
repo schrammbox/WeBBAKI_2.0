@@ -2,9 +2,11 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.questionnaire.Questionnaire;
+import de.thb.webbaki.entity.snapshot.Report;
 import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.service.RoleService;
+import de.thb.webbaki.service.snapshot.ReportService;
 import de.thb.webbaki.service.snapshot.SnapshotService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class SuperAdminController implements Comparable {
     private final UserService userService;
     private final RoleService roleService;
     private final SnapshotService snapshotService;
+    private final ReportService reportService;
 
     @GetMapping("/admin")
     public String showAllUsers(Model model) {
@@ -91,8 +94,8 @@ public class SuperAdminController implements Comparable {
 
     @GetMapping("/snap/{snapID}")
     public String showSnapByID(@PathVariable("snapID") long snapID, Model model) {
-        List<Questionnaire> questionnaires = snapshotService.getAllQuestionnaires(snapID);
-        model.addAttribute("questionnaires", questionnaires);
+        Snapshot snapshot = snapshotService.getSnapshotByID(snapID).get();
+        model.addAttribute("snapshot", snapshot);
 
         return "snap/details";
     }

@@ -7,6 +7,8 @@ import de.thb.webbaki.entity.snapshot.Snapshot;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 
+import java.util.List;
+
 @RepositoryDefinition(domainClass = Report.class, idClass = Long.class)
 public interface ReportRepository extends CrudRepository<Report, Long> {
     Report findBySnapshotAndUser_Username(Snapshot snapshot, String username);

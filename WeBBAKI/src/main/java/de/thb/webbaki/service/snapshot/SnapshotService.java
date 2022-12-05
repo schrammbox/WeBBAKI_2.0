@@ -19,8 +19,6 @@ import java.util.*;
 public class SnapshotService {
 
     @Autowired
-    private QuestionnaireService questionnaireService;
-    @Autowired
     private SnapshotRepository snapshotRepository;
     @Autowired
     private ReportService reportService;
@@ -56,27 +54,5 @@ public class SnapshotService {
         snap.setDate(LocalDateTime.now());
         snapshotRepository.save(snap);
         reportService.createReports(snap);
-    }
-
-    public List<String> getLongList(String list){
-        List<String> longList = new ArrayList<>();
-        list = list.replace("[","");
-        list = list.replace("]","");
-        list = list.replace(" ","");
-        longList = Arrays.stream(list.split(",")).toList();
-
-        return longList;
-    }
-
-    public List<Questionnaire> getAllQuestionnaires(long snapID) {
-        Optional<Snapshot> snap = getSnapshotByID(snapID);
-        List<String> questIDs = getLongList(snap.orElseThrow().getQuestionaireIDs());
-        List<Questionnaire> quests = new ArrayList<>();
-
-        for(String id : questIDs){
-            quests.add(questionnaireService.getQuestionnaire(Long.parseLong(id)));
-        }
-
-        return quests;
     }
 }

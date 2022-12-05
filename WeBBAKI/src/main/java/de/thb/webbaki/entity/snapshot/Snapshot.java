@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Builder
@@ -28,5 +29,12 @@ public class Snapshot {
     @OneToMany(mappedBy = "snapshot")
     private List<Report> reports;
 
+    public String getDateAsString(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HH:mm");
 
+        String formattedDate = date.format(formatter);
+        String formattedTime = date.format(formatter2);
+        return "am " + formattedDate + " um " + formattedTime + " Uhr";
+    }
 }
