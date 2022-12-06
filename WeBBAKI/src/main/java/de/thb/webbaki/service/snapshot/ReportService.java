@@ -10,6 +10,7 @@ import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.repository.snapshot.ReportRepository;
 import de.thb.webbaki.service.BranchService;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
+import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
 import de.thb.webbaki.service.helper.MappingReport;
 import de.thb.webbaki.service.questionnaire.QuestionnaireService;
@@ -40,11 +41,14 @@ public class  ReportService {
     ReportRepository reportRepository;
     @Autowired
     BranchService branchService;
+    @Autowired
+    ScenarioService scenarioService;
 
     public Report getCompanyReport(Snapshot snapshot, String username){return reportRepository.findBySnapshotAndUser_Username(snapshot, username);}
     public Report getBranchReport(Snapshot snapshot, Branch branch){return reportRepository.findBySnapshotAndBranch(snapshot, branch);}
     public Report getSectorReport(Snapshot snapshot, Sector sector){return reportRepository.findBySnapshotAndSector(snapshot, sector);}
     public Report getNationalReport(Snapshot snapshot){return reportRepository.findBySnapshotAndUserIsNullAndBranchIsNullAndSectorIsNull(snapshot);}
+
     /**
      * Creates all Report types (company, branch, sector and national)
      * @param snapshot
@@ -54,63 +58,77 @@ public class  ReportService {
         Map<Branch, Map<Scenario, List<ReportScenario>>> branchMapOftReportScenarioListMaps = new HashMap<>();
         //A map mapped by the sector. The value is another map with the Scenario as Key. The value is a List of ReportScenarios (important for calculating the average)
         Map<Sector, Map<Scenario, List<ReportScenario>>> sectorMapOftReportScenarioListMaps = new HashMap<>();
-
-        //List for the branch Average ReportScenarios
-        List<ReportScenario> branchAverageReportScenarios = new ArrayList<>();
-        //List for the sector Average ReportScenarios
-        List<ReportScenario> sectorAverageReportScenarios = new ArrayList<>();
-        //List for the national Average ReportScenarios
-        List<ReportScenario> nationalAverageReportScenarios = new ArrayList<>();
         //A map mapped by the Scenario. The value is a List of ReportScenarios (important for calculating the average for the national Report)
         Map<Scenario, List<ReportScenario>> scenarioMapOfBranchAverageReportScenarios = new HashMap<>();
 
-        for (User user : userService.getAllUsers()){
-            //only use quest of a user if this user is a KRITIS_BETREIBER and the user is enabled
-            if(userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER") && user.isEnabled()) {
-                //get last questionnaire (automatically the last one in the lis)
-                Questionnaire questionnaire = user.getQuestionnaires().get(user.getQuestionnaires().size() - 1);
-                if (questionnaire != null) {
-                    //Company part
-                    Report companyReport = Report.builder().snapshot(snapshot).user(questionnaire.getUser()).numberOfQuestionnaires(1).comment(questionnaire.getComment()).build();
-                    reportRepository.save(companyReport);
+        createCompanyReports(snapshot, branchMapOftReportScenarioListMaps, sectorMapOftReportScenarioListMaps);
+        createBranchReports(snapshot, branchMapOftReportScenarioListMaps, scenarioMapOfBranchAverageReportScenarios);
+        createSectorReports(snapshot, sectorMapOftReportScenarioListMaps);
+        createNationalReport(snapshot, scenarioMapOfBranchAverageReportScenarios, branchMapOftReportScenarioListMaps.size());
+    }
 
-                    //calculate all the ReportScenarios from the questionnaires UserScenarios and add later branch, sector and national reports
-                    List<ReportScenario> companyReportScenarios = reportScenarioService.calculateReportScenariosFromUserScenarios(questionnaire.getUserScenarios());
-                    for(ReportScenario reportScenario : companyReportScenarios){
-                        reportScenario.setReport(companyReport);
+    /**
+     * creates the national report and the average ReportScenarios from scenarioMapOfBranchAverageReportScenarios
+     * @param snapshot
+     * @param scenarioMapOfBranchAverageReportScenarios
+     * @param numberOfQuestionnaires
+     */
+    private void createNationalReport(Snapshot snapshot, Map<Scenario, List<ReportScenario>> scenarioMapOfBranchAverageReportScenarios, int numberOfQuestionnaires) {
+        //List for the national Average ReportScenarios
+        List<ReportScenario> nationalAverageReportScenarios = new ArrayList<>();
 
-                        //Branch part
-                        //create map inside the map if not exists
-                        if(!branchMapOftReportScenarioListMaps.containsKey(user.getBranch())){
-                            branchMapOftReportScenarioListMaps.put(user.getBranch(), new HashMap<Scenario, List<ReportScenario>>());
-                        }
-                        //create list inside the map inside the map if not exists
-                        if(!branchMapOftReportScenarioListMaps.get(user.getBranch()).containsKey(reportScenario.getScenario())){
-                            branchMapOftReportScenarioListMaps.get(user.getBranch()).put(reportScenario.getScenario(), new ArrayList<>());
-                        }
-                        //now add the reportScenario to the right list
-                        branchMapOftReportScenarioListMaps.get(user.getBranch()).get(reportScenario.getScenario()).add(reportScenario);
+        Report nationalReport = Report.builder().snapshot(snapshot).numberOfQuestionnaires(numberOfQuestionnaires).build();
+        reportRepository.save(nationalReport);
+        scenarioMapOfBranchAverageReportScenarios.forEach((scenario, branchAverageReportScenariosForScenario) -> {
+            ReportScenario nationalReportScenario = reportScenarioService.calculateReportScenarioAverage(branchAverageReportScenariosForScenario);
+            nationalReportScenario.setScenario(scenario);
+            nationalReportScenario.setReport(nationalReport);
+            nationalAverageReportScenarios.add(nationalReportScenario);
+        });
 
-                        //Sector part
-                        //create map inside the map if not exists
-                        if(!sectorMapOftReportScenarioListMaps.containsKey(user.getBranch().getSector())){
-                            sectorMapOftReportScenarioListMaps.put(user.getBranch().getSector(), new HashMap<Scenario, List<ReportScenario>>());
-                        }
-                        //create list inside the map inside the map if not exists
-                        if(!sectorMapOftReportScenarioListMaps.get(user.getBranch().getSector()).containsKey(reportScenario.getScenario())){
-                            sectorMapOftReportScenarioListMaps.get(user.getBranch().getSector()).put(reportScenario.getScenario(), new ArrayList<>());
-                        }
-                        //now add the reportScenario to the right list
-                        sectorMapOftReportScenarioListMaps.get(user.getBranch().getSector()).get(reportScenario.getScenario()).add(reportScenario);
-                    }
-                    //save all CompanyReportScenarios
-                    reportScenarioService.saveAllReportScenarios(companyReportScenarios);
+        //save all nationalReportScenarios
+        reportScenarioService.saveAllReportScenarios(nationalAverageReportScenarios);
+    }
 
-                }
-            }
-        }
+    /**
+     * creates all sector reports and calculates the average ReportScenarios from given sectorMapOftReportScenarioListMaps
+     * @param snapshot
+     * @param sectorMapOftReportScenarioListMaps
+     */
+    private void createSectorReports(Snapshot snapshot, Map<Sector, Map<Scenario, List<ReportScenario>>> sectorMapOftReportScenarioListMaps) {
+        //List for the sector Average ReportScenarios
+        List<ReportScenario> sectorAverageReportScenarios = new ArrayList<>();
 
-        //branchReport part
+        //go through all sectors with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
+        sectorMapOftReportScenarioListMaps.forEach((sector, mapOfReportScenarioLists) -> {
+            //get the number of questionnaires by taking one list of ReportScenarios and his size
+            //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
+            int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
+            Report branchReport = Report.builder().snapshot(snapshot).sector(sector).numberOfQuestionnaires(numberOfQuestionnaires).build();
+            reportRepository.save(branchReport);
+
+            mapOfReportScenarioLists.forEach((scenario, branchReportScenarios) -> {
+                ReportScenario branchReportScenario = reportScenarioService.calculateReportScenarioAverage(branchReportScenarios);
+                branchReportScenario.setReport(branchReport);
+                branchReportScenario.setScenario(scenario);
+                sectorAverageReportScenarios.add(branchReportScenario);
+            });
+        });
+        //save all SectorReportScenarios
+        reportScenarioService.saveAllReportScenarios(sectorAverageReportScenarios);
+    }
+
+    /**
+     * creates all branch reports and calculates the average ReportScenarios from given branchMapOftReportScenarioListMap
+     * @param snapshot
+     * @param branchMapOftReportScenarioListMaps
+     * @param scenarioMapOfBranchAverageReportScenarios  saves the branch averages in this map for the later
+     *                                                   calculation of the national report
+     */
+    private void createBranchReports(Snapshot snapshot, Map<Branch, Map<Scenario, List<ReportScenario>>> branchMapOftReportScenarioListMaps, Map<Scenario, List<ReportScenario>> scenarioMapOfBranchAverageReportScenarios) {
+        //List for the branch Average ReportScenarios
+        List<ReportScenario> branchAverageReportScenarios = new ArrayList<>();
+
         //go through all branches with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
         branchMapOftReportScenarioListMaps.forEach((branch, mapOfReportScenarioLists) -> {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
@@ -136,53 +154,63 @@ public class  ReportService {
         });
         //save all BranchReportScenarios
         reportScenarioService.saveAllReportScenarios(branchAverageReportScenarios);
-
-        //sectorReport part
-        //go through all sectors with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
-        sectorMapOftReportScenarioListMaps.forEach((sector, mapOfReportScenarioLists) -> {
-            //get the number of questionnaires by taking one list of ReportScenarios and his size
-            //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
-            int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
-            Report branchReport = Report.builder().snapshot(snapshot).sector(sector).numberOfQuestionnaires(numberOfQuestionnaires).build();
-            reportRepository.save(branchReport);
-
-            mapOfReportScenarioLists.forEach((scenario, branchReportScenarios) -> {
-                ReportScenario branchReportScenario = reportScenarioService.calculateReportScenarioAverage(branchReportScenarios);
-                branchReportScenario.setReport(branchReport);
-                branchReportScenario.setScenario(scenario);
-                sectorAverageReportScenarios.add(branchReportScenario);
-            });
-        });
-        //save all SectorReportScenarios
-        reportScenarioService.saveAllReportScenarios(sectorAverageReportScenarios);
-
-        //nationalReport part
-        //get the number by the size of the map (= number of branches with an average)
-        int numberOfQuestionnaires = branchMapOftReportScenarioListMaps.size();
-        Report nationalReport = Report.builder().snapshot(snapshot).numberOfQuestionnaires(numberOfQuestionnaires).build();
-        reportRepository.save(nationalReport);
-        scenarioMapOfBranchAverageReportScenarios.forEach((scenario, branchAverageReportScenariosForScenario) -> {
-            ReportScenario nationalReportScenario = reportScenarioService.calculateReportScenarioAverage(branchAverageReportScenariosForScenario);
-            nationalReportScenario.setScenario(scenario);
-            nationalReportScenario.setReport(nationalReport);
-            nationalAverageReportScenarios.add(nationalReportScenario);
-        });
-
-        //save all nationalReportScenarios
-        reportScenarioService.saveAllReportScenarios(nationalAverageReportScenarios);
-
     }
 
     /**
-     * Creates all branch-reports
+     * Creates the company reports and their ReportScenarios
      * @param snapshot
+     * @param branchMapOftReportScenarioListMaps A map mapped by the Branch. The value is another map with the Scenario as Key. The value is a List of ReportScenarios
+     * @param sectorMapOftReportScenarioListMaps A map mapped by the sector. The value is another map with the Scenario as Key. The value is a List of ReportScenarios
+     * fill both Maps with the right ReportScenarios for the later calculation of branch and sector reports
      */
-    private void createBranchReports(Snapshot snapshot){
-        List<Branch> branches = branchService.getAllBranches();
-        for(Branch branch : branches){
-            List<User> usersFromBranch = userService.getUsersByBranch(branch.getName());
-            //questionnaireService.getQuestionnairesWithUsersInside(usersFromBranch );
-            //TODO dooooo
+    private void createCompanyReports(Snapshot snapshot, Map<Branch, Map<Scenario, List<ReportScenario>>> branchMapOftReportScenarioListMaps, Map<Sector, Map<Scenario, List<ReportScenario>>> sectorMapOftReportScenarioListMaps) {
+        //get all scenarios for the calculation of the reportScenarios
+        List<Scenario> scenarios = scenarioService.getAllScenarios();
+
+        for (User user : userService.getAllUsers()){
+            //only use quest of a user if this user is a KRITIS_BETREIBER and the user is enabled
+            if(userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER") && user.isEnabled()) {
+                //get last created questionnaire (automatically the last one in the list)
+                Questionnaire questionnaire = user.getQuestionnaires().get(user.getQuestionnaires().size() - 1);
+                if (questionnaire != null) {
+                    //Company part
+                    Report companyReport = Report.builder().snapshot(snapshot).user(user).numberOfQuestionnaires(1).comment(questionnaire.getComment()).build();
+                    reportRepository.save(companyReport);
+
+                    //calculate all the ReportScenarios from the questionnaires UserScenarios
+                    List<ReportScenario> companyReportScenarios = reportScenarioService.calculateReportScenariosFromUserScenarios(questionnaire.getUserScenarios(), scenarios);
+                    for(ReportScenario reportScenario : companyReportScenarios){
+                        reportScenario.setReport(companyReport);
+
+                        //Branch part
+                        //create map inside the branch map if not exists
+                        if(!branchMapOftReportScenarioListMaps.containsKey(user.getBranch())){
+                            branchMapOftReportScenarioListMaps.put(user.getBranch(), new HashMap<Scenario, List<ReportScenario>>());
+                        }
+                        //create list inside the scenario map inside the branch map if not exists
+                        if(!branchMapOftReportScenarioListMaps.get(user.getBranch()).containsKey(reportScenario.getScenario())){
+                            branchMapOftReportScenarioListMaps.get(user.getBranch()).put(reportScenario.getScenario(), new ArrayList<>());
+                        }
+                        //now add the reportScenario to the right list
+                        branchMapOftReportScenarioListMaps.get(user.getBranch()).get(reportScenario.getScenario()).add(reportScenario);
+
+                        //Sector part
+                        //create map inside the sector map if not exists
+                        if(!sectorMapOftReportScenarioListMaps.containsKey(user.getBranch().getSector())){
+                            sectorMapOftReportScenarioListMaps.put(user.getBranch().getSector(), new HashMap<Scenario, List<ReportScenario>>());
+                        }
+                        //create list inside the scenario map inside the sector map if not exists
+                        if(!sectorMapOftReportScenarioListMaps.get(user.getBranch().getSector()).containsKey(reportScenario.getScenario())){
+                            sectorMapOftReportScenarioListMaps.get(user.getBranch().getSector()).put(reportScenario.getScenario(), new ArrayList<>());
+                        }
+                        //now add the reportScenario to the right list
+                        sectorMapOftReportScenarioListMaps.get(user.getBranch().getSector()).get(reportScenario.getScenario()).add(reportScenario);
+                    }
+                    //save all CompanyReportScenarios
+                    reportScenarioService.saveAllReportScenarios(companyReportScenarios);
+
+                }
+            }
         }
     }
 

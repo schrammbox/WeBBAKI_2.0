@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,20 +23,36 @@ public class ReportScenarioService {
     public void saveAllReportScenarios(List<ReportScenario> reportScenarios){reportScenarioRepository.saveAll(reportScenarios);}
 
     /**
-     * Takes the respective impacts and probabilities, calculates the threatsituations, create ReportScenarios from this
+     * Takes the respective impacts and probabilities from the UserScenarios,
+     * calculates the threatSituations and create ReportScenarios from this.
+     * If there is a Scenario for what no ReportScenario exists, it creates an empty one (-1)
      * @param userScenarios
      * @return the created ReportScenarios
      */
-    public List<ReportScenario> calculateReportScenariosFromUserScenarios(List<UserScenario> userScenarios){
+    public List<ReportScenario> calculateReportScenariosFromUserScenarios(List<UserScenario> userScenarios, List<Scenario> scenarios){
         List<ReportScenario> reportScenarios = new ArrayList<>();
+        //get Map from ScenarioList and set all booleans to false
+        //this is important to notice which scenarios already where represented as ReportScenario
+        Map<Scenario, Boolean> scenarioBooleanMap = scenarios.stream().collect(Collectors.toMap((scenario) -> scenario, (scenario) -> false));
 
         for(UserScenario userScenario : userScenarios){
+            //set this scenario to true (already used now)
+            scenarioBooleanMap.put(userScenario.getScenario(), true);
+
             float threatSituation = calculateThreatSituation((long)userScenario.getImpact(), (long)userScenario.getProbability());
             reportScenarios.add(ReportScenario.builder()
                     .threatSituation(threatSituation)
                     .Scenario(userScenario.getScenario())
                     .numberOfValues((threatSituation == -1) ? 0 : 1).build());
         }
+
+        //add all missing ReportScenarios that are not created from UserScenario (not exists)
+        scenarioBooleanMap.forEach((scenario, aBoolean) ->{
+            if(!aBoolean) {
+                //TODO check later if the scenario is active
+                reportScenarios.add(ReportScenario.builder().Scenario(scenario).threatSituation(-1).numberOfValues(0).build());
+            }
+        });
 
         return reportScenarios;
     }
