@@ -22,8 +22,6 @@ public class Snapshot {
 
     private String name;
 
-    private String questionaireIDs;
-
     private LocalDateTime date;
 
     @OneToMany(mappedBy = "snapshot")
