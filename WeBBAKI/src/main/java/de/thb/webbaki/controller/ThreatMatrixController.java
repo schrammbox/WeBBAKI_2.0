@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -93,8 +94,11 @@ public class ThreatMatrixController {
         final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
         model.addAttribute("masterScenarioList",masterScenarioList);
 
+
         Scenario scenario = new Scenario();
+        List<String> descriptions = scenarioService.getAllDescriptions();
         model.addAttribute("scenario",scenario);
+        model.addAttribute("descriptions", descriptions);
 
         return "threatmatrix/add_szenario";
     }

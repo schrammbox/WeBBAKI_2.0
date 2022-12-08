@@ -400,8 +400,8 @@ public class UserService {
 
         if (form.getOldPassword() != null) {
             if (!passwordEncoder.matches(form.getOldPassword(), user.getPassword())) {
-                throw new PasswordNotMatchingException("Das eingegebene Passwort stimmt nicht mit Ihrem Passwort überein.");
-            } else if (!form.getOldPassword().equals(form.getNewPassword())) {
+                throw new PasswordNotMatchingException("Das eingegebene Passwort stimmt nicht mit Ihrem aktuellen Passwort überein.");
+            } else if (!form.getOldPassword().equals(form.getNewPassword()) && form.getNewPassword().equals(form.getConfirmNewPassword())) {
                 user.setPassword(passwordEncoder.encode(form.getNewPassword()));
                 model.addAttribute("passwordSuccess", "Ihr Passwort wurde erfolgreich geändert.");
             }

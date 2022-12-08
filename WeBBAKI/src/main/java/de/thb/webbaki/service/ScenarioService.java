@@ -22,4 +22,14 @@ public class ScenarioService {
     public long getNumberOfScenarios(){return scenarioRepository.count();}
 
     public Scenario getById(long id){return scenarioRepository.findById(id);}
+
+    public List<String> getAllDescriptions(){
+        List<Scenario> allScenarios = getAllScenarios();
+        List<String> allDescriptions = null;
+
+        for(Scenario scenario : allScenarios){
+            allDescriptions.add(scenario.getDescription());
+        }
+        return allDescriptions;
+    }
 }

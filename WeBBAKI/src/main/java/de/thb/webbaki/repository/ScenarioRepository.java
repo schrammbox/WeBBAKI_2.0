@@ -15,4 +15,5 @@ public interface ScenarioRepository extends CrudRepository<Scenario, Long> {
     Optional<Scenario> findByName(String name);
 
     Optional<Scenario> findAllByMasterScenario_Id(long id);
+
 }

@@ -22,8 +22,11 @@
                 <tr>
                     <td>#</td>
                     <td>Szenarien</td>
-                    <td>Eintrittswahrscheinlichkeit</td>
-                    <td>Auswirkung</td>
+                    <td></td>
+                    <td>Eintrittswahrscheinlichkeit <span><i class="bi bi-info-circle" data-toggle="modal"
+                                                             data-target="#probability"></i></span></td>
+                    <td>Auswirkung <span><i class="bi bi-info-circle" data-toggle="modal"
+                                            data-target="#impact"></i></span></td>
                     <td>Bedrohungslage</td>
                 </tr>
 
@@ -33,11 +36,38 @@
                 <th:block th:each="scenario : ${masterScenario.scenarios}">
                     <tr class="threatTr " th:with="index = ${counter.countAndGet()}">
                         <!--use ternary operator to choose which class (classes specify background-color) the ids have, based on the MasterScenarios-->
-                        <td th:text="${index + 1}" th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
+                        <td th:text="${index + 1}"
+                            th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
 
                         <td th:text="${scenario.name}"></td>
+                        <div class="modal fade" id="scenario" tabindex="-1" role="dialog" aria-labelledby="scenario"
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="scenarioTitle" th:text="${scenario.name}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" th:each="desc : ${descriptions}">
+                                        <p th:text="${desc}"></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- MODAL END -->
+                        <!-- Icon and Modal for Scenario Description -->
+                        <td><span><i class="bi bi-info-circle" data-toggle="modal" data-target="#scenario"></i></span>
+                        </td>
+
                         <td>
-                            <select class="form-select probabilitySelect" th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].probability}"
+                            <select class="form-select probabilitySelect"
+                                    th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].probability}"
                                     onchange="onChange(this)">
                                 <option th:value="${-1}" th:text="${'unbekannt'}"></option>
                                 <option th:value="${0}" th:text="${'nie'}"></option>
@@ -47,8 +77,10 @@
                                 <option th:value="${4}" th:text="${'sehr häufig'}"></option>
                             </select>
                         </td>
-                        <input type="hidden" th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].scenario.id}">
-                        <td><select class="form-select impactSelect" th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].impact}"
+                        <input type="hidden"
+                               th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].scenario.id}">
+                        <td><select class="form-select impactSelect"
+                                    th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].impact}"
                                     onchange="onChange(this)">
                             <option th:value="${-1}" th:text="${'unbekannt'}"></option>
                             <option th:value="${1}" th:text="${'keine'}"></option>
@@ -58,7 +90,7 @@
                         </select></td>
 
                         <td>
-                            <div class="showQuestion threatsituationDiv" >Unbekannt</div>
+                            <div class="showQuestion threatsituationDiv">Unbekannt</div>
                         </td>
 
                         <td>
@@ -92,10 +124,53 @@
                   placeholder="Kommentar bitte hier eingeben..."></textarea>
 
         <div class="col-md-12 mt-2">
-            <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+            <button type="submit" class="btn btn-primary float-end">Speichern</button>
         </div>
 
     </form>
+
+    <!-- Modal Eintrittswahrscheinlichkeit-->
+    <div class="modal fade" id="probability" tabindex="-1" role="dialog" aria-labelledby="probability"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="probabilityTitle">Eintrittswahrscheinlichkeit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Beschrieben wird die Wahrscheinlichkeit des Eintretens der unten genannten Szenarien.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eintrittswahrscheinlichkeit-->
+    <div class="modal fade" id="impact" tabindex="-1" role="dialog" aria-labelledby="impact" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="impactTitle">Auswirkung</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Beschrieben werden die Auswirkungen bei Eintreten einer oder mehrerer in den Szenarien beschriebener
+                    Ereignisse.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>
