@@ -40,7 +40,7 @@
                             th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
 
                         <td th:text="${scenario.name}"></td>
-                        <div class="modal fade" id="scenario" tabindex="-1" role="dialog" aria-labelledby="scenario"
+                        <div class="modal fade" th:id='${"scenario"+scenario.id}' tabindex="-1" role="dialog" th:aria-labelledby='${"scenario"+scenario.id}'
                              aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -50,8 +50,8 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body" th:each="desc : ${descriptions}">
-                                        <p th:text="${desc}"></p>
+                                    <div class="modal-body" >
+                                        <p th:text="${scenario.description}"></p>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen
@@ -62,7 +62,7 @@
                         </div>
                         <!-- MODAL END -->
                         <!-- Icon and Modal for Scenario Description -->
-                        <td><span><i class="bi bi-info-circle" data-toggle="modal" data-target="#scenario"></i></span>
+                        <td><span><i class="bi bi-info-circle" data-toggle="modal" th:data-target='${"#scenario"+scenario.id}'></i></span>
                         </td>
 
                         <td>
