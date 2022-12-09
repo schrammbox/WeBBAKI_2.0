@@ -5,6 +5,7 @@ import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
+import de.thb.webbaki.service.helper.Counter;
 import de.thb.webbaki.service.helper.MappingReport;
 import de.thb.webbaki.service.snapshot.ReportService;
 import de.thb.webbaki.service.snapshot.SnapshotService;
@@ -59,6 +60,8 @@ public class ReportController {
         final List<Snapshot> snapshotList = snapshotService.getAllSnapshotOrderByDESC();
         model.addAttribute("snapshotList", snapshotList);
 
+        model.addAttribute("counter", new Counter());
+
         return "report/report_container";
     }
 
@@ -81,6 +84,8 @@ public class ReportController {
 
         MappingReport report = reportService.getMappingReportByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
         context.setVariable("report", report);
+
+        context.setVariable("counter", new Counter());
 
         reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
                 request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort(), response.getOutputStream());

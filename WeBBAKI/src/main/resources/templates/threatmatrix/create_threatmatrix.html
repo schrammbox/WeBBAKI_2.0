@@ -37,7 +37,7 @@
                     <tr class="threatTr " th:with="index = ${counter.countAndGet()}">
                         <!--use ternary operator to choose which class (classes specify background-color) the ids have, based on the MasterScenarios-->
                         <td th:text="${index + 1}"
-                            th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
+                            class="masterScenarioIds" th:style="${'background-color: ' + masterScenario.getLayerColorAsString()}"></td>
 
                         <td th:text="${scenario.name}"></td>
                         <div class="modal fade" th:id='${"scenario"+scenario.id}' tabindex="-1" role="dialog" th:aria-labelledby='${"scenario"+scenario.id}'

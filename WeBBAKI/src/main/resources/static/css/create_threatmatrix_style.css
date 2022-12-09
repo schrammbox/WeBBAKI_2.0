@@ -46,17 +46,7 @@ td a:hover {
     width:50%;
 }
 
-.firstMasterScenarioTds{
-    background-color: #9fd8ee;
+.masterScenarioIds{
     text-align: center;
 }
 
-.secondMasterScenarioTds{
-    background-color: #b5d48c;
-    text-align: center;
-}
-
-.thirdMasterScenarioTds{
-    background-color: #f6e37b;
-    text-align: center;
-}
