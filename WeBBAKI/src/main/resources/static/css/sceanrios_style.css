@@ -1,0 +1,32 @@
+.masterScenario, .scenario{
+    display: flex;
+    flex-direction: column;
+}
+.masterScenarioAttribute{
+    flex-direction: row;
+    align-content: center;
+    display: flex;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.masterScenarioName{
+    width: 65%;
+}
+
+.scenarioAttributes{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin-left: 4%;
+    align-content: center;
+}
+
+.scenarioName, .scenarioDescription{
+    width: 45%;
+}
+
+.addScenarioButton{
+    width: 20%;
+    margin-bottom: 2em;
+}

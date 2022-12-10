@@ -1,7 +1,7 @@
 package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
-import de.thb.webbaki.controller.form.UserForm;
+import de.thb.webbaki.controller.form.UserFormModel;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Branch;
@@ -331,7 +331,7 @@ public class UserService {
      *
      * @param form to get userlist
      */
-    public void changeEnabledStatus(UserForm form) {
+    public void changeEnabledStatus(UserFormModel form) {
 
         List<User> users = getAllUsers();
 
@@ -361,7 +361,7 @@ public class UserService {
      *
      * @param form to get Branche
      */
-    public void changeBranch(UserForm form) {
+    public void changeBranch(UserFormModel form) {
 
         for (int i = 0; i < form.getUsers().size(); i++) {
 
