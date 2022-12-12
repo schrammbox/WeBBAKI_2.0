@@ -89,31 +89,5 @@ public class ThreatMatrixController {
         return "redirect:/threatmatrix/chronic";
     }
 
-    @GetMapping("/threatmatrix/add_szenario")
-    public String addSzenario(Model model){
-        final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
-        model.addAttribute("masterScenarioList",masterScenarioList);
-
-
-        Scenario scenario = new Scenario();
-        List<String> descriptions = scenarioService.getAllDescriptions();
-        model.addAttribute("scenario",scenario);
-        model.addAttribute("descriptions", descriptions);
-
-        return "threatmatrix/add_szenario";
-    }
-
-    @PostMapping("/threatmatrix/add_szenario")
-    public String submitSzenario(@ModelAttribute("scenario") Scenario scenario){
-        String[] sList = scenario.getName().split(",");
-        scenario.setName(sList[0]);
-        scenario.setMasterScenario(masterScenarioService.getAllMasterScenarios()
-                .get(Integer.parseInt(sList[1])));
-        scenarioService.addScenario(scenario);
-
-
-        return "redirect:/threatmatrix";
-    }
-
 
 }

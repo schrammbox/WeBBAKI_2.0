@@ -11,6 +11,7 @@
 <body>
   <div layout:fragment="content">
     <div class="container">
+      <h1>MasterSzenarien und Szenarien</h1>
       <form th:object="${form}" method="post" th:action="@{/scenarios}">
         <div class="masterScenario" th:each="masterScenario, itemStat : *{masterScenarios}" th:id="${'masterScenario' + itemStat.index}" th:if="${masterScenario.active}">
           <div class="masterScenarioAttributes">
