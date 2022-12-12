@@ -1,8 +1,8 @@
-.masterScenario, .scenario{
+.masterScenario, .scenarios{
     display: flex;
     flex-direction: column;
 }
-.masterScenarioAttribute{
+.masterScenarioAttributes{
     flex-direction: row;
     align-content: center;
     display: flex;
@@ -14,7 +14,7 @@
     width: 65%;
 }
 
-.scenarioAttributes{
+.scenario{
     display: flex;
     flex-direction: row;
     width: 90%;
