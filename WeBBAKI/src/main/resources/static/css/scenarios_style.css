@@ -5,20 +5,25 @@
 .masterScenarioAttributes{
     flex-direction: row;
     align-content: center;
-    display: flex;
-    width: 100%;
+    display: block;
+    width: 97%;
     margin-bottom: 1em;
 }
 
+.select-masterScenarioName{
+    width: 100%;
+    display: flex;
+    padding: 0.5rem 0;
+}
+
 .masterScenarioName{
-    width: 65%;
+    width: 100%;
 }
 
 .scenario{
     display: flex;
     flex-direction: row;
-    width: 90%;
-    margin-left: 4%;
+    width: 100%;
     align-content: center;
 }
 
@@ -29,4 +34,12 @@
 .addScenarioButton{
     width: 20%;
     margin-bottom: 2em;
+}
+
+.deleteScenario{
+    margin: 0.7rem 0;
+}
+
+.submitScenario{
+    margin: 0.7rem 0;
 }

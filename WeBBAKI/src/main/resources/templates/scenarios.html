@@ -5,44 +5,44 @@
 <head>
   <meta charset="UTF-8">
   <title>Scenarios</title>
-  <link th:href="@{/css/sceanrios_style.css}" href="/css/sceanrios_style.css" rel="stylesheet">
+  <link th:href="@{/css/scenarios_style.css}" href="/css/scenarios_style.css" rel="stylesheet">
   <script th:src="@{/js/scenarios_script.js}" src="/js/scenarios_script.js"></script>
 </head>
 <body>
   <div layout:fragment="content">
     <div class="container">
-      <h1>MasterSzenarien und Szenarien</h1>
+      <h1>Masterszenarien und Szenarien</h1>
       <form th:object="${form}" method="post" th:action="@{/scenarios}">
         <div class="masterScenario" th:each="masterScenario, itemStat : *{masterScenarios}" th:id="${'masterScenario' + itemStat.index}" th:if="${masterScenario.active}">
           <div class="masterScenarioAttributes">
             <input hidden th:field="*{masterScenarios[__${itemStat.index}__].id}">
-            <textarea placeholder="Masterszenarioname..." class="masterScenarioName" th:field="*{masterScenarios[__${itemStat.index}__].name}" />
-            <div>
-              <select th:field="*{masterScenarios[__${itemStat.index}__].layer}">
+            <textarea class="form-control masterScenarioName" placeholder="Masterszenarioname..." th:field="*{masterScenarios[__${itemStat.index}__].name}"></textarea>
+            <div class="select-masterScenarioName">
+              <select class="form-select" th:field="*{masterScenarios[__${itemStat.index}__].layer}">
                 <option value="1">Kritische Dienstleistung</option>
                 <option value="2">Zugriff</option>
                 <option value="3">Zugang</option>
                 <option value="4">Zutritt</option>
                 <option value="5">Außenwelt</option>
               </select>
-            </div>
-            <div>
-              <button type="button" th:value="${itemStat.index}" onclick="deleteMasterScenario(this)">Löschen</button>
+
+              <button type="button" class="deleteScenario btn btn-outline-danger" th:value="${itemStat.index}" onclick="deleteMasterScenario(this)">Löschen</button>
+
             </div>
           </div>
           <div class="scenarios">
             <div class="scenario" th:each="scenario, itemStat2 : ${masterScenario.scenarios}" th:id="${'scenario' + itemStat.index + '_' + itemStat2.index}" th:if="${scenario.active}">
               <input hidden th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].id}">
-              <textarea  placeholder="Szenarioname..." class="scenarioName"  th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].name}"/>
-              <textarea placeholder="Szenariobeschreibung..." class="scenarioDescription" th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].description}" />
-              <div>
-                <button th:value="${itemStat.index + ';' + itemStat2.index}" type="button" onclick="deleteScenario(this)" >Löschen</button>
+              <textarea class="form-control scenarioName"  placeholder="Szenarioname..." th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].name}"></textarea>
+              <textarea class="form-control scenarioDescription" placeholder="Szenariobeschreibung..." th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].description}"></textarea>
+              <div class="deleteScenario">
+                <button class="btn btn-outline-danger" th:value="${itemStat.index + ';' + itemStat2.index}" type="button" onclick="deleteScenario(this)" >Löschen</button>
               </div>
             </div>
-            <button onclick="createScenario(this)" type="button" class="addScenarioButton" th:value="${itemStat.index + ';' + (masterScenario.scenarios.size() - 1)}">Scenario hinzufügen</button>
+            <button onclick="createScenario(this)" type="button" class="submitScenario btn btn-outline-primary addScenarioButton" th:value="${itemStat.index + ';' + (masterScenario.scenarios.size() - 1)}">Scenario hinzufügen</button>
           </div>
         </div>
-        <button onclick="createMasterScenario(this)" type="button" th:value="${form.masterScenarios.size() - 1}">MasterScenario hinzufügen</button>
+        <button class="submitScenario btn btn-outline-primary addScenarioButton" onclick="createMasterScenario(this)" type="button" th:value="${form.masterScenarios.size() - 1}">MasterScenario hinzufügen</button>
         <div class="col-md-12 mt-2">
           <button type="submit" class="btn btn-primary float-end">Abschicken</button>
         </div>
