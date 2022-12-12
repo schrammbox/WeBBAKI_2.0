@@ -12,10 +12,10 @@
   <div layout:fragment="content">
     <div class="container">
       <form th:object="${form}" method="post" th:action="@{/scenarios}">
-        <div class="masterScenario" th:each="masterScenario, itemStat : *{masterScenarios}" th:id="${'masterScenario' + itemStat.index}">
+        <div class="masterScenario" th:each="masterScenario, itemStat : *{masterScenarios}" th:id="${'masterScenario' + itemStat.index}" th:if="${masterScenario.active}">
           <div class="masterScenarioAttributes">
             <input hidden th:field="*{masterScenarios[__${itemStat.index}__].id}">
-            <textarea placeholder="Masterscenarioname..." class="masterScenarioName" th:field="*{masterScenarios[__${itemStat.index}__].name}" />
+            <textarea placeholder="Masterszenarioname..." class="masterScenarioName" th:field="*{masterScenarios[__${itemStat.index}__].name}" />
             <div>
               <select th:field="*{masterScenarios[__${itemStat.index}__].layer}">
                 <option value="1">Kritische Dienstleistung</option>
@@ -30,10 +30,10 @@
             </div>
           </div>
           <div class="scenarios">
-            <div class="scenario" th:each="scenario, itemStat2 : ${masterScenario.scenarios}" th:id="${'scenario' + itemStat.index + '_' + itemStat2.index}">
+            <div class="scenario" th:each="scenario, itemStat2 : ${masterScenario.scenarios}" th:id="${'scenario' + itemStat.index + '_' + itemStat2.index}" th:if="${scenario.active}">
               <input hidden th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].id}">
-              <textarea  placeholder="Scenarioname..." class="scenarioName"  th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].name}"/>
-              <textarea placeholder="Scenariobeschreibung..." class="scenarioDescription" th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].description}" />
+              <textarea  placeholder="Szenarioname..." class="scenarioName"  th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].name}"/>
+              <textarea placeholder="Szenariobeschreibung..." class="scenarioDescription" th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].description}" />
               <div>
                 <button th:value="${itemStat.index + ';' + itemStat2.index}" type="button" onclick="deleteScenario(this)" >Löschen</button>
               </div>

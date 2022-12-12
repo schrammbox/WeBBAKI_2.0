@@ -3,6 +3,7 @@ package de.thb.webbaki.controller;
 import de.thb.webbaki.controller.form.ScenarioFormModel;
 import de.thb.webbaki.entity.MasterScenario;
 import de.thb.webbaki.service.MasterScenarioService;
+import de.thb.webbaki.service.ScenarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,8 @@ import java.util.List;
 public class ScenarioController {
     @Autowired
     MasterScenarioService masterScenarioService;
+    @Autowired
+    ScenarioService scenarioService;
     @GetMapping("/scenarios")
     public String showScenarios(Model model){
         List<MasterScenario> masterScenarios = masterScenarioService.getAllMasterScenarios();
@@ -26,6 +29,7 @@ public class ScenarioController {
 
     @PostMapping("/scenarios")
     public String changeScenarios(ScenarioFormModel scenarioFormModel){
-        return "scenarios";
+        scenarioService.saveAndDeleteScenariosFromForm(scenarioFormModel);
+        return "redirect:/scenarios";
     }
 }

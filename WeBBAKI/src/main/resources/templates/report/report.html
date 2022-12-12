@@ -13,7 +13,7 @@
     <div th:fragment="report">
         <h1 style="width: 100%; text-align: center; margin-bottom: 2em;" th:text='${reportFocus.getGermanRepresentation() +" Report von " + currentSnapshot.getName()}'></h1>
         <p style="margin-bottom: 2em; font-size: 1.3em;" th:if="${!reportFocus.getGermanRepresentation().equals('Firmeninterner')}" th:text="${'Die Anzahl der ' + ((reportFocus.getGermanRepresentation().equals('Nationaler'))?(' Branchenmittelwerte der Bedrohungsmatrizen'):(' Bedrohungsmatrizen')) + ', auf dessen Grundlage die Berechnung des Reports beruht ist ' + report.getNumberOfQuestionnaires() + '.' }"></p>
-        <th:block th:each="masterScenario: ${masterScenarioList}" >
+        <th:block th:each="masterScenario: ${masterScenarioList}" th:if="${report.checkIfContainsMasterScenario(masterScenario)}">
             <div >
                 <h5 th:text="${masterScenario.name}" style="page-break-inside:avoid;"></h5>
                 <table  class="threatmatrix-table" style="border-bottom: 1px solid black;width: 100%; border-collapse: collapse; margin-bottom: 5em; font-size: 16px; letter-spacing: 1px; padding: 8px;">
@@ -37,7 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <th:block th:each="scenario: ${masterScenario.scenarios}">
+                        <th:block th:each="scenario: ${masterScenario.scenarios}" th:if="${report.getReportScenarioMap().keySet().contains(scenario)}" >
                             <tr style="page-break-inside:avoid;">
                                 <td th:text="${counter.countAndGet() + 1}" th:style="${'background-color: '+ masterScenario.getLayerColorAsString() +';'+'border-bottom: 1px solid grey; text-align: center;width: 3%'}"></td>
 

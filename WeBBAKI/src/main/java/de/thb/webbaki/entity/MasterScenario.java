@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class MasterScenario {
     private long id;
     private String name;
     private short layer;
-
+    boolean active;
 
     @OneToMany(mappedBy = "masterScenario")
     private List<Scenario> scenarios;
@@ -37,5 +38,18 @@ public class MasterScenario {
             default:
                 return "fe80a4";
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MasterScenario that = (MasterScenario) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

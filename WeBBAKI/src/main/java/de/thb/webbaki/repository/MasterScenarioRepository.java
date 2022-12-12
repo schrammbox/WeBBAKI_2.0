@@ -11,7 +11,4 @@ import java.util.Optional;
 public interface MasterScenarioRepository extends CrudRepository<MasterScenario, Long> {
 
 
-
-
-
 }

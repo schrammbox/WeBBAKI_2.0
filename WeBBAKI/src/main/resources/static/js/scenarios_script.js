@@ -1,7 +1,7 @@
 var scenarioString = "<div class=\"scenario\" id=\"scenario{masterScenarioIndex}_{scenarioIndex}\">\n" +
     "              <input hidden=\"\" id=\"masterScenarios{masterScenarioIndex}.scenarios{scenarioIndex}.id\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[{scenarioIndex}].id\" value=\"{scenarioId}\">\n" +
-    "              <textarea placeholder=\"Scenarioname...\" class=\"scenarioName\" id=\"masterScenarios{masterScenarioIndex}.scenarios{scenarioIndex}.name\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[{scenarioIndex}].name\"></textarea>\n" +
-    "              <textarea placeholder=\"Scenariobeschreibung...\" class=\"scenarioDescription\" id=\"masterScenarios{masterScenarioIndex}.scenarios{scenarioIndex}.description\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[{scenarioIndex}].description\"></textarea>\n" +
+    "              <textarea placeholder=\"Szenarioname...\" class=\"scenarioName\" id=\"masterScenarios{masterScenarioIndex}.scenarios{scenarioIndex}.name\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[{scenarioIndex}].name\"></textarea>\n" +
+    "              <textarea placeholder=\"Szenariobeschreibung...\" class=\"scenarioDescription\" id=\"masterScenarios{masterScenarioIndex}.scenarios{scenarioIndex}.description\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[{scenarioIndex}].description\"></textarea>\n" +
     "              <div>\n" +
     "                <button type=\"button\" value=\"{masterScenarioIndex};{scenarioIndex}\" onclick=\"deleteScenario(this)\">Löschen</button>\n" +
     "              </div>\n" +
@@ -10,7 +10,7 @@ var scenarioString = "<div class=\"scenario\" id=\"scenario{masterScenarioIndex}
 var masterScenarioString = "<div class=\"masterScenario\" id=\"masterScenario{masterScenarioIndex}\">\n" +
     "          <div class=\"masterScenarioAttributes\">\n" +
     "            <input hidden=\"\" id=\"masterScenarios{masterScenarioIndex}.id\" name=\"masterScenarios[{masterScenarioIndex}].id\" value=\"{masterScenarioId}\">\n" +
-    "            <textarea placeholder=\"Masterscenarioname...\" class=\"masterScenarioName\" id=\"masterScenarios{masterScenarioIndex}.name\" name=\"masterScenarios[{masterScenarioIndex}].name\"></textarea>\n" +
+    "            <textarea placeholder=\"Masterszenarioname...\" class=\"masterScenarioName\" id=\"masterScenarios{masterScenarioIndex}.name\" name=\"masterScenarios[{masterScenarioIndex}].name\"></textarea>\n" +
     "            <div>\n" +
     "              <select id=\"masterScenarios{masterScenarioIndex}.layer\" name=\"masterScenarios[{masterScenarioIndex}].layer\">\n" +
     "                <option value=\"1\">Kritische Dienstleistung</option>\n" +
@@ -27,8 +27,8 @@ var masterScenarioString = "<div class=\"masterScenario\" id=\"masterScenario{ma
     "          <div class=\"scenarios\">\n" +
     "            <div class=\"scenario\" id=\"scenario{masterScenarioIndex}_0\">\n" +
     "              <input hidden=\"\" id=\"masterScenarios{masterScenarioIndex}.scenarios0.id\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[0].id\" value=\"-1\">\n" +
-    "              <textarea placeholder=\"Scenarioname...\" class=\"scenarioName\" id=\"masterScenarios{masterScenarioIndex}.scenarios0.name\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[0].name\"></textarea>\n" +
-    "              <textarea placeholder=\"Scenariobeschreibung...\" class=\"scenarioDescription\" id=\"masterScenarios{masterScenarioIndex}.scenarios0.description\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[0].description\">" +
+    "              <textarea placeholder=\"Szenarioname...\" class=\"scenarioName\" id=\"masterScenarios{masterScenarioIndex}.scenarios0.name\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[0].name\"></textarea>\n" +
+    "              <textarea placeholder=\"Szenariobeschreibung...\" class=\"scenarioDescription\" id=\"masterScenarios{masterScenarioIndex}.scenarios0.description\" name=\"masterScenarios[{masterScenarioIndex}].scenarios[0].description\">" +
     "</textarea>\n" +
     "              <div>\n" +
     "                <button type=\"button\" value=\"{masterScenarioIndex};0\" onclick=\"deleteScenario(this)\">Löschen</button>\n" +

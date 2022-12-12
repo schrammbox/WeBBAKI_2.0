@@ -14,7 +14,7 @@
     <h2>Fragebogen</h2><br>
     <form th:object="${threatmatrix}" th:action="@{/threatmatrix}" method="post">
 
-        <th:block th:each="masterScenario : ${masterScenarioList}">
+        <th:block th:each="masterScenario : ${masterScenarioList}" th:if="${masterScenario.active}">
             <h5 th:text="${masterScenario.name}"></h5>
 
             <table class="threatmatrix-table">
@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
 
-                <th:block th:each="scenario : ${masterScenario.scenarios}">
+                <th:block th:each="scenario : ${masterScenario.scenarios}" th:if="${scenario.active}">
                     <tr class="threatTr " th:with="index = ${counter.countAndGet()}">
                         <!--use ternary operator to choose which class (classes specify background-color) the ids have, based on the MasterScenarios-->
                         <td th:text="${index + 1}"
