@@ -14,7 +14,7 @@
     <h2>Fragebogen</h2><br>
     <form th:object="${threatmatrix}" th:action="@{/threatmatrix}" method="post">
 
-        <th:block th:each="masterScenario : ${masterScenarioList}">
+        <th:block th:each="masterScenario : ${masterScenarioList}" th:if="${masterScenario.active}">
             <h5 th:text="${masterScenario.name}"></h5>
 
             <table class="threatmatrix-table">
@@ -22,41 +22,71 @@
                 <tr>
                     <td>#</td>
                     <td>Szenarien</td>
-                    <td>Eintrittswahrscheilichkeit</td>
-                    <td>Auswirkung</td>
+                    <td></td>
+                    <td>Eintrittswahrscheinlichkeit <span><i class="bi bi-info-circle" data-toggle="modal"
+                                                             data-target="#probability"></i></span></td>
+                    <td>Auswirkung <span><i class="bi bi-info-circle" data-toggle="modal"
+                                            data-target="#impact"></i></span></td>
                     <td>Bedrohungslage</td>
                 </tr>
 
                 </thead>
                 <tbody>
 
-                <th:block th:each="scenario : ${masterScenario.scenarios}">
-                    <tr class="threatTr ">
+                <th:block th:each="scenario : ${masterScenario.scenarios}" th:if="${scenario.active}">
+                    <tr class="threatTr " th:with="index = ${counter.countAndGet()}">
                         <!--use ternary operator to choose which class (classes specify background-color) the ids have, based on the MasterScenarios-->
-                        <td th:text="${scenario.id}" th:class="${(masterScenario.getId() <=2)?('firstMasterScenarioTds'):((masterScenario.getId() <= 4)?('secondMasterScenarioTds'):('thirdMasterScenarioTds'))}"></td>
+                        <td th:text="${index + 1}"
+                            class="masterScenarioIds" th:style="${'background-color: ' + masterScenario.getLayerColorAsString()}"></td>
 
                         <td th:text="${scenario.name}"></td>
-                        <td>
-                            <select class="form-select probabilitySelect" th:attr="name='prob['+${scenario.id}+']'"
-                                    onchange="onChange(this)">
-                                <div th:switch="${questMap.get(#vars.scenario.id)[0]}">
-                                    <option th:case="'none'" value="none" selected>Bitte wählen...</option>
-                                    <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[0]}"
-                                            selected></option>
+                        <div class="modal fade" th:id='${"scenario"+scenario.id}' tabindex="-1" role="dialog" th:aria-labelledby='${"scenario"+scenario.id}'
+                             aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="scenarioTitle" th:text="${scenario.name}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" >
+                                        <p th:text="${scenario.description}"></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen
+                                        </button>
+                                    </div>
                                 </div>
-                                <option th:each="probability : ${T(de.thb.webbaki.enums.Probability).values()}"
-                                        th:if="${probability.value != questMap.get(#vars.scenario.id)[0]}"
-                                        th:value="${probability.value}" th:text="${probability.value}"></option>
+                            </div>
+                        </div>
+                        <!-- MODAL END -->
+                        <!-- Icon and Modal for Scenario Description -->
+                        <td><span><i class="bi bi-info-circle" data-toggle="modal" th:data-target='${"#scenario"+scenario.id}'></i></span>
+                        </td>
+
+                        <td>
+                            <select class="form-select probabilitySelect"
+                                    th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].probability}"
+                                    onchange="onChange(this)">
+                                <option th:value="${-1}" th:text="${'unbekannt'}"></option>
+                                <option th:value="${0}" th:text="${'nie'}"></option>
+                                <option th:value="${1}" th:text="${'selten'}"></option>
+                                <option th:value="${2}" th:text="${'mittel'}"></option>
+                                <option th:value="${3}" th:text="${'häufig'}"></option>
+                                <option th:value="${4}" th:text="${'sehr häufig'}"></option>
                             </select>
                         </td>
-                        <td><select class="form-select impactSelect" th:attr="name='imp['+${scenario.id}+']'"
+                        <input type="hidden"
+                               th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].scenario.id}">
+                        <td><select class="form-select impactSelect"
+                                    th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].impact}"
                                     onchange="onChange(this)">
-                            <div th:switch="${questMap.get(#vars.scenario.id)[1]}">
-                                <option th:case="'none'" value="none" selected>Bitte wählen...</option>
-                                <option th:case="*" th:text="${questMap.get(#vars.scenario.id)[1]}" selected></option>
-                            </div>
-                            <option th:each="impact : ${T(de.thb.webbaki.enums.Impact).values()}"
-                                    th:value="${impact.value}" th:text="${impact.value}"></option>
+                            <option th:value="${-1}" th:text="${'unbekannt'}"></option>
+                            <option th:value="${1}" th:text="${'keine'}"></option>
+                            <option th:value="${2}" th:text="${'geringes'}"></option>
+                            <option th:value="${3}" th:text="${'hohes'}"></option>
+                            <option th:value="${4}" th:text="${'existenzbedrohend'}"></option>
                         </select></td>
 
                         <td>
@@ -68,7 +98,8 @@
                                 <button type="button" class="btn bi bi-card-text" data-bs-toggle="dropdown"
                                         aria-expanded="false" data-bs-auto-close="outside"></button>
                                 <textarea class="form-control dropdown-menu" id="exampleDropdownFormEmail2"
-                                          th:field="*{smallComments[__${value.countAndGet()}__]}" rows="3" cols="6" maxlength="360"
+                                          th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].smallComment}"
+                                          rows="3" cols="6" maxlength="360"
                                           placeholder=" Kommentar bis zu 360 Zeichen..."></textarea>
 
                             </div>
@@ -89,14 +120,57 @@
         -->
         <h3><label class="form-group shadow-textarea">Kommentar zum Fragebogen</label></h3>
         <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" th:rows="5" th:cols="123"
-                  th:field="${quest.comment}" th:value="${quest.comment}" th:text="${quest.comment}"
+                  th:field="*{comment}"
                   placeholder="Kommentar bitte hier eingeben..."></textarea>
 
         <div class="col-md-12 mt-2">
-            <button type="submit" class="btn btn-primary float-end">Abschicken</button>
+            <button type="submit" class="btn btn-primary float-end">Speichern</button>
         </div>
 
     </form>
+
+    <!-- Modal Eintrittswahrscheinlichkeit-->
+    <div class="modal fade" id="probability" tabindex="-1" role="dialog" aria-labelledby="probability"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="probabilityTitle">Eintrittswahrscheinlichkeit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Beschrieben wird die Wahrscheinlichkeit des Eintretens der unten genannten Szenarien.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eintrittswahrscheinlichkeit-->
+    <div class="modal fade" id="impact" tabindex="-1" role="dialog" aria-labelledby="impact" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="impactTitle">Auswirkung</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Beschrieben werden die Auswirkungen bei Eintreten einer oder mehrerer in den Szenarien beschriebener
+                    Ereignisse.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

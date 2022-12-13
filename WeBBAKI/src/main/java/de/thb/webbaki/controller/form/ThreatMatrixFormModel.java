@@ -1,46 +1,37 @@
 package de.thb.webbaki.controller.form;
 
-import de.thb.webbaki.entity.Role;
-import de.thb.webbaki.entity.User;
-import de.thb.webbaki.enums.*;
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
+import de.thb.webbaki.entity.questionnaire.UserScenario;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ThreatMatrixFormModel {
+    Map<Long, Integer> scenarioIdToIndex;
+    List<UserScenario> userScenarios;
+    String comment;
 
-    // get ENUM for Frontend
-    @NotNull(message = "Probability null")
-    private Probability probability;
-    // get ENUM for Frontend
-    @NotNull(message = "Impact null")
-    private Impact impact;
-    // get ENUM for Frontend
-    @NotNull(message = "Risk null")
-    private Risk risk;
+    public ThreatMatrixFormModel(Questionnaire questionnaire){
 
-    private Collection<Role> roles;
+        scenarioIdToIndex = new HashMap<>();
+        comment = questionnaire.getComment();
+        userScenarios = new ArrayList<>();
 
-    private String comment;
-    private String[] smallComments;
+        userScenarios = questionnaire.getUserScenarios();
 
-    // get probability from Frontend as array
-    @NotNull(message = "prob not null")
-    private String[] prob;
-    // get impact from Frontend as array
-    @NotNull(message = "imp not null")
-    private String[] imp;
-
-    private User user;
-
+        for(int i = 0; i< userScenarios.size(); i++){
+            scenarioIdToIndex.put(userScenarios.get(i).getScenario().getId(), i);
+        }
+    }
 }

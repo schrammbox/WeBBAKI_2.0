@@ -1,11 +1,13 @@
-package de.thb.webbaki.entity;
+package de.thb.webbaki.entity.questionnaire;
 
+import de.thb.webbaki.entity.User;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,22 +27,14 @@ public class Questionnaire {
     @Size(max = 1000)
     private String comment;
 
-    @Column(length = 1000)
-    @Size(max = 10000)
-    private String smallComment;
-
     private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
-    @Column(length = 1000)
-    @Size(max = 1000)
-    private String mapping;
-
-
+    @OneToMany(mappedBy = "questionnaire")
+    private List<UserScenario> userScenarios;
 
     //EQUALS & HASHCODE
     @Override

@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserForm {
+public class UserFormModel {
 
     private List<User> users;
     private List<String> branchesAsString;

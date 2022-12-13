@@ -1,11 +1,10 @@
 package de.thb.webbaki.service;
 
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
-import de.thb.webbaki.controller.form.UserForm;
+import de.thb.webbaki.controller.form.UserFormModel;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.Branch;
-import de.thb.webbaki.entity.Questionnaire;
 import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.mail.EmailSender;
@@ -17,6 +16,7 @@ import de.thb.webbaki.repository.UserRepository;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
 import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
+import de.thb.webbaki.service.questionnaire.QuestionnaireService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +54,7 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    public Optional<User> getById(long id){return userRepository.findById(id);}
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -137,13 +138,7 @@ public class UserService {
 
             //create questionnaire if user is kritis_betreiber
             if(!userBranch.getName().equals("Geschäftsstelle")){
-                Questionnaire questionnaire = new Questionnaire();
-                questionnaire.setUser(getUserByUsername(form.getUsername()));
-                questionnaire.setDate(LocalDateTime.now());
-                questionnaire.setSmallComment("");
-                questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
-                questionnaire.setUser(user);
-                questionnaireService.save(questionnaire);
+                questionnaireService.createQuestionnaireForUser(user);
             }
 
             /*Outsourcing Mail to thread for speed purposes*/
@@ -286,12 +281,7 @@ public class UserService {
 
                     //create new questionnaires for the user if he is now KRITIS_BETREIBER and hasnt already one
                     if (role.getName().equals("ROLE_KRITIS_BETREIBER") && !questionnaireService.existsQuestionnaireByUserId(user.getId())) {
-                        Questionnaire questionnaire = new Questionnaire();
-                        questionnaire.setUser(user);
-                        questionnaire.setDate(LocalDateTime.now());
-                        questionnaire.setSmallComment("");
-                        questionnaire.setMapping("{1=none;none, 2=none;none, 3=none;none, 4=none;none, 5=none;none, 6=none;none, 7=none;none, 8=none;none, 9=none;none, 10=none;none, 11=none;none, 12=none;none, 13=none;none, 14=none;none, 15=none;none, 16=none;none, 17=none;none, 18=none;none, 19=none;none, 20=none;none, 21=none;none, 22=none;none, 23=none;none, 24=none;none, 25=none;none, 26=none;none, 27=none;none}");
-                        questionnaireService.save(questionnaire);
+                        questionnaireService.createQuestionnaireForUser(user);
                     }
 
                     /*Outsourcing Mail to thread for speed purposes*/
@@ -341,7 +331,7 @@ public class UserService {
      *
      * @param form to get userlist
      */
-    public void changeEnabledStatus(UserForm form) {
+    public void changeEnabledStatus(UserFormModel form) {
 
         List<User> users = getAllUsers();
 
@@ -371,7 +361,7 @@ public class UserService {
      *
      * @param form to get Branche
      */
-    public void changeBranch(UserForm form) {
+    public void changeBranch(UserFormModel form) {
 
         for (int i = 0; i < form.getUsers().size(); i++) {
 
@@ -410,8 +400,8 @@ public class UserService {
 
         if (form.getOldPassword() != null) {
             if (!passwordEncoder.matches(form.getOldPassword(), user.getPassword())) {
-                throw new PasswordNotMatchingException("Das eingegebene Passwort stimmt nicht mit Ihrem Passwort überein.");
-            } else if (!form.getOldPassword().equals(form.getNewPassword())) {
+                throw new PasswordNotMatchingException("Das eingegebene Passwort stimmt nicht mit Ihrem aktuellen Passwort überein.");
+            } else if (!form.getOldPassword().equals(form.getNewPassword()) && form.getNewPassword().equals(form.getConfirmNewPassword())) {
                 user.setPassword(passwordEncoder.encode(form.getNewPassword()));
                 model.addAttribute("passwordSuccess", "Ihr Passwort wurde erfolgreich geändert.");
             }

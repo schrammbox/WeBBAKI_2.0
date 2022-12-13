@@ -1,10 +1,13 @@
 package de.thb.webbaki.entity;
 
+import de.thb.webbaki.entity.questionnaire.Questionnaire;
+import de.thb.webbaki.entity.snapshot.Report;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -45,18 +48,9 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
-    public void removeRole(Role role) {
-        roles.remove(role);
-    }
-    public void addRole(Role role) {
-        roles.add(role);
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Report> reports;
 
-    //Roles Getter
-    public Collection<Role> getRoles(){
-        return roles;
-    }
-    public void setRoles(Collection<Role>roles){
-        this.roles = roles;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Questionnaire> questionnaires;
 }

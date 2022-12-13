@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -29,14 +28,6 @@ public class UserController {
     private final UserService userService;
     @Autowired
     SectorService sectorService;
-
-    @Deprecated
-    @GetMapping("/users")
-    public String showUsers(Model model) {
-        List<User> userList = userService.getAllUsers();
-        model.addAttribute("userList", userList);
-        return "users";
-    }
 
     @GetMapping("/register/user")
     public String showRegisterForm(Model model) {
@@ -79,12 +70,6 @@ public class UserController {
         return "account/user_details";
     }
 
-    @GetMapping("/data/user/threatmatrices")
-    public String showCustomerOrders() {
-
-        return "account/user_threatmatrices";
-    }
-
     @GetMapping(path = "/confirmation/confirmByUser")
     public String userConfirmation(@RequestParam("token") String token) {
         return userService.confirmUser(token);
@@ -122,6 +107,8 @@ public class UserController {
 
         return "account/changeCredentials";
     }
+
+
 
 }
 
