@@ -105,17 +105,6 @@ img.logo {
 
 /* NAVBAR EDITING */
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    border: 1px solid lightgray ;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
 nav {
     width: 100%;
     margin: auto;

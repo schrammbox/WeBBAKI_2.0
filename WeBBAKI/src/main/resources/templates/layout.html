@@ -72,15 +72,6 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item dropdown" sec:authorize="hasAnyAuthority('ROLE_BRANCHENADMIN','ROLE_SEKTORENADMIN','ROLE_BUNDESADMIN', 'ROLE_KRITIS_BETREIBER')">
-                    <a class="nav-link dropbtn" type="button">Report <i class="fa fa-caret-down"></i></a>
-                    <div class="dropdown-content navbar-nav">
-                        <a th:href='${"/report/company"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link nav-item">Unternehmen</a>
-                        <a th:href='${"/report/branche"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link nav-item">Branche</a>
-                        <a th:href='${"/report/sector"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link nav-item">Sektor</a>
-                        <a th:href='${"/report/national"+((currentSnapshot != null)?("/"+currentSnapshot.getId()):(""))}' class="nav-link nav-item">National</a>
-                    </div>
-                </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" href="/account/user_details">Konto</a>
                 </li>
