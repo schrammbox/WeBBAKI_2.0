@@ -37,7 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <th:block th:each="scenario: ${masterScenario.scenarios}" th:if="${report.getReportScenarioMap().keySet().contains(scenario)}" >
+                        <th:block th:each="scenario: ${masterScenario.scenarios}" th:if="${report.checkIfContainsScenario(scenario)}" >
                             <tr style="page-break-inside:avoid;">
                                 <td th:text="${counter.countAndGet() + 1}" th:style="${'background-color: '+ masterScenario.getLayerColorAsString() +';'+'border-bottom: 1px solid grey; text-align: center;width: 3%'}"></td>
 
