@@ -131,6 +131,7 @@
                     <exclude>application.properties</exclude>
                 </excludes>
             </resource>
+
         </resources>
     </build>
 

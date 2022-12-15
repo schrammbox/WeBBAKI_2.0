@@ -53,4 +53,8 @@ public class MappingReport extends Report {
     public boolean checkIfContainsMasterScenario(MasterScenario masterScenario){
         return !Collections.disjoint(masterScenario.getScenarios(), reportScenarioMap.keySet());
     }
+
+    public boolean checkIfContainsScenario(Scenario scenario){
+        return reportScenarioMap.keySet().contains(scenario);
+    }
 }

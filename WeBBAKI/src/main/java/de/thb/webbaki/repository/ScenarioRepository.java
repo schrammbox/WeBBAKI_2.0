@@ -18,4 +18,6 @@ public interface ScenarioRepository extends CrudRepository<Scenario, Long> {
 
     List<Scenario> findAll();
 
+    List<Scenario> findByActive(boolean active);
+
 }
