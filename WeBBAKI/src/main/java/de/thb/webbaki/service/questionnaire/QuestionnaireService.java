@@ -58,12 +58,14 @@ public class QuestionnaireService {
         questionnaireRepository.save(questionnaire);
         //save all UserScenarios for this questionnaire
         for(Scenario scenario : scenarios){
-            UserScenario userScenario = UserScenario.builder().smallComment("")
-                    .scenario(scenario)
-                    .questionnaire(questionnaire)
-                    .impact(-1)
-                    .probability(-1).build();
-            userScenarios.add(userScenario);
+            if(scenario.isActive()) {
+                UserScenario userScenario = UserScenario.builder().smallComment("")
+                        .scenario(scenario)
+                        .questionnaire(questionnaire)
+                        .impact(-1)
+                        .probability(-1).build();
+                userScenarios.add(userScenario);
+            }
         }
         userScenarioService.saveAllUserScenario(userScenarios);
         return questionnaire;
@@ -82,13 +84,15 @@ public class QuestionnaireService {
     public void addMissingUserScenario(Questionnaire questionnaire){
         List<Scenario> scenarios = scenarioService.getAllScenarios();
         for(Scenario scenario : scenarios){
-            if(!userScenarioService.existsUerScenarioByScenarioIdAndQuestionnaireId(scenario.getId(), questionnaire.getId())){
-                UserScenario userScenario = UserScenario.builder().smallComment("")
-                        .scenario(scenario)
-                        .questionnaire(questionnaire)
-                        .impact(-1)
-                        .probability(-1).build();
-                questionnaire.getUserScenarios().add(userScenario);
+            if(scenario.isActive()) {
+                if (!userScenarioService.existsUerScenarioByScenarioIdAndQuestionnaireId(scenario.getId(), questionnaire.getId())) {
+                    UserScenario userScenario = UserScenario.builder().smallComment("")
+                            .scenario(scenario)
+                            .questionnaire(questionnaire)
+                            .impact(-1)
+                            .probability(-1).build();
+                    questionnaire.getUserScenarios().add(userScenario);
+                }
             }
         }
     }

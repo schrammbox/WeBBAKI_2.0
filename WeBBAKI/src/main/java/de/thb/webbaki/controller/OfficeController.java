@@ -1,6 +1,6 @@
 package de.thb.webbaki.controller;
 
-import de.thb.webbaki.controller.form.UserForm;
+import de.thb.webbaki.controller.form.UserFormModel;
 import de.thb.webbaki.entity.Sector;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
@@ -36,7 +36,7 @@ public class OfficeController {
             branchesAsString.add(user.getBranch().getName());
         }
 
-        UserForm form = new UserForm();
+        UserFormModel form = new UserFormModel();
 
         form.setUsers(users);
         form.setBranchesAsString(branchesAsString);
@@ -48,7 +48,7 @@ public class OfficeController {
     }
 
     @PostMapping("/office")
-    public String deactivateUser(@ModelAttribute("form") @Valid UserForm form){
+    public String deactivateUser(@ModelAttribute("form") @Valid UserFormModel form){
         System.out.println(form.getUsers());
 
         userService.changeEnabledStatus(form);

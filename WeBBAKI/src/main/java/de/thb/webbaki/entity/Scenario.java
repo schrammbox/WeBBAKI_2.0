@@ -19,6 +19,7 @@ public class Scenario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    boolean active;
 
     @Column(length = 1024)
     @Size(max = 1024)

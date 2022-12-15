@@ -38,19 +38,22 @@ public class ReportScenarioService {
         for(UserScenario userScenario : userScenarios){
             //set this scenario to true (already used now)
             scenarioBooleanMap.put(userScenario.getScenario(), true);
-
-            float threatSituation = calculateThreatSituation((long)userScenario.getImpact(), (long)userScenario.getProbability());
-            reportScenarios.add(ReportScenario.builder()
-                    .threatSituation(threatSituation)
-                    .Scenario(userScenario.getScenario())
-                    .numberOfValues((threatSituation == -1) ? 0 : 1).build());
+            //only create if the scenario is active
+            if(userScenario.getScenario().isActive()) {
+                float threatSituation = calculateThreatSituation((long) userScenario.getImpact(), (long) userScenario.getProbability());
+                reportScenarios.add(ReportScenario.builder()
+                        .threatSituation(threatSituation)
+                        .Scenario(userScenario.getScenario())
+                        .numberOfValues((threatSituation == -1) ? 0 : 1).build());
+            }
         }
 
         //add all missing ReportScenarios that are not created from UserScenario (not exists)
         scenarioBooleanMap.forEach((scenario, aBoolean) ->{
-            if(!aBoolean) {
-                //TODO check later if the scenario is active
-                reportScenarios.add(ReportScenario.builder().Scenario(scenario).threatSituation(-1).numberOfValues(0).build());
+            if(scenario.isActive()) {
+                if (!aBoolean) {
+                    reportScenarios.add(ReportScenario.builder().Scenario(scenario).threatSituation(-1).numberOfValues(0).build());
+                }
             }
         });
 
