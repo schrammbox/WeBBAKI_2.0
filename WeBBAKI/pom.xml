@@ -123,7 +123,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <!--
         <resources>
 
             <resource>
@@ -134,7 +133,6 @@
             </resource>
 
         </resources>
-        -->
     </build>
 
 </project>

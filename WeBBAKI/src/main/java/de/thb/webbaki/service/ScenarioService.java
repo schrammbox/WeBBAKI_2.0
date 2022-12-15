@@ -29,6 +29,8 @@ public class ScenarioService {
 
     public Scenario getById(long id){return scenarioRepository.findById(id);}
 
+    public List<Scenario> getAllScenariosByActiveTrue(){return scenarioRepository.findByActive(true);}
+
     public List<String> getAllDescriptions(){
         List<Scenario> allScenarios = getAllScenarios();
         List<String> allDescriptions = null;

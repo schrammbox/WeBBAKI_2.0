@@ -3,7 +3,6 @@ package de.thb.webbaki.controller;
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.User;
-import de.thb.webbaki.entity.Scenario;
 import de.thb.webbaki.service.Exceptions.NotAuthorizedException;
 import de.thb.webbaki.service.MasterScenarioService;
 import de.thb.webbaki.service.questionnaire.QuestionnaireService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -64,9 +62,7 @@ public class ThreatMatrixController {
 
             Questionnaire quest = questionnaireService.getQuestionnaire(questID);
 
-            if(quest.getUserScenarios().size() != scenarioService.getNumberOfScenarios()){
-                questionnaireService.addMissingUserScenario(quest);
-            }
+            questionnaireService.checkIfMatchingWithScenarios(quest);
 
             ThreatMatrixFormModel threatMatrixFormModel = new ThreatMatrixFormModel(quest);
             model.addAttribute("threatmatrix", threatMatrixFormModel);

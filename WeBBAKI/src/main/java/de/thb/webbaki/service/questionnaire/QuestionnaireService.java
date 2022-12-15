@@ -81,18 +81,33 @@ public class QuestionnaireService {
         questionnaireRepository.deleteQuestionnaireById(id);
     }
 
-    public void addMissingUserScenario(Questionnaire questionnaire){
-        List<Scenario> scenarios = scenarioService.getAllScenarios();
-        for(Scenario scenario : scenarios){
-            if(scenario.isActive()) {
-                if (!userScenarioService.existsUerScenarioByScenarioIdAndQuestionnaireId(scenario.getId(), questionnaire.getId())) {
-                    UserScenario userScenario = UserScenario.builder().smallComment("")
-                            .scenario(scenario)
-                            .questionnaire(questionnaire)
-                            .impact(-1)
-                            .probability(-1).build();
-                    questionnaire.getUserScenarios().add(userScenario);
-                }
+    /**
+     * checks if all active scenarios have a representation in the questionnaires UserScenarios
+     * --> add an empty UserScenario from this Scenario if not.
+     * delete UserScenarios with an inactive Scenario from this questionnaire
+     * @param questionnaire
+     */
+    public void checkIfMatchingWithScenarios(Questionnaire questionnaire){
+        List<Scenario> activeScenarios = scenarioService.getAllScenariosByActiveTrue();
+        List<UserScenario> userScenarios = new ArrayList<>(questionnaire.getUserScenarios());
+        //remove every UserScenario Scenario from the activeScenario-list
+        for(UserScenario userScenario : userScenarios){
+            //try to remove the Scenario
+            if(!activeScenarios.remove(userScenario.getScenario())){
+                //delete the UserScenario from the Questionnaire, if it is not from an active Scenario (not in active list)
+                questionnaire.getUserScenarios().remove(userScenario);
+            }
+        }
+
+        //all scenarios which are not deleted have to be created as UserScenario for the Questionnaire
+        for(Scenario scenario : activeScenarios){
+            if (!userScenarioService.existsUerScenarioByScenarioIdAndQuestionnaireId(scenario.getId(), questionnaire.getId())) {
+                UserScenario userScenario = UserScenario.builder().smallComment("")
+                        .scenario(scenario)
+                        .questionnaire(questionnaire)
+                        .impact(-1)
+                        .probability(-1).build();
+                questionnaire.getUserScenarios().add(userScenario);
             }
         }
     }
@@ -107,8 +122,11 @@ public class QuestionnaireService {
         List<UserScenario> userScenarios = form.getUserScenarios();
 
         for(UserScenario userScenario : userScenarios){
-            userScenario.setQuestionnaire(questionnaire);
-            userScenario.setScenario(scenarioService.getById(userScenario.getScenario().getId()));
+            if(userScenario.getScenario() != null) {
+                userScenario.setQuestionnaire(questionnaire);
+                //TODO save not existing UserScenario
+                userScenario.setScenario(scenarioService.getById(userScenario.getScenario().getId()));
+            }
         }
 
         userScenarioService.saveAllUserScenario(userScenarios);
