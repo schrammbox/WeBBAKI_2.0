@@ -50,7 +50,7 @@ public class MainController {
 
     @GetMapping("/request_password_reset")
     public String showPasswordReset() {
-        return "/security/request_passwordReset";
+        return "security/request_passwordReset";
     }
 
     @PostMapping("/request_password_reset")
@@ -64,9 +64,9 @@ public class MainController {
 
         } catch (EmailNotMatchingException e) {
             model.addAttribute("error", "Bei der Eingabe ist ein Fehler aufgetreten. Bitte stellen Sie sicher, dass die eingegebene Email auch korrekt ist.");
-            return "/security/request_passwordReset";
+            return "security/request_passwordReset";
         }
-        return "/security/request_passwordReset";
+        return "security/request_passwordReset";
 
     }
 
