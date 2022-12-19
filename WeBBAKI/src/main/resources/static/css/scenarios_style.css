@@ -1,6 +1,12 @@
 .masterScenario, .scenarios{
     display: flex;
     flex-direction: column;
+    border: 0.2em solid #9f9b9b;
+    border-radius: 1em;
+    padding: 0.5em;
+}
+.masterScenario{
+    margin-top: 3em;
 }
 .masterScenarioAttributes{
     flex-direction: row;

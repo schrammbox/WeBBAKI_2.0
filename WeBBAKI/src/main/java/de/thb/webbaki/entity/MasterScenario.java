@@ -34,9 +34,9 @@ public class MasterScenario {
             case 3:
                 return "#f6e37b";
             case 2:
-                return "ffcf93";
+                return "#ffcf93";
             default:
-                return "fe80a4";
+                return "#fe80a4";
         }
     }
 

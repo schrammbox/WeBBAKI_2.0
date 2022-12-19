@@ -17,5 +17,7 @@ public class MasterScenarioService {
     public List<MasterScenario> getAllMasterScenarios(){return (List<MasterScenario>) masterScenarioRepository.findAll();}
     public void saveALlMasterScenarios(List<MasterScenario> masterScenarios){masterScenarioRepository.saveAll(masterScenarios);}
     public void deleteAllMasterScenarios(List<MasterScenario> masterScenarios){masterScenarioRepository.deleteAll(masterScenarios);}
+    public List<MasterScenario> getAllMasterScenariosByActiveTrue(){return masterScenarioRepository.getByActive(true);}
+    public void saveMasterScenario(MasterScenario masterScenario){masterScenarioRepository.save(masterScenario);}
 
 }
