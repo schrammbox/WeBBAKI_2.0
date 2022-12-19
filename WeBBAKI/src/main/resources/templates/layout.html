@@ -49,7 +49,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_KRITIS_BETREIBER','ROLE_BRANCHENADMIN','ROLE_SEKTORENADMIN','ROLE_BUNDESADMIN')">
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_KRITIS_BETREIBER')">
                     <div  class="dropdown" id="dropdown-div-matrix" >
                         <a class="dropdown-toggle nav-link" id="dropdown-a-matrix" type="button" aria-expanded="false" data-toggle="dropdown">Bedrohungsmatrix</a>
 
@@ -91,8 +91,20 @@
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a class="nav-link" href="/login">Anmelden</a>
                 </li>
+
                 <li class="nav-item" sec:authorize="hasAuthority('ROLE_SUPERADMIN')">
-                    <a class="nav-link" href="/admin">Admin</a>
+                    <div  class="dropdown" id="dropdown-div-admin" >
+                        <a class="dropdown-toggle nav-link" id="dropdown-a-admin" type="button" aria-expanded="false" data-toggle="dropdown">Admin</a>
+
+                        <ul class="dropdown-menu" id="dropdown-ul-admin">
+                            <li class="dropdown-li">
+                                <a th:href="@{/admin}" class="nav-link">Admin Dashboard</a>
+                            </li>
+                            <li class="dropdown-li">
+                                <a th:href="@{/scenarios}" class="nav-link">Scenarios</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item" sec:authorize="hasAuthority('ROLE_GESCHÄFTSSTELLE')">
                     <a class="nav-link" href="/office">Geschäftsstelle</a>

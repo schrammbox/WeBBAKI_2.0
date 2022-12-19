@@ -24,4 +24,17 @@ $(document).ready(function () {
             $("#dropdown-a-matrix").attr("aria-expanded","false");
         });
 
+    //create hover-effect for the admin nav element
+    $('#dropdown-div-admin').hover(function() {
+        console.log("ka");
+            $("#dropdown-div-admin").addClass("show");
+            $("#dropdown-ul-admin").addClass("show");
+            $("#dropdown-a-admin").attr("aria-expanded","true");
+        },
+        function() {
+            $("#dropdown-div-admin").removeClass("show");
+            $("#dropdown-ul-admin").removeClass("show");
+            $("#dropdown-a-admin").attr("aria-expanded","false");
+        });
+
 });
