@@ -10,7 +10,6 @@ import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -48,8 +47,6 @@ public class ScenarioService {
      * 0 means there was a deleted one
      */
     public void saveAndDeleteScenariosFromForm(ScenarioFormModel form){
-        //list of alle MasterScenarios from the form
-        List<MasterScenario> masterScenarios = form.getMasterScenarios();
         //list of all active masterScenarios
         List<MasterScenario> masterScenarioUpdateList = masterScenarioService.getAllMasterScenariosByActiveTrue();
         //list of all active scenarios
@@ -61,8 +58,8 @@ public class ScenarioService {
         for(Scenario scenario : scenarioUpdateList){ scenario.setActive(false); }
 
         //go through all masterScenarios of the form
-        if(masterScenarios != null) {
-            for (MasterScenario masterScenario : masterScenarios) {
+        if(form.getMasterScenarios() != null) {
+            for (MasterScenario masterScenario : form.getMasterScenarios()) {
                 if (masterScenario.getId() != 0) {
                     //is active
                     masterScenario.setActive(true);
@@ -76,8 +73,8 @@ public class ScenarioService {
                         MasterScenario oldMasterScenario = masterScenarioUpdateList.get(masterScenarioUpdateList.indexOf(masterScenario));
                         //check if the attributes changed or not
                         if(oldMasterScenario.getName().equals(masterScenario.getName()) && oldMasterScenario.getLayer() == masterScenario.getLayer()){
-                            //delete the masterScenario from updateList if nothing changed
-                            masterScenarioUpdateList.remove(masterScenario);
+                            //set the masterScenario to active, if nothing changed
+                            oldMasterScenario.setActive(true);
                         }else{//if something changed
                             //activate the masterScenario
                             masterScenario.setActive(true);
@@ -110,8 +107,8 @@ public class ScenarioService {
 
                                 //check if the attributes changed or not
                                 if(scenario.getName().equals(oldScenario.getName()) && scenario.getDescription().equals(oldScenario.getDescription())){
-                                    //delete the scenario from updateList if nothing changed
-                                    scenarioUpdateList.remove(scenario);
+                                    //set the Scenario to active, if nothing changed
+                                    oldScenario.setActive(true);
                                 }else{//if something changed
                                     //activate the masterScenario
                                     scenario.setActive(true);

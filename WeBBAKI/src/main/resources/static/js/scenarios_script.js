@@ -12,7 +12,7 @@ var masterScenarioString = "<div class=\"masterScenario\" id=\"masterScenario{ma
     "            <input hidden=\"\" id=\"masterScenarios{masterScenarioIndex}.id\" name=\"masterScenarios[{masterScenarioIndex}].id\" value=\"{masterScenarioId}\">\n" +
     "            <textarea placeholder=\"Masterszenarioname...\" class=\"form-control masterScenarioName\" id=\"masterScenarios{masterScenarioIndex}.name\" name=\"masterScenarios[{masterScenarioIndex}].name\"></textarea>\n" +
     "            <div class=\"select-masterScenarioName\">\n" +
-    "              <select class=\"form-select\" id=\"masterScenarios{masterScenarioIndex}.layer\" name=\"masterScenarios[{masterScenarioIndex}].layer\">\n" +
+    "              <select style=\"background-color: #9fd8ee\" class=\"form-select\" id=\"masterScenarios{masterScenarioIndex}.layer\" name=\"masterScenarios[{masterScenarioIndex}].layer\">\n" +
     "                <option value=\"1\">Kritische Dienstleistung</option>\n" +
     "                <option value=\"2\">Zugriff</option>\n" +
     "                <option value=\"3\" >Zugang</option>\n" +
@@ -118,4 +118,20 @@ function createNewMasterScenario(lastMasterScenarioIndex){
 
     //return the element
     return template.content.firstChild;
+}
+
+function onLayerChange(element){
+
+    switch (element.value){
+        case 5:
+            element.style.backgroundColor = "#9fd8ee";
+        case 4:
+            element.style.backgroundColor ="#b5d48c";
+        case 3:
+            element.style.backgroundColor = "#f6e37b";
+        case 2:
+            element.style.backgroundColor = "#ffcf93";
+        default:
+            element.style.backgroundColor = "#fe80a4";
+    }
 }

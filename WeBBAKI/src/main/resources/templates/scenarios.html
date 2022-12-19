@@ -18,7 +18,7 @@
             <input hidden th:field="*{masterScenarios[__${itemStat.index}__].id}">
             <textarea class="form-control masterScenarioName" placeholder="Masterszenarioname..." th:field="*{masterScenarios[__${itemStat.index}__].name}"></textarea>
             <div class="select-masterScenarioName">
-              <select class="form-select" th:field="*{masterScenarios[__${itemStat.index}__].layer}">
+              <select th:style="${'background-color: '+ masterScenario.getLayerColorAsString()}" onchange="onLayerChange(this)" class="form-select" th:field="*{masterScenarios[__${itemStat.index}__].layer}">
                 <option value="1">Kritische Dienstleistung</option>
                 <option value="2">Zugriff</option>
                 <option value="3">Zugang</option>
