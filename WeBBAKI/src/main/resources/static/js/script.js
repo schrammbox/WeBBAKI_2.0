@@ -26,7 +26,6 @@ $(document).ready(function () {
 
     //create hover-effect for the admin nav element
     $('#dropdown-div-admin').hover(function() {
-        console.log("ka");
             $("#dropdown-div-admin").addClass("show");
             $("#dropdown-ul-admin").addClass("show");
             $("#dropdown-a-admin").attr("aria-expanded","true");

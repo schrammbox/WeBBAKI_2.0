@@ -108,7 +108,6 @@ public class ScenarioService {
                                 //find the scenario in the update List with the right id
                                 Scenario oldScenario = scenarioUpdateList.get(scenarioUpdateList.indexOf(scenario));
 
-                                //TODO check if problem with empty Description
                                 //check if the attributes changed or not
                                 if(scenario.getName().equals(oldScenario.getName()) && scenario.getDescription().equals(oldScenario.getDescription())){
                                     //delete the scenario from updateList if nothing changed
