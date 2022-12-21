@@ -112,13 +112,14 @@ public class ScenarioService {
                                 Scenario oldScenario = scenarioUpdateList.get(scenarioUpdateList.indexOf(scenario));
 
                                 //check if the attributes changed or not
-                                if(scenario.getName().equals(oldScenario.getName()) && scenario.getDescription().equals(oldScenario.getDescription())){
+                                if(scenario.getName().equals(oldScenario.getName())){
                                     //set the Scenario to active, if nothing changed
                                     oldScenario.setActive(true);
-                                    //add to update list, if the Position In Row changed
+                                    //add to update list, if the Position In Row changed or the description
                                     //TODO persistent machen!!
-                                    if(oldScenario.getPositionInRow() != scenario.getPositionInRow()){
+                                    if(oldScenario.getPositionInRow() != scenario.getPositionInRow() || !scenario.getDescription().equals(oldScenario.getDescription())){
                                         oldScenario.setPositionInRow(scenario.getPositionInRow());
+                                        oldScenario.setDescription(scenario.getDescription());
                                         scenarioUpdateList.add(oldScenario);
                                     }
                                 }else{//if something changed
