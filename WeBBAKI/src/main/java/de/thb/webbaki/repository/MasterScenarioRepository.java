@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface MasterScenarioRepository extends CrudRepository<MasterScenario, Long> {
 
     List<MasterScenario> getByActive(boolean active);
+    List<MasterScenario> getAllByActiveOrderByWeightDesc(boolean active);
+    List<MasterScenario> findAllByOrderByWeightDesc();
 }

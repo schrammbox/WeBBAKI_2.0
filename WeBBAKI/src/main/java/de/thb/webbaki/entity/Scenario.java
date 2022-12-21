@@ -20,6 +20,7 @@ public class Scenario {
     private long id;
     private String name;
     boolean active;
+    short positionInRow;
 
     @Column(length = 1024)
     @Size(max = 1024)

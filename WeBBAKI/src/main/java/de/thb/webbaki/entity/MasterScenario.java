@@ -20,9 +20,11 @@ public class MasterScenario {
     private long id;
     private String name;
     private short layer;
+    private int weight;
     boolean active;
 
     @OneToMany(mappedBy = "masterScenario")
+    @OrderBy("positionInRow")
     private List<Scenario> scenarios;
 
     public String getLayerColorAsString(){

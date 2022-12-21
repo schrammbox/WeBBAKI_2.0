@@ -8,6 +8,9 @@
 .masterScenario{
     margin-top: 3em;
 }
+.moveScenario{
+    margin-right: 0.5em;
+}
 .masterScenarioAttributes{
     flex-direction: row;
     align-content: center;
@@ -31,6 +34,7 @@
     flex-direction: row;
     width: 100%;
     align-content: center;
+    margin-top: 0.5em;
 }
 
 .scenarioName, .scenarioDescription{
@@ -44,6 +48,11 @@
 
 .deleteScenario{
     margin: 0.7rem 0;
+}
+
+.moveScenarioButton{
+    width: 100%;
+    margin: 0.5em 0;
 }
 
 .submitScenario{
