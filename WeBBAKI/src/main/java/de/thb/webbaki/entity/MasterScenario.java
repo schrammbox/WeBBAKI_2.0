@@ -20,7 +20,7 @@ public class MasterScenario {
     private long id;
     private String name;
     private short layer;
-    private int weight;
+    private int positionInRow;
     boolean active;
 
     @OneToMany(mappedBy = "masterScenario")

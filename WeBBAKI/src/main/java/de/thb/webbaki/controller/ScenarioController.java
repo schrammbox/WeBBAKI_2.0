@@ -20,7 +20,7 @@ public class ScenarioController {
     ScenarioService scenarioService;
     @GetMapping("/scenarios")
     public String showScenarios(Model model){
-        List<MasterScenario> masterScenarios = masterScenarioService.getAllByActiveTrueOrderByWeightDesc();
+        List<MasterScenario> masterScenarios = masterScenarioService.getAllByActiveTrueOrderByPositionInRow();
         ScenarioFormModel scenarioFormModel = new ScenarioFormModel(masterScenarios);
         model.addAttribute("form", scenarioFormModel);
         return "scenarios";

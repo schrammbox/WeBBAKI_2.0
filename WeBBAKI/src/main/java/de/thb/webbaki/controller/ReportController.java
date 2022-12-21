@@ -46,7 +46,7 @@ public class ReportController {
     @GetMapping("report/{reportFocus}/{snapId}")
     public String showReport(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
                              Model model, Authentication authentication) throws UnknownReportFocusException {
-        final var masterScenarioList = masterScenarioService.getAllOrderByWeightDesc();
+        final var masterScenarioList = masterScenarioService.getAllOrderByPositionInRow();
         model.addAttribute("masterScenarioList",masterScenarioList);
         ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
         model.addAttribute("reportFocus", reportFocus);
@@ -74,7 +74,7 @@ public class ReportController {
         String headerValue = "attachment; filename=report.pdf";
         response.setHeader(headerKey, headerValue);
         Context context = new Context();
-        final var masterScenarioList = masterScenarioService.getAllOrderByWeightDesc();
+        final var masterScenarioList = masterScenarioService.getAllOrderByPositionInRow();
         context.setVariable("masterScenarioList",masterScenarioList);
         ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
         context.setVariable("reportFocus", reportFocus);

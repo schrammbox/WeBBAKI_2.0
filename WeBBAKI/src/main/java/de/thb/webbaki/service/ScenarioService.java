@@ -75,6 +75,12 @@ public class ScenarioService {
                         if(oldMasterScenario.getName().equals(masterScenario.getName()) && oldMasterScenario.getLayer() == masterScenario.getLayer()){
                             //set the masterScenario to active, if nothing changed
                             oldMasterScenario.setActive(true);
+                            //add to update list, if the weight changed
+                            //TODO persistent machen!!
+                            if(masterScenario.getPositionInRow() != oldMasterScenario.getPositionInRow()){
+                                oldMasterScenario.setPositionInRow(masterScenario.getPositionInRow());
+                                masterScenarioUpdateList.add(oldMasterScenario);
+                            }
                         }else{//if something changed
                             //activate the masterScenario
                             masterScenario.setActive(true);
@@ -110,6 +116,7 @@ public class ScenarioService {
                                     //set the Scenario to active, if nothing changed
                                     oldScenario.setActive(true);
                                     //add to update list, if the Position In Row changed
+                                    //TODO persistent machen!!
                                     if(oldScenario.getPositionInRow() != scenario.getPositionInRow()){
                                         oldScenario.setPositionInRow(scenario.getPositionInRow());
                                         scenarioUpdateList.add(oldScenario);

@@ -58,3 +58,8 @@
 .submitScenario{
     margin: 0.7rem 0;
 }
+
+.masterScenarioWeight{
+    width: 10%;
+    text-align: center;
+}

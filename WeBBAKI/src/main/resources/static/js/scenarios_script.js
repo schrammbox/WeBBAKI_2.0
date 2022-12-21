@@ -15,17 +15,18 @@ var scenarioString =   '<div class="scenario" id="scenario{masterScenarioIndex}_
 var masterScenarioString =  '<div class="masterScenario" id="masterScenario{masterScenarioIndex}">\
                                 <div class="masterScenarioAttributes">\
                                     <input hidden="" id="masterScenarios{masterScenarioIndex}.id" name="masterScenarios[{masterScenarioIndex}].id" value="{masterScenarioId}">\
-                                    <textarea placeholder="Masterszenarioname..." class="form-control masterScenarioName" id="masterScenarios{masterScenarioIndex}.name" name="masterScenarios[{masterScenarioIndex}].name"></textarea>\
                                     <div class="select-masterScenarioName">\
-                                        <select style="background-color: #9fd8ee" class="form-select" id="masterScenarios{masterScenarioIndex}.layer" name="masterScenarios[{masterScenarioIndex}].layer">\
-                                            <option value="1">Kritische Dienstleistung</option>\
-                                            <option value="2">Zugriff</option>\
-                                            <option value="3" >Zugang</option>\
-                                            <option value="4">Zutritt</option>\
-                                            <option value="5" selected="selected">Außenwelt</option>\
+                                        <input class="masterScenarioWeight" placeholder="Gewicht" id="masterScenarios{masterScenarioIndex}.positionInRow" name="masterScenarios[{masterScenarioIndex}].positionInRow" value="0">\
+                                        <select onchange="onLayerChange(this)" style="background-color: #9fd8ee" class="form-select" id="masterScenarios{masterScenarioIndex}.layer" name="masterScenarios[{masterScenarioIndex}].layer">\
+                                            <option style="background-color: #fe80a4" value="1">Kritische Dienstleistung</option>\
+                                            <option style="background-color: #ffcf93" value="2">Zugriff</option>\
+                                            <option style="background-color: #f6e37b" value="3">Zugang</option>\
+                                            <option style="background-color: #b5d48c" value="4">Zutritt</option>\
+                                            <option style="background-color: #9fd8ee" value="5" selected>Außenwelt</option>\
                                         </select>\
                                         <button class="deleteScenario btn btn-outline-danger" type="button" value="{masterScenarioIndex}" onclick="deleteMasterScenario(this)">Löschen</button>\
                                     </div>\
+                                    <textarea placeholder="Masterszenarioname..." class="form-control masterScenarioName" id="masterScenarios{masterScenarioIndex}.name" name="masterScenarios[{masterScenarioIndex}].name"></textarea>\
                                 </div>\
                                 <div class="scenarios">\
                                     <div class="scenario" id="scenario{masterScenarioIndex}_0">\
@@ -197,17 +198,21 @@ function swapScenarioElements(scenario1, scenario2){
 }
 
 function onLayerChange(element){
-
     switch (parseInt(element.value)){
         case 5:
             element.style.backgroundColor = "#9fd8ee";
+            break;
         case 4:
             element.style.backgroundColor ="#b5d48c";
+            break;
         case 3:
             element.style.backgroundColor = "#f6e37b";
+            break;
         case 2:
             element.style.backgroundColor = "#ffcf93";
+            break;
         default:
             element.style.backgroundColor = "#fe80a4";
+            break;
     }
 }
