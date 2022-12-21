@@ -17,7 +17,7 @@
           <div class="masterScenarioAttributes">
             <input hidden th:field="*{masterScenarios[__${itemStat.index}__].id}">
             <div class="select-masterScenarioName">
-              <input class="masterScenarioWeight" placeholder="Gewicht" th:field="*{masterScenarios[__${itemStat.index}__].positionInRow}">
+              <input class="masterScenarioWeight" type="number" placeholder="Reihenfolge" th:field="*{masterScenarios[__${itemStat.index}__].positionInRow}">
               <select th:style="${'background-color: '+ masterScenario.getLayerColorAsString()}" onchange="onLayerChange(this)" class="form-select" th:field="*{masterScenarios[__${itemStat.index}__].layer}">
                 <option style="background-color: #fe80a4" value="1">Kritische Dienstleistung</option>
                 <option style="background-color: #ffcf93" value="2">Zugriff</option>
@@ -40,7 +40,7 @@
               <textarea class="form-control scenarioName"  placeholder="Szenarioname..." th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].name}"></textarea>
               <textarea class="form-control scenarioDescription" placeholder="Szenariobeschreibung..." th:field="*{masterScenarios[__${itemStat.index}__].scenarios[__${itemStat2.index}__].description}"></textarea>
               <div class="deleteScenario">
-                <button class="btn btn-outline-danger" th:value="${itemStat.index + ';' + itemStat2.index}" type="button" onclick="deleteScenario(this)" >Löschen</button>
+                <button class="btn btn-outline-danger deleteScenarioButton" th:value="${itemStat.index + ';' + itemStat2.index}" type="button" onclick="deleteScenario(this)" >Löschen</button>
               </div>
             </div>
             <button onclick="createScenario(this)" type="button" class="submitScenario btn btn-outline-primary addScenarioButton" th:value="${itemStat.index + ';' + (masterScenario.scenarios.size() - 1)}">Scenario hinzufügen</button>

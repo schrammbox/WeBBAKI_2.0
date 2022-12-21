@@ -90,8 +90,10 @@ public class ScenarioService {
                             masterScenarioUpdateList.add(masterScenario);
                             //reset all Scenarios as new ones
                             for(Scenario scenario : masterScenario.getScenarios()){
-                                //change id to 0 for jpa
-                                scenario.setId(-1);
+                                //change id to 0 for jpa only if its not deleted
+                                if(scenario.getId() != 0) {
+                                    scenario.setId(-1);
+                                }
                             }
                         }
                     }
@@ -130,6 +132,9 @@ public class ScenarioService {
                                     //add the scenario from the form to the UpdateList
                                     scenarioUpdateList.add(scenario);
                                 }
+                            }
+                            if(scenarioUpdateList.get(scenarioUpdateList.size()-1).getName() == null){
+                                System.out.println("k");
                             }
                         }
                     }

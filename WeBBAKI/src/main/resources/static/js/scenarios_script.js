@@ -8,7 +8,7 @@ var scenarioString =   '<div class="scenario" id="scenario{masterScenarioIndex}_
                             <textarea placeholder="Szenarioname..." class="form-control scenarioName" id="masterScenarios{masterScenarioIndex}.scenarios{scenarioIndex}.name" name="masterScenarios[{masterScenarioIndex}].scenarios[{scenarioIndex}].name"></textarea>\
                             <textarea placeholder="Szenariobeschreibung..." class="form-control scenarioDescription" id="masterScenarios{masterScenarioIndex}.scenarios{scenarioIndex}.description" name="masterScenarios[{masterScenarioIndex}].scenarios[{scenarioIndex}].description"></textarea>\
                             <div class="deleteScenario">\
-                                <button class="btn btn-outline-danger" type="button" value="{masterScenarioIndex};{scenarioIndex}" onclick="deleteScenario(this)">Löschen</button>\
+                                <button class="btn btn-outline-danger deleteScenarioButton" type="button" value="{masterScenarioIndex};{scenarioIndex}" onclick="deleteScenario(this)">Löschen</button>\
                             </div>\
                         </div>';
 
@@ -16,7 +16,7 @@ var masterScenarioString =  '<div class="masterScenario" id="masterScenario{mast
                                 <div class="masterScenarioAttributes">\
                                     <input hidden="" id="masterScenarios{masterScenarioIndex}.id" name="masterScenarios[{masterScenarioIndex}].id" value="{masterScenarioId}">\
                                     <div class="select-masterScenarioName">\
-                                        <input class="masterScenarioWeight" placeholder="Gewicht" id="masterScenarios{masterScenarioIndex}.positionInRow" name="masterScenarios[{masterScenarioIndex}].positionInRow" value="0">\
+                                        <input class="masterScenarioWeight" type="number" placeholder="Reihenfolge" id="masterScenarios{masterScenarioIndex}.positionInRow" name="masterScenarios[{masterScenarioIndex}].positionInRow" value="0">\
                                         <select onchange="onLayerChange(this)" style="background-color: #9fd8ee" class="form-select" id="masterScenarios{masterScenarioIndex}.layer" name="masterScenarios[{masterScenarioIndex}].layer">\
                                             <option style="background-color: #fe80a4" value="1">Kritische Dienstleistung</option>\
                                             <option style="background-color: #ffcf93" value="2">Zugriff</option>\
@@ -39,7 +39,7 @@ var masterScenarioString =  '<div class="masterScenario" id="masterScenario{mast
                                           <textarea placeholder="Szenarioname..." class="form-control scenarioName" id="masterScenarios{masterScenarioIndex}.scenarios0.name" name="masterScenarios[{masterScenarioIndex}].scenarios[0].name"></textarea>\
                                         <textarea placeholder="Szenariobeschreibung..." class="form-control scenarioDescription" id="masterScenarios{masterScenarioIndex}.scenarios0.description" name="masterScenarios[{masterScenarioIndex}].scenarios[0].description"></textarea>\
                                         <div class="deleteScenario">\
-                                            <button class="btn btn-outline-danger" type="button" value="{masterScenarioIndex};0" onclick="deleteScenario(this)">Löschen</button>\
+                                            <button class="btn btn-outline-danger deleteScenarioButton" type="button" value="{masterScenarioIndex};0" onclick="deleteScenario(this)">Löschen</button>\
                                         </div>\
                                     </div>\
                                     <button onclick="createScenario(this)" type="button" class="submitScenario btn btn-outline-primary addScenarioButton" value="{masterScenarioIndex};0">Scenario hinzufügen</button>\
@@ -190,11 +190,17 @@ function swapScenarioElements(scenario1, scenario2){
     scenario1.firstElementChild.children[1].value = scenario2.firstElementChild.children[1].value;
     scenario2.firstElementChild.children[1].value = notice;
     //swap the values of the positionInRowElements
-    let positionInRowElement1 = scenario1.getElementsByClassName("positionInRow")[0]
-    let positionInRowElement2 = scenario2.getElementsByClassName("positionInRow")[0]
+    let positionInRowElement1 = scenario1.getElementsByClassName("positionInRow")[0];
+    let positionInRowElement2 = scenario2.getElementsByClassName("positionInRow")[0];
     notice = positionInRowElement1.value;
     positionInRowElement1.value = positionInRowElement2.value;
     positionInRowElement2.value = notice;
+    //swap the values of the delete-buttons
+    let deleteButton1 = scenario1.getElementsByClassName("deleteScenarioButton")[0];
+    let deleteButton2 = scenario2.getElementsByClassName("deleteScenarioButton")[0];
+    notice = deleteButton1.value;
+    deleteButton1.value = deleteButton2.value;
+    deleteButton2.value = notice;
 }
 
 function onLayerChange(element){
