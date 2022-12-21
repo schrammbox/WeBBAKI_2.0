@@ -14,10 +14,12 @@ import java.util.List;
 public class MasterScenarioService {
     private final MasterScenarioRepository masterScenarioRepository;
 
-    public List<MasterScenario> getAllMasterScenarios(){return (List<MasterScenario>) masterScenarioRepository.findAll();}
-    public void saveALlMasterScenarios(List<MasterScenario> masterScenarios){masterScenarioRepository.saveAll(masterScenarios);}
-    public void deleteAllMasterScenarios(List<MasterScenario> masterScenarios){masterScenarioRepository.deleteAll(masterScenarios);}
-    public List<MasterScenario> getAllMasterScenariosByActiveTrue(){return masterScenarioRepository.getByActive(true);}
+    public List<MasterScenario> getAll(){return (List<MasterScenario>) masterScenarioRepository.findAll();}
+    public List<MasterScenario> getAllOrderByPositionInRow(){return (List<MasterScenario>) masterScenarioRepository.findAllByOrderByPositionInRow();}
+    public void saveAll(List<MasterScenario> masterScenarios){masterScenarioRepository.saveAll(masterScenarios);}
+    public void deleteAll(List<MasterScenario> masterScenarios){masterScenarioRepository.deleteAll(masterScenarios);}
+    public List<MasterScenario> getAllByActiveTrue(){return masterScenarioRepository.getByActive(true);}
+    public List<MasterScenario> getAllByActiveTrueOrderByPositionInRow(){return masterScenarioRepository.getAllByActiveOrderByPositionInRow(true);}
     public void saveMasterScenario(MasterScenario masterScenario){masterScenarioRepository.save(masterScenario);}
 
 }

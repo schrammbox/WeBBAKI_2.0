@@ -57,7 +57,7 @@ public class ThreatMatrixController {
     @GetMapping("/threatmatrix/open/{questID}")
     public String showThreatMatrixByID(@PathVariable("questID") long questID, Model model, Authentication authentication) throws NotAuthorizedException{
         if(questionnaireService.existsQuestionnaireByIdAndUserId(questID,userService.getUserByUsername(authentication.getName()).getId() )){
-            final var masterScenarioList = masterScenarioService.getAllMasterScenarios();
+            final var masterScenarioList = masterScenarioService.getAllByActiveTrueOrderByPositionInRow();
             model.addAttribute("masterScenarioList",masterScenarioList);
 
             Questionnaire quest = questionnaireService.getQuestionnaire(questID);

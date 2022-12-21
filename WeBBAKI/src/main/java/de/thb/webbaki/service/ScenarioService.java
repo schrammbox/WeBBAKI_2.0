@@ -48,7 +48,7 @@ public class ScenarioService {
      */
     public void saveAndDeleteScenariosFromForm(ScenarioFormModel form){
         //list of all active masterScenarios
-        List<MasterScenario> masterScenarioUpdateList = masterScenarioService.getAllMasterScenariosByActiveTrue();
+        List<MasterScenario> masterScenarioUpdateList = masterScenarioService.getAllByActiveTrue();
         //list of all active scenarios
         List<Scenario> scenarioUpdateList = getAllScenariosByActiveTrue();
 
@@ -75,6 +75,12 @@ public class ScenarioService {
                         if(oldMasterScenario.getName().equals(masterScenario.getName()) && oldMasterScenario.getLayer() == masterScenario.getLayer()){
                             //set the masterScenario to active, if nothing changed
                             oldMasterScenario.setActive(true);
+                            //add to update list, if the weight changed
+                            //TODO persistent machen!!
+                            if(masterScenario.getPositionInRow() != oldMasterScenario.getPositionInRow()){
+                                oldMasterScenario.setPositionInRow(masterScenario.getPositionInRow());
+                                masterScenarioUpdateList.add(oldMasterScenario);
+                            }
                         }else{//if something changed
                             //activate the masterScenario
                             masterScenario.setActive(true);
@@ -109,6 +115,12 @@ public class ScenarioService {
                                 if(scenario.getName().equals(oldScenario.getName()) && scenario.getDescription().equals(oldScenario.getDescription())){
                                     //set the Scenario to active, if nothing changed
                                     oldScenario.setActive(true);
+                                    //add to update list, if the Position In Row changed
+                                    //TODO persistent machen!!
+                                    if(oldScenario.getPositionInRow() != scenario.getPositionInRow()){
+                                        oldScenario.setPositionInRow(scenario.getPositionInRow());
+                                        scenarioUpdateList.add(oldScenario);
+                                    }
                                 }else{//if something changed
                                     //activate the masterScenario
                                     scenario.setActive(true);
@@ -124,7 +136,7 @@ public class ScenarioService {
             }
         }
         //save all masterScenarios and Scenarios
-        masterScenarioService.saveALlMasterScenarios(masterScenarioUpdateList);
+        masterScenarioService.saveAll(masterScenarioUpdateList);
         scenarioRepository.saveAll(scenarioUpdateList);
 
 
