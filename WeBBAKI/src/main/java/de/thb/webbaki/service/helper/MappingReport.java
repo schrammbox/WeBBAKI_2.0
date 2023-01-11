@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 /**
- * Is a better Report with a Mapping for the view (by the scenario
+ * Is a better Report with a Mapping (from Scenario to ReportScenario) for the view (by the scenario)
  */
 @Getter
 public class MappingReport extends Report {
@@ -22,6 +22,7 @@ public class MappingReport extends Report {
     private Map<Scenario, ReportScenario> reportScenarioMap;
 
     public MappingReport(Report report){
+        //create the MappingReport from Report, if the Report is created from questionnaires (not 0)
         if(report.getNumberOfQuestionnaires() > 0) {
             this.setNumberOfQuestionnaires(report.getNumberOfQuestionnaires());
             this.setBranch(report.getBranch());
@@ -38,7 +39,7 @@ public class MappingReport extends Report {
     /**
      *
      * @param reportScenarios
-     * @return a Map of all given ReportScenarios mapped by the ScenarioId
+     * @return a Map of all given ReportScenarios mapped by the Scenario
      */
     private Map<Scenario, ReportScenario> getReportScenarioMapFromList(List<ReportScenario> reportScenarios){
         return reportScenarios.stream().collect(Collectors.toMap(
@@ -50,10 +51,21 @@ public class MappingReport extends Report {
         return reportScenarioMap.get(scenario);
     }
 
+    /**
+     * Important Method for the view.
+     * @param masterScenario
+     * @return if a MasterScenario (with its Scenarios) is represented in the ReportScenarioMap
+     */
     public boolean checkIfContainsMasterScenario(MasterScenario masterScenario){
+        //check if the scenarios of the masterScenario are included in the reportScenarioMap-Keylist
         return !Collections.disjoint(masterScenario.getScenarios(), reportScenarioMap.keySet());
     }
 
+    /**
+     * Important Method for the view
+     * @param scenario
+     * @return if a Scenario is represented in the ReportScenarioMap
+     */
     public boolean checkIfContainsScenario(Scenario scenario){
         return reportScenarioMap.keySet().contains(scenario);
     }

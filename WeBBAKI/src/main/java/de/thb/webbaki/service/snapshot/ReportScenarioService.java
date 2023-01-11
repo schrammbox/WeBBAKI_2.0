@@ -25,7 +25,7 @@ public class ReportScenarioService {
     /**
      * Takes the respective impacts and probabilities from the UserScenarios,
      * calculates the threatSituations and create ReportScenarios from this.
-     * If there is a Scenario for what no ReportScenario exists, it creates an empty one (-1)
+     * If there is a Scenario without any ReportScenario, it creates an empty one (threatSituation = -1)
      * @param userScenarios
      * @return the created ReportScenarios
      */
@@ -48,11 +48,14 @@ public class ReportScenarioService {
             }
         }
 
-        //add all missing ReportScenarios that are not created from UserScenario (not exists)
+        //add all missing ReportScenarios that are not created from UserScenario yet (not exists)
         scenarioBooleanMap.forEach((scenario, aBoolean) ->{
             if(scenario.isActive()) {
                 if (!aBoolean) {
-                    reportScenarios.add(ReportScenario.builder().Scenario(scenario).threatSituation(-1).numberOfValues(0).build());
+                    reportScenarios.add(ReportScenario.builder()
+                            .Scenario(scenario)
+                            .threatSituation(-1)
+                            .numberOfValues(0).build());
                 }
             }
         });
@@ -60,11 +63,15 @@ public class ReportScenarioService {
         return reportScenarios;
     }
 
+    /**
+     * @param reportScenarios
+     * @return the average ReportScenario from ReportScenario-List
+     */
     public ReportScenario calculateReportScenarioAverage(List<ReportScenario> reportScenarios){
         float sumValue = 0;
         int dataAmountCounter = 0;
         for(ReportScenario reportScenario : reportScenarios){
-            //Dont use Unkown values for the average and the dataAmount
+            //Don't use Unknown values for the average and the dataAmount (threatSituation = -1)
             if(reportScenario.getThreatSituation() >= 0) {
                 dataAmountCounter++;
                 sumValue += reportScenario.getThreatSituation();

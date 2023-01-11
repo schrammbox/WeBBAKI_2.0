@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.text.DecimalFormat;
 
+/**
+ * A UserScenario is one filled row of  a Questionnaire.
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

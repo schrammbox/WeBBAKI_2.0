@@ -1,3 +1,5 @@
+//html-'template' for a scenario based on generated html from Thymeleaf
+//parts in {} will be replaced later with the right values
 var scenarioString =   '<div class="scenario" id="scenario{masterScenarioIndex}_{scenarioIndex}">\
                             <div className="moveScenario">\
                                    <button onClick="moveScenarioUp(this)" value="{masterScenarioIndex};{scenarioIndex}" type="button" class="moveScenarioButton btn btn-outline-primary"><i class="bi-arrow-up-square"></i></button>\
@@ -11,7 +13,8 @@ var scenarioString =   '<div class="scenario" id="scenario{masterScenarioIndex}_
                                 <button class="btn btn-outline-danger deleteScenarioButton" type="button" value="{masterScenarioIndex};{scenarioIndex}" onclick="deleteScenario(this)">Löschen</button>\
                             </div>\
                         </div>';
-
+//html-'template' for a masterScenario based on generated html from Thymeleaf
+//parts in {} will be replaced later with the right values
 var masterScenarioString =  '<div class="masterScenario" id="masterScenario{masterScenarioIndex}">\
                                 <div class="masterScenarioAttributes">\
                                     <input hidden="" id="masterScenarios{masterScenarioIndex}.id" name="masterScenarios[{masterScenarioIndex}].id" value="{masterScenarioId}">\
@@ -46,52 +49,55 @@ var masterScenarioString =  '<div class="masterScenario" id="masterScenario{mast
                               </div>\
                             </div>';
 
-function deleteScenario(element){
-    //get the right scenario element
-    let scenario = getScenarioElementFromValue(element.value);
-
-    //confirm the deletion
-    if(confirm("Wollen sie das Scenario wirklich löschen?")){
-        let scenariosElement = element.closest(".scenarios");
-        let positionsInRow = scenariosElement.getElementsByClassName("positionInRow");
+//deletes a scenario-html-element
+function deleteScenario(button){
+    //confirm the deletion with an alert
+    if(confirm("Wollen sie das Szenario wirklich in dieser Ansicht löschen?")){
+        //get the right scenario element and delete it
+        let scenario = getScenarioElementFromValue(button.value);
         scenario.remove();
-        //reset all positionsInRow
-        for(let i = 0; i < positionsInRow.length; i++){
-            positionsInRow[i].value = (i+1);
-            console.log(positionsInRow[i].value, i);
+
+        //get all positionInRow Inputs and reset their values
+        let scenariosElement = button.closest(".scenarios");
+        let positionsInRows = scenariosElement.getElementsByClassName("positionInRow");
+        //values from 1 to number_of_elements - 1
+        for(let i = 0; i < positionsInRows.length; i++){
+            positionsInRows[i].value = (i+1);
         }
-        //reset the AddButtons
 
     }
 }
 
-function deleteMasterScenario(element){
-    //get the right indices of masterScenario from button value
-    let masterScenarioIndex = parseInt(element.value);
+//deletes a masterScenario-html-element
+function deleteMasterScenario(button){
+    //get the right index of masterScenario from button value
+    let masterScenarioIndex = parseInt(button.value);
 
     //get the right master scenario element
     let masterScenario = $("#masterScenario" + masterScenarioIndex);
 
-    //confirm the deletion
-    if(confirm("Wollen sie das MasterScenario wirklich löschen?")){
+    //confirm the deletion with an alert
+    if(confirm("Wollen sie das MasterSzenario wirklich in dieser Ansicht löschen?")){
         masterScenario.remove();
     }
 
 }
 
-function createScenario(element){
-    //get the right indices of scenario and masterScenario from button value
-    let buttonValue = element.value;
+//creates an new scenario-element on click
+function createScenario(button){
+    //get the right indices of scenario- and masterScenario-indices from button value
+    //saved in form masterSc
+    let buttonValue = button.value;
     let buttonValues = buttonValue.split(";");
     let masterScenarioIndex = parseInt(buttonValues[0]);
     let scenarioIndex = parseInt(buttonValues[1]);
 
     //insert the new element
-    element.parentElement.insertBefore(createNewScenario(masterScenarioIndex, scenarioIndex, element), element);
+    button.parentElement.insertBefore(createNewScenario(masterScenarioIndex, scenarioIndex, button), button);
 
     //change the value of the button
     scenarioIndex++;
-    element.value=masterScenarioIndex + ";" + scenarioIndex;
+    button.value = masterScenarioIndex + ";" + scenarioIndex;
 }
 
 //creates and returns the right scenarioElement
@@ -110,6 +116,7 @@ function createNewScenario(lastMasterScenarioIndex, lastScenarioIndex, button){
         .replaceAll("{scenarioIndex}", scenarioIndex)
         .replaceAll("{scenarioId}", - 1)
         .replaceAll("{positionInRow}", positionInRow);
+
     //insert it into a template element
     let template = document.createElement('template');
     template.innerHTML = newScenarioString;
@@ -118,16 +125,17 @@ function createNewScenario(lastMasterScenarioIndex, lastScenarioIndex, button){
     return template.content.firstChild;
 }
 
-function createMasterScenario(element){
+//creates an new scenario-element on click
+function createMasterScenario(button){
     //get the right index from the button
-    let masterScenarioIndex = parseInt(element.value);
+    let masterScenarioIndex = parseInt(button.value);
 
     //insert the new element
-    element.parentElement.insertBefore(createNewMasterScenario(masterScenarioIndex), element);
+    button.parentElement.insertBefore(createNewMasterScenario(masterScenarioIndex), button);
 
     //change the value of the button
     masterScenarioIndex++;
-    element.value=masterScenarioIndex;
+    button.value=masterScenarioIndex;
 }
 
 //creates and returns the right masterScenarioElement
@@ -143,8 +151,9 @@ function createNewMasterScenario(lastMasterScenarioIndex){
     return template.content.firstChild;
 }
 
-function moveScenarioUp(element){
-    let scenario = getScenarioElementFromValue(element.value);
+//moves a Scenario-element up
+function moveScenarioUp(button){
+    let scenario = getScenarioElementFromValue(button.value);
     //get the scenario element before
     let previousSibling = scenario.previousElementSibling;
     //only change if there is an element
@@ -153,6 +162,7 @@ function moveScenarioUp(element){
     }
 }
 
+//moves a Scenario-element down
 function moveScenarioDown(element){
     let scenario = getScenarioElementFromValue(element.value);
     let nextSibling = scenario.nextElementSibling;
@@ -182,6 +192,7 @@ function swapScenarioElements(scenario1, scenario2){
     let notice = scenario1.id;
     scenario1.id = scenario2.id;
     scenario2.id = notice;
+
     //swap the values of the move buttons
     notice = scenario1.firstElementChild.firstElementChild.value;
     scenario1.firstElementChild.firstElementChild.value = scenario2.firstElementChild.firstElementChild.value;
@@ -189,12 +200,14 @@ function swapScenarioElements(scenario1, scenario2){
     notice = scenario1.firstElementChild.children[1].value;
     scenario1.firstElementChild.children[1].value = scenario2.firstElementChild.children[1].value;
     scenario2.firstElementChild.children[1].value = notice;
+
     //swap the values of the positionInRowElements
     let positionInRowElement1 = scenario1.getElementsByClassName("positionInRow")[0];
     let positionInRowElement2 = scenario2.getElementsByClassName("positionInRow")[0];
     notice = positionInRowElement1.value;
     positionInRowElement1.value = positionInRowElement2.value;
     positionInRowElement2.value = notice;
+
     //swap the values of the delete-buttons
     let deleteButton1 = scenario1.getElementsByClassName("deleteScenarioButton")[0];
     let deleteButton2 = scenario2.getElementsByClassName("deleteScenarioButton")[0];
@@ -203,6 +216,7 @@ function swapScenarioElements(scenario1, scenario2){
     deleteButton2.value = notice;
 }
 
+//changes the color of select on change
 function onLayerChange(element){
     switch (parseInt(element.value)){
         case 5:

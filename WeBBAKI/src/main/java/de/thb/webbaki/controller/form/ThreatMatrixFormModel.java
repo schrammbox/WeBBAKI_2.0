@@ -22,6 +22,7 @@ public class ThreatMatrixFormModel {
     List<UserScenario> userScenarios;
     String comment;
 
+
     public ThreatMatrixFormModel(Questionnaire questionnaire){
 
         scenarioIdToIndex = new HashMap<>();
@@ -29,7 +30,8 @@ public class ThreatMatrixFormModel {
         userScenarios = new ArrayList<>();
 
         userScenarios = questionnaire.getUserScenarios();
-
+        //save the index of every userScenario with its Scenario as key in a map
+        //is important for a better access in the view
         for(int i = 0; i< userScenarios.size(); i++){
             scenarioIdToIndex.put(userScenarios.get(i).getScenario().getId(), i);
         }

@@ -1,12 +1,7 @@
 package de.thb.webbaki.service.snapshot;
 
-import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.repository.snapshot.SnapshotRepository;
-import de.thb.webbaki.service.UserService;
-import de.thb.webbaki.service.questionnaire.QuestionnaireService;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -32,7 +27,8 @@ public class SnapshotService {
     public void createSnapshotBySchedule(){
         LocalDate today = LocalDate.now();
         String snapshotName = today.getYear() + " Quartal " + (int)((today.getMonthValue() / 4) + 1);
-        if(!doesSnapshotExistsByName(snapshotName)){
+        if(!ExistsByName(snapshotName)){
+            //TODO check problem
             Snapshot snapshot = new Snapshot();
             snapshot.setName(snapshotName);
             createSnap(snapshot);
@@ -46,11 +42,12 @@ public class SnapshotService {
     public Optional<Snapshot> getSnapshotByID(Long id){return snapshotRepository.findById(id);}
 
     public Snapshot getNewestSnapshot(){return snapshotRepository.findTopByOrderByIdDesc();}
-    public boolean doesSnapshotExistsByName(String name){return snapshotRepository.existsSnapshotByName(name);}
+
+    public boolean ExistsByName(String name){return snapshotRepository.existsSnapshotByName(name);}
 
     public void createSnap(Snapshot snap){
 
-        /* Perist Snapshot */
+        // Perist Snapshot
         snap.setDate(LocalDateTime.now());
         snapshotRepository.save(snap);
         reportService.createReports(snap);

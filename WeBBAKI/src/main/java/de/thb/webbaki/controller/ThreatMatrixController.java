@@ -30,10 +30,11 @@ public class ThreatMatrixController {
 
 
     @GetMapping("/threatmatrix")
-    public String showQuestionnaireForm(Model model, Authentication authentication) {
-
-        return "redirect:/threatmatrix/open/" + questionnaireService.getNewestQuestionnaireByUserId(userService.getUserByUsername(authentication.getName()).getId()).getId();
+    public String showQuestionnaireForm(Authentication authentication) {
+        Long newestQuestionnaireId = questionnaireService.getNewestQuestionnaireByUserId(userService.getUserByUsername(authentication.getName()).getId()).getId();
+        return "redirect:/threatmatrix/open/" + newestQuestionnaireId;
     }
+
     @PostMapping("/threatmatrix")
     public String submitQuestionnaire(@ModelAttribute("threatmatrix") @Valid ThreatMatrixFormModel questionnaireFormModel,
                                       Authentication authentication) {
@@ -41,28 +42,15 @@ public class ThreatMatrixController {
         return "redirect:/threatmatrix/chronic";
     }
 
-
-    @GetMapping("/threatmatrix/chronic")
-    public String showQuestChronic(Authentication authentication,Model model) {
-
-        if (userService.getUserByUsername(authentication.getName()) != null) {
-            User user = userService.getUserByUsername(authentication.getName());
-            final var questList = questionnaireService.getAllQuestByUser(user.getId());
-            model.addAttribute("questList", questList);
-
-        }
-        return "threatmatrix/chronic";
-    }
-
     @GetMapping("/threatmatrix/open/{questID}")
     public String showThreatMatrixByID(@PathVariable("questID") long questID, Model model, Authentication authentication) throws NotAuthorizedException{
-        if(questionnaireService.existsQuestionnaireByIdAndUserId(questID,userService.getUserByUsername(authentication.getName()).getId() )){
+        if(questionnaireService.existsByIdAndUserId(questID,userService.getUserByUsername(authentication.getName()).getId() )){
             final var masterScenarioList = masterScenarioService.getAllByActiveTrueOrderByPositionInRow();
             model.addAttribute("masterScenarioList",masterScenarioList);
 
             Questionnaire quest = questionnaireService.getQuestionnaire(questID);
 
-            questionnaireService.checkIfMatchingWithScenarios(quest);
+            questionnaireService.checkIfMatchingWithActiveScenariosFromDB(quest);
 
             ThreatMatrixFormModel threatMatrixFormModel = new ThreatMatrixFormModel(quest);
             model.addAttribute("threatmatrix", threatMatrixFormModel);
@@ -80,9 +68,21 @@ public class ThreatMatrixController {
     @Transactional
     @GetMapping(path = "/threatmatrix/chronic/{questID}")
     public String deleteQuestionnaireByID(@PathVariable("questID") long questID){
-        questionnaireService.deleteQuestionnaireById(questID);//TODO change del
+        questionnaireService.deleteQuestionnaireById(questID);
 
         return "redirect:/threatmatrix/chronic";
+    }
+
+    @GetMapping("/threatmatrix/chronic")
+    public String showQuestChronic(Authentication authentication,Model model) {
+
+        if (userService.getUserByUsername(authentication.getName()) != null) {
+            User user = userService.getUserByUsername(authentication.getName());
+            final var questList = questionnaireService.getAllQuestByUser(user.getId());
+            model.addAttribute("questList", questList);
+
+        }
+        return "threatmatrix/chronic";
     }
 
 

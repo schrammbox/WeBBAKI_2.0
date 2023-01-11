@@ -86,8 +86,6 @@ public class SuperAdminController implements Comparable {
     @PostMapping("/snap")
     public String postSnap(@ModelAttribute("snapName") Snapshot snapName) {
         snapshotService.createSnap(snapName);
-
-
         return "redirect:snap";
 
     }
