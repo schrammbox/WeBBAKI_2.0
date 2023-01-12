@@ -30,7 +30,6 @@ public class SnapshotService {
         LocalDate today = LocalDate.now();
         String snapshotName = today.getYear() + " Quartal " + (int)((today.getMonthValue() / 4) + 1);
         if(!ExistsByName(snapshotName)){
-            //TODO check problem
             Snapshot snapshot = new Snapshot();
             snapshot.setName(snapshotName);
             createSnap(snapshot);
