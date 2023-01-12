@@ -34,15 +34,15 @@ public class ReportController {
     private SnapshotService snapshotService;
 
     /**
-     * Redirect to url with newest snap-id(because of the Nav elements in the layout.html).
+     * Redirect to url with newest snap-id (because of the Nav elements in the layout.html).
      * @param reportFocusString
-     * @return
      */
     @GetMapping("report/{reportFocus}")
     public String showReport(@PathVariable("reportFocus") String reportFocusString){
         long snapId = snapshotService.getNewestSnapshot().getId();
         return "redirect:/report/"+reportFocusString+"/"+String.valueOf(snapId);
     }
+
     @GetMapping("report/{reportFocus}/{snapId}")
     public String showReport(@PathVariable("reportFocus") String reportFocusString, @PathVariable("snapId") long snapId,
                              Model model, Authentication authentication) throws UnknownReportFocusException {

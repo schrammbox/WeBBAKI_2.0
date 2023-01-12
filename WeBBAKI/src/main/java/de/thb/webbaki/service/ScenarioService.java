@@ -22,23 +22,10 @@ public class ScenarioService {
 
     public List<Scenario> getAllScenarios(){return (List<Scenario>) scenarioRepository.findAll();}
 
-    public void addScenario(Scenario s){scenarioRepository.save(s); }
-
-    public long getNumberOfScenarios(){return scenarioRepository.count();}
-
     public Scenario getById(long id){return scenarioRepository.findById(id);}
 
     public List<Scenario> getAllScenariosByActiveTrue(){return scenarioRepository.findByActive(true);}
 
-    public List<String> getAllDescriptions(){
-        List<Scenario> allScenarios = getAllScenarios();
-        List<String> allDescriptions = null;
-
-        for(Scenario scenario : allScenarios){
-            allDescriptions.add(scenario.getDescription());
-        }
-        return allDescriptions;
-    }
 
     /**
      * Creates new and deletes old MasterScenarios and Scenarios by
@@ -76,7 +63,7 @@ public class ScenarioService {
                             //set the masterScenario to active, if nothing changed
                             oldMasterScenario.setActive(true);
                             //add to update list, if the weight changed
-                            //TODO persistent machen!!
+                            //TODO persistent machen!!-->reihenfolge ändert sich
                             if(masterScenario.getPositionInRow() != oldMasterScenario.getPositionInRow()){
                                 oldMasterScenario.setPositionInRow(masterScenario.getPositionInRow());
                                 masterScenarioUpdateList.add(oldMasterScenario);

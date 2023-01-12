@@ -22,7 +22,7 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //Number of questionnaires used for the calculation
+    //Number of questionnaires used for the calculation of this report
     int numberOfQuestionnaires;
 
     @Column(length = 1000)

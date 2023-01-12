@@ -22,6 +22,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import javax.transaction.Transactional;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -34,15 +35,13 @@ public class  ReportService {
     @Autowired
     private UserService userService;
     @Autowired
-    private QuestionnaireService questionnaireService;
+    private ReportScenarioService reportScenarioService;
     @Autowired
-    ReportScenarioService reportScenarioService;
+    private ReportRepository reportRepository;
     @Autowired
-    ReportRepository reportRepository;
+    private BranchService branchService;
     @Autowired
-    BranchService branchService;
-    @Autowired
-    ScenarioService scenarioService;
+    private ScenarioService scenarioService;
 
     public Report getCompanyReport(Snapshot snapshot, String username){return reportRepository.findBySnapshotAndUser_Username(snapshot, username);}
     public Report getBranchReport(Snapshot snapshot, Branch branch){return reportRepository.findBySnapshotAndBranch(snapshot, branch);}
@@ -102,7 +101,6 @@ public class  ReportService {
         //go through all sectors with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
         sectorMapOftReportScenarioListMaps.forEach((sector, mapOfReportScenarioLists) -> {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
-            //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
             int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
             Report branchReport = Report.builder().snapshot(snapshot).sector(sector).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
@@ -159,19 +157,22 @@ public class  ReportService {
     /**
      * Creates the company reports and their ReportScenarios
      * @param snapshot
-     * @param branchMapOftReportScenarioListMaps A map mapped by the Branch. The value is another map with the Scenario as Key. The value is a List of ReportScenarios
-     * @param sectorMapOftReportScenarioListMaps A map mapped by the sector. The value is another map with the Scenario as Key. The value is a List of ReportScenarios
+     * @param branchMapOftReportScenarioListMaps A map mapped by the Branch. The value is another map with the Scenario as Key. And the value of this is a List of ReportScenarios
+     * @param sectorMapOftReportScenarioListMaps A map mapped by the sector. The value is another map with the Scenario as Key. And the value of this is a List of ReportScenarios
      * fill both Maps with the right ReportScenarios for the later calculation of branch and sector reports
      */
-    private void createCompanyReports(Snapshot snapshot, Map<Branch, Map<Scenario, List<ReportScenario>>> branchMapOftReportScenarioListMaps, Map<Sector, Map<Scenario, List<ReportScenario>>> sectorMapOftReportScenarioListMaps) {
+    @Transactional
+    public void createCompanyReports(Snapshot snapshot, Map<Branch, Map<Scenario, List<ReportScenario>>> branchMapOftReportScenarioListMaps, Map<Sector, Map<Scenario, List<ReportScenario>>> sectorMapOftReportScenarioListMaps) {
         //get all scenarios for the calculation of the reportScenarios
         List<Scenario> scenarios = scenarioService.getAllScenarios();
 
         for (User user : userService.getAllUsers()){
             //only use quest of a user if this user is a KRITIS_BETREIBER and the user is enabled
-            if(userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER") && user.isEnabled()) {
+            if(user.isEnabled() && userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER")) {
                 //get last created questionnaire (automatically the last one in the list)
-                Questionnaire questionnaire = user.getQuestionnaires().get(user.getQuestionnaires().size() - 1);
+                List<Questionnaire> questionnaires = user.getQuestionnaires();
+                int test = questionnaires.size() - 1;
+                Questionnaire questionnaire = questionnaires.get(questionnaires.size() - 1);
                 if (questionnaire != null) {
                     //Company part
                     Report companyReport = Report.builder().snapshot(snapshot).user(user).numberOfQuestionnaires(1).comment(questionnaire.getComment()).build();
@@ -214,6 +215,15 @@ public class  ReportService {
         }
     }
 
+    /**
+     * Returns the right report from DB based.
+     * The decision is based on given ReportFocus
+     * @param reportFocus
+     * @param username
+     * @param snapshot
+     * @return
+     * @throws UnknownReportFocusException
+     */
     public MappingReport getMappingReportByReportFocus(ReportFocus reportFocus, String username, Snapshot snapshot) throws UnknownReportFocusException {
         User user = userService.getUserByUsername(username);
         Report report;
@@ -237,7 +247,6 @@ public class  ReportService {
         if(report == null || report.getReportScenarios() == null){
             return new MappingReport(Report.builder().numberOfQuestionnaires(0).build());
         }else{
-            //TODO save comment in Report
             return new MappingReport(report);
         }
     }
@@ -247,7 +256,7 @@ public class  ReportService {
      * @param template Does not need the .html.
      * @param context Contains the variables that we want to be passed to Thymeleaf.
      *                Addable with context.setVariable(key, value);
-     * @return the html code as a String
+     * @return the html of the parsed template code as a String
      */
     public String parseThymeleafTemplateToHtml(String template, Context context){
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
@@ -261,12 +270,13 @@ public class  ReportService {
     }
 
     /**
+     * Create an pdf outputStream from a html-string
+     * @param html
+     * @param outputStream is used as return value to write in the pdf-document-stream
+     * @throws IOException
      * All styles in the html have to be inline.
      * Not closed elements like <br> and <link> have to be closed like this
      * <br></br> and <link></link>
-     * @param html
-     * @param outputStream
-     * @throws IOException
      */
     public void generatePdfFromHtml(String html, String baseUrl, OutputStream outputStream) throws IOException, DocumentException {
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);

@@ -7,6 +7,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.text.DecimalFormat;
 
+/**
+ * A ReportScenario is one result row of a Report.
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

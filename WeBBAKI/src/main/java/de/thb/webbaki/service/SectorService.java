@@ -12,9 +12,5 @@ public class SectorService {
     @Autowired
     private SectorRepository sectorRepository;
 
-    public Sector getSectorByBrancheName(String brancheName){
-        return sectorRepository.findByBranches_name(brancheName);
-    }
-
     public List<Sector> getAllSectors(){return sectorRepository.findAll();}
 }

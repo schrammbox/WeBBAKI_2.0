@@ -18,6 +18,7 @@ public class ScenarioController {
     MasterScenarioService masterScenarioService;
     @Autowired
     ScenarioService scenarioService;
+
     @GetMapping("/scenarios")
     public String showScenarios(Model model){
         List<MasterScenario> masterScenarios = masterScenarioService.getAllByActiveTrueOrderByPositionInRow();
