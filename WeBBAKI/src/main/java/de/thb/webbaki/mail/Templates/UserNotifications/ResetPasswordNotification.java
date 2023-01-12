@@ -1,7 +1,5 @@
 package de.thb.webbaki.mail.Templates.UserNotifications;
 
-import de.thb.webbaki.entity.Role;
-
 public class ResetPasswordNotification {
 
     public static String resetPasswordMail(String userFirstname, String userLastname, String token) {
