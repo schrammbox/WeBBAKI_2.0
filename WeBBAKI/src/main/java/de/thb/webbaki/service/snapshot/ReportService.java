@@ -22,6 +22,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import javax.transaction.Transactional;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -160,15 +161,18 @@ public class  ReportService {
      * @param sectorMapOftReportScenarioListMaps A map mapped by the sector. The value is another map with the Scenario as Key. And the value of this is a List of ReportScenarios
      * fill both Maps with the right ReportScenarios for the later calculation of branch and sector reports
      */
-    private void createCompanyReports(Snapshot snapshot, Map<Branch, Map<Scenario, List<ReportScenario>>> branchMapOftReportScenarioListMaps, Map<Sector, Map<Scenario, List<ReportScenario>>> sectorMapOftReportScenarioListMaps) {
+    @Transactional
+    public void createCompanyReports(Snapshot snapshot, Map<Branch, Map<Scenario, List<ReportScenario>>> branchMapOftReportScenarioListMaps, Map<Sector, Map<Scenario, List<ReportScenario>>> sectorMapOftReportScenarioListMaps) {
         //get all scenarios for the calculation of the reportScenarios
         List<Scenario> scenarios = scenarioService.getAllScenarios();
 
         for (User user : userService.getAllUsers()){
             //only use quest of a user if this user is a KRITIS_BETREIBER and the user is enabled
-            if(userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER") && user.isEnabled()) {
+            if(user.isEnabled() && userService.existsUserByIdAndRoleName(user.getId(), "ROLE_KRITIS_BETREIBER")) {
                 //get last created questionnaire (automatically the last one in the list)
-                Questionnaire questionnaire = user.getQuestionnaires().get(user.getQuestionnaires().size() - 1);
+                List<Questionnaire> questionnaires = user.getQuestionnaires();
+                int test = questionnaires.size() - 1;
+                Questionnaire questionnaire = questionnaires.get(questionnaires.size() - 1);
                 if (questionnaire != null) {
                     //Company part
                     Report companyReport = Report.builder().snapshot(snapshot).user(user).numberOfQuestionnaires(1).comment(questionnaire.getComment()).build();

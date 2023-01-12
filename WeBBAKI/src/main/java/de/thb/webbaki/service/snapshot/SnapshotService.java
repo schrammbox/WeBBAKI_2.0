@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -23,7 +24,8 @@ public class SnapshotService {
      * if there already is the right quarter Snapshot. If not
      * it creates the right one.
      */
-    @Scheduled(cron = "0 0 0,12 1,5,10 1/3 *", zone="CET")
+    @Scheduled(cron = "0 0 0,12 1,5,10,15 1/3 *", zone="CET")
+    @Transactional
     public void createSnapshotBySchedule(){
         LocalDate today = LocalDate.now();
         String snapshotName = today.getYear() + " Quartal " + (int)((today.getMonthValue() / 4) + 1);
