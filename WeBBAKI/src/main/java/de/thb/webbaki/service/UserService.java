@@ -150,6 +150,12 @@ public class UserService {
         }
     }
 
+    /**
+     * Confirm created userconfirmation token
+     * @param token
+     * @return
+     * @throws IllegalStateException
+     */
     @Transactional
     public String confirmToken(String token) throws IllegalStateException {
         ConfirmationToken confirmationToken = confirmationTokenService.getConfirmationToken(token);
@@ -396,6 +402,14 @@ public class UserService {
         }
     }
 
+    /**
+     * Let user change the own credentials: password, firstname, lastname, email
+     * @param form
+     * @param user
+     * @param model
+     * @throws PasswordNotMatchingException
+     * @throws EmailNotMatchingException
+     */
     public void changeCredentials(ChangeCredentialsForm form, User user, Model model) throws PasswordNotMatchingException, EmailNotMatchingException {
 
         if (form.getOldPassword() != null) {
