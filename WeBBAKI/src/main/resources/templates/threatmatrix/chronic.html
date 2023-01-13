@@ -30,13 +30,41 @@
                 <td th:text="${questList[i].date.toLocalDate()}"></td>
                 <td th:text="${questList[i].date.toLocalTime().toString().substring(0,5)}"></td>
                 <td>
-                    <a th:href="@{/threatmatrix/open/{questID}(questID=${questList[i].id})}">
-                        <button class="btn btn-outline-primary">Details</button>
+                    <a class="btn btn-outline-primary" th:href="@{/threatmatrix/open/{questID}(questID=${questList[i].id})}">
+                        Details
                     </a>
-                    <a th:href="@{/threatmatrix/chronic/{questID}(questID=${questList[i].id})}" th:if="${questList.size() > 1}">
-                        <button class="btn btn-outline-danger"><span class="bi bi-trash"></span>Löschen</button>
-                    </a>
+                    <!-- Button trigger modal -->
+                    <button th:if="${questList.size() > 1}" type="button" class="btn btn-outline-danger"
+                            data-toggle="modal"
+                            th:data-target="${'#exampleModalCenter'+questList[i].id}">
+                        Löschen
+                    </button>
                 </td>
+
+                <!-- Confirmation of Deletion -->
+                <!-- Modal -->
+                <div class="modal fade" th:id="${'exampleModalCenter' + questList[i].id}" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Löschung bestätigen</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Sind Sie sich sicher, dass Sie diese Bedrohungsmatrix unwiderruflich löschen möchten?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                                <a th:href="@{/threatmatrix/chronic/{questID}(questID=${questList[i].id})}">
+                                    <button type="button" class="btn btn-outline-danger">Bestätigen</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- TODO: Comment Feld -->
 

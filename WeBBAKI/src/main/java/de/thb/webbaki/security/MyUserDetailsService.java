@@ -5,6 +5,7 @@ import de.thb.webbaki.entity.Role;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.service.Exceptions.UserNotEnabledException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
             if (user == null) {
                 throw new UsernameNotFoundException("No user found with username: " + username);
+            } else if (!user.isEnabled()) {
+                throw new UserNotEnabledException("User not enabled");
             }
 
             return new org.springframework.security.core.userdetails.User(
