@@ -61,7 +61,7 @@ public class UserChangeEnabledStatusNotification {
                 "  <body>\n" +
                 "    <h2 style=\"background-color:black; color: white; padding: 20px 0; margin: 0 auto;\">Ihr Status auf WebBaKI wurde geändert</h2>\n" +
                 "    <p>Hallo " + userFirstname + " " + userLastname + ",</p>\n" +
-                "    <p>Der WebBakI-Geschäftsführer hat Ihr Profil zur Nutzung freigeschaltet.</p>\n" +
+                "    <p>Die WebBaKI-Geschäftsstelle hat Ihr Profil zur Nutzung freigeschaltet.</p>\n" +
                 "    <div class=\"tabledata\" style=\"display:flex;align-items:center; justify-content:center\">\n" +
                 "    <p>Sie können sich nun einloggen und die Plattform nutzen.</p>\n" +
                 "    </div>\n" +

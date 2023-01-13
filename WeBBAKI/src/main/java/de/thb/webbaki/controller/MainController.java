@@ -58,7 +58,7 @@ public class MainController {
 
         try {
             model.addAttribute("form", form);
-            User user = userService.getUserByEmail(form.getEmail());
+            User user = userService.getUserByUsername(form.getUsername());
             passwordResetTokenService.createPasswordResetToken(user);
             model.addAttribute("success", "Eingabe erfolgreich. Sofern Ihre Email einem Nutzer zugeordnet werden kann erhalten Sie demnächst eine Benachrichtigung per Mail.");
 
@@ -86,7 +86,6 @@ public class MainController {
 
         try {
             model.addAttribute("form", form);
-
             if (passwordResetTokenService.resetUserPassword(form.getToken(), form)) {
                 model.addAttribute("success", "Ihr Passwort wurde erfolgreich geändert.");
             } else {
