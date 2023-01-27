@@ -292,15 +292,14 @@ public class UserService {
 
                     /*Outsourcing Mail to thread for speed purposes*/
                     new Thread(() -> {
-                        emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
-                                user.getLastName(),
-                                role));
-
                         for (User superAdmin : getUserByAdminrole()) {
                             emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
                                     superAdmin.getLastName(),
                                     role, user.getUsername()));
                         }
+                        emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
+                                user.getLastName(),
+                                role));
                     }).start();
                 }
             }
