@@ -237,9 +237,12 @@ public class UserService {
                     emailSender.send(user.getEmail(), UserNotificationAfterUserConfirmation.mailAfterUserConfirm(user.getFirstName(), user.getLastName()));
 
                     for (User officeAdmin : getUserByOfficeRole()) {
-                        emailSender.send(officeAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(officeAdmin.getFirstName(), adminLink,
-                                user.getFirstName(), user.getLastName(),
-                                user.getEmail(), user.getBranch().getName(), user.getCompany()));
+                        //only send it to enabled users
+                        if(officeAdmin.isEnabled()) {
+                            emailSender.send(officeAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(officeAdmin.getFirstName(), adminLink,
+                                    user.getFirstName(), user.getLastName(),
+                                    user.getEmail(), user.getBranch().getName(), user.getCompany()));
+                        }
                     }
                 }).start();
             }
@@ -292,15 +295,17 @@ public class UserService {
 
                     /*Outsourcing Mail to thread for speed purposes*/
                     new Thread(() -> {
+                        for (User superAdmin : getUserByAdminrole()) {
+                            //only send it to enabled users
+                            if(superAdmin.isEnabled()) {
+                                emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
+                                        superAdmin.getLastName(),
+                                        role, user.getUsername()));
+                            }
+                        }
                         emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
                                 user.getLastName(),
                                 role));
-
-                        for (User superAdmin : getUserByAdminrole()) {
-                            emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
-                                    superAdmin.getLastName(),
-                                    role, user.getUsername()));
-                        }
                     }).start();
                 }
             }
@@ -316,10 +321,13 @@ public class UserService {
                             roleDel));
 
                     for (User superAdmin : getUserByAdminrole()) {
-                        emailSender.send(superAdmin.getEmail(), AdminRemoveRoleNotification.removeRole(superAdmin.getFirstName(),
-                                superAdmin.getLastName(),
-                                roleDel,
-                                user.getUsername()));
+                        //only send it to enabled users
+                        if(superAdmin.isEnabled()) {
+                            emailSender.send(superAdmin.getEmail(), AdminRemoveRoleNotification.removeRole(superAdmin.getFirstName(),
+                                    superAdmin.getLastName(),
+                                    roleDel,
+                                    user.getUsername()));
+                        }
                     }
                 }).start();
             }
@@ -352,10 +360,13 @@ public class UserService {
                     emailSender.send(users.get(i).getEmail(), UserChangeEnabledStatusNotification.changeBrancheMail(users.get(i).getFirstName(), users.get(i).getLastName()));
 
                     for (User officeAdmin : getUserByOfficeRole()) {
-                        emailSender.send(officeAdmin.getEmail(), AdminDeactivateUserSubmit.changeEnabledStatus(officeAdmin.getFirstName(),
-                                officeAdmin.getLastName(),
-                                users.get(i).isEnabled(),
-                                users.get(i).getUsername()));
+                        //only send it to enabled users
+                        if(officeAdmin.isEnabled()) {
+                            emailSender.send(officeAdmin.getEmail(), AdminDeactivateUserSubmit.changeEnabledStatus(officeAdmin.getFirstName(),
+                                    officeAdmin.getLastName(),
+                                    users.get(i).isEnabled(),
+                                    users.get(i).getUsername()));
+                        }
                     }
                 }
             }
@@ -391,10 +402,13 @@ public class UserService {
                             user.getBranch().getName()));
 
                     for (User officeAdmin : getUserByOfficeRole()) {
-                        emailSender.send(officeAdmin.getEmail(), AdminChangeBrancheSubmit.changeBrancheMail(officeAdmin.getFirstName(),
-                                officeAdmin.getLastName(),
-                                user.getBranch().getName(),
-                                user.getUsername()));
+                        //only send it to enabled users
+                        if(officeAdmin.isEnabled()) {
+                            emailSender.send(officeAdmin.getEmail(), AdminChangeBrancheSubmit.changeBrancheMail(officeAdmin.getFirstName(),
+                                    officeAdmin.getLastName(),
+                                    user.getBranch().getName(),
+                                    user.getUsername()));
+                        }
                     }
                 }).start();
 
