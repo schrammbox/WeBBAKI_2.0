@@ -33,22 +33,16 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        try {
-            User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
 
-            if (user == null) {
-                throw new UsernameNotFoundException("No user found with username: " + username);
-            } else if (!user.isEnabled()) {
-                throw new UserNotEnabledException("User not enabled");
-            }
-
-            return new org.springframework.security.core.userdetails.User(
-                    user.getUsername(), user.getPassword(), user.isEnabled(), true, true,
-                    true, getAuthorities(user.getRoles()));
-
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
+        if (user == null) {
+            throw new UsernameNotFoundException("No user found with username: " + username);
         }
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(), user.getPassword(), user.isEnabled(), true, true,
+                true, getAuthorities(user.getRoles()));
+
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(final Collection<Role> roles) {
