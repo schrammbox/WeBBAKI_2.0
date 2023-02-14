@@ -95,12 +95,14 @@
 
                         <td>
                             <div class="dropdown">
-                                <button type="button" class="btn bi bi-card-text" data-bs-toggle="dropdown"
-                                        aria-expanded="false" data-bs-auto-close="outside"></button>
+                                <button th:with="comment=${threatmatrix.userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].smallComment}"
+                                        type="button" th:class="${'btn bi ' + (comment == null || comment.isBlank() ? 'bi-chat-left' : 'bi-chat-left-text')}"
+                                        data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                </button>
                                 <textarea class="form-control dropdown-menu" id="exampleDropdownFormEmail2"
                                           th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].smallComment}"
-                                          rows="3" cols="6" maxlength="360"
-                                          placeholder=" Kommentar bis zu 360 Zeichen..."></textarea>
+                                          rows="3" cols="6" maxlength="360" placeholder=" Kommentar bis zu 360 Zeichen..."
+                                          onchange="onCommentChange(this)"></textarea>
 
                             </div>
                         </td>
@@ -113,11 +115,7 @@
             </table>
 
         </th:block>
-        <!-- Szenario hinzu!
-        <h5>Extras</h5>
-            <a class="btn btn-outline-secondary" role="button" th:href="@{/threatmatrix/add_szenario}"><i class="bi bi-plus-circle"></i> neues Szenario anlegen</a>
-        <br><br>
-        -->
+
         <h3><label class="form-group shadow-textarea">Kommentar zum Fragebogen</label></h3>
         <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" th:rows="5" th:cols="123"
                   th:field="*{comment}"

@@ -28,8 +28,12 @@
                                     <!-- only show the information- button and text if there is a snapshotList(if not ist the downloadable part)-->
                                     <div class="dropdown" th:if="${snapshotList != null}">
                                         <button style="background-color: transparent; border: 0;" class="bi bi-info-circle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                        <div class="dropdown-menu" style="width: auto;">
-                                            <p>Die Anzahl der bekannten Bedrohungslagen für das jeweilige Szenario aus dem ausgewählten Snapshot. Nur im nationalen Report entspricht es der Anzahl an Branchenmittelwerten, die bekannt sind.</p>
+                                        <!--Show different description for the national report (has no user, sector or branch)-->
+                                        <div class="dropdown-menu" style="width: auto;" th:if="${report.getSector() == null && report.getBranch() == null && report.getUser() == null}">
+                                            <p>Anzahl der zu Reporterstellung herangezogenen Branchenreports.</p>
+                                        </div>
+                                        <div class="dropdown-menu" style="width: auto;" th:unless="${report.getSector() == null && report.getBranch() == null && report.getUser() == null}">
+                                            <p>Anzahl der zu Reporterstellung herangezogenen Unternehmensreports.</p>
                                         </div>
                                     </div>
                                 </div>

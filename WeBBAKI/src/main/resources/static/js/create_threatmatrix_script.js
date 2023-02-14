@@ -52,3 +52,20 @@ function calculateThreatSituation(trParent){
 function onChange(element){
     calculateThreatSituation(element.parentElement.parentElement);
 }
+
+function onCommentChange(element){
+    //delete old class and add new one based on the emptiness of the textarea
+    let text = element.value.replaceAll(" ", "").replaceAll("\n", "").replaceAll("\t", "")
+
+    if(!text || text.length == 0){
+        if(element.previousElementSibling.classList.contains("bi-chat-left-text")){
+            element.previousElementSibling.classList.remove("bi-chat-left-text")
+            element.previousElementSibling.classList.add("bi-chat-left")
+        }
+    }else{
+        if(element.previousElementSibling.classList.contains("bi-chat-left")){
+            element.previousElementSibling.classList.remove("bi-chat-left")
+            element.previousElementSibling.classList.add("bi-chat-left-text")
+        }
+    }
+}
