@@ -68,25 +68,25 @@
                         <td>
                             <select class="form-select probabilitySelect"
                                     th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].probability}"
-                                    onchange="onChange(this)">
+                                    onchange="onThreatSituationChange(this)">
                                 <option th:value="${-1}" th:text="${'unbekannt'}"></option>
                                 <option th:value="${0}" th:text="${'nie'}"></option>
-                                <option th:value="${1}" th:text="${'selten'}"></option>
-                                <option th:value="${2}" th:text="${'mittel'}"></option>
-                                <option th:value="${3}" th:text="${'häufig'}"></option>
-                                <option th:value="${4}" th:text="${'sehr häufig'}"></option>
+                                <option th:value="${2}" th:text="${'selten'}"></option>
+                                <option th:value="${4}" th:text="${'mittel'}"></option>
+                                <option th:value="${6}" th:text="${'häufig'}"></option>
+                                <option th:value="${8}" th:text="${'sehr häufig'}"></option>
                             </select>
                         </td>
                         <input type="hidden"
                                th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].scenario.id}">
                         <td><select class="form-select impactSelect"
                                     th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].impact}"
-                                    onchange="onChange(this)">
+                                    onchange="onThreatSituationChange(this)">
                             <option th:value="${-1}" th:text="${'unbekannt'}"></option>
-                            <option th:value="${1}" th:text="${'keine'}"></option>
-                            <option th:value="${2}" th:text="${'geringes'}"></option>
-                            <option th:value="${3}" th:text="${'hohes'}"></option>
-                            <option th:value="${4}" th:text="${'existenzbedrohend'}"></option>
+                            <option th:value="${1}" th:text="${'niedrig'}"></option>
+                            <option th:value="${2}" th:text="${'mittel'}"></option>
+                            <option th:value="${6}" th:text="${'hoch'}"></option>
+                            <option th:value="${18}" th:text="${'sehr hoch'}"></option>
                         </select></td>
 
                         <td>
@@ -95,12 +95,14 @@
 
                         <td>
                             <div class="dropdown">
-                                <button type="button" class="btn bi bi-card-text" data-bs-toggle="dropdown"
-                                        aria-expanded="false" data-bs-auto-close="outside"></button>
+                                <button th:with="comment=${threatmatrix.userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].smallComment}"
+                                        type="button" th:class="${'btn bi ' + (comment == null || comment.isBlank() ? 'bi-chat-left' : 'bi-chat-left-text')}"
+                                        data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                </button>
                                 <textarea class="form-control dropdown-menu" id="exampleDropdownFormEmail2"
                                           th:field="*{userScenarios[__${threatmatrix.scenarioIdToIndex.get(scenario.getId())}__].smallComment}"
-                                          rows="3" cols="6" maxlength="360"
-                                          placeholder=" Kommentar bis zu 360 Zeichen..."></textarea>
+                                          rows="3" cols="6" maxlength="360" placeholder=" Kommentar bis zu 360 Zeichen..."
+                                          onchange="onCommentChange(this)"></textarea>
 
                             </div>
                         </td>
@@ -113,11 +115,7 @@
             </table>
 
         </th:block>
-        <!-- Szenario hinzu!
-        <h5>Extras</h5>
-            <a class="btn btn-outline-secondary" role="button" th:href="@{/threatmatrix/add_szenario}"><i class="bi bi-plus-circle"></i> neues Szenario anlegen</a>
-        <br><br>
-        -->
+
         <h3><label class="form-group shadow-textarea">Kommentar zum Fragebogen</label></h3>
         <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" th:rows="5" th:cols="123"
                   th:field="*{comment}"

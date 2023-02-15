@@ -16,31 +16,18 @@ function calculateThreatSituation(trParent){
     let probabilityNum = probabilitySelect.value;
     let impactNum = impactSelect.value;
 
-    result = 0;
-
-    if(probabilityNum < 0 || impactNum < 0){
-        result = -1;
-    }else if(probabilityNum == 4 && impactNum == 2){
-        result = 6;
-    }else if(probabilityNum == 4 && impactNum == 1){
-        result = 3;
-    }else{
-        result = probabilityNum * impactNum;
-    }
+    let result = probabilityNum * impactNum;
 
     if(result <= -1){
         threatSituationDiv.textContent = "Unbekannt";
         threatSituationDiv.style.backgroundColor = "white";
-    }else if(result == 0){
-        threatSituationDiv.textContent = "keine Gefährdung";
-        threatSituationDiv.style.backgroundColor = "white";
-    }else if(result < 5){
+    }else if(result <= 7){
         threatSituationDiv.textContent = "geringe Gefährdung";
         threatSituationDiv.style.backgroundColor = "rgb(102, 255, 102)";
-    }else if(result < 10){
+    }else if(result <= 23){
         threatSituationDiv.textContent = "erhöhte Gefährdung";
         threatSituationDiv.style.backgroundColor = "rgb(255, 255, 102)";
-    }else if(result < 13){
+    }else if(result <= 47){
         threatSituationDiv.textContent = "hohe Gefährdung";
         threatSituationDiv.style.backgroundColor = "rgb(255, 178, 102)";
     }else{
@@ -49,6 +36,23 @@ function calculateThreatSituation(trParent){
     }
 }
 
-function onChange(element){
+function onThreatSituationChange(element){
     calculateThreatSituation(element.parentElement.parentElement);
+}
+
+function onCommentChange(element){
+    //delete old class and add new one based on the emptiness of the textarea
+    let text = element.value.replaceAll(" ", "").replaceAll("\n", "").replaceAll("\t", "")
+
+    if(!text || text.length == 0){
+        if(element.previousElementSibling.classList.contains("bi-chat-left-text")){
+            element.previousElementSibling.classList.remove("bi-chat-left-text")
+            element.previousElementSibling.classList.add("bi-chat-left")
+        }
+    }else{
+        if(element.previousElementSibling.classList.contains("bi-chat-left")){
+            element.previousElementSibling.classList.remove("bi-chat-left")
+            element.previousElementSibling.classList.add("bi-chat-left-text")
+        }
+    }
 }
