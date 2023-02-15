@@ -37,13 +37,11 @@ public class ReportScenario {
     public String getStringRepresentation() {
         if(threatSituation <= -1){
             return "Unbekannt";
-        }else if(threatSituation == 0){
-            return "keine Gefährdung";
-        }else if(threatSituation < 5){
+        }else if(threatSituation <= 7){
             return "geringe Gefährdung";
-        }else if(threatSituation < 10){
+        }else if(threatSituation <= 23){
             return "erhöhte Gefährdung";
-        }else if(threatSituation < 13){
+        }else if(threatSituation <= 47){
             return "hohe Gefährdung";
         }else{
             return "sehr hohe Gefährdung";
@@ -53,13 +51,11 @@ public class ReportScenario {
     public String getColor(){
         if(threatSituation <= -1){
             return "white";
-        }else if(threatSituation == 0){
-            return "white";
-        }else if(threatSituation < 5){
+        }else if(threatSituation <= 7){
             return "rgb(102, 255, 102)";
-        }else if(threatSituation < 10){
+        }else if(threatSituation <= 23){
             return "rgb(255, 255, 102)";
-        }else if(threatSituation < 13){
+        }else if(threatSituation <= 47){
             return "rgb(255, 178, 102)";
         }else{
             return "rgb(255, 102, 102)";
@@ -67,8 +63,8 @@ public class ReportScenario {
     }
 
     public String getRoundedThreatSituationString(){
-        DecimalFormat decimalFormat = new DecimalFormat("#.#");
-        return decimalFormat.format(threatSituation);
+
+        return String.valueOf((int)Math.ceil(threatSituation));
     }
 
 }
