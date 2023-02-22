@@ -9,8 +9,9 @@
 <div layout:fragment="content">
     <div class="container">
         <div th:if="${param.success}" class="alert alert-success" role="alert">
-            Die Datei wurde erfolgreich hochgeladen. <br>
-            <a th:href="@{/home}">Klicke hier für das Ergebnis.</a>
+            Die Datei wurde erfolgreich hochgeladen.<br>
+            <a th:href="@{/home}">Klicke hier für das Ergebnis.</a> <br>
+            Allerdings kann es einen kurzen Moment dauern, bis die Anderung angeziegt wird.
         </div>
         <div th:if="${param.failure}" class="alert alert-danger" role="alert">Die Datei konnte leider nicht hochgeladen werden.</div>
         <h2>Hilfeverwaltung</h2>
