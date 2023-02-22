@@ -38,7 +38,7 @@ public class SuperAdminController implements Comparable {
     private final MasterScenarioService masterScenarioService;
     private final ScenarioService scenarioService;
 
-    private static String UPLOAD_FOLDER = "WeBBAKI/src/main/resources/templates/help/";
+    private static String UPLOAD_FOLDER = "~/help/";
 
     @GetMapping("/admin")
     public String showAllUsers(Model model) {
