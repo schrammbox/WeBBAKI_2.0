@@ -54,6 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/report/national/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BUNDESADMIN")
                 .antMatchers("/snap/**").access("hasAuthority('ROLE_SUPERADMIN')")
                 .antMatchers("/scenarios").access("hasAuthority('ROLE_SUPERADMIN')")
+                .antMatchers("/adjustHelp").access("hasAuthority('ROLE_SUPERADMIN')")
+                .antMatchers("/help").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN", "ROLE_SUPERADMIN", "ROLE_GESCHÄFTSSTELLE")
                 .and()
                 .formLogin()
                 .loginPage("/login")

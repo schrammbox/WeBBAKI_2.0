@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Hilfeverwaltung</title>
+    <link th:href="@{/css/adjust_help.css}" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div th:if="${param.success}" class="alert alert-success" role="alert">
+            Die Datei wurde erfolgreich hochgeladen. <br>
+            <a th:href="@{/home}">Klicke hier für das Ergebnis.</a>
+        </div>
+        <div th:if="${param.failure}" class="alert alert-danger" role="alert">Die Datei konnte leider nicht hochgeladen werden.</div>
+        <h2>Hilfeverwaltung</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <input class="form-control form-control-sm" type="file" name="file" accept=".pdf" required/>
+            <button class="btn btn-primary" type="submit">Speichern</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
