@@ -55,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/snap/**").access("hasAuthority('ROLE_SUPERADMIN')")
                 .antMatchers("/scenarios").access("hasAuthority('ROLE_SUPERADMIN')")
                 .antMatchers("/adjustHelp").access("hasAuthority('ROLE_SUPERADMIN')")
+                .antMatchers("/help").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
