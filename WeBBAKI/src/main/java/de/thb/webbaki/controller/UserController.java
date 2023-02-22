@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller;
 
+import de.thb.webbaki.configuration.HelpPathReader;
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
@@ -21,6 +22,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
@@ -31,6 +34,8 @@ public class UserController {
     private final UserService userService;
     @Autowired
     SectorService sectorService;
+    @Autowired
+    HelpPathReader helpPathReader;
 
     @GetMapping("/register/user")
     public String showRegisterForm(Model model) {
@@ -113,8 +118,8 @@ public class UserController {
 
     @GetMapping(value="/help", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody byte[] getHelp() throws IOException {
-        Resource resource = new ClassPathResource("/templates/help/help.pdf");
-        return IOUtils.toByteArray(resource.getInputStream());
+        File file = new File(helpPathReader.getPath() + "help.pdf");
+        return IOUtils.toByteArray(new FileInputStream(file));
     }
 
 }

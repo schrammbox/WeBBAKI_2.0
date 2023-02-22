@@ -1,5 +1,6 @@
 package de.thb.webbaki.controller;
 
+import de.thb.webbaki.configuration.HelpPathReader;
 import de.thb.webbaki.controller.form.ScenarioFormModel;
 import de.thb.webbaki.controller.form.UserToRoleFormModel;
 import de.thb.webbaki.entity.MasterScenario;
@@ -38,7 +39,8 @@ public class SuperAdminController implements Comparable {
     private final MasterScenarioService masterScenarioService;
     private final ScenarioService scenarioService;
 
-    private static String UPLOAD_FOLDER = "~/help/";
+    @Autowired
+    HelpPathReader helpPathReader;
 
     @GetMapping("/admin")
     public String showAllUsers(Model model) {
@@ -128,7 +130,7 @@ public class SuperAdminController implements Comparable {
         if(!file.isEmpty() && file.getContentType().equals("application/pdf")){
             try{
                 byte[] bytes = file.getBytes();
-                Path path = Paths.get(UPLOAD_FOLDER + "help.pdf");
+                Path path = Paths.get(helpPathReader.getPath() + "help.pdf");
                 Files.write(path, bytes);
                 return "redirect:adjustHelp?success";
             } catch (IOException exception){
