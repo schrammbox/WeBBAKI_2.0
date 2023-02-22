@@ -9,17 +9,20 @@ import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
 import de.thb.webbaki.service.SectorService;
 import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 
 @Controller
@@ -108,7 +111,11 @@ public class UserController {
         return "account/changeCredentials";
     }
 
-
+    @GetMapping(value="/help", produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody byte[] getHelp() throws IOException {
+        Resource resource = new ClassPathResource("/templates/help/help.pdf");
+        return IOUtils.toByteArray(resource.getInputStream());
+    }
 
 }
 
