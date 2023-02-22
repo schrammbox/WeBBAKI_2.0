@@ -9,7 +9,8 @@
 <div layout:fragment="content">
     <div class="container">
         <div th:if="${param.success}" class="alert alert-success" role="alert">
-            Die Datei wurde erfolgreich hochgeladen. Das Ergebnis kann ab morgen eingesehen werden.
+            Die Datei wurde erfolgreich hochgeladen. <br>
+            <a th:href="@{/home}">Klicke hier für das Ergebnis.</a>
         </div>
         <div th:if="${param.failure}" class="alert alert-danger" role="alert">Die Datei konnte leider nicht hochgeladen werden.</div>
         <h2>Hilfeverwaltung</h2>
