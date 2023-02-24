@@ -94,6 +94,10 @@ public class ReportScenarioService {
      * @return ThreatSituation based on table from UP KRITIS
      */
     public long calculateThreatSituation(long impact, long probability) {
-        return impact * probability;
+        if(impact <= -1 || probability <= -1) {
+            return -1;
+        }else{
+            return impact * probability;
+        }
     }
 }
