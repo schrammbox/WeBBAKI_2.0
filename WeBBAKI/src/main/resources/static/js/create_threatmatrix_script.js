@@ -18,7 +18,7 @@ function calculateThreatSituation(trParent){
 
     let result = probabilityNum * impactNum;
 
-    if(result <= -1){
+    if(probabilityNum <= -1 || impactNum <= -1){
         threatSituationDiv.textContent = "Unbekannt";
         threatSituationDiv.style.backgroundColor = "white";
     }else if(result <= 7){
