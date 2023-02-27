@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/css/**", "/webjars/**", "/bootstrap/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/**").permitAll()
+                .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/confirmByUser/**").permitAll()
                 .antMatchers("/admin").access("hasAuthority('ROLE_SUPERADMIN')")
                 .antMatchers("/office").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
                 .antMatchers("/threatmatrix/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
@@ -56,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/scenarios").access("hasAuthority('ROLE_SUPERADMIN')")
                 .antMatchers("/adjustHelp").access("hasAuthority('ROLE_SUPERADMIN')")
                 .antMatchers("/help").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN", "ROLE_SUPERADMIN", "ROLE_GESCHÄFTSSTELLE")
+                .antMatchers("/confirmation/confirm/**").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -76,7 +77,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").permitAll();
-        http.csrf().disable(); //TODO: just for developement
     }
 
     @Bean
