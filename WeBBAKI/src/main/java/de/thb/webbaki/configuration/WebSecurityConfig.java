@@ -6,7 +6,6 @@ import de.thb.webbaki.service.Exceptions.UserNotEnabledException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/css/**", "/webjars/**", "/bootstrap/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/confirmByUser/**").permitAll()
+                .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/confirmByUser/**", "datenschutz").permitAll()
                 .antMatchers("/admin").access("hasAuthority('ROLE_SUPERADMIN')")
                 .antMatchers("/office").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
                 .antMatchers("/threatmatrix/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
@@ -62,9 +61,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureHandler((request, response, exception) -> {
                     String redirectURL = "/login?";
-                    if(exception instanceof DisabledException){
+                    if (exception.getCause().getCause() instanceof UserNotEnabledException){
                         redirectURL += "notEnabled";
-                    }else {
+                    }
+                    else{
                         redirectURL += "error";
                     }
                     response.sendRedirect(redirectURL);

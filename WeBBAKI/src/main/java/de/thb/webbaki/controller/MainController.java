@@ -98,4 +98,9 @@ public class MainController {
         return "security/reset_password";
     }
 
+    @GetMapping(path = "/datenschutz")
+    public String showDataProtection(){
+        return "datenschutz";
+    }
+
 }

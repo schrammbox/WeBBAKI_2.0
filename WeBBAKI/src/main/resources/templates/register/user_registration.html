@@ -61,9 +61,16 @@
                                 <label>Passwort bestätigen</label>
                                 <input type="password" name="confirmPassword" class="form-control" minlength="12"/>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Mit der Registrierung stimmen Sie der <a th:href="@{../datenschutz}">Datenschutzerklärung</a> zu.
+                                </label>
+                            </div>
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-primary float-end">Registrieren</button>
                             </div>
+
                         </div>
                     </form>
                     <p class="text-center mt-3 text-secondary">Haben sie einen Account? <a th:href="@{/login}">Jetzt
