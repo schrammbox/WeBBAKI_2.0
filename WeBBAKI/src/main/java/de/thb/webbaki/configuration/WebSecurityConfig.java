@@ -61,7 +61,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .failureHandler((request, response, exception) -> {
                     String redirectURL = "/login?";
-                    if (exception.getCause().getCause() instanceof UserNotEnabledException){
+                    boolean has2Causes = exception.getCause() != null && exception.getCause().getCause() != null;
+                    if (has2Causes && exception.getCause().getCause() instanceof UserNotEnabledException){
                         redirectURL += "notEnabled";
                     }
                     else{
