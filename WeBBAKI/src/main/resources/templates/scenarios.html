@@ -9,6 +9,8 @@
   <script th:src="@{/js/scenarios_script.js}" src="/js/scenarios_script.js"></script>
 </head>
 <body>
+<!-- CSRF-Token -->
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
   <div layout:fragment="content">
     <div class="container">
       <h1>Masterszenarien und Szenarien</h1>
