@@ -6,6 +6,8 @@
     <title>BEREICH FUER ANGEMELDETE KUNDEN!</title>
 </head>
 <body>
+<!-- CSRF-Token -->
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div layout:fragment="content">
     <h1>BEREICH FUER ANGEMELDETE KUNDEN!</h1>
 </div>

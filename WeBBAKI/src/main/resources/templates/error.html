@@ -9,6 +9,8 @@
 
 </head>
 <body>
+<!-- CSRF-Token -->
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div layout:fragment="content">
     <div class="container-home">
         <h1>Error 404 <br> Es ist ein Fehler aufgetreten</h1>
