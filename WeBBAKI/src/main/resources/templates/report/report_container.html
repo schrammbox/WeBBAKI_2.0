@@ -8,6 +8,8 @@
         <link rel="stylesheet" type="text/css" th:href="@{/css/report_container_style.css}">
     </head>
     <body>
+    <!-- CSRF-Token -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <div layout:fragment="content">
             <div class="container">
                 <h4 id="snapshotH5">Der Report von:</h4>

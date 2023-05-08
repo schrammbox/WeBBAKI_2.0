@@ -9,6 +9,8 @@
 
 </head>
 <body>
+<!-- CSRF-Token -->
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div layout:fragment="content">
     <div class="container-home">
         <h2>WebBaKI - Webbasierte Bedrohungsanalyse Kritischer Infrastrukturen</h2>
