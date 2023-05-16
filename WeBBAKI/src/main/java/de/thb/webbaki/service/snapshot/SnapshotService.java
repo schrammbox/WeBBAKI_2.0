@@ -28,7 +28,11 @@ public class SnapshotService {
     @Transactional
     public void createSnapshotBySchedule(){
         LocalDate today = LocalDate.now();
-        String snapshotName = today.getYear() + " Quartal " + (int)((today.getMonthValue() / 4) + 1);
+        int month = today.getMonthValue();
+        int currentQuarter = (month + 2) / 3;
+        // in this case previous Q is needed this a snapshot is a summary and not a current overview
+        int previousQuarter = (currentQuarter - 1 + 4) % 4;
+        String snapshotName = today.getYear() + " Quartal " + previousQuarter;
         if(!ExistsByName(snapshotName)){
             Snapshot snapshot = new Snapshot();
             snapshot.setName(snapshotName);
