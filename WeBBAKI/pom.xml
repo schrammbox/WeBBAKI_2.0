@@ -136,7 +136,9 @@
                 <excludes>
                     <exclude>application.properties</exclude>
                 </excludes>
-            </resource> -->
+            </resource>
 
-        </resources>
+        </resources> -->
     </build>
+
+</project>
