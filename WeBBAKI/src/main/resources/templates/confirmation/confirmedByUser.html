@@ -5,6 +5,8 @@
     <title>Nutzerdaten</title>
 </head>
 <body>
+<!-- CSRF-Token -->
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div layout:fragment="content">
     <div class="container">
         <h2>Sie haben Ihren Account erfolgreich freigeschaltet!</h2>

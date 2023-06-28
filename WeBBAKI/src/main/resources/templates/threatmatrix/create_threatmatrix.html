@@ -10,6 +10,8 @@
 
 </head>
 <body>
+<!-- CSRF-Token -->
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div layout:fragment="content" class="container">
     <h2>Fragebogen</h2><br>
     <form th:object="${threatmatrix}" th:action="@{/threatmatrix}" method="post">

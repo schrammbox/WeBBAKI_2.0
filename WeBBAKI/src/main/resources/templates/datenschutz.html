@@ -6,6 +6,8 @@
     <title>Nutzerpflichten Zur Kooperationsplattform</title>
 </head>
 <body>
+<!-- CSRF-Token -->
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div layout:fragment="content">
     <div class="container" style="text-align: justify">
         <h1>Nutzerpflichten zur Kooperationsplattform</h1>
