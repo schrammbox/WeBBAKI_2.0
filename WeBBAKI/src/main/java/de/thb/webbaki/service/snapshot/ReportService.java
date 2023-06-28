@@ -131,7 +131,12 @@ public class  ReportService {
         branchMapOftReportScenarioListMaps.forEach((branch, mapOfReportScenarioLists) -> {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
             //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
-            int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
+            //int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
+            int numberOfQuestionnaires = 0;
+            for (List<ReportScenario> reportScenarios : mapOfReportScenarioLists.values()) {
+                numberOfQuestionnaires += reportScenarios.size();
+            }
+
             Report branchReport = Report.builder().snapshot(snapshot).branch(branch).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
 

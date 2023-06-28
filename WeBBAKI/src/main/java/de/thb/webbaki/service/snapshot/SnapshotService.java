@@ -46,13 +46,12 @@ public class SnapshotService {
 
     public Optional<Snapshot> getSnapshotByID(Long id){return snapshotRepository.findById(id);}
 
-    public Snapshot getNewestSnapshot(){return snapshotRepository.findTopByOrderByIdDesc();}
+    public Optional<Snapshot> getNewestSnapshot(){return snapshotRepository.findTopByOrderByIdDesc();}
 
     public boolean ExistsByName(String name){return snapshotRepository.existsSnapshotByName(name);}
 
     public void createSnap(Snapshot snap){
-
-        // Perist Snapshot
+        // Persist Snapshot
         snap.setDate(LocalDateTime.now());
         snapshotRepository.save(snap);
         reportService.createReports(snap);
