@@ -3,6 +3,7 @@ package de.thb.webbaki.controller;
 import com.lowagie.text.DocumentException;
 import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
+import de.thb.webbaki.exception.SnapshotNotFoundException;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.helper.Counter;
@@ -38,9 +39,16 @@ public class ReportController {
      * @param reportFocusString
      */
     @GetMapping("report/{reportFocus}")
-    public String showReport(@PathVariable("reportFocus") String reportFocusString){
-        long snapId = snapshotService.getNewestSnapshot().getId();
-        return "redirect:/report/"+reportFocusString+"/"+String.valueOf(snapId);
+    public String showReport(@PathVariable("reportFocus") String reportFocusString, Model model){
+        try {
+            Snapshot newestSnapshot = snapshotService.getNewestSnapshot()
+                    .orElseThrow(() -> new SnapshotNotFoundException("snapshot was not found with the given id"));
+            long snapId = newestSnapshot.getId();
+            return "redirect:/report/"+reportFocusString+"/"+String.valueOf(snapId);
+        } catch (SnapshotNotFoundException e) {
+            model.addAttribute("error", "Es gibt noch keine Snapshots. ");
+            return "home";
+        }
     }
 
     @GetMapping("report/{reportFocus}/{snapId}")
