@@ -12,6 +12,7 @@ import de.thb.webbaki.service.snapshot.ReportService;
 import de.thb.webbaki.service.snapshot.SnapshotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -95,9 +96,27 @@ public class ReportController {
 
         context.setVariable("counter", new Counter());
 
+        // add a random csrf object for the "reportService.parseThymeleafTemplateToHtml" to not crash
+        CsrfToken csrfToken = new CsrfToken() {
+            @Override
+            public String getHeaderName() {
+                return "csrfHeader";
+            }
+
+            @Override
+            public String getParameterName() {
+                return "csrfParameter";
+            }
+
+            @Override
+            public String getToken() {
+                return "csrfToken";
+            }
+        };
+        context.setVariable("_csrf", csrfToken);
+
         reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
                 request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort(), response.getOutputStream());
-
     }
 
 }
