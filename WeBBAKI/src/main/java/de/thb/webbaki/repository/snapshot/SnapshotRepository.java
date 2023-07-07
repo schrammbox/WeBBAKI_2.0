@@ -15,5 +15,5 @@ public interface SnapshotRepository extends CrudRepository<Snapshot, Long> {
     Optional<Snapshot> findTopByOrderByIdDesc();
     boolean existsSnapshotByName(String name);
     Optional<Snapshot> findById(Long id);
-
+    List<Snapshot> findSnapshotsByName(String name);
 }

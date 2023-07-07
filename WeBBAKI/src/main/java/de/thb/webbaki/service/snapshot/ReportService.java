@@ -27,6 +27,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -63,6 +64,7 @@ public class  ReportService {
         createCompanyReports(snapshot, branchMapOftReportScenarioListMaps, sectorMapOftReportScenarioListMaps);
         createBranchReports(snapshot, branchMapOftReportScenarioListMaps, scenarioMapOfBranchAverageReportScenarios);
         createSectorReports(snapshot, sectorMapOftReportScenarioListMaps);
+        //TODO: same problem with numberOfQuestionnaires as Branch
         createNationalReport(snapshot, scenarioMapOfBranchAverageReportScenarios, branchMapOftReportScenarioListMaps.size());
     }
 
@@ -101,6 +103,7 @@ public class  ReportService {
         //go through all sectors with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
         sectorMapOftReportScenarioListMaps.forEach((sector, mapOfReportScenarioLists) -> {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
+            //TODO: same problem with numberOfQuestionnaires as Branch
             int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
             Report branchReport = Report.builder().snapshot(snapshot).sector(sector).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
@@ -132,10 +135,22 @@ public class  ReportService {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
             //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
             //int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
+
+
             int numberOfQuestionnaires = 0;
             for (List<ReportScenario> reportScenarios : mapOfReportScenarioLists.values()) {
-                numberOfQuestionnaires += reportScenarios.size();
+                for (ReportScenario reportScenario : reportScenarios) {
+                    Report report = reportScenario.getReport();
+                    if (report != null) {
+                        User user = report.getUser();
+                        if (user != null) {
+                            numberOfQuestionnaires += user.getQuestionnaires().size();
+                        }
+                    }
+                }
             }
+
+
 
             Report branchReport = Report.builder().snapshot(snapshot).branch(branch).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
@@ -234,7 +249,7 @@ public class  ReportService {
         Report report;
         switch (reportFocus) {
             case COMPANY:
-                report =  getCompanyReport(snapshot,username);
+                report = getCompanyReport(snapshot,username);
                 break;
             case BRANCHE:
                 report = getBranchReport(snapshot, user.getBranch());
@@ -275,7 +290,7 @@ public class  ReportService {
     }
 
     /**
-     * Create an pdf outputStream from a html-string
+     * Create a pdf outputStream from a html-string
      * @param html
      * @param outputStream is used as return value to write in the pdf-document-stream
      * @throws IOException
