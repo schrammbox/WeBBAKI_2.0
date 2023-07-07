@@ -64,6 +64,7 @@ public class  ReportService {
         createCompanyReports(snapshot, branchMapOftReportScenarioListMaps, sectorMapOftReportScenarioListMaps);
         createBranchReports(snapshot, branchMapOftReportScenarioListMaps, scenarioMapOfBranchAverageReportScenarios);
         createSectorReports(snapshot, sectorMapOftReportScenarioListMaps);
+        //TODO: same problem with numberOfQuestionnaires as Branch
         createNationalReport(snapshot, scenarioMapOfBranchAverageReportScenarios, branchMapOftReportScenarioListMaps.size());
     }
 
@@ -102,6 +103,7 @@ public class  ReportService {
         //go through all sectors with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
         sectorMapOftReportScenarioListMaps.forEach((sector, mapOfReportScenarioLists) -> {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
+            //TODO: same problem with numberOfQuestionnaires as Branch
             int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
             Report branchReport = Report.builder().snapshot(snapshot).sector(sector).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
@@ -137,17 +139,15 @@ public class  ReportService {
 
             int numberOfQuestionnaires = 0;
             for (List<ReportScenario> reportScenarios : mapOfReportScenarioLists.values()) {
-                Set<User> uniqueUsers = new HashSet<>();
                 for (ReportScenario reportScenario : reportScenarios) {
                     Report report = reportScenario.getReport();
                     if (report != null) {
                         User user = report.getUser();
                         if (user != null) {
-                            uniqueUsers.add(user);
+                            numberOfQuestionnaires += user.getQuestionnaires().size();
                         }
                     }
                 }
-                numberOfQuestionnaires += uniqueUsers.size();
             }
 
 
