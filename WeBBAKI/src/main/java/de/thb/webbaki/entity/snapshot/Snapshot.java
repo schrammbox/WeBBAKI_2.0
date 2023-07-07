@@ -24,7 +24,7 @@ public class Snapshot {
 
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "snapshot")
+    @OneToMany(mappedBy = "snapshot", cascade = CascadeType.REMOVE)
     private List<Report> reports;
 
     public String getDateAsString(){

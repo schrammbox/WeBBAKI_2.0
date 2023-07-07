@@ -45,6 +45,6 @@ public class Report {
     @JoinColumn(name="sector_id")
     private Sector sector;
 
-    @OneToMany(mappedBy = "report")
+    @OneToMany(mappedBy = "report", cascade = CascadeType.REMOVE)
     private List<ReportScenario> reportScenarios;
 }
