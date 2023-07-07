@@ -95,7 +95,12 @@ public class SuperAdminController implements Comparable {
     public String postSnap(@ModelAttribute("snapName") Snapshot snapName) {
         snapshotService.createSnap(snapName);
         return "redirect:snap";
+    }
 
+    @PostMapping("/daily-snap")
+    public String postDailySnap() {
+        snapshotService.createOrUpdateDailySnapshot();
+        return "redirect:snap";
     }
 
     @GetMapping("/snap/{snapID}")

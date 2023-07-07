@@ -27,6 +27,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -131,7 +132,26 @@ public class  ReportService {
         branchMapOftReportScenarioListMaps.forEach((branch, mapOfReportScenarioLists) -> {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
             //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
-            int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
+            //int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
+
+
+            int numberOfQuestionnaires = 0;
+            for (List<ReportScenario> reportScenarios : mapOfReportScenarioLists.values()) {
+                Set<User> uniqueUsers = new HashSet<>();
+                for (ReportScenario reportScenario : reportScenarios) {
+                    Report report = reportScenario.getReport();
+                    if (report != null) {
+                        User user = report.getUser();
+                        if (user != null) {
+                            uniqueUsers.add(user);
+                        }
+                    }
+                }
+                numberOfQuestionnaires += uniqueUsers.size();
+            }
+
+
+
             Report branchReport = Report.builder().snapshot(snapshot).branch(branch).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
 
@@ -229,7 +249,7 @@ public class  ReportService {
         Report report;
         switch (reportFocus) {
             case COMPANY:
-                report =  getCompanyReport(snapshot,username);
+                report = getCompanyReport(snapshot,username);
                 break;
             case BRANCHE:
                 report = getBranchReport(snapshot, user.getBranch());
