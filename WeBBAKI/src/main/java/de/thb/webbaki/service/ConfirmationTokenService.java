@@ -4,6 +4,8 @@ import de.thb.webbaki.entity.ConfirmationToken;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.ConfirmationTokenRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,7 +17,7 @@ public class ConfirmationTokenService {
 
 
     /**
-     * Saving newly created confirmationtoken via CRUD Repository
+     * Saving newly created confirmation token via CRUD Repository
      *
      * @param confirmationToken which is to be saved
      */
@@ -24,7 +26,7 @@ public class ConfirmationTokenService {
     }
 
     /**
-     * Getting whole Confirmationtoken Object by only searching for token
+     * Getting whole Confirmation token Object by only searching for token
      *
      * @param token to be used for
      * @return found confirmationToken
@@ -40,6 +42,7 @@ public class ConfirmationTokenService {
      * @return DB-entry at table == confirmation_token, column == created_at
      */
     public int setConfirmedAt(String token) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return confirmationTokenRepository.setConfirmedAt(token, LocalDateTime.now());
     }
 

@@ -12,20 +12,21 @@ import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.Principal;
 
 @Controller
@@ -36,6 +37,27 @@ public class UserController {
     SectorService sectorService;
     @Autowired
     HelpPathReader helpPathReader;
+    @Autowired
+    private HttpSession session;
+
+    /**
+     * the request object includes the session id
+     * @param request
+     * @return the formatted remaining time as a String
+     */
+    @GetMapping("/user/remainingTime")
+    public ResponseEntity<String> getTokenRemainingTime(HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // Retrieve the current session without creating a new one
+        if (session == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session expired");
+        }
+        String sessionRestDuration = userService.calculateSessionRestDuration(session);
+        if (sessionRestDuration == null) {
+            sessionRestDuration = "Error while calculating remaining time";
+        }
+        return ResponseEntity.ok(sessionRestDuration);
+    }
+
 
     @GetMapping("/register/user")
     public String showRegisterForm(Model model) {
@@ -123,8 +145,3 @@ public class UserController {
     }
 
 }
-
-
-
-
-

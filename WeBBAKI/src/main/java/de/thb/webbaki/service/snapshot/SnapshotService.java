@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SnapshotService {
@@ -46,7 +47,7 @@ public class SnapshotService {
      * There is only one Daily Snapshot existing. Therefor it is searching if a snapshot is existing
      * and if it is it will update that and not create a new onel
      */
-    @Scheduled(cron = "0 2 * * * *", zone = "CET") // Runs every 24 hours
+    @Scheduled(cron = "0 6 * * * *", zone = "CET") // Runs every 24 hours
     @Transactional
     public void createOrUpdateDailySnapshot() {
         LocalDate today = LocalDate.now();
@@ -55,13 +56,18 @@ public class SnapshotService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String snapshotName = "Täglicher Bericht vom: " + previousDay.format(formatter);
 
-        // in case there are multiples of daily snapshots (should normally not happen..)
-        List<Snapshot> snapshots = snapshotRepository.findSnapshotsByName(snapshotName);
-        if (!snapshots.isEmpty()) {
-            for (Snapshot snapshot : snapshots) {
+        List<Snapshot> allSnapshots = snapshotRepository.findAll();
+
+        List<Snapshot> matchingSnapshots = allSnapshots.stream()
+                .filter(snapshot -> snapshot.getName() != null && snapshot.getName().contains("Täglicher Bericht vom: "))
+                .collect(Collectors.toList());
+
+        if (!matchingSnapshots.isEmpty()) {
+            for (Snapshot snapshot : matchingSnapshots) {
                 snapshotRepository.delete(snapshot);
             }
         }
+
         Snapshot snapshot = new Snapshot();
         snapshot.setName(snapshotName);
         createSnap(snapshot);

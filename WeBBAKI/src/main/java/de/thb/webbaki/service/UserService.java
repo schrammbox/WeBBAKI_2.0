@@ -26,6 +26,7 @@ import org.springframework.ui.Model;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
@@ -87,6 +88,29 @@ public class UserService {
         return userRepository.existsByIdAndRoles_Name(id, roleName);
     }
 
+    public String calculateSessionRestDuration(HttpSession session) {
+        if (session == null) {
+            return null;
+        }
+        long currentTimeInMillis = System.currentTimeMillis();
+        long lastAccessedTimeInMillis = session.getLastAccessedTime();
+        long maxInactiveInterval = session.getMaxInactiveInterval() * 1000; // Convert to milliseconds
+        long expirationTimeInMillis = lastAccessedTimeInMillis + maxInactiveInterval;
+
+        // Calculate the remaining time in format hh:mm:ss
+        long remainingMillis = expirationTimeInMillis - currentTimeInMillis;
+        if (remainingMillis <= 0) {
+            return "Expired"; // Session has already expired
+        }
+        long remainingSeconds = remainingMillis / 1000;
+        long hours = remainingSeconds / 3600;
+        long minutes = (remainingSeconds % 3600) / 60;
+        long seconds = remainingSeconds % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+
     /**
      * @param user is used to create new user -> forwarded to registerNewUser
      * @return newly created token
@@ -120,7 +144,7 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
 
-            //set the role to "Geschäftsstelle" if this Branche is choosen
+            //set the role to "Geschäftsstelle" if this Branche is chosen
             if (userBranch.getName().equals("Geschäftsstelle")) {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_GESCHÄFTSSTELLE")));
             } else {
