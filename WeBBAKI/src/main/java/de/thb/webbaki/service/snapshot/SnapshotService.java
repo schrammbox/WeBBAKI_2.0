@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SnapshotService {
@@ -55,13 +56,18 @@ public class SnapshotService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String snapshotName = "Täglicher Bericht vom: " + previousDay.format(formatter);
 
-        // in case there are multiples of daily snapshots (should normally not happen..)
-        List<Snapshot> snapshots = snapshotRepository.findSnapshotsByName(snapshotName);
-        if (!snapshots.isEmpty()) {
-            for (Snapshot snapshot : snapshots) {
+        List<Snapshot> allSnapshots = snapshotRepository.findAll();
+
+        List<Snapshot> matchingSnapshots = allSnapshots.stream()
+                .filter(snapshot -> snapshot.getName() != null && snapshot.getName().contains("Täglicher Bericht vom: "))
+                .collect(Collectors.toList());
+
+        if (!matchingSnapshots.isEmpty()) {
+            for (Snapshot snapshot : matchingSnapshots) {
                 snapshotRepository.delete(snapshot);
             }
         }
+
         Snapshot snapshot = new Snapshot();
         snapshot.setName(snapshotName);
         createSnap(snapshot);
