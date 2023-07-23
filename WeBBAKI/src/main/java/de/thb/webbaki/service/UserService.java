@@ -113,11 +113,11 @@ public class UserService {
         }
 
         // Convert the Long sessionDuration to a long primitive type
-        long sessionTimeoutInSeconds = sessionDuration;
+        long sessionExpiresAtConverted = sessionExpiresAt;
 
         // Define the lastAccessedTimeInMillis and maxInactiveInterval appropriately
         long currentTimeInSeconds = System.currentTimeMillis() / 1000;
-        long remainingInSeconds = sessionExpiresAt - currentTimeInSeconds;
+        long remainingInSeconds = sessionExpiresAtConverted - currentTimeInSeconds;
 
         if (remainingInSeconds <= 0) {
             return "Expired"; // Session has already expired
