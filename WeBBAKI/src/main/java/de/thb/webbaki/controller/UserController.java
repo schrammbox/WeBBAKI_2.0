@@ -4,6 +4,7 @@ import de.thb.webbaki.configuration.HelpPathReader;
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.security.SessionTimer;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
 import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,23 +39,18 @@ public class UserController {
     SectorService sectorService;
     @Autowired
     HelpPathReader helpPathReader;
-    @Autowired
-    private HttpSession session;
 
     /**
      * the request object includes the session id
-     * @param request
+     * this method is triggered by
      * @return the formatted remaining time as a String
      */
     @GetMapping("/user/remainingTime")
-    public ResponseEntity<String> getTokenRemainingTime(HttpServletRequest request) {
-        HttpSession session = request.getSession(false); // Retrieve the current session without creating a new one
-        if (session == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session expired");
-        }
-        String sessionRestDuration = userService.calculateSessionRestDuration(session);
+    public ResponseEntity<String> getTokenRemainingTime() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String sessionRestDuration = userService.calculateSessionRestDuration(username);
         if (sessionRestDuration == null) {
-            sessionRestDuration = "Error while calculating remaining time";
+            sessionRestDuration = "Fehler beim berechnen der Restzeit";
         }
         return ResponseEntity.ok(sessionRestDuration);
     }
