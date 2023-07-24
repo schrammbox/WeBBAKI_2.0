@@ -55,6 +55,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Questionnaire> questionnaires;
 
+    private Long sessionExpiresAt;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -4,6 +4,7 @@ import de.thb.webbaki.configuration.HelpPathReader;
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.security.SessionTimer;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
 import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
@@ -12,20 +13,22 @@ import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.Principal;
 
 @Controller
@@ -36,6 +39,22 @@ public class UserController {
     SectorService sectorService;
     @Autowired
     HelpPathReader helpPathReader;
+
+    /**
+     * the request object includes the session id
+     * this method is triggered by
+     * @return the formatted remaining time as a String
+     */
+    @GetMapping("/user/remainingTime")
+    public ResponseEntity<String> getTokenRemainingTime() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        String sessionRestDuration = userService.calculateSessionRestDuration(username);
+        if (sessionRestDuration == null) {
+            sessionRestDuration = "Fehler beim berechnen der Restzeit";
+        }
+        return ResponseEntity.ok(sessionRestDuration);
+    }
+
 
     @GetMapping("/register/user")
     public String showRegisterForm(Model model) {
@@ -123,8 +142,3 @@ public class UserController {
     }
 
 }
-
-
-
-
-
