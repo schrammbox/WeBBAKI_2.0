@@ -47,7 +47,7 @@ public class SnapshotService {
      * There is only one Daily Snapshot existing. Therefor it is searching if a snapshot is existing
      * and if it is it will update that and not create a new onel
      */
-    @Scheduled(cron = "0 2 * * * *", zone = "CET") // Runs every 24 hours
+    @Scheduled(cron = "0 6 * * * *", zone = "CET") // Runs every 24 hours
     @Transactional
     public void createOrUpdateDailySnapshot() {
         LocalDate today = LocalDate.now();

@@ -37,7 +37,9 @@
     <div sec:authorize="isAuthenticated()">
         Angemeldet als <span sec:authentication="name"></span><br>
         Rolle: <span sec:authentication="principal.authorities"></span><br>
-        Branche: <span th:text="${@userService.getUserByUsername(#authentication.getName()).getBranch()}"></span>
+        Branche: <span th:text="${@userService.getUserByUsername(#authentication.getName()).getBranch()}"></span><br>
+        Deine Session läuft aus in: <span id="tokenRemainingTime"></span>
+        <script th:src="@{/js/session_remaining_time.js}" onload="keepRemainderUpdated()"></script>
     </div>
 
     <!--Nav-bar-->
