@@ -97,6 +97,9 @@ public class UserService {
 
     public String calculateSessionRestDuration(String username) {
         User user = userRepository.findByUsername(username);
+        if(user == null) {
+            return "Kein angemeldeter user";
+        }
         Long sessionExpiresAt = user.getSessionExpiresAt();
         Long sessionDuration = sessionTimer.getSessionTimeoutInSeconds();
         if (sessionExpiresAt == null) {
