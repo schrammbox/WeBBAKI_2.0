@@ -55,7 +55,6 @@ public class UserController {
         return ResponseEntity.ok(sessionRestDuration);
     }
 
-
     @GetMapping("/register/user")
     public String showRegisterForm(Model model) {
         UserRegisterFormModel formModel = new UserRegisterFormModel();

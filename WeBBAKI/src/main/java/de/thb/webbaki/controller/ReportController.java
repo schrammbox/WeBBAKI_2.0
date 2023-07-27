@@ -71,6 +71,14 @@ public class ReportController {
 
         model.addAttribute("counter", new Counter());
 
+        int numberOfSectorsInSnap = 0;
+        numberOfSectorsInSnap = reportService.getNumberOfSectorsInSnap(currentSnapshot);
+        model.addAttribute("numberOfSectors", numberOfSectorsInSnap);
+
+        int numberOfBranchesInSnap = 0;
+        numberOfBranchesInSnap = reportService.getNumberOfBranchesInSnap(currentSnapshot, report.getSector());
+        model.addAttribute("numberOfBranches", numberOfBranchesInSnap);
+
         return "report/report_container";
     }
 

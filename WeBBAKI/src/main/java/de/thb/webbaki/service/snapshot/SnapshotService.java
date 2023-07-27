@@ -43,9 +43,9 @@ public class SnapshotService {
     }
 
     /**
-     * creates a Snapshot every day of the previous day.
+     * creates a Snapshot every day based on the previous day.
      * There is only one Daily Snapshot existing. Therefor it is searching if a snapshot is existing
-     * and if it is it will update that and not create a new onel
+     * and if it is it will update that and not create a new one
      */
     @Scheduled(cron = "0 6 * * * *", zone = "CET") // Runs every 24 hours
     @Transactional

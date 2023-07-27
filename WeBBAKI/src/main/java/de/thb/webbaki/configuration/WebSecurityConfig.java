@@ -1,9 +1,14 @@
 package de.thb.webbaki.configuration;
 
 
+import de.thb.webbaki.entity.User;
+import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.security.LoginSuccessHandler;
 import de.thb.webbaki.security.MyUserDetailsService;
+import de.thb.webbaki.security.SessionTimer;
 import de.thb.webbaki.service.Exceptions.UserNotEnabledException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,15 +17,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 @Configuration
@@ -31,6 +29,8 @@ import java.io.IOException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private MyUserDetailsService userDetailsService;
+    @Autowired
+    private LoginSuccessHandler loginSuccessHandler;
 
 
     @Override
@@ -74,7 +74,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .usernameParameter("username")
                 .permitAll()
-                .defaultSuccessUrl("/account")
+                .successHandler(loginSuccessHandler)
+                //.defaultSuccessUrl("/account") default success url is handled in the successHandler
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
