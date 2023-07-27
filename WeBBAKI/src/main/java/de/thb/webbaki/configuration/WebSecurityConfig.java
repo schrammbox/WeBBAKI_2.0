@@ -86,6 +86,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidSessionUrl("/login?expired")
                 .maximumSessions(1);
 
+        http.headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("form-action 'self'");
     }
 
     @Bean
