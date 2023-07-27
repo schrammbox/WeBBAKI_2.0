@@ -25,15 +25,6 @@ public class EmailService implements EmailSender{
 
     private final JavaMailSender javaMailSender;
 
-    @Value("${webbaki.mail.host}")
-    private String mailHost;
-    @Value("${webbaki.mail.port}")
-    private String mailPort;
-    @Value("${webbaki.mail.user}")
-    private String mailUser;
-    @Value("${webbaki.mail.password}")
-    private String mailPassword;
-
     @Override
     @Async
     public void send(String to, String email) {
