@@ -4,6 +4,7 @@ import de.thb.webbaki.service.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class EmailService implements EmailSender{
     @Async
     public void send(String to, String email) {
 
-        String filePath = new File("").getAbsolutePath();
+        /*String filePath = new File("").getAbsolutePath();
         filePath = filePath + "/WeBBAKI/src/main/java/de/thb/webbaki/mail/config.conf";
         filePath = filePath.replace('\\', '/');
 
@@ -45,7 +46,7 @@ public class EmailService implements EmailSender{
             reader.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         try{
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
