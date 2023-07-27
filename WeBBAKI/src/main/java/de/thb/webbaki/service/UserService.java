@@ -102,14 +102,8 @@ public class UserService {
         }
         Long sessionExpiresAt = user.getSessionExpiresAt();
         Long sessionDuration = sessionTimer.getSessionTimeoutInSeconds();
-        if (sessionExpiresAt == null) {
-            sessionExpiresAt = System.currentTimeMillis() / 1000 + sessionDuration;
-            user.setSessionExpiresAt(sessionExpiresAt);
-            userRepository.save(user);
-        } else if (sessionExpiresAt < System.currentTimeMillis() / 1000) {
-            sessionExpiresAt = System.currentTimeMillis() / 1000 + sessionDuration;
-            user.setSessionExpiresAt(sessionExpiresAt);
-            userRepository.save(user);
+        if(sessionExpiresAt == null) {
+            return null;
         }
         if (sessionDuration == null) {
             return null;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class SessionTimer {
 
-    @Value("${server.servlet.session.timeout}")
+    @Value("${server.session.timeout}")
     private long sessionTimeoutInSeconds;
 
     public Long getSessionTimeoutInSeconds() {
