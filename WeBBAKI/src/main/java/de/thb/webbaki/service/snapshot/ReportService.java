@@ -49,6 +49,43 @@ public class  ReportService {
     public Report getSectorReport(Snapshot snapshot, Sector sector){return reportRepository.findBySnapshotAndSector(snapshot, sector);}
     public Report getNationalReport(Snapshot snapshot){return reportRepository.findBySnapshotAndUserIsNullAndBranchIsNullAndSectorIsNull(snapshot);}
 
+    public int getNumberOfSectorsInSnap(Snapshot snap) {
+        List<Report> reportsOfSnap = snap.getReports();
+        Set<Sector> uniqueSectors = new HashSet<>();
+
+        for (Report report : reportsOfSnap) {
+            Sector sector = report.getSector();
+            if (!uniqueSectors.contains(sector) && sector != null) {
+                uniqueSectors.add(sector);
+            }
+        }
+
+        return uniqueSectors.size();
+    }
+
+
+    public int getNumberOfBranchesInSnap(Snapshot snap, Sector sector) {
+        List<Report> reportsOfSnap = snap.getReports();
+        Set<Branch> uniqueBranches = new HashSet<>();
+
+        if(sector != null) {
+            for (Report report : reportsOfSnap) {
+                Branch branch = report.getBranch();
+                if (!uniqueBranches.contains(branch) && sector.getBranches().contains(branch) && branch != null) {
+                    uniqueBranches.add(branch);
+                }
+            }
+        } else {
+            for (Report report : reportsOfSnap) {
+                Branch branch = report.getBranch();
+                if (!uniqueBranches.contains(branch) && branch != null) {
+                    uniqueBranches.add(branch);
+                }
+            }
+        }
+        return uniqueBranches.size();
+    }
+
     /**
      * Creates all Report types (company, branch, sector and national)
      * @param snapshot
@@ -64,7 +101,6 @@ public class  ReportService {
         createCompanyReports(snapshot, branchMapOftReportScenarioListMaps, sectorMapOftReportScenarioListMaps);
         createBranchReports(snapshot, branchMapOftReportScenarioListMaps, scenarioMapOfBranchAverageReportScenarios);
         createSectorReports(snapshot, sectorMapOftReportScenarioListMaps);
-        //TODO: same problem with numberOfQuestionnaires as Branch
         createNationalReport(snapshot, scenarioMapOfBranchAverageReportScenarios, branchMapOftReportScenarioListMaps.size());
     }
 
@@ -134,23 +170,7 @@ public class  ReportService {
         branchMapOftReportScenarioListMaps.forEach((branch, mapOfReportScenarioLists) -> {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
             //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
-            //int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
-
-
-            int numberOfQuestionnaires = 0;
-            for (List<ReportScenario> reportScenarios : mapOfReportScenarioLists.values()) {
-                for (ReportScenario reportScenario : reportScenarios) {
-                    Report report = reportScenario.getReport();
-                    if (report != null) {
-                        User user = report.getUser();
-                        if (user != null) {
-                            numberOfQuestionnaires += user.getQuestionnaires().size();
-                        }
-                    }
-                }
-            }
-
-
+            int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
 
             Report branchReport = Report.builder().snapshot(snapshot).branch(branch).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
