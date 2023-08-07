@@ -40,9 +40,9 @@ public class EmailConfig {
         reader.close();*/
 
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("mail.th-brandenburg.de"); // mail.th-brandenburg.de - smtp.gmail.com
-        mailSender.setPort(Integer.parseInt("25")); // 25
-        mailSender.setUsername("noreply@th-brandenburg.de"); // noreply@th-brandenburg.de - webbakinoreply@gmail.com
+        mailSender.setHost(mailHost); // mail.th-brandenburg.de - smtp.gmail.com
+        mailSender.setPort(Integer.parseInt(mailPort)); // 25
+        mailSender.setUsername(mailUser); // noreply@th-brandenburg.de - webbakinoreply@gmail.com
         if(!mailPassword.equals("noPw")){
             mailSender.setPassword(mailPassword); // mdtikeksobwrseob
         }
