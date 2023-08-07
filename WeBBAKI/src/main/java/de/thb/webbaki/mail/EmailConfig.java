@@ -43,7 +43,10 @@ public class EmailConfig {
         mailSender.setHost(mailHost); // mail.th-brandenburg.de - smtp.gmail.com
         mailSender.setPort(Integer.parseInt(mailPort)); // 25
         mailSender.setUsername(mailUser); // noreply@th-brandenburg.de - webbakinoreply@gmail.com
-        mailSender.setPassword(mailPassword); // mdtikeksobwrseob
+        if(!mailPassword.equals("noPw")){
+            mailSender.setPassword(mailPassword); // mdtikeksobwrseob
+        }
+
 
         //maybe to do for later
         Properties mailProperties = mailSender.getJavaMailProperties();
