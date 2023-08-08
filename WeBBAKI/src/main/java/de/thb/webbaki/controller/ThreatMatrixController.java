@@ -31,6 +31,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.temporal.IsoFields;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -129,6 +133,112 @@ public class ThreatMatrixController {
         MappingReport nationalReport = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), newestSnapshot);
         model.addAttribute("nationalReport", nationalReport);
 
+        final var snapshotList = snapshotService.getAllSnapshots();
+
+        LocalDate myLocal = LocalDate.now();
+        int quarter = myLocal.get(IsoFields.QUARTER_OF_YEAR);
+        final int year = myLocal.getYear();
+        String tempQuarter = "";
+
+        snapshotList.removeIf(s -> !s.getName().contains(String.valueOf(year) + " Quartal ") && !s.getName().contains(String.valueOf(year - 1) + " Quartal "));
+
+        List<Snapshot> relevantSnapshots = new ArrayList<>();
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().getYear() != year) {
+                if (snap.getDate().get(IsoFields.QUARTER_OF_YEAR) < quarter) snapshotList.remove(snap);
+            }
+        }
+
+        model.addAttribute("snaps", snapshotList);
+
+        model.addAttribute("quarter", quarter);
+        model.addAttribute("year", year);
+
+
+        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        model.addAttribute("q1", quarter);
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
+                MappingReport companyReportQ1 = reportService.getMappingReportByReportFocus(ReportFocus.COMPANY, authentication.getName(), snap);
+                model.addAttribute("companyReportQ1", companyReportQ1);
+
+                MappingReport branchReportQ1 = reportService.getMappingReportByReportFocus(ReportFocus.BRANCHE, authentication.getName(), snap);
+                model.addAttribute("branchReportQ1", branchReportQ1);
+
+                MappingReport sectorReportQ1 = reportService.getMappingReportByReportFocus(ReportFocus.SECTOR, authentication.getName(), snap);
+                model.addAttribute("sectorReportQ1", sectorReportQ1);
+
+                MappingReport nationalReportQ1 = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), snap);
+                model.addAttribute("nationalReportQ1", nationalReportQ1);
+                break;
+            }
+        }
+
+        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        model.addAttribute("q2", quarter);
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
+                MappingReport companyReportQ2 = reportService.getMappingReportByReportFocus(ReportFocus.COMPANY, authentication.getName(), snap);
+                model.addAttribute("companyReportQ2", companyReportQ2);
+
+                MappingReport branchReportQ2 = reportService.getMappingReportByReportFocus(ReportFocus.BRANCHE, authentication.getName(), snap);
+                model.addAttribute("branchReportQ2", branchReportQ2);
+
+                MappingReport sectorReportQ2 = reportService.getMappingReportByReportFocus(ReportFocus.SECTOR, authentication.getName(), snap);
+                model.addAttribute("sectorReportQ2", sectorReportQ2);
+
+                MappingReport nationalReportQ2 = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), snap);
+                model.addAttribute("nationalReportQ2", nationalReportQ2);
+                break;
+            }
+        }
+
+        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        model.addAttribute("q3", quarter);
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
+                MappingReport companyReportQ3 = reportService.getMappingReportByReportFocus(ReportFocus.COMPANY, authentication.getName(), snap);
+                model.addAttribute("companyReportQ3", companyReportQ3);
+
+                MappingReport branchReportQ3 = reportService.getMappingReportByReportFocus(ReportFocus.BRANCHE, authentication.getName(), snap);
+                model.addAttribute("branchReportQ3", branchReportQ3);
+
+                MappingReport sectorReportQ3 = reportService.getMappingReportByReportFocus(ReportFocus.SECTOR, authentication.getName(), snap);
+                model.addAttribute("sectorReportQ3", sectorReportQ3);
+
+                MappingReport nationalReportQ3 = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), snap);
+                model.addAttribute("nationalReportQ3", nationalReportQ3);
+                break;
+            }
+        }
+
+        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        model.addAttribute("q4", quarter);
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
+                MappingReport companyReportQ4 = reportService.getMappingReportByReportFocus(ReportFocus.COMPANY, authentication.getName(), snap);
+                model.addAttribute("companyReportQ4", companyReportQ4);
+
+                MappingReport branchReportQ4 = reportService.getMappingReportByReportFocus(ReportFocus.BRANCHE, authentication.getName(), snap);
+                model.addAttribute("branchReportQ4", branchReportQ4);
+
+                MappingReport sectorReportQ4 = reportService.getMappingReportByReportFocus(ReportFocus.SECTOR, authentication.getName(), snap);
+                model.addAttribute("sectorReportQ4", sectorReportQ4);
+
+                MappingReport nationalReportQ4 = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), snap);
+                model.addAttribute("nationalReportQ4", nationalReportQ4);
+                break;
+            }
+        }
+
+
+
+
         return "threatmatrix/horizontal_vertical_comparison";
     }
 
@@ -162,21 +272,109 @@ public class ThreatMatrixController {
         MappingReport nationalReport = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), newestSnapshot);
         context.setVariable("nationalReport", nationalReport);
 
+        final var snapshotList = snapshotService.getAllSnapshots();
 
-        /*
-        ReportFocus reportFocus = ReportFocus.getReportFocusByEnglishRepresentation(reportFocusString);
-        context.setVariable("reportFocus", reportFocus);
-        */
+        LocalDate myLocal = LocalDate.now();
+        int quarter = myLocal.get(IsoFields.QUARTER_OF_YEAR);
+        final int year = myLocal.getYear();
+        String tempQuarter = "";
 
-        /*
-        Snapshot currentSnapshot = snapshotService.getSnapshotByID(snapId).get();
-        context.setVariable("currentSnapshot", currentSnapshot);
-         */
+        snapshotList.removeIf(s -> !s.getName().contains(String.valueOf(year) + " Quartal ") && !s.getName().contains(String.valueOf(year - 1) + " Quartal "));
 
-        /*
-        MappingReport report = reportService.getMappingReportByReportFocus(reportFocus, authentication.getName(), currentSnapshot);
-        context.setVariable("report", report);
-         */
+        List<Snapshot> relevantSnapshots = new ArrayList<>();
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().getYear() != year) {
+                if (snap.getDate().get(IsoFields.QUARTER_OF_YEAR) < quarter) snapshotList.remove(snap);
+            }
+        }
+
+        context.setVariable("snaps", snapshotList);
+
+        context.setVariable("quarter", quarter);
+        context.setVariable("year", year);
+
+
+        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        context.setVariable("q1", quarter);
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
+                MappingReport companyReportQ1 = reportService.getMappingReportByReportFocus(ReportFocus.COMPANY, authentication.getName(), snap);
+                context.setVariable("companyReportQ1", companyReportQ1);
+
+                MappingReport branchReportQ1 = reportService.getMappingReportByReportFocus(ReportFocus.BRANCHE, authentication.getName(), snap);
+                context.setVariable("branchReportQ1", branchReportQ1);
+
+                MappingReport sectorReportQ1 = reportService.getMappingReportByReportFocus(ReportFocus.SECTOR, authentication.getName(), snap);
+                context.setVariable("sectorReportQ1", sectorReportQ1);
+
+                MappingReport nationalReportQ1 = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), snap);
+                context.setVariable("nationalReportQ1", nationalReportQ1);
+                break;
+            }
+        }
+
+        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        context.setVariable("q2", quarter);
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
+                MappingReport companyReportQ2 = reportService.getMappingReportByReportFocus(ReportFocus.COMPANY, authentication.getName(), snap);
+                context.setVariable("companyReportQ2", companyReportQ2);
+
+                MappingReport branchReportQ2 = reportService.getMappingReportByReportFocus(ReportFocus.BRANCHE, authentication.getName(), snap);
+                context.setVariable("branchReportQ2", branchReportQ2);
+
+                MappingReport sectorReportQ2 = reportService.getMappingReportByReportFocus(ReportFocus.SECTOR, authentication.getName(), snap);
+                context.setVariable("sectorReportQ2", sectorReportQ2);
+
+                MappingReport nationalReportQ2 = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), snap);
+                context.setVariable("nationalReportQ2", nationalReportQ2);
+                break;
+            }
+        }
+
+        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        context.setVariable("q3", quarter);
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
+                MappingReport companyReportQ3 = reportService.getMappingReportByReportFocus(ReportFocus.COMPANY, authentication.getName(), snap);
+                context.setVariable("companyReportQ3", companyReportQ3);
+
+                MappingReport branchReportQ3 = reportService.getMappingReportByReportFocus(ReportFocus.BRANCHE, authentication.getName(), snap);
+                context.setVariable("branchReportQ3", branchReportQ3);
+
+                MappingReport sectorReportQ3 = reportService.getMappingReportByReportFocus(ReportFocus.SECTOR, authentication.getName(), snap);
+                context.setVariable("sectorReportQ3", sectorReportQ3);
+
+                MappingReport nationalReportQ3 = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), snap);
+                context.setVariable("nationalReportQ3", nationalReportQ3);
+                break;
+            }
+        }
+
+        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        context.setVariable("q4", quarter);
+
+        for(Snapshot snap : snapshotList){
+            if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
+                MappingReport companyReportQ4 = reportService.getMappingReportByReportFocus(ReportFocus.COMPANY, authentication.getName(), snap);
+                context.setVariable("companyReportQ4", companyReportQ4);
+
+                MappingReport branchReportQ4 = reportService.getMappingReportByReportFocus(ReportFocus.BRANCHE, authentication.getName(), snap);
+                context.setVariable("branchReportQ4", branchReportQ4);
+
+                MappingReport sectorReportQ4 = reportService.getMappingReportByReportFocus(ReportFocus.SECTOR, authentication.getName(), snap);
+                context.setVariable("sectorReportQ4", sectorReportQ4);
+
+                MappingReport nationalReportQ4 = reportService.getMappingReportByReportFocus(ReportFocus.NATIONAL, authentication.getName(), snap);
+                context.setVariable("nationalReportQ4", nationalReportQ4);
+                break;
+            }
+        }
+
 
         context.setVariable("counter", new Counter());
 

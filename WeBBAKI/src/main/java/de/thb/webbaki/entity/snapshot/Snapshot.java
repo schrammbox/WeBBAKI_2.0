@@ -35,4 +35,5 @@ public class Snapshot {
         String formattedTime = date.format(formatter2);
         return "am " + formattedDate + " um " + formattedTime + " Uhr";
     }
+
 }

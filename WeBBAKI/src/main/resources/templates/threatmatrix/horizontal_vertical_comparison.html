@@ -5,6 +5,7 @@
 <head>
   <meta charset="UTF-8"/>
   <title>Home</title>
+  <!--<script th:src="@{/js/horizontal_vertical.js}" src="/js/horizontal_vertical.js"></script>-->
 </head>
 <body>
 <!-- CSRF-Token -->
@@ -32,7 +33,7 @@
       <tbody>
       <tr>
         <td class="col-4"></td>
-        <td class="col-8"><strong>aktuelle Werte: Q1/2023</strong></td>
+        <td class="col-8"><strong th:text='${"Q" + quarter + "/" + year}'></strong></td>
       </tr>
       </tbody>
     </table>
@@ -47,40 +48,40 @@
         <td class="col-2">
           <div class="container">
             <div class="row">
-              <div class="col-3">Q1</div>
-              <div class="col-3">Q2</div>
-              <div class="col-3">Q3</div>
-              <div class="col-3">Q4</div>
+              <div class="col-3" th:text='${"Q" + q1}'></div>
+              <div class="col-3" th:text='${"Q" + q2}'></div>
+              <div class="col-3" th:text='${"Q" + q3}'></div>
+              <div class="col-3" th:text='${"Q" + q4}'></div>
             </div>
           </div>
         </td>
         <td class="col-2">
           <div class="container">
             <div class="row">
-              <div class="col-3">Q1</div>
-              <div class="col-3">Q2</div>
-              <div class="col-3">Q3</div>
-              <div class="col-3">Q4</div>
+              <div class="col-3" th:text='${"Q" + q1}'></div>
+              <div class="col-3" th:text='${"Q" + q2}'></div>
+              <div class="col-3" th:text='${"Q" + q3}'></div>
+              <div class="col-3" th:text='${"Q" + q4}'></div>
             </div>
           </div>
         </td>
         <td class="col-2">
           <div class="container">
             <div class="row">
-              <div class="col-3">Q1</div>
-              <div class="col-3">Q2</div>
-              <div class="col-3">Q3</div>
-              <div class="col-3">Q4</div>
+              <div class="col-3" th:text='${"Q" + q1}'></div>
+              <div class="col-3" th:text='${"Q" + q2}'></div>
+              <div class="col-3" th:text='${"Q" + q3}'></div>
+              <div class="col-3" th:text='${"Q" + q4}'></div>
             </div>
           </div>
         </td>
         <td class="col-2">
           <div class="container">
             <div class="row">
-              <div class="col-3">Q1</div>
-              <div class="col-3">Q2</div>
-              <div class="col-3">Q3</div>
-              <div class="col-3">Q4</div>
+              <div class="col-3" th:text='${"Q" + q1}'></div>
+              <div class="col-3" th:text='${"Q" + q2}'></div>
+              <div class="col-3" th:text='${"Q" + q3}'></div>
+              <div class="col-3" th:text='${"Q" + q4}'></div>
             </div>
           </div>
         </td>
@@ -120,16 +121,52 @@
             </div><br />
             <div class="row">
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(102, 255, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + companyReportQ1.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${companyReportQ1.getReportScenario(scenario)}">
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(255, 255, 102)"></div>
+                <div th:style='${"padding:5px;background-color: " + companyReportQ2.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${companyReportQ2.getReportScenario(scenario)}">
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(255, 102, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + companyReportQ3.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${companyReportQ3.getReportScenario(scenario)}" >
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(102, 255, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + companyReportQ4.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${companyReportQ4.getReportScenario(scenario)}" >
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
             </div>
           </td>
@@ -146,16 +183,52 @@
             </div><br />
             <div class="row">
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(102, 255, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + branchReportQ1.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${branchReportQ1.getReportScenario(scenario)}" th:style='${"background-color: " + branchReportQ1.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(255, 255, 102)"></div>
+                <div th:style='${"padding:5px;background-color: " + branchReportQ2.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${branchReportQ2.getReportScenario(scenario)}" th:style='${"background-color: " + branchReportQ2.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(255, 102, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + branchReportQ3.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${branchReportQ3.getReportScenario(scenario)}" th:style='${"background-color: " + branchReportQ3.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(102, 255, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + branchReportQ4.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${branchReportQ4.getReportScenario(scenario)}" th:style='${"background-color: " + branchReportQ4.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
             </div>
           </td>
@@ -172,16 +245,52 @@
             </div><br />
             <div class="row">
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(102, 255, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + sectorReportQ1.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${sectorReportQ1.getReportScenario(scenario)}" th:style='${"background-color: " + sectorReportQ1.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(255, 255, 102)"></div>
+                <div th:style='${"padding:5px;background-color: " + sectorReportQ2.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${sectorReportQ2.getReportScenario(scenario)}" th:style='${"background-color: " + sectorReportQ2.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(255, 102, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + sectorReportQ3.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${sectorReportQ3.getReportScenario(scenario)}" th:style='${"background-color: " + sectorReportQ3.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(102, 255, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + sectorReportQ4.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${sectorReportQ4.getReportScenario(scenario)}" th:style='${"background-color: " + sectorReportQ4.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
             </div>
           </td>
@@ -198,16 +307,52 @@
             </div><br />
             <div class="row">
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(102, 255, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + nationalReportQ1.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${nationalReportQ1.getReportScenario(scenario)}" th:style='${"background-color: " + nationalReportQ1.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(255, 255, 102)"></div>
+                <div th:style='${"padding:5px;background-color: " + nationalReportQ2.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${nationalReportQ2.getReportScenario(scenario)}" th:style='${"background-color: " + nationalReportQ2.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(255, 102, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + nationalReportQ3.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${nationalReportQ3.getReportScenario(scenario)}" th:style='${"background-color: " + nationalReportQ3.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
               <div class="col-3" style="padding: 5px; ">
-                <div style="height: 32px; background-color: rgb(102, 255, 102);"></div>
+                <div th:style='${"padding:5px;background-color: " + nationalReportQ4.getReportScenario(scenario).getColor() + ";"}'>
+                  <th:block th:with="reportScenario=${nationalReportQ4.getReportScenario(scenario)}" th:style='${"background-color: " + nationalReportQ4.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:if="${reportScenario != null}">
+                      <div th:switch="${reportScenario.getThreatSituation()}">
+                        <span th:case="'-1'" th:text="${'un'}"></span>
+                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                      </div>
+                    </th:block>
+                  </th:block>
+                </div>
               </div>
             </div>
           </td>
@@ -218,6 +363,8 @@
 
 
     <a type="button" id="downloadButton" class="btn btn-primary" th:href='${"/threatmatrix/horizontal_vertical_comparison/download"}' style="margin-bottom: 2em;"> Download</a>
+
+
 
 
     <!--
