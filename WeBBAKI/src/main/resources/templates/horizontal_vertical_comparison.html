@@ -121,18 +121,24 @@
             </div><br />
             <div class="row">
               <div class="col-3" style="padding: 5px; ">
-                <div th:style='${"padding:5px;background-color: " + companyReportQ1.getReportScenario(scenario).getColor() + ";"}'>
-                  <th:block th:with="reportScenario=${companyReportQ1.getReportScenario(scenario)}">
-                    <th:block th:if="${reportScenario != null}">
-                      <div th:switch="${reportScenario.getThreatSituation()}">
-                        <span th:case="'-1'" th:text="${'un'}"></span>
-                        <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
-                      </div>
+                <th:block th:if="${companyReportQ1 != null}">
+                  <div th:style='${"padding:5px;background-color: " + companyReportQ1.getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block th:with="reportScenario=${companyReportQ1.getReportScenario(scenario)}">
+                      <th:block th:if="${reportScenario != null}">
+                        <div th:switch="${reportScenario.getThreatSituation()}">
+                          <span th:case="'-1'" th:text="${'un'}"></span>
+                          <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                        </div>
+                      </th:block>
                     </th:block>
-                  </th:block>
-                </div>
+                  </div>
+                </th:block>
+                <th:block th:if="${companyReportQ1 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${companyReportQ2 != null}">
                 <div th:style='${"padding:5px;background-color: " + companyReportQ2.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${companyReportQ2.getReportScenario(scenario)}">
                     <th:block th:if="${reportScenario != null}">
@@ -143,8 +149,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${companyReportQ2 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${companyReportQ3 != null}">
                 <div th:style='${"padding:5px;background-color: " + companyReportQ3.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${companyReportQ3.getReportScenario(scenario)}" >
                     <th:block th:if="${reportScenario != null}">
@@ -155,8 +166,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${companyReportQ3 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${companyReportQ4 != null}">
                 <div th:style='${"padding:5px;background-color: " + companyReportQ4.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${companyReportQ4.getReportScenario(scenario)}" >
                     <th:block th:if="${reportScenario != null}">
@@ -167,6 +183,10 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${companyReportQ4 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
             </div>
           </td>
@@ -183,6 +203,7 @@
             </div><br />
             <div class="row">
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${branchReportQ1 != null}">
                 <div th:style='${"padding:5px;background-color: " + branchReportQ1.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${branchReportQ1.getReportScenario(scenario)}" th:style='${"background-color: " + branchReportQ1.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -193,8 +214,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${branchReportQ1 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${branchReportQ2 != null}">
                 <div th:style='${"padding:5px;background-color: " + branchReportQ2.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${branchReportQ2.getReportScenario(scenario)}" th:style='${"background-color: " + branchReportQ2.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -205,8 +231,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${branchReportQ2 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${branchReportQ3 != null}">
                 <div th:style='${"padding:5px;background-color: " + branchReportQ3.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${branchReportQ3.getReportScenario(scenario)}" th:style='${"background-color: " + branchReportQ3.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -217,8 +248,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${branchReportQ3 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${branchReportQ4 != null}">
                 <div th:style='${"padding:5px;background-color: " + branchReportQ4.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${branchReportQ4.getReportScenario(scenario)}" th:style='${"background-color: " + branchReportQ4.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -229,6 +265,10 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${branchReportQ4 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
             </div>
           </td>
@@ -245,6 +285,7 @@
             </div><br />
             <div class="row">
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${sectorReportQ1 != null}">
                 <div th:style='${"padding:5px;background-color: " + sectorReportQ1.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${sectorReportQ1.getReportScenario(scenario)}" th:style='${"background-color: " + sectorReportQ1.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -255,8 +296,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${sectorReportQ1 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${sectorReportQ2 != null}">
                 <div th:style='${"padding:5px;background-color: " + sectorReportQ2.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${sectorReportQ2.getReportScenario(scenario)}" th:style='${"background-color: " + sectorReportQ2.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -267,8 +313,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${sectorReportQ2 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${sectorReportQ3 != null}">
                 <div th:style='${"padding:5px;background-color: " + sectorReportQ3.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${sectorReportQ3.getReportScenario(scenario)}" th:style='${"background-color: " + sectorReportQ3.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -279,8 +330,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${sectorReportQ3 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${sectorReportQ4 != null}">
                 <div th:style='${"padding:5px;background-color: " + sectorReportQ4.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${sectorReportQ4.getReportScenario(scenario)}" th:style='${"background-color: " + sectorReportQ4.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -291,6 +347,10 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${sectorReportQ4 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
             </div>
           </td>
@@ -307,6 +367,7 @@
             </div><br />
             <div class="row">
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${nationalReportQ1 != null}">
                 <div th:style='${"padding:5px;background-color: " + nationalReportQ1.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${nationalReportQ1.getReportScenario(scenario)}" th:style='${"background-color: " + nationalReportQ1.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -317,8 +378,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${nationalReportQ1 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${nationalReportQ2 != null}">
                 <div th:style='${"padding:5px;background-color: " + nationalReportQ2.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${nationalReportQ2.getReportScenario(scenario)}" th:style='${"background-color: " + nationalReportQ2.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -329,8 +395,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${nationalReportQ2 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${nationalReportQ3 != null}">
                 <div th:style='${"padding:5px;background-color: " + nationalReportQ3.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${nationalReportQ3.getReportScenario(scenario)}" th:style='${"background-color: " + nationalReportQ3.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -341,8 +412,13 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${nationalReportQ3 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
               <div class="col-3" style="padding: 5px; ">
+                <th:block th:if="${nationalReportQ4 != null}">
                 <div th:style='${"padding:5px;background-color: " + nationalReportQ4.getReportScenario(scenario).getColor() + ";"}'>
                   <th:block th:with="reportScenario=${nationalReportQ4.getReportScenario(scenario)}" th:style='${"background-color: " + nationalReportQ4.getReportScenario(scenario).getColor() + ";"}'>
                     <th:block th:if="${reportScenario != null}">
@@ -353,6 +429,10 @@
                     </th:block>
                   </th:block>
                 </div>
+                </th:block>
+                <th:block th:if="${nationalReportQ4 == null}" style="padding:5px;">
+                  <span th:text="${'n.a.'}"></span>
+                </th:block>
               </div>
             </div>
           </td>
