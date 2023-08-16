@@ -326,7 +326,7 @@ public class ComparisonController {
         };
         context.setVariable("_csrf", csrfToken);
 
-        reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("threatmatrix/horizontal_vertical_comparison", context),
+        reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("horizontal_vertical_comparison", context),
                 request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort(), response.getOutputStream());
     }
 
