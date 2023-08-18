@@ -29,24 +29,7 @@ public class EmailService implements EmailSender{
     @Async
     public void send(String to, String email) {
 
-        /*String filePath = new File("").getAbsolutePath();
-        filePath = filePath + "/WeBBAKI/src/main/java/de/thb/webbaki/mail/config.conf";
-        filePath = filePath.replace('\\', '/');
 
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        StringBuilder sb = new StringBuilder(reader.lines().collect(Collectors.joining(System.lineSeparator())));
-        List<String> eig = Arrays.asList(sb.toString().split("\\s*;\\s*"));
-
-        try {
-            reader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
         try{
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");

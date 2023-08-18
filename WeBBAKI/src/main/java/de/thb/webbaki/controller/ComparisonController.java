@@ -84,9 +84,15 @@ public class ComparisonController {
         model.addAttribute("quarter", quarter);
         model.addAttribute("year", year);
 
+        int _year = year - 2000;
 
-        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        if(quarter - 1 == 0){
+            quarter = 4;
+            _year--;
+        }else --quarter;
+
         model.addAttribute("q1", quarter);
+        model.addAttribute("y1", _year);
 
         for(Snapshot snap : snapshotList){
             if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
@@ -105,8 +111,12 @@ public class ComparisonController {
             }
         }
 
-        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        if(quarter - 1 == 0){
+            quarter = 4;
+            _year--;
+        }else --quarter;
         model.addAttribute("q2", quarter);
+        model.addAttribute("y2", _year);
 
         for(Snapshot snap : snapshotList){
             if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
@@ -125,8 +135,12 @@ public class ComparisonController {
             }
         }
 
-        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        if(quarter - 1 == 0){
+            quarter = 4;
+            _year--;
+        }else --quarter;
         model.addAttribute("q3", quarter);
+        model.addAttribute("y3", _year);
 
         for(Snapshot snap : snapshotList){
             if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
@@ -145,8 +159,12 @@ public class ComparisonController {
             }
         }
 
-        quarter = quarter - 1 == 0 ? 4 : --quarter;
+        if(quarter - 1 == 0){
+            quarter = 4;
+            _year--;
+        }else --quarter;
         model.addAttribute("q4", quarter);
+        model.addAttribute("y4", _year);
 
         for(Snapshot snap : snapshotList){
             if(snap.getDate().get(IsoFields.QUARTER_OF_YEAR) == quarter){
