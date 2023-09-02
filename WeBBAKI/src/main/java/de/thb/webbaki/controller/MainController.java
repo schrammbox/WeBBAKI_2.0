@@ -59,7 +59,9 @@ public class MainController {
         try {
             model.addAttribute("form", form);
             User user = userService.getUserByUsername(form.getUsername());
-            passwordResetTokenService.createPasswordResetToken(user);
+            if(user != null) {
+                passwordResetTokenService.createPasswordResetToken(user);
+            }
             model.addAttribute("success", "Eingabe erfolgreich. Sofern Ihre Email einem Nutzer zugeordnet werden kann erhalten Sie demnächst eine Benachrichtigung per Mail.");
 
         } catch (EmailNotMatchingException e) {
