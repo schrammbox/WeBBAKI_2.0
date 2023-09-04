@@ -1,6 +1,8 @@
 
 package de.thb.webbaki.mail;
 
+import de.thb.webbaki.configuration.DatabaseCredentialReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,24 +18,19 @@ import java.util.stream.Collectors;
 @Configuration
 public class EmailConfig {
 
-    @Value("${webbaki.mail.host}")
-    private String mailHost;
-    @Value("${webbaki.mail.port}")
-    private String mailPort;
-    @Value("${webbaki.mail.user}")
-    private String mailUser;
-    @Value("${webbaki.mail.password}")
-    private String mailPassword;
+    @Autowired
+    private DatabaseCredentialReader databaseCredentialReader;
 
     @Bean
     public JavaMailSender javaMailSender() throws IOException {
 
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(mailHost); // mail.th-brandenburg.de - smtp.gmail.com
-        mailSender.setPort(Integer.parseInt(mailPort)); // 25
-        mailSender.setUsername(mailUser); // noreply@th-brandenburg.de - webbakinoreply@gmail.com
-        if(!mailPassword.equals("noPw")){
-            mailSender.setPassword(mailPassword); // mdtikeksobwrseob
+        mailSender.setHost(databaseCredentialReader.getHost());
+        mailSender.setPort(Integer.parseInt(databaseCredentialReader.getPort()));
+        mailSender.setUsername(databaseCredentialReader.getUser());
+        String password = databaseCredentialReader.getPassword();
+        if(!password.equals("noPw")){
+            mailSender.setPassword(password);
         }
 
 
