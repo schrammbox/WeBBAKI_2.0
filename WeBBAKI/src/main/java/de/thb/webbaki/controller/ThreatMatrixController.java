@@ -1,22 +1,39 @@
 package de.thb.webbaki.controller;
 
+import com.lowagie.text.DocumentException;
 import de.thb.webbaki.controller.form.ThreatMatrixFormModel;
 import de.thb.webbaki.entity.questionnaire.Questionnaire;
 import de.thb.webbaki.entity.User;
+import de.thb.webbaki.entity.snapshot.Snapshot;
+import de.thb.webbaki.enums.ReportFocus;
+import de.thb.webbaki.exception.SnapshotNotFoundException;
 import de.thb.webbaki.service.Exceptions.NotAuthorizedException;
+import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.MasterScenarioService;
+import de.thb.webbaki.service.helper.MappingReport;
 import de.thb.webbaki.service.questionnaire.QuestionnaireService;
 import de.thb.webbaki.service.ScenarioService;
 import de.thb.webbaki.service.UserService;
 import de.thb.webbaki.service.helper.Counter;
+import de.thb.webbaki.service.snapshot.ReportService;
+import de.thb.webbaki.service.snapshot.SnapshotService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.context.Context;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.temporal.IsoFields;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -26,6 +43,8 @@ public class ThreatMatrixController {
     private final MasterScenarioService masterScenarioService;
     private final ScenarioService scenarioService;
     private final UserService userService;
+    private final SnapshotService snapshotService;
+    private final ReportService reportService;
 
 
 
@@ -73,6 +92,8 @@ public class ThreatMatrixController {
         return "redirect:/threatmatrix/chronic";
     }
 
+
+
     @GetMapping("/threatmatrix/chronic")
     public String showQuestChronic(Authentication authentication,Model model) {
 
@@ -85,7 +106,7 @@ public class ThreatMatrixController {
         return "threatmatrix/chronic";
     }
 
-    //@GetMapping("/threatmatrix/")
+
 
 
 }

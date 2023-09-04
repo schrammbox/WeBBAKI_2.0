@@ -327,4 +327,9 @@ public class  ReportService {
 
         bufferedOutputStream.close();
     }
+
+    public List<Report> getReportBySnapshotId(Long id){
+
+        return reportRepository.findBySnapshotId(id);
+    }
 }
