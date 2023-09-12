@@ -61,7 +61,6 @@ public class SuperAdminController implements Comparable {
 
     @PostMapping("/admin")
     public String addRoleToUser(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel, Model model) {
-        System.out.println(userToRoleFormModel.toString());
 
         userService.addAndDeleteRoles(userToRoleFormModel);
 
