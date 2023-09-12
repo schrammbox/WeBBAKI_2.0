@@ -43,48 +43,49 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/webjars/**", "/bootstrap/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/confirmByUser/**", "datenschutz").permitAll()
-                .antMatchers("/admin").access("hasAuthority('ROLE_SUPERADMIN')")
-                .antMatchers("/office").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
-                .antMatchers("/threatmatrix/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
-                .antMatchers("/report/company/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
-                .antMatchers("/report/branche/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
-                .antMatchers("/report/sector/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
-                .antMatchers("/report/national/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BUNDESADMIN")
-                .antMatchers("/snap/**").access("hasAuthority('ROLE_SUPERADMIN')")
-                .antMatchers("/scenarios").access("hasAuthority('ROLE_SUPERADMIN')")
-                .antMatchers("/adjustHelp").access("hasAuthority('ROLE_SUPERADMIN')")
-                .antMatchers("/help").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN", "ROLE_SUPERADMIN", "ROLE_GESCHÄFTSSTELLE")
-                .antMatchers("/confirmation/confirm/**").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
+                    .antMatchers("/css/**", "/webjars/**", "/bootstrap/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+                    .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/confirmByUser/**", "datenschutz").permitAll()
+                    .antMatchers("/admin").access("hasAuthority('ROLE_SUPERADMIN')")
+                    .antMatchers("/office").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
+                    .antMatchers("/threatmatrix/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
+                    .antMatchers("/report/company/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
+                    .antMatchers("/report/branche/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
+                    .antMatchers("/report/sector/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
+                    .antMatchers("/report/national/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BUNDESADMIN")
+                    .antMatchers("/snap/**").access("hasAuthority('ROLE_SUPERADMIN')")
+                    .antMatchers("/scenarios").access("hasAuthority('ROLE_SUPERADMIN')")
+                    .antMatchers("/adjustHelp").access("hasAuthority('ROLE_SUPERADMIN')")
+                    .antMatchers("/help").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN", "ROLE_SUPERADMIN", "ROLE_GESCHÄFTSSTELLE")
+                    .antMatchers("/confirmation/confirm/**").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .failureHandler((request, response, exception) -> {
-                    String redirectURL = "/login?";
-                    boolean has2Causes = exception.getCause() != null && exception.getCause().getCause() != null;
-                    if (has2Causes && exception.getCause().getCause() instanceof UserNotEnabledException){
-                        redirectURL += "notEnabled";
-                    }
-                    else{
-                        redirectURL += "error";
-                    }
-                    response.sendRedirect(redirectURL);
-                })
-                .usernameParameter("email")
-                .usernameParameter("username")
-                .permitAll()
-                .successHandler(loginSuccessHandler)
+                    .formLogin()
+                    .loginPage("/login")
+                    .failureHandler((request, response, exception) -> {
+                        String redirectURL = "/login?";
+                        boolean has2Causes = exception.getCause() != null && exception.getCause().getCause() != null;
+                        if (has2Causes && exception.getCause().getCause() instanceof UserNotEnabledException){
+                            redirectURL += "notEnabled";
+                        }
+                        else{
+                            redirectURL += "error";
+                        }
+                        response.sendRedirect(redirectURL);
+                    })
+                    .usernameParameter("email")
+                    .usernameParameter("username")
+                    .permitAll()
+                    .successHandler(loginSuccessHandler)
                 //.defaultSuccessUrl("/account") default success url is handled in the successHandler
                 .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").permitAll()
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/").permitAll()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                .invalidSessionUrl("/login?expired")
-                .maximumSessions(1);
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                    .invalidSessionUrl("/login?expired")
+                    .maximumSessions(1)
+                    .expiredUrl("/logout");
 
         http.headers()
                 .xssProtection()
