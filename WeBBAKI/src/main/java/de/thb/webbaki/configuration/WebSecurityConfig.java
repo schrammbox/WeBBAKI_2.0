@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/office").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
                     .antMatchers("/threatmatrix/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
                     .antMatchers("/report/company/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
-                    .antMatchers("/report/branche/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
+                    .antMatchers("/report/branche/**", "/horizontal_vertical_comparison/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
                     .antMatchers("/report/sector/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
                     .antMatchers("/report/national/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BUNDESADMIN")
                     .antMatchers("/snap/**").access("hasAuthority('ROLE_SUPERADMIN')")

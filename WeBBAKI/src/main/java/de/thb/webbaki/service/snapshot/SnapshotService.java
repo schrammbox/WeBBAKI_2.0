@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.IsoFields;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -98,5 +99,17 @@ public class SnapshotService {
         snap.setDate(LocalDateTime.now());
         snapshotRepository.save(snap);
         reportService.createReports(snap);
+    }
+
+    public List<Snapshot> getLast5QuartalSnapshots(){
+        final var snapshotList = getAllSnapshots();
+
+        LocalDate myLocal = LocalDate.now();
+        int quarter = myLocal.get(IsoFields.QUARTER_OF_YEAR);
+        final int year = myLocal.getYear();
+
+        snapshotList.removeIf(s -> !s.getName().matches("\\d{4} Quartal \\d") || s.getDate().getYear() < year - 1 || (s.getDate().getYear() != year && s.getDate().get(IsoFields.QUARTER_OF_YEAR) < quarter));
+
+        return snapshotList;
     }
 }

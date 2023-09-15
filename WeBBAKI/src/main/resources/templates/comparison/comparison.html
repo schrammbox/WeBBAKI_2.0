@@ -1,0 +1,273 @@
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+    <style th:fragment="comparison_style" type="text/css">
+        @page {
+            size: landscape;
+        }
+
+        th, td {
+            border: 1px solid grey;
+        }
+
+        table {
+            text-align: center;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            width: 98%;
+            page-break-inside:avoid;
+
+        }
+
+        tr{
+            width: 100%;
+        }
+
+        .first-th{
+            width: 34%;
+        }
+
+        .quarter-head-th{
+            width: 16%;
+        }
+
+        .quarter{
+            float: left;
+            width: 25%;
+        }
+
+        .master-scenario-table{
+            margin-bottom: 10px;
+            border-collapse: collapse;
+        }
+
+        .main-threat-situation{
+            width: 98%;
+            margin-top: 2%;
+            margin-left: 1%;
+        }
+
+        .quarter-threat-situation{
+            width: 24%;
+            margin-bottom: 2%;
+            margin-left: 1%;
+            float: left;
+            font-size: 0.8em;
+        }
+
+        .na-div{
+            background-color: lightgrey;
+        }
+    </style>
+</head>
+<body style="width: 100%;">
+<!-- CSRF-Token -->
+<!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+<div style="height: 80px;">
+    <div style="float: right; margin: 0;">
+        <p style="font-weight: 700;font-size: 0.8em;color: darkgray;font-family: initial;margin: 0 0 0.4em 0;">In Kooperation mit</p>
+        <img width="160px" src="/images/THB_Logo.png"></img>
+    </div>
+    <img width="160px" style="float: right; margin: 0;" src="/images/UP-KRITIS_LOGO_Transparent.png"></img>
+</div>
+<div th:fragment="comparison">
+
+    <h2>Horizontaler und vertikaler Vergleich</h2>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th class="first-th"></th>
+                <th class="quarter-head-th">Unternehmen</th>
+                <th class="quarter-head-th">Branche</th>
+                <th class="quarter-head-th">Sektor</th>
+                <th class="quarter-head-th">Bund</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td colspan="4"><strong
+                        th:text='${"Q" + comparison.getQuarter() + "/" + comparison.getYear()}'></strong></td>
+            </tr>
+            <tr>
+                <td>
+                    Werte der letzten 4 Quartale
+                </td>
+                <td th:each="i : ${#numbers.sequence(1, 4)}">
+                    <div class="quarter" th:each="quarter : ${comparison.getQuarters()}" th:text='${"Q" + quarter}'></div>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+    <table class="master-scenario-table" th:each="masterScenario : ${masterScenarioList}" th:if="${masterScenario.active}">
+        <thead>
+        <tr>
+            <th class="first-th"><strong th:text="${masterScenario.name}"></strong></th>
+            <th class="quarter-head-th"></th>
+            <th class="quarter-head-th"></th>
+            <th class="quarter-head-th"></th>
+            <th class="quarter-head-th"></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="scenario : ${masterScenario.scenarios}" th:if="${scenario.active}">
+            <td th:text="${scenario.name} + ${scenario.id}"></td>
+            <td>
+                <div class="main-threat-situation" th:style='${"background-color: " + comparison.getCompanyReport().getReportScenario(scenario).getColor() + ";"}'>
+                <th:block
+                        th:with="reportScenario=${comparison.getCompanyReport().getReportScenario(scenario)}">
+                    <th:block th:if="${reportScenario != null}">
+                        <div th:switch="${reportScenario.getThreatSituation()}">
+                            <strong>
+                                <span th:case="'-1'" th:text="${'unbekannt'}"></span>
+                                <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                            </strong>
+                        </div>
+                    </th:block>
+                </th:block>
+                </div>
+                <br/>
+                <div class="quarter-threat-situation" th:each="companyReportQ : ${comparison.getCompanyReports()}">
+                    <th:block th:if="${companyReportQ != null && companyReportQ.getNumberOfQuestionnaires() > 0}">
+                        <div th:style='${"background-color: " + companyReportQ.getReportScenario(scenario).getColor() + ";"}'>
+                            <th:block th:with="reportScenario=${companyReportQ.getReportScenario(scenario)}">
+                                <th:block th:if="${reportScenario != null}">
+                                    <th:block th:switch="${reportScenario.getThreatSituation()}">
+                                        <span th:case="'-1'" th:text="${'un'}"></span>
+                                        <span th:case="*"
+                                              th:text="${reportScenario.getThreatSituation()}"></span>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${companyReportQ == null || companyReportQ.getNumberOfQuestionnaires() == 0}">
+                        <div class="na-div">
+                            <span th:text="${'n.a.'}"></span>
+                        </div>
+                    </th:block>
+                </div>
+            </td>
+
+            <td>
+                <div class="main-threat-situation" th:style='${"background-color: " + comparison.getBranchReport().getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block
+                            th:with="reportScenario=${comparison.getBranchReport().getReportScenario(scenario)}">
+                        <th:block th:if="${reportScenario != null}">
+                            <div th:switch="${reportScenario.getThreatSituation()}">
+                                <strong>
+                                    <span th:case="'-1'" th:text="${'unbekannt'}"></span>
+                                    <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                                </strong>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+                <br/>
+                <div class="quarter-threat-situation" th:each="branchReportQ : ${comparison.getBranchReports()}">
+                    <th:block th:if="${branchReportQ != null && branchReportQ.getNumberOfQuestionnaires() > 0}">
+                        <div th:style='${"background-color: " + branchReportQ.getReportScenario(scenario).getColor() + ";"}'>
+                            <th:block th:with="reportScenario=${branchReportQ.getReportScenario(scenario)}">
+                                <th:block th:if="${reportScenario != null}">
+                                    <th:block th:switch="${reportScenario.getThreatSituation()}">
+                                        <span th:case="'-1'" th:text="${'un'}"></span>
+                                        <span th:case="*"
+                                              th:text="${reportScenario.getThreatSituation()}"></span>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${branchReportQ == null || branchReportQ.getNumberOfQuestionnaires() == 0}">
+                        <div class="na-div">
+                            <span th:text="${'n.a.'}"></span>
+                        </div>
+                    </th:block>
+                </div>
+            </td>
+
+            <td>
+                <div class="main-threat-situation" th:style='${"background-color: " + comparison.getSectorReport().getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block
+                            th:with="reportScenario=${comparison.getSectorReport().getReportScenario(scenario)}">
+                        <th:block th:if="${reportScenario != null}">
+                            <div th:switch="${reportScenario.getThreatSituation()}">
+                                <strong>
+                                    <span th:case="'-1'" th:text="${'unbekannt'}"></span>
+                                    <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                                </strong>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+                <br/>
+                <div class="quarter-threat-situation" th:each="sectorReportQ : ${comparison.getSectorReports()}">
+                    <th:block th:if="${sectorReportQ != null  && sectorReportQ.getNumberOfQuestionnaires() > 0}">
+                        <div th:style='${"background-color: " + sectorReportQ.getReportScenario(scenario).getColor() + ";"}'>
+                            <th:block th:with="reportScenario=${sectorReportQ.getReportScenario(scenario)}">
+                                <th:block th:if="${reportScenario != null}">
+                                    <th:block th:switch="${reportScenario.getThreatSituation()}">
+                                        <span th:case="'-1'" th:text="${'un'}"></span>
+                                        <span th:case="*"
+                                              th:text="${reportScenario.getThreatSituation()}"></span>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${sectorReportQ == null || sectorReportQ.getNumberOfQuestionnaires() == 0}">
+                        <div class="na-div">
+                            <span th:text="${'n.a.'}"></span>
+                        </div>
+                    </th:block>
+                </div>
+            </td>
+
+            <td>
+                <div class="main-threat-situation" th:style='${"background-color: " + comparison.getNationalReport().getReportScenario(scenario).getColor() + ";"}'>
+                    <th:block
+                            th:with="reportScenario=${comparison.getNationalReport().getReportScenario(scenario)}">
+                        <th:block th:if="${reportScenario != null}">
+                            <div th:switch="${reportScenario.getThreatSituation()}">
+                                <strong>
+                                    <span th:case="'-1'" th:text="${'unbekannt'}"></span>
+                                    <span th:case="*" th:text="${reportScenario.getThreatSituation()}"></span>
+                                </strong>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+                <br/>
+                <div class="quarter-threat-situation" th:each="nationalReportQ : ${comparison.getNationalReports()}">
+                    <th:block th:if="${nationalReportQ != null && nationalReportQ.getNumberOfQuestionnaires() > 0}">
+                        <div th:style='${"background-color: " + nationalReportQ.getReportScenario(scenario).getColor() + ";"}'>
+                            <th:block th:with="reportScenario=${nationalReportQ.getReportScenario(scenario)}">
+                                <th:block th:if="${reportScenario != null}">
+                                    <th:block th:switch="${reportScenario.getThreatSituation()}">
+                                        <span th:case="'-1'" th:text="${'un'}"></span>
+                                        <span th:case="*"
+                                              th:text="${reportScenario.getThreatSituation()}"></span>
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${nationalReportQ == null || nationalReportQ.getNumberOfQuestionnaires() == 0}">
+                        <div class="na-div">
+                            <span th:text="${'n.a.'}"></span>
+                        </div>
+                    </th:block>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

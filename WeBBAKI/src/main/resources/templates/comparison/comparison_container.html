@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vergleich</title>
+
+    <style th:replace="comparison/comparison :: comparison_style"></style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div th:replace="comparison/comparison :: comparison"></div>
+        <a type="button" id="downloadButton" class="btn btn-primary"
+           th:href='${"/horizontal_vertical_comparison/download"}' style="margin-bottom: 2em;"> Download</a>
+
+
+    </div>
+
+
+</div>
+</body>
+</html>
