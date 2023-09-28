@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Date;
 
 @Controller
 public class MainController {
@@ -27,12 +30,8 @@ public class MainController {
     private PasswordResetTokenService passwordResetTokenService;
 
     @GetMapping("/")
-    public String home() {
-        /*Branch branch = new Branch();
-        branch.setId(1);
-        for(int i = 42; i < 256; i++){
-            userService.saveUser(User.builder().branch(branch).username(String.valueOf(i)).email("leonschoenberg@gmx.de").build());
-        }*/
+    public String home(HttpServletRequest request) {
+
         return "home";
     }
 

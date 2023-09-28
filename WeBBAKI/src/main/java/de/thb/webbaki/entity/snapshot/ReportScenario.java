@@ -52,13 +52,13 @@ public class ReportScenario {
         if(threatSituation <= -1){
             return "white";
         }else if(threatSituation <= 7){
-            return "rgb(102, 255, 102)";
+            return "rgb(179, 255, 179)";
         }else if(threatSituation <= 23){
-            return "rgb(255, 255, 102)";
+            return "rgb(255, 255, 179)";
         }else if(threatSituation <= 47){
-            return "rgb(255, 178, 102)";
+            return "rgb(255, 204, 153)";
         }else{
-            return "rgb(255, 102, 102)";
+            return "rgb(255, 153, 153)";
         }
     }
 

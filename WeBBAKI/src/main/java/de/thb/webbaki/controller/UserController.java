@@ -4,7 +4,6 @@ import de.thb.webbaki.configuration.HelpPathReader;
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
 import de.thb.webbaki.entity.User;
-import de.thb.webbaki.security.SessionTimer;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
 import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
@@ -39,21 +38,6 @@ public class UserController {
     SectorService sectorService;
     @Autowired
     HelpPathReader helpPathReader;
-
-    /**
-     * the request object includes the session id
-     * this method is triggered by
-     * @return the formatted remaining time as a String
-     */
-    @GetMapping("/user/remainingTime")
-    public ResponseEntity<String> getTokenRemainingTime() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        String sessionRestDuration = userService.calculateSessionRestDuration(username);
-        if (sessionRestDuration == null) {
-            sessionRestDuration = "Fehler beim berechnen der Restzeit";
-        }
-        return ResponseEntity.ok(sessionRestDuration);
-    }
 
     @GetMapping("/register/user")
     public String showRegisterForm(Model model) {

@@ -13,7 +13,6 @@ import de.thb.webbaki.mail.Templates.UserNotifications.*;
 import de.thb.webbaki.entity.ConfirmationToken;
 import de.thb.webbaki.repository.RoleRepository;
 import de.thb.webbaki.repository.UserRepository;
-import de.thb.webbaki.security.SessionTimer;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
 import de.thb.webbaki.service.Exceptions.PasswordNotMatchingException;
 import de.thb.webbaki.service.Exceptions.UserAlreadyExistsException;
@@ -47,8 +46,6 @@ public class UserService {
     private EmailSender emailSender;
     private BranchService branchService;
     private QuestionnaireService questionnaireService;
-    @Autowired
-    private final SessionTimer sessionTimer;
 
     //Repo Methods --------------------------
     public List<User> getAllUsers() {
@@ -93,37 +90,6 @@ public class UserService {
 
     public boolean existsUserByIdAndRoleName(long id, String roleName) {
         return userRepository.existsByIdAndRoles_Name(id, roleName);
-    }
-
-    public String calculateSessionRestDuration(String username) {
-        User user = userRepository.findByUsername(username);
-        if(user == null) {
-            return "Kein angemeldeter user";
-        }
-        Long sessionExpiresAt = user.getSessionExpiresAt();
-        Long sessionDuration = sessionTimer.getSessionTimeoutInSeconds();
-        if(sessionExpiresAt == null) {
-            return null;
-        }
-        if (sessionDuration == null) {
-            return null;
-        }
-
-        // Convert the Long sessionDuration to a long primitive type
-        long sessionExpiresAtConverted = sessionExpiresAt;
-
-        // Define the lastAccessedTimeInMillis and maxInactiveInterval appropriately
-        long currentTimeInSeconds = System.currentTimeMillis() / 1000;
-        long remainingInSeconds = sessionExpiresAtConverted - currentTimeInSeconds;
-
-        if (remainingInSeconds <= 0) {
-            return "Expired"; // Session has already expired
-        }
-        long hours = remainingInSeconds / 3600;
-        long minutes = (remainingInSeconds % 3600) / 60;
-        long seconds = remainingInSeconds % 60;
-
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
     /**

@@ -23,16 +23,16 @@ function calculateThreatSituation(trParent){
         threatSituationDiv.style.backgroundColor = "white";
     }else if(result <= 7){
         threatSituationDiv.textContent = "geringe Gefährdung";
-        threatSituationDiv.style.backgroundColor = "rgb(102, 255, 102)";
+        threatSituationDiv.style.backgroundColor = "rgb(179, 255, 179)";
     }else if(result <= 23){
         threatSituationDiv.textContent = "erhöhte Gefährdung";
-        threatSituationDiv.style.backgroundColor = "rgb(255, 255, 102)";
+        threatSituationDiv.style.backgroundColor = "rgb(255, 255, 179)";
     }else if(result <= 47){
         threatSituationDiv.textContent = "hohe Gefährdung";
-        threatSituationDiv.style.backgroundColor = "rgb(255, 178, 102)";
+        threatSituationDiv.style.backgroundColor = "rgb(255, 204, 153)";
     }else{
         threatSituationDiv.textContent = "sehr hohe Gefährdung";
-        threatSituationDiv.style.backgroundColor = "rgb(255, 102, 102)";
+        threatSituationDiv.style.backgroundColor = "rgb(255, 153, 153)";
     }
 }
 

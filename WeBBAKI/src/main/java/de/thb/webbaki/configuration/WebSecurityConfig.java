@@ -3,9 +3,7 @@ package de.thb.webbaki.configuration;
 
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
-import de.thb.webbaki.security.LoginSuccessHandler;
 import de.thb.webbaki.security.MyUserDetailsService;
-import de.thb.webbaki.security.SessionTimer;
 import de.thb.webbaki.service.Exceptions.UserNotEnabledException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +27,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private MyUserDetailsService userDetailsService;
-    @Autowired
-    private LoginSuccessHandler loginSuccessHandler;
 
 
     @Override
@@ -74,7 +70,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("email")
                     .usernameParameter("username")
                     .permitAll()
-                    .successHandler(loginSuccessHandler)
                 //.defaultSuccessUrl("/account") default success url is handled in the successHandler
                 .and()
                     .logout()
@@ -82,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/").permitAll()
                 .and()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                     .invalidSessionUrl("/login?expired")
                     .maximumSessions(1)
                     .expiredUrl("/logout");
