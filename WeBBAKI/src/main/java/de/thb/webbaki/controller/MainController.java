@@ -2,6 +2,7 @@ package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ResetPasswordForm;
 import de.thb.webbaki.entity.Branch;
+import de.thb.webbaki.entity.PasswordResetToken;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.security.authority.UserAuthority;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
@@ -66,6 +67,7 @@ public class MainController {
             User user = userService.getUserByUsername(form.getUsername());
             if(user != null) {
                 passwordResetTokenService.createPasswordResetToken(user);
+                passwordResetTokenService.createPasswordResetToken(user);
             }
             model.addAttribute("success", "Eingabe erfolgreich. Sofern Ihre Email einem Nutzer zugeordnet werden kann erhalten Sie demnächst eine Benachrichtigung per Mail.");
 
@@ -79,8 +81,8 @@ public class MainController {
 
     @GetMapping(path = "/reset_password")
     public String showResetPassword(@RequestParam("token") String token, Model model) {
-
-        if (passwordResetTokenService.getByToken(token) != null) {
+        PasswordResetToken passwordResetToken = passwordResetTokenService.getByToken(token);
+        if (passwordResetToken != null) {
             ResetPasswordForm form = new ResetPasswordForm();
             form.setToken(token);
             model.addAttribute("form", form);

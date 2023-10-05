@@ -85,18 +85,16 @@ public class PasswordResetTokenService {
         User user = userService.getUserByUsername(resetToken.getUser().getUsername());
         Date now = Date.from(Instant.now());
 
-        if (form.getUsername() != null && form.getEmail() != null){
-            if (form.getNewPassword().equals(form.getConfirmPassword()) && !resetToken.isConfirmed()) {
-                if (now.before(resetToken.getExpiryDate())) {
-                    user.setPassword(passwordEncoder.encode(form.getNewPassword()));
-                    resetToken.setConfirmed(true);
+        if (form.getNewPassword().equals(form.getConfirmPassword()) && !resetToken.isConfirmed()) {
+            if (now.before(resetToken.getExpiryDate())) {
+                user.setPassword(passwordEncoder.encode(form.getNewPassword()));
+                resetToken.setConfirmed(true);
 
-                    passwordResetTokenRepository.save(resetToken);
-                    userService.saveUser(user);
+                passwordResetTokenRepository.save(resetToken);
+                userService.saveUser(user);
 
-                    return true;
-                } else throw new PasswordResetTokenExpired("Token has been expired.");
-            }
+                return true;
+            } else throw new PasswordResetTokenExpired("Token has been expired.");
         }
         return false;
 
