@@ -46,15 +46,7 @@ public class SetupDataLoader implements
         if (alreadySetup) {
             return;
         }
-
-        final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
-        final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
-        final Privilege passwordPrivilege = createPrivilegeIfNotFound("CHANGE_PASSWORD_PRIVILEGE");
-
-        final List<Privilege> adminPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, writePrivilege, passwordPrivilege));
-        final List<Privilege> userPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, passwordPrivilege));
-
-        final Role adminRole = createRoleIfNotFound("ROLE_SUPERADMIN", adminPrivileges);
+        //TODO DELETE
 
         alreadySetup = true;
 
