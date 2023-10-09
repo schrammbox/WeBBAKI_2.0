@@ -3,6 +3,7 @@ package de.thb.webbaki.configuration;
 
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.security.CustomAuthenticationFailureHandler;
 import de.thb.webbaki.security.MyUserDetailsService;
 import de.thb.webbaki.service.Exceptions.UserNotEnabledException;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private MyUserDetailsService userDetailsService;
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
 
     @Override
@@ -56,21 +58,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
-                    .failureHandler((request, response, exception) -> {
-                        String redirectURL = "/login?";
-                        boolean has2Causes = exception.getCause() != null && exception.getCause().getCause() != null;
-                        if (has2Causes && exception.getCause().getCause() instanceof UserNotEnabledException){
-                            redirectURL += "notEnabled";
-                        }
-                        else{
-                            redirectURL += "error";
-                        }
-                        response.sendRedirect(redirectURL);
-                    })
+                    .failureHandler(customAuthenticationFailureHandler)
                     .usernameParameter("email")
                     .usernameParameter("username")
                     .permitAll()
-                //.defaultSuccessUrl("/account") default success url is handled in the successHandler
                 .and()
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
