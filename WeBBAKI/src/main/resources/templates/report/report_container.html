@@ -8,10 +8,12 @@
         <link rel="stylesheet" type="text/css" th:href="@{/css/report_container_style.css}">
     </head>
     <body>
+    <!-- CSRF-Token -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <div layout:fragment="content">
             <div class="container">
                 <h4 id="snapshotH5">Der Report von:</h4>
-                <select id="snapshotSelect" onchange="onThreatSituationChange(this)" class="form-select form-select-sm">
+                <select id="snapshotSelect" onchange="onChange(this)" class="form-select form-select-sm">
                     <option th:each="snapshot, iStat : ${snapshotList}" th:text="${snapshot.getName()}" th:value="${snapshot.getId()}" th:selected='${((currentSnapshot.getId() == snapshot.getId())?("true"):("false"))}'></option>
                 </select>
                 <th:block th:if="${report.getNumberOfQuestionnaires() > 0}">

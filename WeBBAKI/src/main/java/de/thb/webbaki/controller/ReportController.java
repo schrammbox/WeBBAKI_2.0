@@ -3,6 +3,7 @@ package de.thb.webbaki.controller;
 import com.lowagie.text.DocumentException;
 import de.thb.webbaki.entity.snapshot.Snapshot;
 import de.thb.webbaki.enums.ReportFocus;
+import de.thb.webbaki.exception.SnapshotNotFoundException;
 import de.thb.webbaki.service.*;
 import de.thb.webbaki.service.Exceptions.UnknownReportFocusException;
 import de.thb.webbaki.service.helper.Counter;
@@ -11,6 +12,7 @@ import de.thb.webbaki.service.snapshot.ReportService;
 import de.thb.webbaki.service.snapshot.SnapshotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.server.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +40,16 @@ public class ReportController {
      * @param reportFocusString
      */
     @GetMapping("report/{reportFocus}")
-    public String showReport(@PathVariable("reportFocus") String reportFocusString){
-        long snapId = snapshotService.getNewestSnapshot().getId();
-        return "redirect:/report/"+reportFocusString+"/"+String.valueOf(snapId);
+    public String showReport(@PathVariable("reportFocus") String reportFocusString, Model model){
+        try {
+            Snapshot newestSnapshot = snapshotService.getNewestSnapshot()
+                    .orElseThrow(() -> new SnapshotNotFoundException("snapshot was not found with the given id"));
+            long snapId = newestSnapshot.getId();
+            return "redirect:/report/"+reportFocusString+"/"+String.valueOf(snapId);
+        } catch (SnapshotNotFoundException e) {
+            model.addAttribute("error", "Es gibt noch keine Snapshots. ");
+            return "home";
+        }
     }
 
     @GetMapping("report/{reportFocus}/{snapId}")
@@ -61,6 +70,14 @@ public class ReportController {
         model.addAttribute("snapshotList", snapshotList);
 
         model.addAttribute("counter", new Counter());
+
+        int numberOfSectorsInSnap = 0;
+        numberOfSectorsInSnap = reportService.getNumberOfSectorsInSnap(currentSnapshot);
+        model.addAttribute("numberOfSectors", numberOfSectorsInSnap);
+
+        int numberOfBranchesInSnap = 0;
+        numberOfBranchesInSnap = reportService.getNumberOfBranchesInSnap(currentSnapshot, report.getSector());
+        model.addAttribute("numberOfBranches", numberOfBranchesInSnap);
 
         return "report/report_container";
     }
@@ -87,9 +104,29 @@ public class ReportController {
 
         context.setVariable("counter", new Counter());
 
+        // add a random csrf object for the "reportService.parseThymeleafTemplateToHtml" to not crash
+        CsrfToken csrfToken = new CsrfToken() {
+            @Override
+            public String getHeaderName() {
+                return "csrfHeader";
+            }
+
+            @Override
+            public String getParameterName() {
+                return "csrfParameter";
+            }
+
+            @Override
+            public String getToken() {
+                return "csrfToken";
+            }
+        };
+        context.setVariable("_csrf", csrfToken);
+
         reportService.generatePdfFromHtml(reportService.parseThymeleafTemplateToHtml("report/report", context),
                 request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort(), response.getOutputStream());
-
     }
+
+
 
 }

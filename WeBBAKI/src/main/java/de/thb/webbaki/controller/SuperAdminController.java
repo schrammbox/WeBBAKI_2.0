@@ -61,7 +61,6 @@ public class SuperAdminController implements Comparable {
 
     @PostMapping("/admin")
     public String addRoleToUser(@ModelAttribute("roleForm") @Valid UserToRoleFormModel userToRoleFormModel, Model model) {
-        System.out.println(userToRoleFormModel.toString());
 
         userService.addAndDeleteRoles(userToRoleFormModel);
 
@@ -95,7 +94,12 @@ public class SuperAdminController implements Comparable {
     public String postSnap(@ModelAttribute("snapName") Snapshot snapName) {
         snapshotService.createSnap(snapName);
         return "redirect:snap";
+    }
 
+    @PostMapping("/daily-snap")
+    public String postDailySnap() {
+        snapshotService.createOrUpdateDailySnapshot();
+        return "redirect:snap";
     }
 
     @GetMapping("/snap/{snapID}")

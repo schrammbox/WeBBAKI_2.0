@@ -5,6 +5,8 @@
     <title>LogIn</title>
 </head>
 <body>
+<!-- CSRF-Token -->
+<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 <div layout:fragment="content">
     <div class="container-home">
         <div class="col-md-6 offset-md-3" style="margin-bottom: 1em">

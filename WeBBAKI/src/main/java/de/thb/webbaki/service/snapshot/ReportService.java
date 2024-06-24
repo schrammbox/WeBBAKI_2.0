@@ -27,6 +27,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -47,6 +48,43 @@ public class  ReportService {
     public Report getBranchReport(Snapshot snapshot, Branch branch){return reportRepository.findBySnapshotAndBranch(snapshot, branch);}
     public Report getSectorReport(Snapshot snapshot, Sector sector){return reportRepository.findBySnapshotAndSector(snapshot, sector);}
     public Report getNationalReport(Snapshot snapshot){return reportRepository.findBySnapshotAndUserIsNullAndBranchIsNullAndSectorIsNull(snapshot);}
+
+    public int getNumberOfSectorsInSnap(Snapshot snap) {
+        List<Report> reportsOfSnap = snap.getReports();
+        Set<Sector> uniqueSectors = new HashSet<>();
+
+        for (Report report : reportsOfSnap) {
+            Sector sector = report.getSector();
+            if (!uniqueSectors.contains(sector) && sector != null) {
+                uniqueSectors.add(sector);
+            }
+        }
+
+        return uniqueSectors.size();
+    }
+
+
+    public int getNumberOfBranchesInSnap(Snapshot snap, Sector sector) {
+        List<Report> reportsOfSnap = snap.getReports();
+        Set<Branch> uniqueBranches = new HashSet<>();
+
+        if(sector != null) {
+            for (Report report : reportsOfSnap) {
+                Branch branch = report.getBranch();
+                if (!uniqueBranches.contains(branch) && sector.getBranches().contains(branch) && branch != null) {
+                    uniqueBranches.add(branch);
+                }
+            }
+        } else {
+            for (Report report : reportsOfSnap) {
+                Branch branch = report.getBranch();
+                if (!uniqueBranches.contains(branch) && branch != null) {
+                    uniqueBranches.add(branch);
+                }
+            }
+        }
+        return uniqueBranches.size();
+    }
 
     /**
      * Creates all Report types (company, branch, sector and national)
@@ -101,6 +139,7 @@ public class  ReportService {
         //go through all sectors with their ReportScenarios, calculate the average for every Scenario, and save it for a Report
         sectorMapOftReportScenarioListMaps.forEach((sector, mapOfReportScenarioLists) -> {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
+            //TODO: same problem with numberOfQuestionnaires as Branch
             int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
             Report branchReport = Report.builder().snapshot(snapshot).sector(sector).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
@@ -132,6 +171,7 @@ public class  ReportService {
             //get the number of questionnaires by taking one list of ReportScenarios and his size
             //TODO number of questionnaire could be false if not every UserScenario is there for every Scenario
             int numberOfQuestionnaires = mapOfReportScenarioLists.values().iterator().next().size();
+
             Report branchReport = Report.builder().snapshot(snapshot).branch(branch).numberOfQuestionnaires(numberOfQuestionnaires).build();
             reportRepository.save(branchReport);
 
@@ -229,7 +269,7 @@ public class  ReportService {
         Report report;
         switch (reportFocus) {
             case COMPANY:
-                report =  getCompanyReport(snapshot,username);
+                report = getCompanyReport(snapshot,username);
                 break;
             case BRANCHE:
                 report = getBranchReport(snapshot, user.getBranch());
@@ -270,7 +310,7 @@ public class  ReportService {
     }
 
     /**
-     * Create an pdf outputStream from a html-string
+     * Create a pdf outputStream from a html-string
      * @param html
      * @param outputStream is used as return value to write in the pdf-document-stream
      * @throws IOException
@@ -286,5 +326,10 @@ public class  ReportService {
         renderer.createPDF(bufferedOutputStream);
 
         bufferedOutputStream.close();
+    }
+
+    public List<Report> getReportBySnapshotId(Long id){
+
+        return reportRepository.findBySnapshotId(id);
     }
 }

@@ -24,7 +24,7 @@ public class Snapshot {
 
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "snapshot")
+    @OneToMany(mappedBy = "snapshot", cascade = CascadeType.REMOVE)
     private List<Report> reports;
 
     public String getDateAsString(){
@@ -35,4 +35,5 @@ public class Snapshot {
         String formattedTime = date.format(formatter2);
         return "am " + formattedDate + " um " + formattedTime + " Uhr";
     }
+
 }

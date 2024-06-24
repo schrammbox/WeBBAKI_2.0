@@ -20,12 +20,14 @@ import de.thb.webbaki.service.questionnaire.QuestionnaireService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 
@@ -54,7 +56,10 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public Optional<User> getById(long id){return userRepository.findById(id);}
+    public Optional<User> getById(long id) {
+        return userRepository.findById(id);
+    }
+
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -120,7 +125,7 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
 
-            //set the role to "Geschäftsstelle" if this Branche is choosen
+            //set the role to "Geschäftsstelle" if this Branche is chosen
             if (userBranch.getName().equals("Geschäftsstelle")) {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_GESCHÄFTSSTELLE")));
             } else {
@@ -137,7 +142,7 @@ public class UserService {
             userRepository.save(user);
 
             //create questionnaire if user is kritis_betreiber
-            if(!userBranch.getName().equals("Geschäftsstelle")){
+            if (!userBranch.getName().equals("Geschäftsstelle")) {
                 questionnaireService.createQuestionnaireForUser(user);
             }
 
@@ -152,6 +157,7 @@ public class UserService {
 
     /**
      * Confirm created userconfirmation token
+     *
      * @param token
      * @return
      * @throws IllegalStateException
@@ -238,7 +244,7 @@ public class UserService {
 
                     for (User officeAdmin : getUserByOfficeRole()) {
                         //only send it to enabled users
-                        if(officeAdmin.isEnabled()) {
+                        if (officeAdmin.isEnabled()) {
                             emailSender.send(officeAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(officeAdmin.getFirstName(), adminLink,
                                     user.getFirstName(), user.getLastName(),
                                     user.getEmail(), user.getBranch().getName(), user.getCompany()));
@@ -297,7 +303,7 @@ public class UserService {
                     new Thread(() -> {
                         for (User superAdmin : getUserByAdminrole()) {
                             //only send it to enabled users
-                            if(superAdmin.isEnabled()) {
+                            if (superAdmin.isEnabled()) {
                                 emailSender.send(superAdmin.getEmail(), AdminAddRoleNotification.changeRole(superAdmin.getFirstName(),
                                         superAdmin.getLastName(),
                                         role, user.getUsername()));
@@ -322,7 +328,7 @@ public class UserService {
 
                     for (User superAdmin : getUserByAdminrole()) {
                         //only send it to enabled users
-                        if(superAdmin.isEnabled()) {
+                        if (superAdmin.isEnabled()) {
                             emailSender.send(superAdmin.getEmail(), AdminRemoveRoleNotification.removeRole(superAdmin.getFirstName(),
                                     superAdmin.getLastName(),
                                     roleDel,
@@ -361,7 +367,7 @@ public class UserService {
 
                     for (User officeAdmin : getUserByOfficeRole()) {
                         //only send it to enabled users
-                        if(officeAdmin.isEnabled()) {
+                        if (officeAdmin.isEnabled()) {
                             emailSender.send(officeAdmin.getEmail(), AdminDeactivateUserSubmit.changeEnabledStatus(officeAdmin.getFirstName(),
                                     officeAdmin.getLastName(),
                                     users.get(i).isEnabled(),
@@ -403,7 +409,7 @@ public class UserService {
 
                     for (User officeAdmin : getUserByOfficeRole()) {
                         //only send it to enabled users
-                        if(officeAdmin.isEnabled()) {
+                        if (officeAdmin.isEnabled()) {
                             emailSender.send(officeAdmin.getEmail(), AdminChangeBrancheSubmit.changeBrancheMail(officeAdmin.getFirstName(),
                                     officeAdmin.getLastName(),
                                     user.getBranch().getName(),
@@ -418,6 +424,7 @@ public class UserService {
 
     /**
      * Let user change the own credentials: password, firstname, lastname, email
+     *
      * @param form
      * @param user
      * @param model
@@ -438,8 +445,7 @@ public class UserService {
         if (form.getOldEmail() != null) {
             if (!form.getOldEmail().equals(user.getEmail())) {
                 throw new EmailNotMatchingException("Die eingegebene Email-Adresse stimmt nicht mit Ihrer Email überein.");
-            }
-            else if (!form.getOldEmail().equals(form.getNewEmail())) {
+            } else if (!form.getOldEmail().equals(form.getNewEmail())) {
                 user.setEmail(form.getNewEmail());
                 model.addAttribute("emailSuccess", "Ihre Email-Adresse wurde erfolgreich geändert.");
             }

@@ -1,6 +1,8 @@
 package de.thb.webbaki.controller;
 
 import de.thb.webbaki.controller.form.ResetPasswordForm;
+import de.thb.webbaki.entity.Branch;
+import de.thb.webbaki.entity.PasswordResetToken;
 import de.thb.webbaki.entity.User;
 import de.thb.webbaki.security.authority.UserAuthority;
 import de.thb.webbaki.service.Exceptions.EmailNotMatchingException;
@@ -16,7 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Date;
 
 @Controller
 public class MainController {
@@ -26,7 +31,8 @@ public class MainController {
     private PasswordResetTokenService passwordResetTokenService;
 
     @GetMapping("/")
-    public String home() {
+    public String home(HttpServletRequest request) {
+
         return "home";
     }
 
@@ -59,7 +65,10 @@ public class MainController {
         try {
             model.addAttribute("form", form);
             User user = userService.getUserByUsername(form.getUsername());
-            passwordResetTokenService.createPasswordResetToken(user);
+            if(user != null) {
+                passwordResetTokenService.createPasswordResetToken(user);
+                passwordResetTokenService.createPasswordResetToken(user);
+            }
             model.addAttribute("success", "Eingabe erfolgreich. Sofern Ihre Email einem Nutzer zugeordnet werden kann erhalten Sie demnächst eine Benachrichtigung per Mail.");
 
         } catch (EmailNotMatchingException e) {
@@ -72,8 +81,8 @@ public class MainController {
 
     @GetMapping(path = "/reset_password")
     public String showResetPassword(@RequestParam("token") String token, Model model) {
-
-        if (passwordResetTokenService.getByToken(token) != null) {
+        PasswordResetToken passwordResetToken = passwordResetTokenService.getByToken(token);
+        if (passwordResetToken != null) {
             ResetPasswordForm form = new ResetPasswordForm();
             form.setToken(token);
             model.addAttribute("form", form);

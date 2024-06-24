@@ -1,9 +1,13 @@
 package de.thb.webbaki.configuration;
 
 
+import de.thb.webbaki.entity.User;
+import de.thb.webbaki.repository.UserRepository;
+import de.thb.webbaki.security.CustomAuthenticationFailureHandler;
 import de.thb.webbaki.security.MyUserDetailsService;
 import de.thb.webbaki.service.Exceptions.UserNotEnabledException;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,15 +15,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 @Configuration
@@ -30,6 +28,7 @@ import java.io.IOException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private MyUserDetailsService userDetailsService;
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
 
     @Override
@@ -42,42 +41,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/webjars/**", "/bootstrap/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
-                .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/confirmByUser/**", "datenschutz").permitAll()
-                .antMatchers("/admin").access("hasAuthority('ROLE_SUPERADMIN')")
-                .antMatchers("/office").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
-                .antMatchers("/threatmatrix/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
-                .antMatchers("/report/company/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
-                .antMatchers("/report/branche/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
-                .antMatchers("/report/sector/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
-                .antMatchers("/report/national/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BUNDESADMIN")
-                .antMatchers("/snap/**").access("hasAuthority('ROLE_SUPERADMIN')")
-                .antMatchers("/scenarios").access("hasAuthority('ROLE_SUPERADMIN')")
-                .antMatchers("/adjustHelp").access("hasAuthority('ROLE_SUPERADMIN')")
-                .antMatchers("/help").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN", "ROLE_SUPERADMIN", "ROLE_GESCHÄFTSSTELLE")
-                .antMatchers("/confirmation/confirm/**").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
+                    .antMatchers("/css/**", "/webjars/**", "/bootstrap/**", "/js/**", "/images/**", "/favicon.ico").permitAll()
+                    .antMatchers("/", "/home", "/register/**", "/success_register", "/confirmation/confirmByUser/**", "datenschutz").permitAll()
+                    .antMatchers("/admin").access("hasAuthority('ROLE_SUPERADMIN')")
+                    .antMatchers("/office").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
+                    .antMatchers("/threatmatrix/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
+                    .antMatchers("/report/company/**").access("hasAuthority('ROLE_KRITIS_BETREIBER')")
+                    .antMatchers("/report/branche/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BRANCHENADMIN", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
+                    .antMatchers("/report/sector/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_SEKTORENADMIN", "ROLE_BUNDESADMIN")
+                    .antMatchers("/report/national/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER", "ROLE_BUNDESADMIN")
+                    .antMatchers("/snap/**").access("hasAuthority('ROLE_SUPERADMIN')")
+                    .antMatchers("/scenarios").access("hasAuthority('ROLE_SUPERADMIN')")
+                    .antMatchers("/adjustHelp").access("hasAuthority('ROLE_SUPERADMIN')")
+                    .antMatchers("/help", "/horizontal_vertical_comparison/**").hasAnyAuthority("ROLE_KRITIS_BETREIBER")
+                    .antMatchers("/confirmation/confirm/**").access("hasAuthority('ROLE_GESCHÄFTSSTELLE')")
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .failureHandler((request, response, exception) -> {
-                    String redirectURL = "/login?";
-                    boolean has2Causes = exception.getCause() != null && exception.getCause().getCause() != null;
-                    if (has2Causes && exception.getCause().getCause() instanceof UserNotEnabledException){
-                        redirectURL += "notEnabled";
-                    }
-                    else{
-                        redirectURL += "error";
-                    }
-                    response.sendRedirect(redirectURL);
-                })
-                .usernameParameter("email")
-                .usernameParameter("username")
-                .permitAll()
-                .defaultSuccessUrl("/account")
+                    .formLogin()
+                    .loginPage("/login")
+                    .failureHandler(customAuthenticationFailureHandler)
+                    .usernameParameter("email")
+                    .usernameParameter("username")
+                    .permitAll()
                 .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").permitAll();
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/").permitAll()
+                .and()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .invalidSessionUrl("/login?expired")
+                    .maximumSessions(1)
+                    .expiredUrl("/logout");
+
+        http.headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("form-action 'self'");
     }
 
     @Bean
