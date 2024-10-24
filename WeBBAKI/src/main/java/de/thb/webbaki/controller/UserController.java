@@ -47,7 +47,7 @@ public class UserController {
         return "register/user_registration";
     }
 
-    @PostMapping("/register/user")
+    @PostMapping("/register/user")//Registrierung
     public String registerUser(
             @ModelAttribute("user") @Valid UserRegisterFormModel formModel, BindingResult result,
             Model model) {
@@ -80,12 +80,12 @@ public class UserController {
         return "account/user_details";
     }
 
-    @GetMapping(path = "/confirmation/confirmByUser")
+    @GetMapping(path = "/confirmation/confirmByUser")//Eigenconfirmation
     public String userConfirmation(@RequestParam("token") String token) {
         return userService.confirmUser(token);
     }
 
-    @GetMapping(path = "/confirmation/confirm")
+    @GetMapping(path = "/confirmation/confirm")//Eigenconfirmation
     public String confirm(@RequestParam("token") String token) {
         userService.confirmAdmin(token);
         return userService.confirmToken(token);

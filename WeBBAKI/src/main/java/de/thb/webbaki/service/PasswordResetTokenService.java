@@ -29,6 +29,8 @@ public class PasswordResetTokenService {
     private EmailSender emailSender;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ResetPasswordNotification resetPasswordNotification;
 
     public PasswordResetToken getByToken(String token) {
         return passwordResetTokenRepository.findByToken(token);
@@ -69,7 +71,7 @@ public class PasswordResetTokenService {
         PasswordResetToken myToken = new PasswordResetToken(user, token);
         passwordResetTokenRepository.save(myToken);
 
-        emailSender.send(user.getEmail(), ResetPasswordNotification.resetPasswordMail(user.getFirstName(), user.getLastName(), token));
+        emailSender.send(user.getEmail(), resetPasswordNotification.resetPasswordMail(user.getFirstName(), user.getLastName(), token));
     }
 
     /**

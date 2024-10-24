@@ -1,10 +1,18 @@
 package de.thb.webbaki.mail.Templates.UserNotifications;
 
+import de.thb.webbaki.configuration.HostnameReader;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@AllArgsConstructor
 public class UserEnabledNotification {
 
-    public static String finalEnabledConfirmation(String userFirstname, String userLastname){
+    private final HostnameReader hostnameReader;
 
-    String link = "https://webbaki.th-brandenburg.de/login";
+    public String finalEnabledConfirmation(String userFirstname, String userLastname){
+
+    String link = hostnameReader.getHostnameWithoutEnding() + "/login";
 
         return"<!DOCTYPE html>\n"+
                 "<html lang=\"de\" dir=\"ltr\">\n"+

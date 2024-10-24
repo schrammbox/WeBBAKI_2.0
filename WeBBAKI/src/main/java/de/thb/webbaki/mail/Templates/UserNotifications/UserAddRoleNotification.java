@@ -1,12 +1,17 @@
 package de.thb.webbaki.mail.Templates.UserNotifications;
 
+import de.thb.webbaki.configuration.HostnameReader;
 import de.thb.webbaki.entity.Role;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
+@AllArgsConstructor
 public class UserAddRoleNotification {
+    private final HostnameReader hostnameReader;
+    public String changeRoleMail(String userFirstname, String userLastname, Role role) {
 
-    public static String changeRoleMail(String userFirstname, String userLastname, Role role) {
-
-        String link = "https://webbaki.th-brandenburg.de/login";
+        String link = hostnameReader.getHostnameWithoutEnding() + "/login";
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +

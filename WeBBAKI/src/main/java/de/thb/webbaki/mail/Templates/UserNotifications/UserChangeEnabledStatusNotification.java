@@ -1,10 +1,16 @@
 package de.thb.webbaki.mail.Templates.UserNotifications;
 
+import de.thb.webbaki.configuration.HostnameReader;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@AllArgsConstructor
 public class UserChangeEnabledStatusNotification {
+    private final HostnameReader hostnameReader;
+    public String changeBrancheMail(String userFirstname, String userLastname) {
 
-    public static String changeBrancheMail(String userFirstname, String userLastname) {
-
-        String link = "https://webbaki.th-brandenburg.de";
+        String link = hostnameReader.getHostnameWithoutEnding();
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +
