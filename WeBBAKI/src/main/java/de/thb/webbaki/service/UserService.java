@@ -1,5 +1,7 @@
 package de.thb.webbaki.service;
 
+import de.thb.webbaki.configuration.ExpiryDaysReader;
+import de.thb.webbaki.configuration.HostnameReader;
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserFormModel;
 import de.thb.webbaki.controller.form.UserRegisterFormModel;
@@ -46,6 +48,15 @@ public class UserService {
     private EmailSender emailSender;
     private BranchService branchService;
     private QuestionnaireService questionnaireService;
+    private HostnameReader hostnameReader;
+    private UserRemoveRoleNotification userRemoveRoleNotification;
+    private final UserNotificationAfterUserConfirmation userNotificationAfterUserConfirmation;
+    private final UserChangeBrancheNotification userChangeBrancheNotification;
+    private final UserAddRoleNotification userAddRoleNotification;
+    private final UserChangeEnabledStatusNotification userChangeEnabledStatusNotification;
+    private final UserEnabledNotification userEnabledNotification;
+    private final AdminRegisterNotification adminRegisterNotification;
+    private final ExpiryDaysReader expiryDaysReader;
 
     //Repo Methods --------------------------
     public List<User> getAllUsers() {
@@ -101,7 +112,7 @@ public class UserService {
         String token = UUID.randomUUID().toString();
 
         ConfirmationToken confirmationToken = new ConfirmationToken(
-                token, LocalDateTime.now(), LocalDateTime.now().plusDays(3), user);
+                token, LocalDateTime.now(), LocalDateTime.now().plusDays(expiryDaysReader.getUser()), user);
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
         return token;
@@ -124,6 +135,7 @@ public class UserService {
             user.setCompany(form.getCompany());
             user.setPassword(passwordEncoder.encode(form.getPassword()));
             user.setEmail(form.getEmail());
+            user.setEnabled(true);
 
             //set the role to "Geschäftsstelle" if this Branche is chosen
             if (userBranch.getName().equals("Geschäftsstelle")) {
@@ -132,12 +144,11 @@ public class UserService {
                 user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_KRITIS_BETREIBER")));
             }
             user.setUsername(form.getUsername());
-            user.setEnabled(false);
 
             String token = createToken(user); // To create the token of the user
 
 
-            String userLink = "https://webbaki.th-brandenburg.de/confirmation/confirmByUser?token=" + token;
+            String userLink = hostnameReader.getHostnameWithoutEnding() + "/confirmation/confirmByUser?token=" + token;
 
             userRepository.save(user);
 
@@ -176,7 +187,7 @@ public class UserService {
         }
         enableUser(user.getUsername(), token);
 
-        emailSender.send(user.getEmail(), UserEnabledNotification.finalEnabledConfirmation(user.getFirstName(), user.getLastName()));
+        emailSender.send(user.getEmail(), userEnabledNotification.finalEnabledConfirmation(user.getFirstName(), user.getLastName()));
 
         return "confirmation/confirm";
     }
@@ -234,18 +245,20 @@ public class UserService {
                 userConfirmation(token);
 
                 //send link to admin
-                String adminLink = "https://webbaki.th-brandenburg.de/confirmation/confirm?token=" + token;
+                String adminLink = hostnameReader.getHostnameWithoutEnding() + "/confirmation/confirm?token=" + token;
                 User user = confirmationToken.getUser();
+                confirmationToken.setExpiresAt(LocalDateTime.now().plusDays(expiryDaysReader.getAdmin()));
+                confirmationTokenService.saveConfirmationToken(confirmationToken);
 
                 /* Outsourcing Mailsending to thread for speed purposes */
                 new Thread(() -> {
 
-                    emailSender.send(user.getEmail(), UserNotificationAfterUserConfirmation.mailAfterUserConfirm(user.getFirstName(), user.getLastName()));
+                    emailSender.send(user.getEmail(), userNotificationAfterUserConfirmation.mailAfterUserConfirm(user.getFirstName(), user.getLastName()));
 
                     for (User officeAdmin : getUserByOfficeRole()) {
                         //only send it to enabled users
                         if (officeAdmin.isEnabled()) {
-                            emailSender.send(officeAdmin.getEmail(), AdminRegisterNotification.buildAdminEmail(officeAdmin.getFirstName(), adminLink,
+                            emailSender.send(officeAdmin.getEmail(), adminRegisterNotification.buildAdminEmail(officeAdmin.getFirstName(), adminLink,
                                     user.getFirstName(), user.getLastName(),
                                     user.getEmail(), user.getBranch().getName(), user.getCompany()));
                         }
@@ -309,7 +322,7 @@ public class UserService {
                                         role, user.getUsername()));
                             }
                         }
-                        emailSender.send(user.getEmail(), UserAddRoleNotification.changeRoleMail(user.getFirstName(),
+                        emailSender.send(user.getEmail(), userAddRoleNotification.changeRoleMail(user.getFirstName(),
                                 user.getLastName(),
                                 role));
                     }).start();
@@ -322,7 +335,7 @@ public class UserService {
 
                 /*Outsourcing Mail to thread for speed purposes*/
                 new Thread(() -> {
-                    emailSender.send(user.getEmail(), UserRemoveRoleNotification.removeRoleMail(user.getFirstName(),
+                    emailSender.send(user.getEmail(), userRemoveRoleNotification.removeRoleMail(user.getFirstName(),
                             user.getLastName(),
                             roleDel));
 
@@ -363,7 +376,7 @@ public class UserService {
                     users.get(i).setEnabled(form.getUsers().get(i).isEnabled());
 
 
-                    emailSender.send(users.get(i).getEmail(), UserChangeEnabledStatusNotification.changeBrancheMail(users.get(i).getFirstName(), users.get(i).getLastName()));
+                    emailSender.send(users.get(i).getEmail(), userChangeEnabledStatusNotification.changeBrancheMail(users.get(i).getFirstName(), users.get(i).getLastName()));
 
                     for (User officeAdmin : getUserByOfficeRole()) {
                         //only send it to enabled users
@@ -403,7 +416,7 @@ public class UserService {
                  * Outsourcing Email sending cause of speed
                  */
                 new Thread(() -> {
-                    emailSender.send(user.getEmail(), UserChangeBrancheNotification.changeBrancheMail(user.getFirstName(),
+                    emailSender.send(user.getEmail(), userChangeBrancheNotification.changeBrancheMail(user.getFirstName(),
                             user.getLastName(),
                             user.getBranch().getName()));
 

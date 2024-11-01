@@ -1,12 +1,19 @@
 package de.thb.webbaki.mail.Templates.UserNotifications;
 
+import de.thb.webbaki.configuration.HostnameReader;
 import de.thb.webbaki.entity.Role;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
+@AllArgsConstructor
 public class UserRemoveRoleNotification {
 
-    public static String removeRoleMail(String userFirstname, String userLastname, Role role) {
+    private final HostnameReader hostnameReader;
 
-        String link = "https://webbaki.th-brandenburg.de/login";
+    public String removeRoleMail(String userFirstname, String userLastname, Role role) {
+
+        String link = hostnameReader.getHostnameWithoutEnding() + "/login";
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +
@@ -74,7 +81,7 @@ public class UserRemoveRoleNotification {
                 "    </div>\n" +
                 "    <p>Melden Sie sich unter folgendem Link an um die Änderungen zu sehen:</p>\n" +
                 "      <p>\n" +
-                "        <a href="+ link +">Zum Login</a>\n" +
+                "        <a href=" + link + ">Zum Login</a>\n" +
                 "        <span></span>\n" +
                 "      </p>\n" +
                 "    <p>Mit freundlichen Grüßen</p>\n" +

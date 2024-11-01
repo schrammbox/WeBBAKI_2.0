@@ -47,7 +47,7 @@ public class UserController {
         return "register/user_registration";
     }
 
-    @PostMapping("/register/user")
+    @PostMapping("/register/user")//Registrierung
     public String registerUser(
             @ModelAttribute("user") @Valid UserRegisterFormModel formModel, BindingResult result,
             Model model) {

@@ -1,10 +1,17 @@
 package de.thb.webbaki.mail.Templates.UserNotifications;
 
+import de.thb.webbaki.configuration.HostnameReader;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@AllArgsConstructor
 public class ResetPasswordNotification {
+    private final HostnameReader hostnameReader;
 
-    public static String resetPasswordMail(String userFirstname, String userLastname, String token) {
+    public String resetPasswordMail(String userFirstname, String userLastname, String token) {
 
-        String link = "https://webbaki.th-brandenburg.de/reset_password?token=" + token;
+        String link = hostnameReader.getHostnameWithoutEnding() + "/reset_password?token=" + token;
 
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +
