@@ -1,5 +1,6 @@
 package de.thb.webbaki.service;
 
+import de.thb.webbaki.configuration.ExpiryDaysReader;
 import de.thb.webbaki.configuration.HostnameReader;
 import de.thb.webbaki.controller.form.ChangeCredentialsForm;
 import de.thb.webbaki.controller.form.UserFormModel;
@@ -55,6 +56,7 @@ public class UserService {
     private final UserChangeEnabledStatusNotification userChangeEnabledStatusNotification;
     private final UserEnabledNotification userEnabledNotification;
     private final AdminRegisterNotification adminRegisterNotification;
+    private final ExpiryDaysReader expiryDaysReader;
 
     //Repo Methods --------------------------
     public List<User> getAllUsers() {
@@ -110,7 +112,7 @@ public class UserService {
         String token = UUID.randomUUID().toString();
 
         ConfirmationToken confirmationToken = new ConfirmationToken(
-                token, LocalDateTime.now(), LocalDateTime.now().plusDays(3), user);
+                token, LocalDateTime.now(), LocalDateTime.now().plusDays(expiryDaysReader.getUser()), user);
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
         return token;
@@ -245,6 +247,8 @@ public class UserService {
                 //send link to admin
                 String adminLink = hostnameReader.getHostnameWithoutEnding() + "/confirmation/confirm?token=" + token;
                 User user = confirmationToken.getUser();
+                confirmationToken.setExpiresAt(LocalDateTime.now().plusDays(expiryDaysReader.getAdmin()));
+                confirmationTokenService.saveConfirmationToken(confirmationToken);
 
                 /* Outsourcing Mailsending to thread for speed purposes */
                 new Thread(() -> {

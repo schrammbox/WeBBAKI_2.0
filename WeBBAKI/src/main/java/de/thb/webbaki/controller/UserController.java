@@ -80,12 +80,12 @@ public class UserController {
         return "account/user_details";
     }
 
-    @GetMapping(path = "/confirmation/confirmByUser")//Eigenconfirmation
+    @GetMapping(path = "/confirmation/confirmByUser")
     public String userConfirmation(@RequestParam("token") String token) {
         return userService.confirmUser(token);
     }
 
-    @GetMapping(path = "/confirmation/confirm")//Eigenconfirmation
+    @GetMapping(path = "/confirmation/confirm")
     public String confirm(@RequestParam("token") String token) {
         userService.confirmAdmin(token);
         return userService.confirmToken(token);

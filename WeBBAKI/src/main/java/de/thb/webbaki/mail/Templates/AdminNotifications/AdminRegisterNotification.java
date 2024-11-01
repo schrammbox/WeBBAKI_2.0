@@ -10,7 +10,7 @@ public class AdminRegisterNotification {
     private final HostnameReader hostnameReader;
 
     public String buildAdminEmail(String name, String link, String userFirstname, String userLastname,
-                                         String userEmail, String userBranche, String userCompany) {
+                                  String userEmail, String userBranche, String userCompany) {
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"de\" dir=\"ltr\">\n" +
                 "  <head>\n" +
@@ -94,8 +94,8 @@ public class AdminRegisterNotification {
                 "    <p>Der Account kann unter folgendem Link aktiviert oder abgelehnt werden:</p>\n" +
                 "      <p>\n" +
                 "        <a href=" + link + ">Nutzer verifizieren</a>\n" +
-                "        <span></span>\n" +
-                "        <a href=\""+hostnameReader.getHostnameWithoutEnding()+"/confirmation/userDenied\">Nutzer ablehnen</a>\n" +
+                "        <span>" + link + "</span>\n" +
+                "        <a href=\"" + hostnameReader.getHostnameWithoutEnding() + "/confirmation/userDenied\">Nutzer ablehnen</a>\n" +
                 "      </p>\n" +
                 "    <p>Der Link bleibt 3 Tage gültig.</p>\n" +
                 "  </body>\n" +
