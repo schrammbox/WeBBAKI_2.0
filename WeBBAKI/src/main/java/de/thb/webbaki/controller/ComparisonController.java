@@ -26,6 +26,13 @@ public class ComparisonController {
     private final ReportService reportService;
     private final ComparisonService comparisonService;
 
+    /**
+     * Get method for returning the comparison report as html
+     * @param model
+     * @param authentication
+     * @return
+     * @throws UnknownReportFocusException
+     */
     @GetMapping("/horizontal_vertical_comparison")
     public String showComparison(Model model, Authentication authentication) throws UnknownReportFocusException {
 
@@ -38,6 +45,15 @@ public class ComparisonController {
         return "comparison/comparison_container";
     }
 
+    /**
+     * Get method for downloading the comparison report as pdf
+     * @param response
+     * @param authentication
+     * @param request
+     * @throws UnknownReportFocusException
+     * @throws IOException
+     * @throws DocumentException
+     */
     @GetMapping("/horizontal_vertical_comparison/download")
     public void downloadReportPdf(HttpServletResponse response, Authentication authentication, HttpServletRequest request) throws UnknownReportFocusException, IOException, DocumentException {
 
