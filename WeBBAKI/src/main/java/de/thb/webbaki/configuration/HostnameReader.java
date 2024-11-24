@@ -5,6 +5,9 @@ import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class for reading the hostname from the application.properties.
+ */
 @Component
 @ConfigurationProperties("webbaki.backend")
 @Getter
