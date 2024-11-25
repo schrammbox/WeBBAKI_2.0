@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * Class for defining path of help.pdf in the application.properties
+ * Class for reading all mail parameters from the application.properties.
  */
 @Getter
 @Setter

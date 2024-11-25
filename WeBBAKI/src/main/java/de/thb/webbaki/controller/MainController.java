@@ -30,12 +30,21 @@ public class MainController {
     @Autowired
     private PasswordResetTokenService passwordResetTokenService;
 
+    /**
+     * Returning the home site as html.
+     * @param request
+     * @return
+     */
     @GetMapping("/")
     public String home(HttpServletRequest request) {
 
         return "home";
     }
 
+    /**
+     * Returning the account information sites.
+     * @return
+     */
     @GetMapping("account")
     public String securedAccountPage() {
 
@@ -47,18 +56,27 @@ public class MainController {
         } else return "home";
     }
 
-
     @GetMapping("/setLogout")
     public void logintime(Authentication authentication) {
         User user = userService.getUserByEmail(authentication.getName());
         userService.setCurrentLogin(user);
     }
 
+    /**
+     * Returning the site for the request of the password reset.
+     * @return
+     */
     @GetMapping("/request_password_reset")
     public String showPasswordReset() {
         return "security/request_passwordReset";
     }
 
+    /**
+     * The endpoint for the requested password post request.
+     * @param form
+     * @param model
+     * @return
+     */
     @PostMapping("/request_password_reset")
     public String requestPasswordReset(@Valid ResetPasswordForm form, Model model) {
 
@@ -79,6 +97,12 @@ public class MainController {
 
     }
 
+    /**
+     * Returning the site for resetting of the password.
+     * @param token
+     * @param model
+     * @return
+     */
     @GetMapping(path = "/reset_password")
     public String showResetPassword(@RequestParam("token") String token, Model model) {
         PasswordResetToken passwordResetToken = passwordResetTokenService.getByToken(token);
@@ -90,6 +114,13 @@ public class MainController {
         } else return "Token existiert nicht";
     }
 
+    /**
+     * The endpoint for the password reset post request.
+     * @param form
+     * @param model
+     * @return
+     * @throws PasswordResetTokenExpired
+     */
     @PostMapping(path = "/reset_password")
     public String resetUserPassword(@Valid ResetPasswordForm form, Model model) throws PasswordResetTokenExpired {
 
@@ -107,6 +138,10 @@ public class MainController {
         return "security/reset_password";
     }
 
+    /**
+     * Returning the site with the "datenschutz".
+     * @return
+     */
     @GetMapping(path = "/datenschutz")
     public String showDataProtection(){
         return "datenschutz";

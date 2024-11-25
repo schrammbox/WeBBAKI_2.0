@@ -1,3 +1,4 @@
+.env
 classes/
 generated-sources/
 maven-archiver/
