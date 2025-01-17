@@ -5,7 +5,7 @@ RUN apt update && apt install -y openjdk-17-jre-headless && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # Kopiere die JAR-Datei
-COPY ./target/WeBBAKI-0.0.1-SNAPSHOT.jar /service.jar
+COPY ./WeBBAKI/target/WeBBAKI-0.0.1-SNAPSHOT.jar /service.jar
 
 # Definiere den Startbefehl
 ENTRYPOINT ["java", "-jar", "/service.jar"]
