@@ -15,8 +15,6 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
         cache: maven
-    - name: Test
-      run: pwd
     - name: Build with Maven
       run: mvn -B package --file WeBBAKI/pom.xml
     - name: Build the Docker image and Push
