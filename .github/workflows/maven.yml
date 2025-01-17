@@ -15,12 +15,8 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
         cache: maven
-    - name: Debug workspace
-      run: |
-        echo "Current working directory: $(pwd)"
-        ls -la WeBBAKI/
     - name: Build with Maven
-      run: mvn -B package --file WebBaKI/WebBaKI/pom.xml
+      run: mvn -B package --file WeBBAKI/pom.xml
     - name: Build the Docker image and Push
       run: |
         echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
