@@ -1,4 +1,4 @@
-application.properties
+.env
 classes/
 generated-sources/
 maven-archiver/

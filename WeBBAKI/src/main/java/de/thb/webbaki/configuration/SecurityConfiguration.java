@@ -13,6 +13,9 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
+/**
+ * Class for the configuration of the security.
+ */
 @Configuration
 @AllArgsConstructor
 public class SecurityConfiguration {

@@ -5,6 +5,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Class for defining the login view.
+ */
 @Configuration
 @EnableScheduling
 public class WebMvcConfiguration implements WebMvcConfigurer {

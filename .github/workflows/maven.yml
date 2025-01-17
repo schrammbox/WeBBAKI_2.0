@@ -1,0 +1,44 @@
+name: Maven Build + Docker build und DockerHub push
+on:
+  push:
+    branches:
+      - master
+      - testMaster
+  pull_request:
+    branches:
+      - master
+      - testMaster
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -B package --file WeBBAKI/pom.xml
+
+      - name: Determine Docker Tag
+        id: determine-tag
+        run: |
+          if [ "${{ github.ref_name }}" == "master" ]; then
+            echo "tag=latest" >> $GITHUB_ENV
+          elif [ "${{ github.ref_name }}" == "testMaster" ]; then
+            echo "tag=latest-test" >> $GITHUB_ENV
+          else
+            echo "Unsupported branch: ${{ github.ref_name }}"
+            exit 1
+          fi
+
+      - name: Build the Docker image and Push
+        working-directory: WeBBAKI
+        run: |
+          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
+          docker build . --file Dockerfile --tag docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:${{ env.tag }}
+          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REPOSITORY }}:${{ env.tag }}
