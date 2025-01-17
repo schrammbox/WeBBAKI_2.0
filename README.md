@@ -64,4 +64,4 @@ For the initial start, the following setup steps must be performed in the databa
 
 
 Credits:
-Teamleader is Prof. Dr. Michael Pilgermann (EMail: michael.pilgerman@th-brandenburg.de);
+Teamleader is Prof. Dr. Michael Pilgermann (EMail: michael.pilgerman@th-brandenburg.de)
