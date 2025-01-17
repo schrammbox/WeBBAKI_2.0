@@ -85,7 +85,6 @@ public class MainController {
             User user = userService.getUserByUsername(form.getUsername());
             if(user != null) {
                 passwordResetTokenService.createPasswordResetToken(user);
-                passwordResetTokenService.createPasswordResetToken(user);
             }
             model.addAttribute("success", "Eingabe erfolgreich. Sofern Ihre Email einem Nutzer zugeordnet werden kann erhalten Sie demnächst eine Benachrichtigung per Mail.");
 
