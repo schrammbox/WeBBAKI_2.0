@@ -16,7 +16,7 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file WebBaKI/pom.xml
+      run: mvn -B package --file WebBaKI/WebBaKI/pom.xml
     - name: Build the Docker image and Push
       run: |
         echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin docker.io
